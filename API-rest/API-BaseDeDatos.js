@@ -11,7 +11,7 @@ var app = Express();
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
-var database, collection;
+var database, collectionAdmin, collectionFacilitadores;
 
 app.listen(5000, () => {
     MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
@@ -19,13 +19,14 @@ app.listen(5000, () => {
             throw error;
         }
         database = client.db(DATABASE_NAME);
-        collection = database.collection("Facilitadores");
+        collectionAdmin = database.collection("Administradores");
+        collectionFacilitadores = database.collection("Facilitadores");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
 });
 
 app.post("/facilitadores", (request, response) => {
-    collection.insertOne(request.body, (error, result) => {
+    collectionFacilitadores.insertOne(request.body, (error, result) => {
         if(error) {
             return response.status(500).send(error);
         }
@@ -34,20 +35,54 @@ app.post("/facilitadores", (request, response) => {
     });
 });
 
-app.get("/facilitadores", (request, response) => {
-    collection.find({}).toArray((error, result) => {
+/******************************************************/
+// Login Facilitadores
+/******************************************************/
+app.get("/login-facilitador", (request, response) => {
+    collectionFacilitadores.findOne({ "username":request.query.username.toLowerCase() }, (error, result) => { //quizás es con request.params
         if(error) {
+            
             return response.status(500).send(error);
         }
-        response.send(result);
+        if (result == null){
+            response.send("Nombre de usuario incorrecto");
+        }
+        else{
+            collectionFacilitadores.findOne({ "username":request.query.username.toLowerCase(),"password":request.query.password }, (errorPass, resultPass) => {
+                if (resultPass == null){
+                    response.send("Contraseña incorrecta");
+                }
+                else{
+                    response.send("Has iniciado sesión");
+                }
+            }
+        );
+        }
     });
 });
 
-app.get("/facilitadores/:id", (request, response) => {
-    collection.findOne({ "_id": new ObjectId(request.params.id) }, (error, result) => {
+/******************************************************/
+// Login Administradores
+/******************************************************/
+app.get("/login-administrador", (request, response) => {
+    collectionAdmin.findOne({ "username":request.query.username.toLowerCase() }, (error, result) => { //quizás es con request.params
         if(error) {
+            
             return response.status(500).send(error);
         }
-        response.send(result);
+        if (result == null){
+            response.send("Nombre de usuario incorrecto");
+        }
+        else{
+            collectionAdmin.findOne({ "username":request.query.username.toLowerCase(),"password":request.query.password }, (errorPass, resultPass) => {
+                if (resultPass == null){
+                    response.send("Contraseña incorrecta");
+                }
+                else{
+                    response.send("Has iniciado sesión");
+                }
+            }
+        );
+        }
     });
 });
