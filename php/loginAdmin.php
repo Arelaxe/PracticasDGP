@@ -3,11 +3,9 @@
         $infoLogin = array();
 
         $infoLogin['email'] = $_POST['email'];
-        $infoLogin['passwd'] = $_POST['pass'];
+        $infoLogin['passwd'] = md5($_POST['pass']);
 
         $jsonInfoLogin = json_encode($infoLogin);
-
-        var_dump($infoLogin, $jsonInfoLogin);
 
         // API URL
         $url = 'http://localhost:5000/login';
@@ -29,8 +27,9 @@
 
         // Close cURL resource
         curl_close($ch);
+        
 
-        //$data = json_decode(file_get_contents('php://input'), true);
+        print("Has sido logeado como : " . $result);
     }
 
 ?>
