@@ -1,5 +1,9 @@
 <?php
-    if($_SERVER['REQUEST_METHOD'] === "POST"){
+    session_start();
+    if(isset($_SESSION['usuario'])){
+        print ("Hola usuario, ya estabas logeado. Hemos almacenado la sesión.");
+    }
+    else if($_SERVER['REQUEST_METHOD'] === "POST"){
         $infoRegistro = array();
 
         $infoRegistro['email'] = $_POST['email'];

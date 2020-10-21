@@ -1,0 +1,16 @@
+.espacio{
+    padding-top: 10px;
+}
+
+.sombreado{
+    background-color: rgba(155, 155, 155, 0.5);
+    padding-bottom: 2%;
+}
+
+.img-logo>a>img{
+    max-width: 100%;
+}
+
+.img-logo{
+    width: 7%;
+}
