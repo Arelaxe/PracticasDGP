@@ -45,3 +45,9 @@
 .card-footer{
     text-align: center;
 }
+
+.error{
+    color: red;
+    font-size: xx-small;
+    display:none;
+}
