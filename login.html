@@ -11,28 +11,36 @@
     <title>Asociación Vale - Login</title>
 </head>
 <body>
-    <nav class="navbar bg-info navbar-dark navbar-expand">
-        <div class="img-logo">
-            <a href="index.html">
-                <img src="img/logo.png" alt="Asociación Vale" class="navbar-brand">
-            </a>
-        </div>
-        
-        <a href="login.html" class="nav-link text-white">Login</a>
-        <a href="registro.html" class="nav-link text-white">Registro</a>
-    </nav>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active" aria-current="page">Home</li>
-        </ol>
-      </nav>
+    <header>
+        <nav class="navbar navbar-dark navbar-expand">
+            <div class="img-logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="Asociación Vale" class="navbar-brand">
+                </a>
+            </div>
+            
+            <a href="login.html" class="nav-link text-white">Inicio de sesión</a>
+            <a href="registro.html" class="nav-link text-white">Registro</a>
+        </nav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">Home</li>
+              <li class="breadcrumb-item active">Inicio de sesión</li>
+            </ol>
+          </nav>
+    </header>
     <div class="alert alert-warning" role="alert">
         Esta web está en construcción
     </div>
 
     <div class="container">
-        <div class="offset-sm-3 col-sm-6 sombreado">
-            <form action="php/loginAdmin.php" method="POST">
+        <div class="offset-sm-4 col-sm-4 titulo">
+            <h2>Inicio de sesión</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="offset-sm-4 col-sm-4 sombreado">
+            <form action="php/loginAdmin.php" method="POST" class="offset-sm-1 col-sm-10">
                 <div class="class-group">
                     <label for="inputEmail" >Correo Electrónico</label>
                     <input type="text" name="email" class="form-control">
@@ -42,11 +50,13 @@
                     <input type="password" name="pass" class="form-control">
                 </div>
                 <div class="espacio"></div>
-                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                <button type="submit" class="offset-sm-2 col-sm-8 btn btn-primary">Iniciar sesión</button>
             </form>
         </div>
     </div>
-
-
 </body>
+
+<footer class="bg-dark text-white card-footer fixed-bottom">
+    Asociación Vale &copy; 2020. Diseño realizado por MarTres Tech-CE.
+</footer>
 </html>

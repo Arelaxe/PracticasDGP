@@ -9,6 +9,8 @@
         $infoRegistro['email'] = $_POST['email'];
         $infoRegistro['password'] = md5($_POST['pass']);
         $infoRegistro['rol'] = $_POST['rol'];
+        $infoRegistro['direccion'] = $_POST['direccion'];
+        $infoRegistro['telefono'] = $_POST['telefono'];
 
         $jsoninfoRegistro = json_encode($infoRegistro);
 

@@ -3,8 +3,9 @@
 }
 
 .sombreado{
-    background-color: rgba(155, 155, 155, 0.5);
+    background-color: rgba(200, 200, 200, 0.5);
     padding-bottom: 2%;
+    padding-top: 2%;
 }
 
 .img-logo>a>img{
@@ -13,4 +14,34 @@
 
 .img-logo{
     width: 7%;
+}
+
+.class-group{
+    padding-bottom: 20px;
+}
+
+.nav-link:hover{
+    color: deeppink;
+    font-size: larger;
+}
+
+.titulo{
+    background-color: #369A88;
+    text-align: center;
+    color: white;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    margin: 0;
+}
+
+.navbar{
+    background-color: #369A88;
+}
+
+.nav-link{
+    font-size: large;
+}
+
+.card-footer{
+    text-align: center;
 }
