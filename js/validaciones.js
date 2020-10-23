@@ -3,9 +3,11 @@ function validar_email(){
 
     if (expresion.test(document.getElementById("email").value)){
         document.getElementById("error_email").style.display = 'none';
+        return true;
     }
     else{
         document.getElementById("error_email").style.display = 'contents';
+        return false;
     }
 }
 
@@ -14,8 +16,30 @@ function validar_pass(){
 
     if (pass.length < 6){
         document.getElementById("error_pass").style.display = 'contents';
+        return false;
     }
     else{
         document.getElementById("error_pass").style.display = 'none';
+        return true;
+    }
+}
+
+function puedo_pulsar_login(){
+    if (validar_email()){
+        document.getElementById("boton").disabled = false;
+    }
+    else{
+        document.getElementById("boton").disabled = true;
+    }
+}
+
+function puedo_pulsar_registro(){
+    var email_valido = validar_email();
+    var pass_valida = validar_pass();
+    if (email_valido && pass_valida){
+        document.getElementById("boton").disabled = false;
+    }
+    else{
+        document.getElementById("boton").disabled = true;
     }
 }

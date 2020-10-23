@@ -46,14 +46,14 @@
             <form action="php/registroAdmin.php" method="POST" class="offset-sm-1 col-sm-10">
                 <div class="class-group">
                     <label for="inputEmail" >Correo Electrónico</label>
-                    <input type="text" id="email" name="email" class="form-control" oninput="validar_email()">
+                    <input type="text" id="email" name="email" class="form-control" oninput="puedo_pulsar_registro()">
                     <div class="error" id="error_email">
                         Email no válido
                     </div>
                 </div>
                 <div class="class-group">
                     <label for="inputPass">Contraseña</label>
-                    <input type="password" id="pass" name="pass" class="form-control" oninput="validar_pass()">
+                    <input type="password" id="pass" name="pass" class="form-control" oninput="puedo_pulsar_registro()">
                     <div class="error" id="error_pass">
                         La contraseña debe tener al menos 6 caracteres
                     </div>
@@ -75,7 +75,7 @@
                     </select>
                 </div>
                 <div class="espacio"></div>
-                <button type="submit" class="offset-sm-3 col-sm-5 btn btn-primary">Registrar</button>
+                <button type="submit" id="boton" class="offset-sm-3 col-sm-5 btn btn-primary" disabled>Registrar</button>
             </form>
         </div>
     </div>
@@ -83,7 +83,7 @@
 
 </body>
 
-<footer class="bg-dark text-white card-footer fixed-bottom">
+<footer class="bg-dark text-white card-footer">
     Asociación Vale &copy; 2020. Diseño realizado por MarTres Tech-CE.
 </footer>
 

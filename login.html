@@ -44,7 +44,7 @@
             <form action="php/loginAdmin.php" method="POST" class="offset-sm-1 col-sm-10">
                 <div class="class-group">
                     <label for="inputEmail" >Correo Electrónico</label>
-                    <input type="text" id="email" name="email" class="form-control" oninput="validar_email()">
+                    <input type="text" id="email" name="email" class="form-control" oninput="puedo_pulsar_login()">
                     <div class="error" id="error_email">
                         Email no válido
                     </div>
@@ -54,12 +54,11 @@
                     <input type="password" name="pass" class="form-control">
                 </div>
                 <div class="espacio"></div>
-                <button type="submit" class="offset-sm-2 col-sm-8 btn btn-primary">Iniciar sesión</button>
+                <button type="submit" id="boton" class="offset-sm-2 col-sm-8 btn btn-primary" disabled>Iniciar sesión</button>
             </form>
         </div>
     </div>
 </body>
-
 <footer class="bg-dark text-white card-footer fixed-bottom">
     Asociación Vale &copy; 2020. Diseño realizado por MarTres Tech-CE.
 </footer>
