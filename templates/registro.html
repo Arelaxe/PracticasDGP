@@ -1,0 +1,57 @@
+{%extends "base.html"%}
+
+{%block titulo%}Registro de trabajadores{%endblock%}
+
+
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Home</li>
+<li class="breadcrumb-item active">Registro de trabajadores</li>
+{%endblock%}
+
+{%block cuerpo%}
+<div class="container">
+    <div class="offset-lg-4 col-lg-4 titulo">
+        <h2>Registro de personal</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="offset-lg-4 col-lg-4 sombreado">
+        <form action="php/registroAdmin.php" method="POST" class="offset-lg-1 col-lg-10">
+            <div class="class-group">
+                <label for="email" >Correo Electrónico</label>
+                <input type="text" id="email" name="email" class="form-control" oninput="puedo_pulsar_registro()">
+                <div class="error" id="error_email">
+                    Email no válido
+                </div>
+            </div>
+            <div class="class-group">
+                <label for="pass">Contraseña</label>
+                <input type="password" id="pass" name="pass" class="form-control" oninput="puedo_pulsar_registro()">
+                <div class="error" id="error_pass">
+                    La contraseña debe tener al menos 6 caracteres
+                </div>
+            </div>
+            <div class="class-group">
+                <label for="direccion">Dirección del domicilio</label>
+                <input type="text" id="direccion" name="direccion" class="form-control">
+            </div>
+            <div class="class-group">
+                <label for="telefono">Teléfono de contacto</label>
+                <input type="text" id="telefono" name="telefono" class="form-control">
+            </div>
+            <div class="class-group">
+                <label for="rol">Rol</label>
+                <select name="rol" id="rol" class="form-control">
+                    <option value="admin">Administrador</option>
+                    <option value="facilitador">Facilitador</option>
+                    <option value="ambos">Ambos</option>
+                </select>
+            </div>
+            <div class="espacio"></div>
+            <button type="submit" id="boton" class="offset-lg-3 col-lg-5 btn btn-primary" disabled>Registrar</button>
+        </form>
+    </div>
+</div>
+
+{%endblock%}
