@@ -3,7 +3,7 @@
 
     session_start();
     if(isset($_SESSION['usuario'])){
-        print ("Hola usuario, ya estabas logeado pero te queremos igual");
+        header("Location: ../pagina_inicio.php");
     }
     else if($_SERVER['REQUEST_METHOD'] === "POST"){
         $infoLogin = array();
@@ -17,13 +17,12 @@
         
 
         if ($result === "facilitador" || $result === "admin" || $result === "ambos"){
-            $_SESSION['usuario'] = $infoLogin['email'];
+            $_SESSION['usuario'] = $infoLogin['username'];
             $_SESSION['rol'] = $result; 
             header("Location: ../pagina_inicio.php");
         }
         else{
-            print($result);
-            //header("Location: ../login.php");
+            header("Location: ../login.php");
         }
     }   
 
