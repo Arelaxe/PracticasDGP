@@ -47,7 +47,7 @@ app.post("/registro", (request, response) => {
 /******************************************************/
 app.post("/login", (request, response) => {
 
-    collectionUsuarios.findOne({ "email":request.body.email }, (error, result) => {
+    collectionUsuarios.findOne({ "username":request.body.username }, (error, result) => {
         if(error) {
             return response.status(500).send(error);
         }
@@ -55,7 +55,7 @@ app.post("/login", (request, response) => {
             response.send("Nombre de usuario incorrecto");
         }
         else{
-            collectionUsuarios.findOne({ "email":request.body.email,"password":request.body.passwd }, (errorPass, resultPass) => {
+            collectionUsuarios.findOne({ "username":request.body.username,"password":request.body.passwd }, (errorPass, resultPass) => {
                 if(errorPass) {
                     return response.status(500).send(errorPass);
                 }
