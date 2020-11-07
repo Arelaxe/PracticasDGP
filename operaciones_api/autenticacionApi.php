@@ -45,8 +45,26 @@ function inicioSesionApi($jsonInfoLogin){
 
      // Close cURL resource
      curl_close($ch);
-    print($result);
+     print($result);
      return $result;
+}
+
+function listadoAdministradoresApi(){
+    // API URL
+    $url = 'http://localhost:5000/listado-administradores';
+
+    $response = file_get_contents($url);
+    $response = json_decode($response);
+
+    return $response;
+}
+
+function listadoFacilitadoresApi(){
+    // API URL
+     $url = 'http://localhost:5000/listado-facilitadores';
+
+     $response = json_decode(file_get_contents($url));
+     return $response;
 }
 
 ?>
