@@ -71,3 +71,37 @@ app.post("/login", (request, response) => {
         }
     });
 });
+
+/******************************************************/
+// Listado administradores
+/******************************************************/
+app.get("/listado-administradores", (request, response) => {
+    collectionUsuarios.find({"rol":{"$in": ["admin","ambos"]}}).toArray(function (error, result){
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No hay administradores");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Listado facilitadores
+/******************************************************/
+app.get("/listado-facilitadores", (request, response) => {
+    collectionUsuarios.find({ "rol": { "$in": ["facilitador", "ambos"] } }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No hay facilitadores");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
