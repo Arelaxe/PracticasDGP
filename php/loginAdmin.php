@@ -17,7 +17,7 @@
         
 
         if ($result === "facilitador" || $result === "admin" || $result === "ambos"){
-            $_SESSION['usuario'] = $infoLogin['email'];
+            $_SESSION['usuario'] = $infoLogin['username'];
             $_SESSION['rol'] = $result; 
             header("Location: ../pagina_inicio.php");
         }
