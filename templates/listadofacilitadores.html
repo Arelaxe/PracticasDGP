@@ -1,6 +1,6 @@
 {%extends "base.html"%}
 
-{%block titulo%}Inicio de sesi�n{%endblock%}
+{%block titulo%}Inicio de sesión{%endblock%}
 
 {%block breadcrumbs%}
 <li class="breadcrumb-item">Home</li>
@@ -23,6 +23,7 @@
                     <td>{{ i }}</td>
                     <td> <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8">Editar</button> </td>
                     <td> <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8">Eliminar</button> </td>
+                    <td>►</td>
                 </tr>
                 {% endfor %}
             </tbody>
