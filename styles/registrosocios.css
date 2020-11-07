@@ -1,0 +1,26 @@
+img.img-pass{
+    max-width: 100%;
+    padding-bottom: 10%;
+}
+
+.botonera{
+    display: block;
+    text-align: center; 
+    margin-left: -5%;
+}
+
+.botonera>button{
+    margin-left: 5%;
+}
+
+.miniimg{
+    max-width: 110%;
+}
+
+.secuenciasocio{
+    padding-bottom: 5%;
+}
+
+.btn-warning{
+    margin-top: 5%;
+}

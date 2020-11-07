@@ -1,0 +1,110 @@
+{%extends "base.html"%}
+
+{%block titulo%}Registro de socios{%endblock%}
+
+{%block estilos%}
+{{parent()}}
+<link rel="stylesheet" href="styles/registrosocios.css">
+{%endblock%}
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Menú principal</li>
+<li class="breadcrumb-item active">Registro de socios</li>
+{%endblock%}
+
+{%block cuerpo%}
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 titulo">
+        <h2>Registro de socios</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 sombreado">
+       <div class="container">
+           <form action="php/registrarSocio.php" method="post">
+            <div class="class-group">
+                <p>Identificador de socio:</p>
+                <input type="text" name="Identificador"  class="form-control" id="">
+            </div>
+            <div class="class-group">
+                <p>Generador de contraseña: <a href="#">(?)</a></p>
+                <div id="campo1">
+                    <div class="container offset-lg-2">
+                        <div class="row">
+                            <div class="col-4">
+                                <a href="#sombreado" onclick="console.log('a')"><img src="img/ph.jpg" class="img-pass"></a>
+                            </div>
+                            <div class="col-4">
+                                <a href="#sombreado" onclick="console.log('b')"><img src="img/ph.jpg" class="img-pass"></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <a href="#sombreado" onclick="console.log('c')"><img src="img/ph.jpg" class="img-pass"></a>
+                            </div>
+                            <div class="col-4">
+                                <a href="#sombreado" onclick="console.log('d')"><img src="img/ph.jpg" class="img-pass"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="campo2">
+
+                </div>
+                <div id="campo3">
+
+                </div>
+                <div id="campo4">
+
+                </div>
+                <div id="campo5">
+
+                </div>
+            </div>
+
+            <div class="class-group">
+                <div class="container secuenciasocio">
+                    <div class="row">
+                       <div class="container col-lg-10">
+                           <div class="row">
+                                <div class="col-lg-2">
+                                    <p>Contraseña del socio</p>
+                                </div>
+                                <div class="col-lg-2">
+                                    <img src="img/ph.jpg" alt="" class="miniimg">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img src="img/ph.jpg" alt="" class="miniimg">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img src="img/ph.jpg" alt="" class="miniimg">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img src="img/ph.jpg" alt="" class="miniimg">
+                                </div>
+                                <div class="col-lg-2">
+                                    <img src="img/ph.jpg" alt="" class="miniimg">
+                                </div>
+                           </div>
+                       </div>
+                       <div class="container col-lg-2">
+                           <div class="row">
+                                <button type="button" class="btn btn-warning">RESTABLECER</button>
+                           </div>
+                       </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="botonera">
+                <button type="button" class="btn btn-primary">REGISTRAR</button>
+                <button type="button" class="btn btn-secondary">CANCELAR</button>
+            </div>
+            </form>
+       </div>
+    </div>
+</div>
+{%endblock%}
