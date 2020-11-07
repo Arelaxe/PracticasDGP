@@ -6,7 +6,8 @@
      if($_SERVER['REQUEST_METHOD'] === "POST"){
         $infoRegistro = array();
 
-        $infoRegistro['email'] = $_POST['email'];
+        $infoRegistro['nombre'] = $_POST['nombre'];
+        $infoRegistro['username'] = $_POST['email'];
         $infoRegistro['password'] = md5($_POST['pass']);
         $infoRegistro['rol'] = $_POST['rol'];
         $infoRegistro['direccion'] = $_POST['direccion'];

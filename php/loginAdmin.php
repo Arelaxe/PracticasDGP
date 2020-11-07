@@ -8,7 +8,7 @@
     else if($_SERVER['REQUEST_METHOD'] === "POST"){
         $infoLogin = array();
 
-        $infoLogin['email'] = $_POST['email'];
+        $infoLogin['username'] = $_POST['email'];
         $infoLogin['passwd'] = md5($_POST['pass']);
 
         $jsonInfoLogin = json_encode($infoLogin);
@@ -20,6 +20,10 @@
             $_SESSION['usuario'] = $infoLogin['email'];
             $_SESSION['rol'] = $result; 
             header("Location: ../pagina_inicio.php");
+        }
+        else{
+            print($result);
+            //header("Location: ../login.php");
         }
     }   
 

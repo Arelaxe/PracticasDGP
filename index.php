@@ -1,5 +1,5 @@
 <?php
-    require_once 'C:\\xampp\\vendor\\autoload.php';
+    require_once '../vendor/autoload.php';
 
     session_start();
     if(isset($_SESSION['usuario'])){
