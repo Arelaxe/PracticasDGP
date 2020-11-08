@@ -18,7 +18,8 @@
 
         if ($result === "facilitador" || $result === "admin" || $result === "ambos"){
             $_SESSION['usuario'] = $infoLogin['username'];
-            $_SESSION['rol'] = $result; 
+            $_SESSION['rol'] = $result;
+            $_SESSION['_id'] = $infoLogin['_id'];
             header("Location: ../pagina_inicio.php");
         }
         else{
