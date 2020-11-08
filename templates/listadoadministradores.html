@@ -22,12 +22,37 @@
               <tr>
                 <td scope="row" class="td1"><a href="perfil.php?username={{nombre.username}}">{{nombre.nombre}}</a></td>
                 <td class="tdx"><button class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{nombre.username}}')">EDITAR</button></td>
-                <td class="tdx"><button class="btn btn-danger bt1">ELIMINAR</button></td>
+                <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposUsuario('{{nombre.nombre}}','{{nombre.username}}')" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
                 <td class="tdn">►</td>
               </tr>
             {% endfor %}
             </tbody>
           </table>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Eliminar {{infoUsuario.rol}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>¿Deseas eliminar al siguiente administrador?</p>
+            <h4 id="nombreAEliminar"></h4>
+            <h4 id="usuarioAEliminar"></h4>
+          </div>
+          <div class="modal-footer">
+              <form action="php/eliminarUsuario.php" method="post">
+                  <input type="text" name="username" id="usernameAEliminar" value="" style="display: none;">
+                  <button type="submit" class="btn btn-danger">SÍ</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+              </form>
+          </div>
+        </div>
+      </div>
     </div>
 </div>
 {%endblock%}

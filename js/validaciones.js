@@ -43,3 +43,9 @@ function puedo_pulsar_registro(){
         document.getElementById("boton").disabled = true;
     }
 }
+
+function completarCamposUsuario(nombreUsuario, idUsuario){
+    document.getElementById('nombreAEliminar').innerHTML = "<h4>" + nombreUsuario + "<h4>";
+    document.getElementById('usuarioAEliminar').innerHTML = "<h4>" + idUsuario + "<h4>";
+    document.getElementById('usernameAEliminar').setAttribute('value',idUsuario);
+}
