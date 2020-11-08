@@ -1,0 +1,34 @@
+﻿{%extends "base.html"%}
+
+{%block titulo%}Listado de Tareas{%endblock%}
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Página principal</li>
+<li class="breadcrumb-item active">Listado de Tareas</li>
+{%endblock%}
+
+
+{%block cuerpo%}
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 titulo">
+        <h2>Listado de Tareas</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 sombreado">
+        <table class="table table-hover table-responsive">
+            <tbody>
+                {% for nombre in nombres %}
+                <tr>
+                    <td scope="row">{{ nombre }}</th>
+                    <td><button class="btn btn-warning" class="offset-lg-2 col-lg-8 btn btn-primary btn-warning">EDITAR</button></td>
+                    <td><button class="btn btn-primary" class="offset-lg-2 col-lg-8 btn btn-primary btn-warning">PUBLICAR</button></td>
+                    <td><button class="btn btn-danger" class="offset-lg-2 col-lg-8 btn btn-primary">ELIMINAR</button></td>
+                    <td>►</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock%}
