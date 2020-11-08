@@ -174,3 +174,22 @@ app.post("/perfil", (request, response) => {
         }
     });
 });
+
+/******************************************************/
+// Existe usuario
+/******************************************************/
+app.get("/existe-usuario", (request, response) => {
+    collectionUsuarios.find({ "username":request.body.username }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
+        }
+        else {
+            var jsonRespuestaCorrecta = JSON.parse('{"exito":1}');
+            response.send(jsonRespuestaCorrecta);
+        }
+    });
+});
