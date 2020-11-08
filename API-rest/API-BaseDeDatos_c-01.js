@@ -21,6 +21,7 @@ app.listen(5000, () => {
         }
         database = client.db(DATABASE_NAME);
         collectionUsuarios = database.collection("Usuarios");
+        collectionTareas = database.collection("Tareas");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
 });
