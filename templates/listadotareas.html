@@ -1,0 +1,34 @@
+﻿{%extends "base.html"%}
+
+{%block titulo%}Listado de Tareas{%endblock%}
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Página principal</li>
+<li class="breadcrumb-item active">Listado de Tareas</li>
+{%endblock%}
+
+
+{%block cuerpo%}
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 titulo">
+        <h2>Listado de Tareas</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 sombreado">
+        <table class="table table-hover table-responsive">
+            <tbody>
+                {% for nombre in nombres %}
+                <tr>
+                    <td scope="row" class="td1">{{ nombre }}</td>
+                    <td class="tdx"><button class="btn btn-warning bt1">EDITAR</button></td>
+                    <td class="tdx"><button class="btn btn-primary bt1">PUBLICAR</button></td>
+                    <td class="tdx"><button class="btn btn-danger bt1">ELIMINAR</button></td>
+                    <td class="tdn"><a href="./tarea.php?id={{ ids[loop.index0] }}">►</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock%}
