@@ -1,0 +1,36 @@
+{%extends "base.html"%}
+
+{%block titulo%}Perfil{%endblock%}
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Home</li>
+<li class="breadcrumb-item active">Perfil</li>
+{%endblock%}
+
+
+{%block cuerpo%}
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 titulo">
+        <h2>Perfil</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 sombreado" id="perfil">
+        {% if id != -1 %}
+        <h4>Nombre y apellidos</h4>
+        {{ nombre }}
+        {% if rol == "admin" or rol == "facilitador" or rol == "ambos" %}
+        <h4>Correo</h4>
+        {{ username }}
+        <h4>Dirección</h4>
+        {{ direccion }}
+        <h4>Teléfono</h4>
+        {{ telefono }}
+        {% endif %}
+        <br>
+        <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8">EDITAR</button>
+        <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8">ELIMINAR</button>
+        {% endif %}
+    </div>
+</div>
+{%endblock%}

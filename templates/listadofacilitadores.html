@@ -20,10 +20,10 @@
             <tbody>
                 {% for i in nombres %}
                 <tr>
-                    <td>{{ i }}</td>
-                    <td> <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8">Editar</button> </td>
-                    <td> <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8">Eliminar</button> </td>
-                    <td>►</td>
+                    <td scope="row" class="td1">{{ i }}</td>
+                    <td class="tdx"> <button id="boton" class="btn btn-warning bt1">EDITAR</button> </td>
+                    <td class="tdx"> <button id="boton" class="btn btn-danger bt1">ELIMINAR</button> </td>
+                    <td class="tdn">►</td>
                 </tr>
                 {% endfor %}
             </tbody>
