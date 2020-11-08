@@ -14,10 +14,12 @@
     }
 
     $listado_nombres = array();
+    $listado_ids = array();
 
     foreach ($listado as $tarea){
         array_push($listado_nombres, $tarea->nombre);
+        array_push($listado_ids, $tarea->_id);
 	}
 
-    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres]);
+    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids]);
 ?>
