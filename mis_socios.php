@@ -11,6 +11,7 @@
         $infoFacilitador['username'] = $_SESSION['usuario'];
         $jsoninfoFacilitador = json_encode($infoFacilitador);
         $listado = misSociosApi($jsoninfoFacilitador);
+        $rol = $_SESSION['rol'];
     }
 
     $listado_nombres = array();
@@ -21,5 +22,5 @@
         array_push($listado_ids, $socio->_id);
 	}
 
-    echo $twig->render('missocios.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids]);
+    echo $twig->render('missocios.html', ['infoUsuarios' => $listado, 'rol' => $rol]);
 ?>

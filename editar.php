@@ -41,5 +41,5 @@
 
     
 
-    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol]);
+    echo $twig->render('editar.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol]);
 ?>

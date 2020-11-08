@@ -18,18 +18,60 @@
     <div class="offset-lg-2 col-lg-8 sombreado" id="perfil">
         {% if id != -1 %}
         <h4>Nombre y apellidos</h4>
-        {{ nombre }}
-        {% if rol == "admin" or rol == "facilitador" or rol == "ambos" %}
+        {{ infoUsuario.nombre }}
+        {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
         <h4>Correo</h4>
-        {{ username }}
+        {{ infoUsuario.username }}
         <h4>Dirección</h4>
-        {{ direccion }}
+        {{ infoUsuario.direccion }}
         <h4>Teléfono</h4>
-        {{ telefono }}
+        {{ infoUsuario.telefono }}
+        {%else%}
+        <h4>Identificador</h4>
+        {{infoUsuario.username}}
+        <h4>Preferencias</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                </div>
+                <div class="col-3">
+                    <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                </div>
+                <div class="col-3">
+                    <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                </div>
+            </div>
+        </div>
         {% endif %}
         <br>
-        <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8">EDITAR</button>
-        <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8">ELIMINAR</button>
+        <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('editar.php?username={{infoUsuario.username}}')">EDITAR</button>
+        <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
+
+        <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Eliminar {{infoUsuario.rol}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>¿Deseas eliminar al siguiente {{infoUsuario.rol}}?</p>
+                  <h4>{{infoUsuario.nombre}}</h4>
+                  <h4>{{infoUsuario.username}}</h4>
+                </div>
+                <div class="modal-footer">
+                    <form action="php/eliminarUsuario.php" method="post">
+                        <input type="text" name="username" value="{{infoUsuario.username}}" style="display: none;">
+                        <button type="submit" class="btn btn-danger">SÍ</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
         {% endif %}
     </div>
 </div>

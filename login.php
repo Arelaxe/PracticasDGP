@@ -9,5 +9,5 @@
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('login.html');
+    echo $twig->render('login.html',['rol' => ""]);
 ?>

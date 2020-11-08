@@ -3,7 +3,7 @@
 {%block titulo%}Listado de Tareas{%endblock%}
 
 {%block breadcrumbs%}
-<li class="breadcrumb-item">Página principal</li>
+<li class="breadcrumb-item">Menú principal</li>
 <li class="breadcrumb-item active">Mis Socios</li>
 {%endblock%}
 
@@ -18,12 +18,12 @@
     <div class="offset-lg-2 col-lg-8 sombreado">
         <table class="table table-hover table-responsive">
             <tbody>
-                {% for nombre in nombres %}
+                {% for usuario in infoUsuarios %}
                 <tr>
-                    <td scope="row" class="td1">{{ nombre }}</td>
+                    <td scope="row" class="td1">{{ usuario.nombre }}</td>
                     <td class="tdx"><button class="btn btn-success bt1">AÑADIR A GRUPO</button></td>
                     <td class="tdx"><button class="btn btn-danger bt1">DESVINCULAR</button></td>
-                    <td class="tdn"><a href="./perfil.php?id={{ ids[loop.index0] }}">►</a></td>
+                    <td class="tdn"><a href="./perfil.php?username={{usuario.username}}">►</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

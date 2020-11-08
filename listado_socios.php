@@ -7,7 +7,7 @@
     session_start();
 
     if(isset($_SESSION['usuario'])){
-        
+        $rol = $_SESSION['rol'];
         $listado = listadoSociosApi();
     }
 
@@ -17,5 +17,5 @@
         array_push($listado_nombres, $usuario->nombre);
 	}
 
-    echo $twig->render('listadosocios.html', ['nombres' => $listado_nombres]);
+    echo $twig->render('listadosocios.html', ['nombres' => $listado, 'rol' => $rol]);
 ?>

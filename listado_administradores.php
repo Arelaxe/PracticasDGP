@@ -9,11 +9,12 @@
     if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'ambos'){
         $listado = listadoAdministradoresApi();
         $listado_nombres = array();
+        $rol = "administracion";
 
         foreach($listado as $elemento){
             array_push($listado_nombres, $elemento->nombre);
         }
     }
 
-    echo $twig->render('listadoadministradores.html', ['nombres' => $listado_nombres]);
+    echo $twig->render('listadoadministradores.html', ['nombres' => $listado, 'rol' => $rol]);
 ?>

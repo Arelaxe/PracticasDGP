@@ -3,7 +3,7 @@
 {%block titulo%}Inicio de sesión{%endblock%}
 
 {%block breadcrumbs%}
-<li class="breadcrumb-item">Home</li>
+<li class="breadcrumb-item">Menú principal</li>
 <li class="breadcrumb-item active">Listado de facilitadores</li>
 {%endblock%}
 
@@ -20,8 +20,8 @@
             <tbody>
                 {% for i in nombres %}
                 <tr>
-                    <td scope="row" class="td1">{{ i }}</td>
-                    <td class="tdx"> <button id="boton" class="btn btn-warning bt1">EDITAR</button> </td>
+                    <td scope="row" class="td1"><a href="perfil.php?username={{i.username}}">{{ i.nombre }}</a></td>
+                    <td class="tdx"> <button id="boton" class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{i.username}}')">EDITAR</button> </td>
                     <td class="tdx"> <button id="boton" class="btn btn-danger bt1">ELIMINAR</button> </td>
                     <td class="tdn">►</td>
                 </tr>

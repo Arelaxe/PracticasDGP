@@ -1,6 +1,6 @@
 {%extends "base.html"%}
 
-{%block titulo%}Registro de socios{%endblock%}
+{%block titulo%}Editar {{infoUsuario.rol}}{%endblock%}
 
 {%block estilos%}
 {{parent()}}
@@ -8,35 +8,44 @@
 {%endblock%}
 
 {%block breadcrumbs%}
-<li class="breadcrumb-item">Menú principal</li>
-<li class="breadcrumb-item active">Registro de socios</li>
+<li class="breadcrumb-item">Home</li>
+<li class="breadcrumb-item active">Perfil</li>
 {%endblock%}
+
 
 {%block cuerpo%}
 <div class="container">
     <div class="offset-lg-2 col-lg-8 titulo">
-        <h2>Registro de socios</h2>
+        <h2>Editar</h2>
     </div>
 </div>
 <div class="container">
-    <div class="offset-lg-2 col-lg-8 sombreado">
-       <div class="container">
-           <form action="php/registroSocios.php" method="post">
+    <div class="offset-lg-2 col-lg-8 sombreado" id="perfil">
+        {% if id != -1 %}
+        <form action="php/editarUsuario.php" method="post">
             <div class="class-group">
-                <p>Nombre y apellidos:</p>
-                <input type="text" name="Nombre"  class="form-control" id="nombre">
-                <div class="error" id="error_name" style="display: none;">
-                    El nombre debe estar relleno
-                </div>
+                <h4>Nombre y apellidos</h4>
+                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.nombre }}">
+            </div>
+            {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
+            <div class="class-group">
+                <h4>Correo</h4>
+                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.username }}">
+            </div>
+            <div class="class-group">
+                <h4>Dirección</h4>
+                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.direccion }}">
+            </div>
+            <div class="class-group">
+                <h4>Teléfono</h4>
+                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.telefono }}">
+            </div>
+            {%else%}
+            <div class="class-group">
+                <h4>Identificador</h4>
+                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.username }}">
             </div>
 
-            <div class="class-group">
-                <p>Identificador de socio:</p>
-                <input type="text" name="Identificador"  class="form-control" id="nombre" oninput="puedoRegistrar()">
-                <div class="error" id="error_nombre" style="display: none;">
-                    El identificador debe estar relleno
-                </div>
-            </div>
             <div class="class-group">
                 <p>Generador de contraseña: <a href="#" onclick="ayuda()">(?)</a></p>
                 <!--Zona 1: Formas-->
@@ -215,12 +224,26 @@
                 <input type="password" name="Contrasena"  class="form-control" id="secuencia" value="" oninput="puedoRegistrar()">
             </div>
 
-            <div class="botonera">
-                <button type="submit" class="btn btn-primary" id="botonRegistro" disabled>REGISTRAR</button>
-                <button type="button" class="btn btn-secondary">CANCELAR</button>
+            <h4>Preferencias</h4>
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                    </div>
+                    <div class="col-3">
+                        <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                    </div>
+                    <div class="col-3">
+                        <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                    </div>
+                </div>
             </div>
-            </form>
-       </div>
+            {% endif %}
+        </form>
+        <br>
+        <button id="submit" class="btn btn-success" class = "offset-lg-2 col-lg-8">GUARDAR CAMBIOS</button>
+        <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('listado_{{infoUsuario.rol}}s.php')">CANCELAR</button>
+        {% endif %}
     </div>
 </div>
 {%endblock%}

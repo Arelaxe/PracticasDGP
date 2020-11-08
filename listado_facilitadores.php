@@ -9,6 +9,7 @@
     if(isset($_SESSION['usuario'])){
         
         $listado = listadoFacilitadoresApi();
+        $rol = "administracion";
     }
 
     $listado_nombres = array();
@@ -17,5 +18,5 @@
         array_push($listado_nombres, $usuario->nombre);
 	}
 
-    echo $twig->render('listadofacilitadores.html', ['nombres' => $listado_nombres]);
+    echo $twig->render('listadofacilitadores.html', ['nombres' => $listado, 'rol' => $rol]);
 ?>

@@ -16,8 +16,6 @@
         $jsoninfoRegistro = json_encode($infoRegistro);
 
         $result = registroApi($jsoninfoRegistro);
-
-        print($result);
     }
     }
 

@@ -11,6 +11,7 @@
         $infoFacilitador['username'] = $_SESSION['usuario'];
         $jsoninfoFacilitador = json_encode($infoFacilitador);
         $listado = listadoTareasApi($jsoninfoFacilitador);
+        $rol = $_SESSION['rol'];
     }
 
     $listado_nombres = array();
@@ -21,5 +22,5 @@
         array_push($listado_ids, $tarea->_id);
 	}
 
-    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids]);
+    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids, 'rol' => $rol]);
 ?>
