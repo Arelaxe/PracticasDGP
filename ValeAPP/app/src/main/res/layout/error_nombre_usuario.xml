@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ErrorNombreUsuario">
 
     <TextView
         android:id="@+id/ValeAPPMain"
@@ -28,7 +28,7 @@
         android:contentDescription="Espera un momento"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
-        android:text="ESPERA UN MOMENTO"
+        android:text="KFSLDÑKFLÑDS"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
