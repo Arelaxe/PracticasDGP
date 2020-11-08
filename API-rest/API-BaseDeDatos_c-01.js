@@ -21,6 +21,7 @@ app.listen(5000, () => {
         }
         database = client.db(DATABASE_NAME);
         collectionUsuarios = database.collection("Usuarios");
+        collectionTareas = database.collection("Tareas");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
 });
@@ -99,6 +100,74 @@ app.get("/listado-facilitadores", (request, response) => {
         }
         if (result == null) {
             response.send("No hay facilitadores");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/**/
+// Listado socios
+/**/
+app.get("/listado-socios", (request, response) => {
+    collectionUsuarios.find({ "rol": "socio" }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No hay socios");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/**/
+// Listado tareas
+/**/
+app.post("/listado-tareas", (request, response) => {
+    collectionTareas.find({ "creador": request.body.username }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("¡Aún no has creado tareas!");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/**/
+// Mis socios
+/**/
+app.post("/mis-socios", (request, response) => {
+    collectionUsuarios.find({ "rol" : "socio", "facilitadorACargo": request.body.username }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("¡Aún no tienes socios a cargo!");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Perfil
+/******************************************************/
+app.post("/perfil", (request, response) => {
+    collectionUsuarios.find({ "username":request.body.username }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Perfil no encontrado");
         }
         else {
             response.send(result);
