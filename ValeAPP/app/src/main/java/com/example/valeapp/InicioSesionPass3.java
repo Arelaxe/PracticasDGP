@@ -70,7 +70,7 @@ public class InicioSesionPass3 extends AppCompatActivity {
                 pajaro.setEnabled(true);
                 pajaro.setContentDescription(getResources().getString(R.string.imagen_de_un_pajaro));
 
-                passPaso3 = "Fresa";
+                passPaso3 = "Perro";
 
                 botonSiguiente.setEnabled(true);
             }
@@ -92,7 +92,7 @@ public class InicioSesionPass3 extends AppCompatActivity {
                 pajaro.setEnabled(true);
                 pajaro.setContentDescription(getResources().getString(R.string.imagen_de_un_pajaro));
 
-                passPaso3 = "Platano";
+                passPaso3 = "Gato";
 
                 botonSiguiente.setEnabled(true);
             }
@@ -114,7 +114,7 @@ public class InicioSesionPass3 extends AppCompatActivity {
                 pajaro.setEnabled(true);
                 pajaro.setContentDescription(getResources().getString(R.string.imagen_de_un_pajaro));
 
-                passPaso3 = "Naranja";
+                passPaso3 = "Caballo";
 
                 botonSiguiente.setEnabled(true);
             }
@@ -136,7 +136,7 @@ public class InicioSesionPass3 extends AppCompatActivity {
                 pajaro.setEnabled(false);
                 pajaro.setContentDescription(getResources().getString(R.string.pajaro_seleccionado));
 
-                passPaso3 = "Manzana";
+                passPaso3 = "Pajaro";
 
                 botonSiguiente.setEnabled(true);
             }
@@ -156,13 +156,12 @@ public class InicioSesionPass3 extends AppCompatActivity {
     }
 
     private void siguientePantallaPass() {
-        /*
-        Intent intent = new Intent(this, InicioSesionPass3.class);
+        Intent intent = new Intent(this, InicioSesionPass4.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("pass1", passPaso1);
         intent.putExtra("pass2", passPaso2);
         intent.putExtra("pass3", passPaso3);
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
     private void  anteriorPantallaPass(){

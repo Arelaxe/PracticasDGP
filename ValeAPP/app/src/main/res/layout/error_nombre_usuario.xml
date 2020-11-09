@@ -8,7 +8,7 @@
     tools:context=".ErrorNombreUsuario">
 
     <TextView
-        android:id="@+id/errorNombreUsuario"
+        android:id="@+id/eligeImagen"
         android:layout_width="375dp"
         android:layout_height="301dp"
         android:contentDescription="@string/error_en_el_nombre_de_usuario"
@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/errorNombreUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/eligeImagen"
         app:srcCompat="@drawable/abc_vector_test" />
 
     <TextView

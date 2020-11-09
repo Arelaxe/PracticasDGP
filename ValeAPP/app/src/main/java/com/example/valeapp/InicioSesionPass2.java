@@ -132,7 +132,7 @@ public class InicioSesionPass2 extends AppCompatActivity {
                 naranja.setContentDescription(getResources().getString(R.string.imagen_de_una_naranja));
                 cambiarEstadoSelección(manzanaSeleccionado, true);
                 manzana.setEnabled(false);
-                manzana.setContentDescription(getResources().getString(R.string.boton_tri_ngulo_seleccionado));
+                manzana.setContentDescription(getResources().getString(R.string.manzana_seleccionada));
 
                 passPaso2 = "Manzana";
 

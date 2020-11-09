@@ -8,7 +8,6 @@
     <string name="imagen_de_un_c_rculo">Imagen de un círculo</string>
     <string name="elige_tu_imagen">ELIGE TU IMAGEN</string>
     <string name="siguiente">SIGUIENTE</string>
-    <string name="bot_n_para_ir_al_siguiente_paso">Botón para ir al siguiente paso</string>
     <string name="imagen_del_paso_2_no_marcada">Imagen del Paso 2 no marcada</string>
     <string name="imagen_del_paso_1_marcada_paso_actual">Imagen del Paso 1 marcada. Paso actual</string>
     <string name="imagen_del_paso_3_no_marcada">Imagen del Paso 3 no marcada</string>
@@ -23,15 +22,15 @@
     <string name="espera_un_momento">ESPERA UN MOMENTO</string>
     <string name="error_en_el_nombre_de_usuario">Error en el nombre de usuario</string>
     <string name="c_rculo_seleccionado">Círculo seleccionado</string>
-    <string name="estrella_seleccionada">Cstrella seleccionada</string>
-    <string name="cuadrado_seleccionado">Cuadradoseleccionado</string>
+    <string name="estrella_seleccionada">Estrella seleccionada</string>
+    <string name="cuadrado_seleccionado">Cuadrado seleccionado</string>
     <string name="tri_ngulo_seleccionado">Triángulo seleccionado</string>
-    <string name="boton_c_rculo_seleccionado">Botón círculo seleccionado</string>
-    <string name="boton_estrella_seleccionada">Botón estrella seleccionado</string>
-    <string name="boton_cuadrado_seleccionado">Botón cuadrado seleccionado</string>
-    <string name="boton_tri_ngulo_seleccionado">Botón triángulo seleccionado</string>
-    <string name="imagen_del_paso_1_marcada">imagen_del_paso_1_marcada</string>
-    <string name="imagen_del_paso_2_marcada_paso_actual">imagen_del_paso_2_marcada_paso_actual</string>
+    <string name="boton_c_rculo_seleccionado">Círculo seleccionado</string>
+    <string name="boton_estrella_seleccionada">Estrella seleccionada</string>
+    <string name="boton_cuadrado_seleccionado">Cuadrado seleccionado</string>
+    <string name="boton_tri_ngulo_seleccionado">Triángulo seleccionado</string>
+    <string name="imagen_del_paso_1_marcada">imagen del paso 1 marcada</string>
+    <string name="imagen_del_paso_2_marcada_paso_actual">imagen del paso 2 marcada paso actual</string>
     <string name="texto_de_bot_n_siguiente_paso">Texto de botón: Siguiente Paso</string>
 <string name="imagen_de_una_naranja">Imagen de una naranja</string>
 <string name="imagen_de_una_manzana">imagen de una manzana</string>
@@ -40,8 +39,8 @@
     <string name="texto_de_bot_n_paso_anterior">Texto de botón: Paso Anterior</string>
     <string name="bot_n_para_ir_al_paso_anterior">Botón para ir al paso anterior</string>
     <string name="anterior">ANTERIOR</string>
-    <string name="imagen_de_un_platano">imagen de un platano</string>
-    <string name="platano_seleccionado">Platano seleccionado</string>
+    <string name="imagen_de_un_platano">imagen de un plátano</string>
+    <string name="platano_seleccionado">Plátano seleccionado</string>
     <string name="naranja_seleccionada">Naranja seleccionada</string>
     <string name="manzana_seleccionada">Manzana seleccionada</string>
     <string name="imagen_de_un_gato">Imagen de un gato</string>
@@ -53,5 +52,21 @@
     <string name="caballo_seleccionado">Caballo seleccionado</string>
     <string name="pajaro_seleccionado">Pajaro seleccionado</string>
     <string name="imagen_del_paso_3_marcada_paso_actual">Imagen del paso 3 marcada paso actual</string>
+    <string name="imagen_del_paso_2_marcada">imagen del paso 2 marcada</string>
+    <string name="imagen_del_paso_3_marcada">imagen del paso 3 marcada</string>
+    <string name="imagen_del_paso_4_marcada_paso_actual">imagen del paso 4 marcada paso actual</string>
+    <string name="imagen_de_un_coche">Imagen de un coche</string>
+    <string name="imagen_de_una_moto">Imagen de una moto</string>
+    <string name="imagen_de_una_bicicleta">Imagen de una bicicleta</string>
+    <string name="imagen_de_un_helicoptero">Imagen de un helicóptero</string>
+    <string name="coche_seleccionado">Coche seleccionado</string>
+    <string name="moto_seleccionada">Moto seleccionada</string>
+    <string name="bicicleta_seleccionada">Bicicleta seleccionada</string>
+    <string name="helicoptero_seleccionado">helicóptero seleccionado</string>
+    <string name="bot_n_para_ir_al_siguiente_paso">Botón para ir al siguiente paso</string>
+    <string name="texto_del_bot_n_para_ir_al_siguiente_paso">Texto de botón: siguiente paso</string>
+    <string name="imagen_del_paso_4_marcada">Imagen del paso 4 marcada</string>
+    <string name="imagen_del_paso_5_marcada_paso_actual">imagen del paso 5 marcada paso actual</string>
+    <string name="texto_de_bot_n_para_comprobar_la_contrase_a">Texto de botón para comprobar la contraseña</string>
 
 </resources>

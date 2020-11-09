@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InicioSesionPass2">
+    tools:context=".InicioSesionPass4">
 
     <TextView
         android:id="@+id/eligeImagen"
@@ -46,7 +46,7 @@
             android:id="@+id/imageView4"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:contentDescription="@string/imagen_del_paso_2_marcada_paso_actual"
+            android:contentDescription="@string/imagen_del_paso_2_marcada"
             app:srcCompat="@android:drawable/radiobutton_on_background" />
 
         <ImageView
@@ -54,16 +54,16 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginBottom="80dp"
-            android:contentDescription="@string/imagen_del_paso_3_no_marcada"
-            app:srcCompat="@android:drawable/radiobutton_off_background" />
+            android:contentDescription="@string/imagen_del_paso_3_marcada"
+            app:srcCompat="@android:drawable/radiobutton_on_background" />
 
         <ImageView
             android:id="@+id/imageView11"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginBottom="108dp"
-            android:contentDescription="@string/imagen_del_paso_4_no_marcada"
-            app:srcCompat="@android:drawable/radiobutton_off_background" />
+            android:contentDescription="@string/imagen_del_paso_4_marcada_paso_actual"
+            app:srcCompat="@android:drawable/radiobutton_on_background" />
 
         <ImageView
             android:id="@+id/imageView12"
@@ -91,7 +91,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/irPass1"
+                android:id="@+id/irPass3"
                 android:layout_width="63dp"
                 android:layout_height="49dp"
                 android:background="#000000"
@@ -120,7 +120,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/irPass3"
+                android:id="@+id/irPass5"
                 android:layout_width="63dp"
                 android:layout_height="49dp"
                 android:background="#000000"
@@ -160,20 +160,20 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/Fresa"
+                android:id="@+id/Coche"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/imagen_de_una_fresa"
+                android:contentDescription="@string/imagen_de_un_coche"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/fresa" />
+                app:srcCompat="@drawable/coche" />
 
             <ImageButton
-                android:id="@+id/Platano"
+                android:id="@+id/Moto"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/imagen_de_un_platano"
+                android:contentDescription="@string/imagen_de_una_moto"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/platano" />
+                app:srcCompat="@drawable/moto" />
         </LinearLayout>
 
         <LinearLayout
@@ -182,20 +182,20 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/Naranja"
+                android:id="@+id/Bicicleta"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/imagen_de_una_naranja"
+                android:contentDescription="@string/imagen_de_una_bicicleta"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/naranja" />
+                app:srcCompat="@drawable/bicicleta" />
 
             <ImageButton
-                android:id="@+id/Manzana"
+                android:id="@+id/Helicoptero"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/imagen_de_una_manzana"
+                android:contentDescription="@string/imagen_de_un_helicoptero"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/manzana" />
+                app:srcCompat="@drawable/helicoptero" />
         </LinearLayout>
     </LinearLayout>
 
@@ -214,17 +214,17 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/fresaSeleccionado"
+                android:id="@+id/cocheSeleccionado"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/fresa_seleccionada"
+                android:contentDescription="@string/coche_seleccionado"
                 app:srcCompat="@drawable/tick" />
 
             <ImageView
-                android:id="@+id/platanoSeleccionado"
+                android:id="@+id/motoSeleccionada"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/platano_seleccionado"
+                android:contentDescription="@string/moto_seleccionada"
                 app:srcCompat="@drawable/tick" />
         </LinearLayout>
 
@@ -234,17 +234,17 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/naranjaSeleccionado"
+                android:id="@+id/bicicletaSeleccionada"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/naranja_seleccionada"
+                android:contentDescription="@string/bicicleta_seleccionada"
                 app:srcCompat="@drawable/tick" />
 
             <ImageView
-                android:id="@+id/manzanaSeleccionado"
+                android:id="@+id/helicopteroSeleccionado"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/manzana_seleccionada"
+                android:contentDescription="@string/helicoptero_seleccionado"
                 app:srcCompat="@drawable/tick" />
         </LinearLayout>
     </LinearLayout>
