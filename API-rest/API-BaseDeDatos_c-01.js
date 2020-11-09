@@ -217,7 +217,7 @@ app.post("/eliminar-usuario", (request, response) => {
 // Socios vinculados
 /******************************************************/
 app.get("/socios-vinculados", (request, response) => {
-    collectionUsuarios.find({ "username": request.body.username }, {"_id": 0, "sociosACargo": 1}).toArray(function (error, result) {
+    collectionUsuarios.find({ "username": request.body.user_facilitador }, {"_id": 0, "sociosACargo": 1}).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
@@ -234,7 +234,24 @@ app.get("/socios-vinculados", (request, response) => {
 // Socios no vinculados
 /******************************************************/
 app.get("/socios-no-vinculados", (request, response) => {
-    collectionUsuarios.find({ "rol": "socio", "facilitadoresACargo": { "$not": { "$in": request.body.username } } }).toArray(function (error, result) {
+    collectionUsuarios.find({ "rol": "socio", "facilitadoresACargo": { "$not": { "$in": request.body.user_facilitador } } }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el array");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Facilitadores a cargo
+/******************************************************/
+app.get("/facilitadores-a-cargo", (request, response) => {
+    collectionUsuarios.find({ "username": request.body.user_socio }, {"_id": 0, "facilitadoresACargo": 1}).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
