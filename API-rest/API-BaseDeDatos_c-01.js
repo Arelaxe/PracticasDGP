@@ -234,7 +234,7 @@ app.get("/socios-vinculados", (request, response) => {
 // Socios no vinculados
 /******************************************************/
 app.get("/socios-no-vinculados", (request, response) => {
-    collectionUsuarios.find({ "rol": "socio", "facilitadoresACargo": "$not" }).toArray(function (error, result) {
+    collectionUsuarios.find({ "rol": "socio", "facilitadoresACargo": { "$not": { "$in": request.body.username } } }).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
