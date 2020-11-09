@@ -23,8 +23,8 @@
 
     <EditText
         android:id="@+id/usuario"
-        android:layout_width="327dp"
-        android:layout_height="84dp"
+        android:layout_width="389dp"
+        android:layout_height="108dp"
         android:layout_marginTop="320dp"
         android:autofillHints=""
         android:ems="10"
