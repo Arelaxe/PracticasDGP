@@ -248,6 +248,23 @@ app.get("/socios-no-vinculados", (request, response) => {
 });
 
 /******************************************************/
+// Info usuario
+/******************************************************/
+app.get("/info-usuario", (request, response) => {
+    collectionUsuarios.find({ "username": request.body.username }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el usuario");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
 // Facilitadores a cargo
 /******************************************************/
 app.get("/facilitadores-a-cargo", (request, response) => {
