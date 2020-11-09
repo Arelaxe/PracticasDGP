@@ -217,7 +217,7 @@ app.post("/eliminar-usuario", (request, response) => {
 // Socios vinculados
 /******************************************************/
 app.get("/socios-vinculados", (request, response) => {
-    collectionUsuarios.find({ "username": request.body.username }, {_id: 0, sociosACargo: 1}).toArray(function (error, result) {
+    collectionUsuarios.find({ "username": request.body.username }, {"_id": 0, "sociosACargo": 1}).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
@@ -232,9 +232,9 @@ app.get("/socios-vinculados", (request, response) => {
 
 /******************************************************/
 // Socios no vinculados
-/******************************************************//*
+/******************************************************/
 app.get("/socios-no-vinculados", (request, response) => {
-    collectionUsuarios.find({ "rol": "socio" }, {  }).toArray(function (error, result) {
+    collectionUsuarios.find({ "rol": "socio", "facilitadoresACargo": "$not" }).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
@@ -245,13 +245,13 @@ app.get("/socios-no-vinculados", (request, response) => {
             response.send(result);
         }
     });
-});*/
+});
 
 /******************************************************/
 // Vincular facilitadores y usuarios
 /******************************************************/
 app.post("/vincular-socio", (request, response) => {
-    collectionUsuarios.update({ "username":request.body.user_facilitador }, {$push: {sociosACargo: request.body.user_socio} }, (error, result) => {
+    collectionUsuarios.update({ "username":request.body.user_facilitador }, {"$push": {"sociosACargo": request.body.user_socio} }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
@@ -263,7 +263,7 @@ app.post("/vincular-socio", (request, response) => {
         }
     });
 
-    collectionUsuarios.update({ "username":request.body.user_socio }, {$push: {facilitadoresACargo: request.body.user_facilitador} }, (error, result) => {
+    collectionUsuarios.update({ "username":request.body.user_socio }, {"$push": {"facilitadoresACargo": request.body.user_facilitador} }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
@@ -280,7 +280,7 @@ app.post("/vincular-socio", (request, response) => {
 // Desvincular facilitadores y usuarios
 /******************************************************/
 app.post("/desvincular-socio", (request, response) => {
-    collectionUsuarios.update({ "username":request.body.user_facilitador }, {$pull: {sociosACargo: request.body.user_socio} }, (error, result) => {
+    collectionUsuarios.update({ "username":request.body.user_facilitador }, {"$pull": {"sociosACargo": request.body.user_socio} }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
@@ -292,7 +292,7 @@ app.post("/desvincular-socio", (request, response) => {
         }
     });
 
-    collectionUsuarios.update({ "username":request.body.user_socio }, {$pull: {facilitadoresACargo: request.body.user_facilitador} }, (error, result) => {
+    collectionUsuarios.update({ "username":request.body.user_socio }, {"$pull": {"facilitadoresACargo": request.body.user_facilitador} }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
