@@ -12,7 +12,7 @@ app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 // var jsonParser = BodyParser.json();
 
-var database, collectionUsuarios;
+var database, collectionUsuarios, collectionGrupos;
 
 app.listen(5000, () => {
     MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
@@ -22,6 +22,7 @@ app.listen(5000, () => {
         database = client.db(DATABASE_NAME);
         collectionUsuarios = database.collection("Usuarios");
         collectionTareas = database.collection("Tareas");
+        collectionGrupos = database.collection("Grupos");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
 });
@@ -335,6 +336,23 @@ app.post("/desvincular-socio", (request, response) => {
         }
         else {
             response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Crear grupo
+/******************************************************/
+app.post("/crear-grupo", (request, response) => {
+    collectionGrupos.insertOne(request.body, (error, result) => {
+        if(error) {
+            return response.status(500).send(error);
+        }
+        if (result == null){
+            response.send("Fallo en la creación");
+        }
+        else{    
+            response.send("Creación completada");
         }
     });
 });
