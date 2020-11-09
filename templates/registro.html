@@ -10,6 +10,29 @@
 {%endblock%}
 
 {%block cuerpo%}
+{% if error == true %}
+<div class="modal fade" tabindex="-1" role="dialog" id="errorModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Error en el registro de usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>El correo electrónico proporcionado ya está en uso.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div onload="errorRegistro()" id="errorLabel" class="invisibilidad">{{ error }}</div>
+<script type="text/javascript" src="../js/errorRegistro.js"></script>
+{% endif %}
+
 <div class="container">
     <div class="offset-lg-4 col-lg-4 titulo">
         <h2>Registro de personal</h2>
@@ -19,11 +42,11 @@
     <div class="offset-lg-4 col-lg-4 sombreado">
         <form action="php/registroAdmin.php" method="POST" class="offset-lg-1 col-lg-10">
             <div class="class-group">
-                <label for="email" >Nombre y apellidos</label>
+                <label for="email">Nombre y apellidos</label>
                 <input type="text" id="nombre" name="nombre" class="form-control">
             </div>
             <div class="class-group">
-                <label for="email" >Correo Electrónico</label>
+                <label for="email">Correo Electrónico</label>
                 <input type="text" id="email" name="email" class="form-control" oninput="puedo_pulsar_registro()">
                 <div class="error" id="error_email">
                     Email no válido

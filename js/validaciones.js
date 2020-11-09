@@ -44,8 +44,9 @@ function puedo_pulsar_registro(){
     }
 }
 
-function completarCamposUsuario(nombreUsuario, idUsuario){
+function completarCamposUsuario(nombreUsuario, idUsuario, rolUsuario){
     document.getElementById('nombreAEliminar').innerHTML = "<h4>" + nombreUsuario + "<h4>";
     document.getElementById('usuarioAEliminar').innerHTML = "<h4>" + idUsuario + "<h4>";
     document.getElementById('usernameAEliminar').setAttribute('value',idUsuario);
+    document.getElementById('rolARedirigir').setAttribute('value',rolUsuario);
 }
