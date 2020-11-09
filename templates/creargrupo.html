@@ -1,0 +1,33 @@
+{%extends "base.html"%}
+
+{%block titulo%}Crear grupo{%endblock%}
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Menú principal</li>
+<li class="breadcrumb-item active">Crear grupo</li>
+{%endblock%}
+
+{%block cuerpo%}
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 titulo">
+        <h2>Crear nuevo grupo de socios</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 sombreado">
+        <form action="php/crearGrupo.php" method="POST" class="offset-lg-1 col-lg-10">
+            <div class="form-group">
+                <label for="nombre" >Nombre del grupo</label>
+                <input type="text" id="nombre" name="nombre" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+            </div>
+            <div class="espacio"></div>
+            <button type="submit" id="boton" class="offset-lg-3 col-lg-5 btn btn-primary">CREAR</button>
+        </form>
+    </div>
+</div>
+
+{%endblock%}
