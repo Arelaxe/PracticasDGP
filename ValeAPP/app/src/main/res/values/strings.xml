@@ -23,7 +23,11 @@
     <string name="espera_un_momento">ESPERA UN MOMENTO</string>
     <string name="error_en_el_nombre_de_usuario">Error en el nombre de usuario</string>
     <string name="c_rculo_seleccionado">Círculo seleccionado</string>
-    <string name="estrella_seleccionada">estrella seleccionada</string>
-    <string name="cuadrado_seleccionado">cuadrado seleccionado</string>
-    <string name="tri_ngulo_seleccionado">triángulo seleccionado</string>
+    <string name="estrella_seleccionada">Estrella seleccionada</string>
+    <string name="cuadrado_seleccionado">Cuadrado seleccionado</string>
+    <string name="tri_ngulo_seleccionado">Triángulo seleccionado</string>
+    <string name="boton_c_rculo_seleccionado">Botón círculo seleccionado</string>
+    <string name="boton_estrella_seleccionada">Botón estrella seleccionada</string>
+    <string name="boton_cuadrado_seleccionado">Botón cuadrado seleccionado</string>
+    <string name="boton_tri_ngulo_seleccionado">Botón triángulo seleccionado</string>
 </resources>

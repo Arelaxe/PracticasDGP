@@ -37,12 +37,16 @@ public class InicioSesionPass1 extends AppCompatActivity {
             public void onClick(View v) {
                 cambiarEstadoSelección(circuloSeleccionado, true);
                 circulo.setEnabled(false);
+                circulo.setContentDescription(getResources().getString(R.string.boton_c_rculo_seleccionado));
                 cambiarEstadoSelección(estrellaSeleccionado, false);
                 estrella.setEnabled(true);
+                estrella.setContentDescription(getResources().getString(R.string.imagen_de_una_estrella));
                 cambiarEstadoSelección(cuadradoSeleccionado, false);
                 cuadrado.setEnabled(true);
+                cuadrado.setContentDescription(getResources().getString(R.string.imagen_de_un_cuadrado));
                 cambiarEstadoSelección(trianguloSeleccionado, false);
                 triangulo.setEnabled(true);
+                triangulo.setContentDescription(getResources().getString(R.string.imagen_de_tri_ngulo));
 
                 passPaso1 = "Circulo";
             }
@@ -53,12 +57,16 @@ public class InicioSesionPass1 extends AppCompatActivity {
             public void onClick(View v) {
                 cambiarEstadoSelección(circuloSeleccionado, false);
                 circulo.setEnabled(true);
+                circulo.setContentDescription(getResources().getString(R.string.imagen_de_un_c_rculo));
                 cambiarEstadoSelección(estrellaSeleccionado, true);
                 estrella.setEnabled(false);
+                estrella.setContentDescription(getResources().getString(R.string.boton_estrella_seleccionada));
                 cambiarEstadoSelección(cuadradoSeleccionado, false);
                 cuadrado.setEnabled(true);
+                cuadrado.setContentDescription(getResources().getString(R.string.imagen_de_un_cuadrado));
                 cambiarEstadoSelección(trianguloSeleccionado, false);
                 triangulo.setEnabled(true);
+                triangulo.setContentDescription(getResources().getString(R.string.imagen_de_tri_ngulo));
 
                 passPaso1 = "Estrella";
             }
@@ -69,12 +77,16 @@ public class InicioSesionPass1 extends AppCompatActivity {
             public void onClick(View v) {
                 cambiarEstadoSelección(circuloSeleccionado, false);
                 circulo.setEnabled(true);
+                circulo.setContentDescription(getResources().getString(R.string.imagen_de_un_c_rculo));
                 cambiarEstadoSelección(estrellaSeleccionado, false);
                 estrella.setEnabled(true);
+                estrella.setContentDescription(getResources().getString(R.string.imagen_de_una_estrella));
                 cambiarEstadoSelección(cuadradoSeleccionado, true);
                 cuadrado.setEnabled(false);
+                cuadrado.setContentDescription(getResources().getString(R.string.boton_cuadrado_seleccionado));
                 cambiarEstadoSelección(trianguloSeleccionado, false);
                 triangulo.setEnabled(true);
+                triangulo.setContentDescription(getResources().getString(R.string.imagen_de_tri_ngulo));
 
                 passPaso1 = "Cuadrado";
             }
@@ -85,12 +97,16 @@ public class InicioSesionPass1 extends AppCompatActivity {
             public void onClick(View v) {
                 cambiarEstadoSelección(circuloSeleccionado, false);
                 circulo.setEnabled(true);
+                circulo.setContentDescription(getResources().getString(R.string.imagen_de_un_c_rculo));
                 cambiarEstadoSelección(estrellaSeleccionado, false);
                 estrella.setEnabled(true);
+                estrella.setContentDescription(getResources().getString(R.string.imagen_de_una_estrella));
                 cambiarEstadoSelección(cuadradoSeleccionado, false);
                 cuadrado.setEnabled(true);
+                cuadrado.setContentDescription(getResources().getString(R.string.imagen_de_un_cuadrado));
                 cambiarEstadoSelección(trianguloSeleccionado, true);
                 triangulo.setEnabled(false);
+                triangulo.setContentDescription(getResources().getString(R.string.boton_tri_ngulo_seleccionado));
 
                 passPaso1 = "Triangulo";
             }

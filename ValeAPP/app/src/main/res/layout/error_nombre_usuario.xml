@@ -15,26 +15,27 @@
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="@string/error_en_el_nombre_de_usuario"
+        android:textColor="#000"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.144" />
+        app:layout_constraintVertical_bias="0.06" />
 
     <ImageButton
         android:id="@+id/idBotonVolverNombreUsuario"
         android:layout_width="150dp"
         android:layout_height="133dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="200dp"
         android:background="#000000"
         android:contentDescription="@string/bot_n_que_permite_volver_a_la_pantalla_para_introducir_el_nombre_de_usuario"
         android:scaleType="fitCenter"
         android:scaleX="1"
         android:scaleY="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/errorNombreUsuario"
         app:srcCompat="@drawable/abc_vector_test" />
@@ -43,10 +44,24 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
         android:text="@string/vuelve_a_intentarlo"
+        android:textColor="#000"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idBotonVolverNombreUsuario" />
+        app:layout_constraintTop_toBottomOf="@+id/idBotonVolverNombreUsuario"
+        app:layout_constraintVertical_bias="0.181" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="254dp"
+        android:layout_height="239dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/error" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
