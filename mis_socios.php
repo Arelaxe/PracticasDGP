@@ -12,15 +12,19 @@
         $jsoninfoFacilitador = json_encode($infoFacilitador);
         $listado = misSociosApi($jsoninfoFacilitador);
         $rol = $_SESSION['rol'];
+        $listado_usernames = $listado[0]->sociosACargo;
+        $listado_nombres = array();
+
+        foreach($listado_usernames as $username){
+            $infoUser['username'] = $username;
+            $infoUserJson = json_encode($infoUser);
+            $perfilSocio = obtenerInfoUsuariosApi($infoUserJson);
+            $nombreSocio = $perfilSocio[0]->nombre;
+            var_dump($nombreSocio);
+
+            array_push($listado_nombres, $nombreSocio);
+		}
     }
-
-    $listado_nombres = array();
-    $listado_ids = array();
-
-    foreach ($listado as $socio){
-        array_push($listado_nombres, $socio->nombre);
-        array_push($listado_ids, $socio->_id);
-	}
-
-    echo $twig->render('missocios.html', ['infoUsuarios' => $listado, 'rol' => $rol]);
+    
+    echo $twig->render('missocios.html', ['listadoNombres' => $listado_nombres, 'listadoUsernames' => $listado_usernames, 'rol' => $rol]);
 ?>
