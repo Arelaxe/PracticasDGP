@@ -6,13 +6,7 @@
         $infoEliminar['username'] = $_POST['username'];
 
         $jsonEliminacion = json_encode($infoEliminar);
-
-        var_dump($jsonEliminacion);
-
-        /*Descomentar cuando se haya implementado
         
-        eliminacionUsuarioApi($jsonEliminacion);
-
-        */
+        eliminarUsuarioApi($jsonEliminacion);
     }
 ?>
