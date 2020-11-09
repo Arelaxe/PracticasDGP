@@ -241,3 +241,32 @@ app.post("/vincular-socio", (request, response) => {
         }
     });
 });
+
+/******************************************************/
+// Desvincular facilitadores y usuarios
+/******************************************************/
+app.post("/desvincular-socio", (request, response) => {
+    collectionUsuarios.update({ "username":request.body.user_facilitador }, {$pull: {sociosACargo: request.body.user_socio} }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send(result);
+        }
+        else {
+            response.send(result);
+        }
+    });
+
+    collectionUsuarios.update({ "username":request.body.user_socio }, {$pull: {facilitadoresACargo: request.body.user_facilitador} }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send(result);
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
