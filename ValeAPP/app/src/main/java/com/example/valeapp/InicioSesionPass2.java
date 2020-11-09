@@ -134,7 +134,7 @@ public class InicioSesionPass2 extends AppCompatActivity {
                 manzana.setEnabled(false);
                 manzana.setContentDescription(getResources().getString(R.string.boton_tri_ngulo_seleccionado));
 
-                passPaso1 = "Manzana";
+                passPaso2 = "Manzana";
 
                 botonSiguiente.setEnabled(true);
             }
@@ -154,11 +154,11 @@ public class InicioSesionPass2 extends AppCompatActivity {
     }
 
     private void siguientePantallaPass() {
-        /*Intent intent = new Intent(this, InicioSesionPass3.class);
+        Intent intent = new Intent(this, InicioSesionPass3.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("pass1", passPaso1);
         intent.putExtra("pass2", passPaso2);
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
     private void  anteriorPantallaPass(){

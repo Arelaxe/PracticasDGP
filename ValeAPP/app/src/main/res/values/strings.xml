@@ -33,10 +33,10 @@
     <string name="imagen_del_paso_1_marcada">imagen_del_paso_1_marcada</string>
     <string name="imagen_del_paso_2_marcada_paso_actual">imagen_del_paso_2_marcada_paso_actual</string>
     <string name="texto_de_bot_n_siguiente_paso">Texto de botón: Siguiente Paso</string>
-    <string name="imagen_de_una_naranja">Imagen de una naranja</string>
-    <string name="imagen_de_una_manzana">imagen de una manzana</string>
-    <string name="fresa_seleccionada">Fresa seleccionada</string>
-    <string name="imagen_de_una_fresa">imagen de una fresa</string>
+<string name="imagen_de_una_naranja">Imagen de una naranja</string>
+<string name="imagen_de_una_manzana">imagen de una manzana</string>
+<string name="fresa_seleccionada">Fresa seleccionada</string>
+<string name="imagen_de_una_fresa">imagen de una fresa</string>
     <string name="texto_de_bot_n_paso_anterior">Texto de botón: Paso Anterior</string>
     <string name="bot_n_para_ir_al_paso_anterior">Botón para ir al paso anterior</string>
     <string name="anterior">ANTERIOR</string>
@@ -44,4 +44,14 @@
     <string name="platano_seleccionado">Platano seleccionado</string>
     <string name="naranja_seleccionada">Naranja seleccionada</string>
     <string name="manzana_seleccionada">Manzana seleccionada</string>
+    <string name="imagen_de_un_gato">Imagen de un gato</string>
+    <string name="imagen_de_un_perro">Imagen de un perro</string>
+    <string name="imagen_de_un_caballo">Imagen de un caballo</string>
+    <string name="imagen_de_un_pajaro">Imagen de un pajaro</string>
+    <string name="perro_seleccionado">Perro seleccionado</string>
+    <string name="gato_seleccionado">Gato seleccionado</string>
+    <string name="caballo_seleccionado">Caballo seleccionado</string>
+    <string name="pajaro_seleccionado">Pajaro seleccionado</string>
+    <string name="imagen_del_paso_3_marcada_paso_actual">Imagen del paso 3 marcada paso actual</string>
+
 </resources>

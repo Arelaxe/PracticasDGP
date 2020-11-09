@@ -13,6 +13,7 @@
         <activity android:name=".InicioSesionNombreUsuario"></activity>
         <activity android:name=".InicioSesionPass1"></activity>
         <activity android:name=".InicioSesionPass2"></activity>
+        <activity android:name=".InicioSesionPass3"></activity>
         <activity android:name=".ErrorNombreUsuario"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
