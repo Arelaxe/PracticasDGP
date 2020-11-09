@@ -81,11 +81,7 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
         protected void onPostExecute(JSONObject result){
             super.onPostExecute(result);
 
-            if(errorInicio){
-                //Ir a pantalla de error
-                pantallaErrorNombreUsuario();
-            }
-            else {
+            if(!errorInicio){
                 //Guarda el nombre de usuario
                 AlmacenamientoInformacion infoUsuario = new AlmacenamientoInformacion();
                 Context mContext = getApplicationContext();
@@ -95,6 +91,10 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
                 System.out.println("ALGO: " + nombreUsuario);
                 //Ir a pantalla de éxito
                 pantallaPassword();
+            }
+            else {
+                //Ir a pantalla de error
+                pantallaErrorNombreUsuario();
             }
         }
     }

@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         Context mContext = getApplicationContext();
 
         String nombreUsuario = infoUsuario.getData(mContext);
+
         if(nombreUsuario == null) {
             //Login Usuario
             inicioSesionNombreUsuario();
