@@ -107,3 +107,12 @@ footer {
 .imgprefs{
     max-width: 100%;
 }
+
+.boton_centro{
+    display: block;
+    text-align: center;
+}
+
+.invisibilidad{
+    visibility: hidden;
+}
