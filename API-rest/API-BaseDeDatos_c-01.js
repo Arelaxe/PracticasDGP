@@ -107,9 +107,9 @@ app.get("/listado-facilitadores", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Listado socios
-/**/
+/******************************************************/
 app.get("/listado-socios", (request, response) => {
     collectionUsuarios.find({ "rol": "socio" }).toArray(function (error, result) {
         if (error) {
@@ -124,9 +124,9 @@ app.get("/listado-socios", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Listado tareas
-/**/
+/******************************************************/
 app.post("/listado-tareas", (request, response) => {
     collectionTareas.find({ "creador": request.body.username }).toArray(function (error, result) {
         if (error) {
@@ -141,9 +141,9 @@ app.post("/listado-tareas", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Mis socios
-/**/
+/******************************************************/
 app.post("/mis-socios", (request, response) => {
     collectionUsuarios.find({ "rol" : "socio", "facilitadorACargo": request.body.username }).toArray(function (error, result) {
         if (error) {
@@ -209,6 +209,35 @@ app.post("/eliminar-usuario", (request, response) => {
         else {
             var jsonRespuestaCorrecta = JSON.parse('{"exito":1}');
             response.send(jsonRespuestaCorrecta);
+        }
+    });
+});
+
+/******************************************************/
+// Vincular facilitadores y usuarios
+/******************************************************/
+app.post("/vincular-socio", (request, response) => {
+    collectionUsuarios.update({ "username":request.body.user_facilitador }, {$push: {sociosACargo: request.body.user_socio} }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send(result);
+        }
+        else {
+            response.send(result);
+        }
+    });
+
+    collectionUsuarios.update({ "username":request.body.user_socio }, {$push: {facilitadoresACargo: request.body.user_facilitador} }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send(result);
+        }
+        else {
+            response.send(result);
         }
     });
 });
