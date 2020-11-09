@@ -193,3 +193,21 @@ app.get("/existe-usuario", (request, response) => {
         }
     });
 });
+
+/******************************************************/
+// Existe usuario
+/******************************************************/
+app.get("/eliminar-usuario", (request, response) => {
+    collectionUsuarios.remove({ "username":request.body.username }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se pudo eliminar el usuario porque no se ha encontrado")
+        }
+        else {
+            var jsonRespuestaCorrecta = JSON.parse('{"exito":1}');
+            response.send("Usuario eliminado correctamente");
+        }
+    });
+});
