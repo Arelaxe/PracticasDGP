@@ -20,8 +20,9 @@
             <div class="class-group">
                 <label for="socioAVincular" >Socio a vincular</label>
                 <select name="socioAVincular" class="form-control">
-                    <option value="username1">Nombre1</option>
-                    <option value="username2">Nombre2</option>
+                    {%for socio in socios%}
+                        <option value="{{socio.username}}">{{socio.nombre}}</option>
+                    {%endfor%}
                 </select>
             </div>
 

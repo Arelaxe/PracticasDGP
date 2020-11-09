@@ -1,6 +1,7 @@
 <?php
     require_once '../vendor/autoload.php';
     include_once("operaciones_api/autenticacionApi.php");
+    include_once("php/vinculaciones.php");
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
@@ -22,6 +23,7 @@
         $result = infoPerfilApi($jsonInfoPerfil);
 
         $infoUsuario = array();
+        $listadoSocios = array();
 
         foreach($result as $item){
             $infoUsuario['nombre'] = $item->nombre;
@@ -30,6 +32,12 @@
             if($infoUsuario['rol'] == "admin" || $infoUsuario['rol'] == "ambos" || $infoUsuario['rol'] == "facilitador"){
                 $infoUsuario['direccion'] = $item->direccion;
                 $infoUsuario['telefono'] = $item->telefono;
+
+                $infoSociosVinculados = array();
+                $infoSociosVinculados['user_facilitador'] = $infoUsuario['username'] ;
+                $jsonInfoSociosVinculados = json_encode($infoSociosVinculados);
+
+                $listadoSocios = listadoSociosVinculados($jsonInfoSociosVinculados);
             }
             else{
 
@@ -41,5 +49,5 @@
 
     
 
-    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol]);
+    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios]);
 ?>

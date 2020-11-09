@@ -26,6 +26,12 @@
         {{ infoUsuario.direccion }}
         <h4>Teléfono</h4>
         {{ infoUsuario.telefono }}
+        <h4>Socios a cargo</h4>
+        <select class="form-control">
+          {% for i in sociosacargo %}
+            <option value="{{i.username}}" onclick="window.location.replace('perfil.php?username={{i.username}}')">{{i.nombre}}</option>
+          {%endfor%}
+        </select>
         {%else%}
         <h4>Identificador</h4>
         {{infoUsuario.username}}
