@@ -179,11 +179,11 @@ app.post("/perfil", (request, response) => {
 // Existe usuario
 /******************************************************/
 app.get("/existe-usuario", (request, response) => {
-    collectionUsuarios.find({ "username":request.body.username }).toArray(function (error, result) {
+    collectionUsuarios.find({ "rol" : "socio", "username":request.query.username }).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
-        if (result == null) {
+        if (result == "") {
             var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
             response.send(jsonRespuestaIncorrecta);
         }
@@ -212,6 +212,40 @@ app.post("/eliminar-usuario", (request, response) => {
         }
     });
 });
+
+/******************************************************/
+// Socios vinculados
+/******************************************************/
+app.get("/socios-vinculados", (request, response) => {
+    collectionUsuarios.find({ "username": request.body.username }, {_id: 0, sociosACargo: 1}).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el array");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Socios no vinculados
+/******************************************************//*
+app.get("/socios-no-vinculados", (request, response) => {
+    collectionUsuarios.find({ "rol": "socio" }, {  }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el array");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});*/
 
 /******************************************************/
 // Vincular facilitadores y usuarios
