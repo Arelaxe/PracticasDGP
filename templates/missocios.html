@@ -18,12 +18,12 @@
     <div class="offset-lg-2 col-lg-8 sombreado">
         <table class="table table-hover table-responsive">
             <tbody>
-                {% for usuario in infoUsuarios %}
+                {% for usuario in listadoNombres %}
                 <tr>
-                    <td scope="row" class="td1">{{ usuario.nombre }}</td>
+                    <td scope="row" class="td1">{{ usuario }}</td>
                     <td class="tdx"><button class="btn btn-success bt1">AÑADIR A GRUPO</button></td>
                     <td class="tdx"><button class="btn btn-danger bt1">DESVINCULAR</button></td>
-                    <td class="tdn"><a href="./perfil.php?username={{usuario.username}}">►</a></td>
+                    <td class="tdn"><a href="./perfil.php?username={{ listadoUsernames[loop.index]}}">►</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
