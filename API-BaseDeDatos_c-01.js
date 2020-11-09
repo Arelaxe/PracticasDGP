@@ -146,7 +146,7 @@ app.post("/listado-tareas", (request, response) => {
 // Mis socios
 /******************************************************/
 app.post("/mis-socios", (request, response) => {
-    collectionUsuarios.find({ "rol" : "socio", "facilitadorACargo": request.body.username }).toArray(function (error, result) {
+    collectionUsuarios.find({ "username": request.body.username }).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
@@ -158,7 +158,6 @@ app.post("/mis-socios", (request, response) => {
         }
     });
 });
-
 /******************************************************/
 // Perfil
 /******************************************************/
