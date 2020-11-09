@@ -198,7 +198,7 @@ app.get("/existe-usuario", (request, response) => {
 // Eliminar usuario
 /******************************************************/
 app.post("/eliminar-usuario", (request, response) => {
-    collectionUsuarios.deleteOne({ "username":request.body.username }).toArray(function (error, result) {
+    collectionUsuarios.deleteOne({ "username":request.body.username }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
