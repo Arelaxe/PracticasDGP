@@ -217,7 +217,7 @@ app.post("/eliminar-usuario", (request, response) => {
 /******************************************************/
 // Socios vinculados
 /******************************************************/
-app.get("/socios-vinculados", (request, response) => {
+app.post("/socios-vinculados", (request, response) => {
     collectionUsuarios.find({ "username": request.body.user_facilitador }, {"_id": 0, "sociosACargo": 1}).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
@@ -251,7 +251,7 @@ app.get("/socios-no-vinculados", (request, response) => {
 /******************************************************/
 // Info usuario
 /******************************************************/
-app.get("/info-usuario", (request, response) => {
+app.post("/info-usuario", (request, response) => {
     collectionUsuarios.find({ "username": request.body.username }).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
