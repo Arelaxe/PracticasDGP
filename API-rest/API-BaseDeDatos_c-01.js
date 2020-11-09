@@ -175,9 +175,9 @@ app.post("/perfil", (request, response) => {
     });
 });
 
-/******************************************************/
+/**/
 // Existe usuario
-/******************************************************/
+/**/
 app.get("/existe-usuario", (request, response) => {
     collectionUsuarios.find({ "rol" : "socio", "username":request.query.username }).toArray(function (error, result) {
         if (error) {
