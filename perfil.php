@@ -1,7 +1,6 @@
 <?php
     require_once '../vendor/autoload.php';
-    include_once("operaciones_api/autenticacionApi.php");
-    include_once("php/vinculaciones.php");
+    include_once("php/listasVinculaciones.php");
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);

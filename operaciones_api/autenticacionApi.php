@@ -253,6 +253,56 @@ function obtenerInfoUsuariosApi($jsonInfoUsuario){
      return $result;  
 }
 
+function vincularSocioApi($jsonInfoUsuario){
+    // API URL
+    $url = 'http://localhost:5000/vincular-socio';
+
+    // Create a new cURL resource
+   $ch = curl_init($url);
+
+   // Attach encoded JSON string to the POST fields
+   curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoUsuario);
+
+   // Set the content type to application/json
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+   // Return response instead of outputting
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+   // Execute the POST request
+   $result = curl_exec($ch);
+
+   // Close cURL resource
+   curl_close($ch);
+   $result = json_decode($result);
+   return $result;  
+}
+
+function desvincularSocioApi($jsonInfoUsuario){
+    // API URL
+    $url = 'http://localhost:5000/desvincular-socio';
+
+    // Create a new cURL resource
+   $ch = curl_init($url);
+
+   // Attach encoded JSON string to the POST fields
+   curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoUsuario);
+
+   // Set the content type to application/json
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+   // Return response instead of outputting
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+   // Execute the POST request
+   $result = curl_exec($ch);
+
+   // Close cURL resource
+   curl_close($ch);
+   $result = json_decode($result);
+   return $result;  
+}
+
 function crearGrupoApi($jsonInfoGrupo){
     // API URL
     $url = 'http://localhost:5000/crear-grupo';
