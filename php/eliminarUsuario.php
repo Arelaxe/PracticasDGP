@@ -10,6 +10,7 @@
         $jsonEliminacion = json_encode($infoEliminar);
         
         eliminarUsuarioApi($jsonEliminacion);
+<<<<<<< HEAD
 
         if ($rol == "admin" or $rol == "ambos") {
             header('Location: ../listado_administradores.php');
@@ -19,5 +20,7 @@
             header('Location: ../listado_socios.php');
         }
                
+=======
+>>>>>>> 5c35205dcd5a6eaebb14ede6bc86667a1524cf0f
     }
 ?>
