@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void inicioSesionPass() {
-        Intent intent = new Intent(this, InicioSesionPass.class);
+        Intent intent = new Intent(this, InicioSesionPass1.class);
         startActivity(intent);
     }
 }

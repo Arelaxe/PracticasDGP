@@ -2,6 +2,7 @@ package com.example.valeapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,7 +86,15 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
                 pantallaErrorNombreUsuario();
             }
             else {
-                //IR A PANTAllA DE EXITO
+                //Guarda el nombre de usuario
+                AlmacenamientoInformacion infoUsuario = new AlmacenamientoInformacion();
+                Context mContext = getApplicationContext();
+
+                infoUsuario.save(mContext, usuario);
+                String nombreUsuario = infoUsuario.getData(mContext);
+                System.out.println("ALGO: " + nombreUsuario);
+                //Ir a pantalla de éxito
+                pantallaPassword();
             }
         }
     }
@@ -94,8 +103,8 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void pantallaExitoNombreUsuario() {
-        Intent intent = new Intent(this, InicioSesionPass.class);
+    private void pantallaPassword() {
+        Intent intent = new Intent(this, InicioSesionPass1.class);
         startActivity(intent);
     }
 }

@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">ValeAPP</string>
+    <string name="bot_n_que_permite_volver_a_la_pantalla_para_introducir_el_nombre_de_usuario">Botón que permite volver a la pantalla para introducir el nombre de usuario</string>
+    <string name="vuelve_a_intentarlo">VUELVE A INTENTARLO</string>
+    <string name="imagen_de_un_cuadrado">Imagen de un cuadrado</string>
+    <string name="imagen_de_tri_ngulo">Imagen de triángulo</string>
+    <string name="imagen_de_una_estrella">Imagen de una estrella</string>
+    <string name="imagen_de_un_c_rculo">Imagen de un círculo</string>
+    <string name="elige_tu_imagen">ELIGE TU IMAGEN</string>
+    <string name="siguiente">SIGUIENTE</string>
+    <string name="bot_n_para_ir_al_siguiente_paso">Botón para ir al siguiente paso</string>
+    <string name="imagen_del_paso_2_no_marcada">Imagen del Paso 2 no marcada</string>
+    <string name="imagen_del_paso_1_marcada_paso_actual">Imagen del Paso 1 marcada. Paso actual</string>
+    <string name="imagen_del_paso_3_no_marcada">Imagen del Paso 3 no marcada</string>
+    <string name="imagen_del_paso_4_no_marcada">Imagen del Paso 4 no marcada</string>
+    <string name="imagen_del_paso_5_no_marcada">Imagen del Paso 5 no marcada</string>
+    <string name="nombre_de_la_aplicaci_n_vale_app">Nombre de la aplicación: Vale APP</string>
+    <string name="valeapp">ValeAPP</string>
+    <string name="escribe_aqu_tu_nombre_de_usuario">ESCRIBE AQUÍ TU NOMBRE DE USUARIO</string>
+    <string name="nombre_de_usuario">NOMBRE DE USUARIO</string>
+    <string name="bot_n_para_comprobar_el_nombre_de_usuario">Botón para comprobar el nombre de usuario</string>
+    <string name="escribe_tu_nombre_de_usuario">Escribe tu nombre de usuario</string>
+    <string name="espera_un_momento">ESPERA UN MOMENTO</string>
+    <string name="error_en_el_nombre_de_usuario">Error en el nombre de usuario</string>
 </resources>
