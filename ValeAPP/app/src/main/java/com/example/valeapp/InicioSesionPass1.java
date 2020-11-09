@@ -1,8 +1,8 @@
 package com.example.valeapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -16,6 +16,11 @@ public class InicioSesionPass1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_pass1);
+
+        Bundle bundle = getIntent().getExtras();
+
+        usuario = bundle.getString("usuario");
+
         ImageView circuloSeleccionado = findViewById(R.id.circuloSeleccionado);
         ImageView estrellaSeleccionado = findViewById(R.id.estrellaSeleccionado);
         ImageView cuadradoSeleccionado = findViewById(R.id.cuadradoSeleccionado);
@@ -31,6 +36,18 @@ public class InicioSesionPass1 extends AppCompatActivity {
         final ImageButton estrella = findViewById(R.id.Estrella);
         final ImageButton cuadrado = findViewById(R.id.Cuadrado);
         final ImageButton triangulo = findViewById(R.id.Triangulo);
+        final ImageButton botonSiguiente =findViewById(R.id.irPass2);
+
+        botonSiguiente.setEnabled(false);
+        circulo.setEnabled(true);
+        estrella.setEnabled(true);
+        cuadrado.setEnabled(true);
+        triangulo.setEnabled(true);
+
+        circulo.setContentDescription(getResources().getString(R.string.imagen_de_un_c_rculo));
+        estrella.setContentDescription(getResources().getString(R.string.imagen_de_una_estrella));
+        cuadrado.setContentDescription(getResources().getString(R.string.imagen_de_un_cuadrado));
+        triangulo.setContentDescription(getResources().getString(R.string.imagen_de_tri_ngulo));
 
         //Boton circulo
         circulo.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +66,8 @@ public class InicioSesionPass1 extends AppCompatActivity {
                 triangulo.setContentDescription(getResources().getString(R.string.imagen_de_tri_ngulo));
 
                 passPaso1 = "Circulo";
+
+                botonSiguiente.setEnabled(true);
             }
         });
 
@@ -69,10 +88,12 @@ public class InicioSesionPass1 extends AppCompatActivity {
                 triangulo.setContentDescription(getResources().getString(R.string.imagen_de_tri_ngulo));
 
                 passPaso1 = "Estrella";
+
+                botonSiguiente.setEnabled(true);
             }
         });
 
-        //Boton cuadrado
+        //Boton Cuadrado
         cuadrado.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 cambiarEstadoSelección(circuloSeleccionado, false);
@@ -89,6 +110,8 @@ public class InicioSesionPass1 extends AppCompatActivity {
                 triangulo.setContentDescription(getResources().getString(R.string.imagen_de_tri_ngulo));
 
                 passPaso1 = "Cuadrado";
+
+                botonSiguiente.setEnabled(true);
             }
         });
 
@@ -109,13 +132,23 @@ public class InicioSesionPass1 extends AppCompatActivity {
                 triangulo.setContentDescription(getResources().getString(R.string.boton_tri_ngulo_seleccionado));
 
                 passPaso1 = "Triangulo";
+
+                botonSiguiente.setEnabled(true);
+            }
+        });
+
+        botonSiguiente.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                siguientePantallaPass();
             }
         });
     }
 
     private void siguientePantallaPass() {
-        //Intent intent = new Intent(this, InicioSesionPass.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, InicioSesionPass2.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("pass1", passPaso1);
+        startActivity(intent);
     }
 
     private void cambiarEstadoSelección(ImageView imagen, boolean estado){
@@ -125,5 +158,14 @@ public class InicioSesionPass1 extends AppCompatActivity {
         else{
             imagen.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+
     }
 }

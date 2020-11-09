@@ -40,7 +40,7 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
     class IniciaSesion extends AsyncTask<String, String, JSONObject> {
         private final static String URL = "existe-usuario";
         private JSONParser jsonParser = new JSONParser();
-        private Boolean errorInicio = false;
+        private Boolean errorInicio = true;
 
         @Override
         protected void onPreExecute() {
@@ -105,6 +105,7 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
 
     private void pantallaPassword() {
         Intent intent = new Intent(this, InicioSesionPass1.class);
+        intent.putExtra("usuario", usuario);
         startActivity(intent);
     }
 }

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             // Login contraseña
-            inicioSesionPass();
+            inicioSesionPass(nombreUsuario);
         }
     }
 
@@ -32,8 +32,18 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void inicioSesionPass() {
+    private void inicioSesionPass(String usuario) {
         Intent intent = new Intent(this, InicioSesionPass1.class);
+        intent.putExtra("usuario", usuario);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+
     }
 }

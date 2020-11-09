@@ -14,8 +14,8 @@
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="@string/elige_tu_imagen"
-        android:textSize="36sp"
         android:textColor="#000"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
@@ -25,42 +25,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageButton
-        android:id="@+id/irPass2"
-        android:layout_width="63dp"
-        android:layout_height="49dp"
-        android:background="#000000"
-        android:contentDescription="@string/bot_n_para_ir_al_siguiente_paso"
-        android:rotation="180"
-        android:scaleType="fitCenter"
-        android:scaleX="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.824"
-        app:srcCompat="@drawable/abc_vector_test" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="@string/siguiente"
-        android:fontFamily="@font/roboto_medium"
-        android:textSize="24sp"
-        android:textColor="#000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/irPass2" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="306dp"
         android:layout_height="304dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/irPass2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/errorNombreUsuario">
@@ -208,6 +178,37 @@
             android:layout_height="64dp"
             android:contentDescription="@string/imagen_del_paso_5_no_marcada"
             app:srcCompat="@android:drawable/radiobutton_off_background" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="164dp"
+        android:layout_height="84dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/irPass2"
+            android:layout_width="63dp"
+            android:layout_height="49dp"
+            android:background="#000000"
+            android:contentDescription="@string/bot_n_para_ir_al_siguiente_paso"
+            android:rotation="180"
+            android:scaleType="fitCenter"
+            android:scaleX="1"
+            app:srcCompat="@drawable/abc_vector_test" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/siguiente"
+            android:textColor="#000"
+            android:textSize="24sp" />
     </LinearLayout>
 
 
