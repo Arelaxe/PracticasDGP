@@ -7,7 +7,7 @@
             $desvinculacion['user_facilitador'] = $_SESSION['usuario'];
             $desvinculacion['user_socio'] = $_POST['socioAVincular'];
             $jsonDesvinculacion = json_encode($desvinculacion);
-            desvincularSocioApi($jsonVinculacion);
+            desvincularSocioApi($jsonDesvinculacion);
 
             header('Location: ../mis_socios.php');
         }

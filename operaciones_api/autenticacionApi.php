@@ -295,12 +295,10 @@ function desvincularSocioApi($jsonInfoUsuario){
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
    // Execute the POST request
-   $result = curl_exec($ch);
+   curl_exec($ch);
 
    // Close cURL resource
    curl_close($ch);
-   $result = json_decode($result);
-   return $result;  
 }
 
 function crearGrupoApi($jsonInfoGrupo){

@@ -3,12 +3,11 @@
 
         //Lista de socios no vinculados
     function listadoSociosNoVinculados($jsonInfo){
-         $listaSocios = listadoSociosNoVinculadosApi($jsonInfo)[0];
+        $listaSocios = listadoSociosNoVinculadosApi($jsonInfo);
 
         $listaInfoSocios = array();        
         foreach($listaSocios as $i){
-            $infoUsuario = array();
-            $infoUsuario['username'] = $i;
+            $infoUsuario = $i;
             $jsonInfoUsuario = json_encode($infoUsuario);
             $infoUsuario = obtenerInfoUsuariosApi($jsonInfoUsuario);
             foreach($infoUsuario as $ocurrencia){

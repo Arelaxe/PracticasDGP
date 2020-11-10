@@ -20,7 +20,6 @@
             $infoUserJson = json_encode($infoUser);
             $perfilSocio = obtenerInfoUsuariosApi($infoUserJson);
             $nombreSocio = $perfilSocio[0]->nombre;
-            var_dump($nombreSocio);
 
             array_push($listado_nombres, $nombreSocio);
 		}
