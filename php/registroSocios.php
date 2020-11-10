@@ -15,9 +15,15 @@
 
         $jsoninfoRegistro = json_encode($infoRegistro);
 
-        registroApi($jsoninfoRegistro);
+        $result = registroApi($jsoninfoRegistro);
+            $result = json_decode($result);
 
-        header('Location: ../perfil.php?username='.$infoRegistro['username']);
-    }
+            if ($result->name == "MongoError" && $result->code == 11000){
+                header("Location: ../registrosocios.php?error=11000");  
+		    }
+            else{
+                header('Location: ../perfil.php?username='.$infoRegistro['username']);
+		    }
+     }
     }
 ?>
