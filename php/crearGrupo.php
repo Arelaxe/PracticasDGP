@@ -13,7 +13,6 @@
             $jsoninfoGrupo = json_encode($infoGrupo);
 
             $result = crearGrupoApi($jsoninfoGrupo);
-            var_dump($result);
             $result = json_encode($result);
             $result = json_decode($result);
 
@@ -22,7 +21,6 @@
 		    }
             else{
                 header("Location: ../mis_grupos.php");
-                var_dump($result);
 		    }
         }
     }

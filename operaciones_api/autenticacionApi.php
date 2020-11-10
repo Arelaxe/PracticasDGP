@@ -127,6 +127,57 @@ function listadoTareasApi($jsonInfoFacilitador){
      return $result;
 }
 
+function misGruposApi($jsonInfoFacilitador){
+    // API URL
+     $url = 'http://localhost:5000/mis-grupos';
+
+      // Create a new cURL resource
+     $ch = curl_init($url);
+
+     // Attach encoded JSON string to the POST fields
+     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoFacilitador);
+
+     // Set the content type to application/json
+     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+     // Return response instead of outputting
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+     // Execute the POST request
+     $result = curl_exec($ch);
+
+     // Close cURL resource
+     curl_close($ch);
+     $result = json_decode($result);
+     return $result;
+}
+
+function infoGrupoApi($jsonInfo){
+    // API URL
+     $url = 'http://localhost:5000/info-grupo';
+
+      // Create a new cURL resource
+     $ch = curl_init($url);
+
+     // Attach encoded JSON string to the POST fields
+     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfo);
+
+     // Set the content type to application/json
+     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+     // Return response instead of outputting
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+     // Execute the POST request
+     $result = curl_exec($ch);
+
+     // Close cURL resource
+     curl_close($ch);
+     $result = json_decode($result);
+     return $result;
+}
+
+
 function misSociosApi($jsonInfoFacilitador){
     // API URL
      $url = 'http://localhost:5000/mis-socios';
@@ -254,51 +305,99 @@ function obtenerInfoUsuariosApi($jsonInfoUsuario){
 }
 
 function vincularSocioApi($jsonInfoUsuario){
+    /*VINCULAR FACILITADOR A SOCIO*/
+
     // API URL
-    $url = 'http://localhost:5000/vincular-socio';
+    $url = 'http://localhost:5000/vincular-facilitador-socio';
 
     // Create a new cURL resource
-   $ch = curl_init($url);
+    $ch = curl_init($url);
 
-   // Attach encoded JSON string to the POST fields
-   curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoUsuario);
+    // Attach encoded JSON string to the POST fields
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoUsuario);
 
-   // Set the content type to application/json
-   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    // Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 
-   // Return response instead of outputting
-   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // Return response instead of outputting
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-   // Execute the POST request
-   $result = curl_exec($ch);
+    // Execute the POST request
+    $result = curl_exec($ch);
 
-   // Close cURL resource
-   curl_close($ch);
-   $result = json_decode($result);
-   return $result;  
+    // Close cURL resource
+    curl_close($ch);
+
+    /*VINCULAR SOCIO A FACILITADOR*/
+
+    // API URL
+    $url = 'http://localhost:5000/vincular-socio-facilitador';
+
+    // Create a new cURL resource
+    $ch = curl_init($url);
+
+    // Attach encoded JSON string to the POST fields
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoUsuario);
+
+    // Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+    // Return response instead of outputting
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // Execute the POST request
+    $result = curl_exec($ch);
+
+    // Close cURL resource
+    curl_close($ch);
 }
 
 function desvincularSocioApi($jsonInfoUsuario){
+    /* DESVINCULAR FACILITADOR CON SOCIO */
+
     // API URL
-    $url = 'http://localhost:5000/desvincular-socio';
+    $url = 'http://localhost:5000/desvincular-facilitador-socio';
 
     // Create a new cURL resource
-   $ch = curl_init($url);
+    $ch = curl_init($url);
 
-   // Attach encoded JSON string to the POST fields
-   curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoUsuario);
+    // Attach encoded JSON string to the POST fields
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoUsuario);
 
-   // Set the content type to application/json
-   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    // Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 
-   // Return response instead of outputting
-   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // Return response instead of outputting
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-   // Execute the POST request
-   curl_exec($ch);
+    // Execute the POST request
+    curl_exec($ch);
 
-   // Close cURL resource
-   curl_close($ch);
+    // Close cURL resource
+    curl_close($ch);
+
+    /* DESVINCULAR SOCIO CON FACILITADOR */
+
+    // API URL
+    $url = 'http://localhost:5000/desvincular-socio-facilitador';
+
+     // Create a new cURL resource
+    $ch = curl_init($url);
+
+    // Attach encoded JSON string to the POST fields
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoUsuario);
+
+    // Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+    // Return response instead of outputting
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // Execute the POST request
+    curl_exec($ch);
+
+    // Close cURL resource
+    curl_close($ch);
 }
 
 function crearGrupoApi($jsonInfoGrupo){
@@ -323,6 +422,31 @@ function crearGrupoApi($jsonInfoGrupo){
    // Close cURL resource
    curl_close($ch);
    $result = json_decode($result);
+   return $result;
+}
+
+function eliminarGrupoApi($jsonInfoGrupo){
+    // API URL
+    $url = 'http://localhost:5000/eliminar-grupo';
+
+    // Create a new cURL resource
+   $ch = curl_init($url);
+
+   // Attach encoded JSON string to the POST fields
+   curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoGrupo);
+
+   // Set the content type to application/json
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+   // Return response instead of outputting
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+   // Execute the POST request
+   $result = curl_exec($ch);
+
+   // Close cURL resource
+   curl_close($ch);
+
    return $result;
 }
 

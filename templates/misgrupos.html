@@ -1,0 +1,34 @@
+{%extends "base.html"%}
+
+{%block titulo%}Mis grupos{%endblock%}
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Menú principal</li>
+<li class="breadcrumb-item active">Mis Grupos</li>
+{%endblock%}
+
+
+{%block cuerpo%}
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 titulo">
+        <h2>Mis Grupos</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="offset-lg-2 col-lg-8 sombreado">
+        <table class="table table-hover table-responsive">
+            <tbody>
+                {% for grupo in listadoGrupos %}
+                <tr>
+                    <td scope="row" class="td1">{{ grupo.nombre }}</td>
+                    <td class="tdx"><button class="btn btn-warning bt1">EDITAR</button></td>
+                    <td class="tdx"><button class="btn btn-danger bt1">ELIMINAR</button></td>
+                    <td class="tdx"><button class="btn btn-success bt1">AÑADIR SOCIOS</button></td>
+                    <td class="tdn"><a href="./perfil_grupo.php?nombre={{grupo.nombre}}&facilitadorACargo={{grupo.facilitador}}">►</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock%}
