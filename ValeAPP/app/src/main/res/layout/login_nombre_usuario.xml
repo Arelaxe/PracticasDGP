@@ -6,6 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".InicioSesionNombreUsuario">
 
+    <ImageButton
+        android:id="@+id/siguienteLoginNombreUsuario"
+        android:layout_width="150dp"
+        android:layout_height="133dp"
+        android:layout_marginBottom="132dp"
+        android:background="#000000"
+        android:contentDescription="@string/bot_n_para_comprobar_el_nombre_de_usuario"
+        android:rotation="-180"
+        android:scaleType="fitCenter"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/abc_vector_test" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:contentDescription="@string/texto_del_bot_n_para_ir_al_siguiente_paso"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/siguiente"
+        android:textColor="#000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/siguienteLoginNombreUsuario"
+        app:layout_constraintVertical_bias="0.144" />
+
     <TextView
         android:id="@+id/eligeImagen"
         android:layout_width="375dp"
@@ -35,17 +68,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/siguienteLoginNombreUsuario"
-        android:layout_width="129dp"
-        android:layout_height="72dp"
-        android:contentDescription="@string/bot_n_para_comprobar_el_nombre_de_usuario"
-        android:text="@string/siguiente"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuario"
-        app:layout_constraintVertical_bias="0.321" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

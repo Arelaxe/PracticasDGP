@@ -25,6 +25,7 @@ public class InicioSesionPass5 extends AppCompatActivity {
     private String passPaso5;
     private String passCodificada = "";
     private String usuario;
+    private Boolean nombreDeUsuarioIncorrecto = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,9 +224,14 @@ public class InicioSesionPass5 extends AppCompatActivity {
                     else if (json.getInt("exito") == 1) {
                         errorInicio = false;
                     }
+                    else if (json.getInt("exito") == 2){
+                        errorInicio = true;
+                        nombreDeUsuarioIncorrecto = true;
+                    }
 
                     return json;
                 }
+
             } catch (Exception e) {
 
                 e.printStackTrace();
@@ -245,7 +251,12 @@ public class InicioSesionPass5 extends AppCompatActivity {
             }
             else {
                 //Ir a pantalla de error
-                pantallaErrorPassword();
+                if (nombreDeUsuarioIncorrecto){
+                    pantallaErrorUsuario();
+                }
+                else {
+                    pantallaErrorPassword();
+                }
             }
         }
     }
@@ -258,6 +269,11 @@ public class InicioSesionPass5 extends AppCompatActivity {
     private void pantallaErrorPassword(){
         Intent intent = new Intent(this, ErrorPass.class);
         intent.putExtra("usuario", usuario);
+        startActivity(intent);
+    }
+
+    private void pantallaErrorUsuario(){
+        Intent intent = new Intent(this, ErrorNombreUsuario.class);
         startActivity(intent);
     }
 
