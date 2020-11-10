@@ -371,3 +371,22 @@ app.post("/crear-grupo", (request, response) => {
     });
 });
 
+/******************************************************/
+// Eliminar grupo
+/******************************************************/
+app.post("/eliminar-grupo", (request, response) => {
+    collectionGrupos.deleteOne({ "nombre": request.body.nombreGrupo, "facilitadorACargo": request.body.username }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
+        }
+        else {
+            var jsonRespuestaCorrecta = JSON.parse('{"exito":1}');
+            response.send(jsonRespuestaCorrecta);
+        }
+    });
+});
+
