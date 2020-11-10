@@ -350,9 +350,9 @@ app.post("/facilitadores-a-cargo", (request, response) => {
 });
 
 /******************************************************/
-// Vincular facilitadores y usuarios
+// Vincular socio a facilitador
 /******************************************************/
-app.post("/vincular-socio", (request, response) => {
+app.post("/vincular-socio-facilitador", (request, response) => {
     collectionUsuarios.updateOne({ "username":request.body.user_facilitador }, {"$push": {"sociosACargo": request.body.user_socio} }, (error, result) => {
         if (error) {
             //return response.status(500).send(error);
@@ -364,7 +364,12 @@ app.post("/vincular-socio", (request, response) => {
             response.send(result);
         }
     });
+});
 
+/******************************************************/
+// Vincular facilitador a socio
+/******************************************************/
+app.post("/vincular-facilitador-socio", (request, response) => {
     collectionUsuarios.updateOne({ "username":request.body.user_socio }, {"$push": {"facilitadoresACargo": request.body.user_facilitador} }, (error, result) => {
         if (error) {
             //return response.status(500).send(error);
@@ -379,15 +384,36 @@ app.post("/vincular-socio", (request, response) => {
 });
 
 /******************************************************/
-// Desvincular facilitadores y usuarios
+// Desvincular socio con facilitador
 /******************************************************/
-app.post("/desvincular-socio", (request, response) => {
+app.post("/desvincular-socio-facilitador", (request, response) => {
     collectionUsuarios.updateOne({ "username":request.body.user_facilitador }, {"$pull": {"sociosACargo": request.body.user_socio} }, (error, result) => {
-        result.send("ok!");
+        if (error) {
+            //return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el socio");
+        }
+        else {
+            response.send(result);
+        }
     });
+});
 
+/******************************************************/
+// Desvincular facilitador con socio
+/******************************************************/
+app.post("/desvincular-facilitador-socio", (request, response) => {
     collectionUsuarios.updateOne({ "username":request.body.user_socio }, {"$pull": {"facilitadoresACargo": request.body.user_facilitador} }, (error, result) => {
-        result.send("ok!");
+        if (error) {
+            //return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el socio");
+        }
+        else {
+            response.send(result);
+        }
     });
 });
 
