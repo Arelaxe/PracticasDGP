@@ -17,6 +17,8 @@
         <activity android:name=".InicioSesionPass4"></activity>
         <activity android:name=".InicioSesionPass5"></activity>
         <activity android:name=".ErrorNombreUsuario"></activity>
+        <activity android:name=".ErrorPass"></activity>
+        <activity android:name=".ExitoPass"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

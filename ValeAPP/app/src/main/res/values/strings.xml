@@ -68,5 +68,18 @@
     <string name="imagen_del_paso_4_marcada">Imagen del paso 4 marcada</string>
     <string name="imagen_del_paso_5_marcada_paso_actual">imagen del paso 5 marcada paso actual</string>
     <string name="texto_de_bot_n_para_comprobar_la_contrase_a">Texto de botón para comprobar la contraseña</string>
+    <string name="imagen_de_una_pelota">Imagen de una pelota</string>
+    <string name="imagen_de_un_yoy">Imagen de un yoyó</string>
+    <string name="imagen_de_un_mu_eco">Imagen de un muñeco</string>
+    <string name="imagen_de_unos_bloques">Imagen de unos bloques</string>
+    <string name="pelota_seleccionada">pelota seleccionada</string>
+    <string name="yoy_seleccionado">Yoyó seleccionado</string>
+    <string name="mu_eco_seleccionado">Muñeco seleccionado</string>
+    <string name="bloques_seleccionados">Bloques seleccionados</string>
+    <string name="bot_n_para_comprobar_la_contrase_a">Botón para comprobar la contraseña</string>
+    <string name="error_en_la_contrase_a">Error en la contraseña</string>
+    <string name="imagen_de_error_en_la_contrase_a">Imagen de error en la contraseña</string>
+    <string name="bien_hecho_entrando_a_tu_cuenta">¡Bien hecho! Entrando a tu cuenta</string>
+    <string name="bot_n_que_permite_ir_a_la_pantalla_para_introducir_la_contrase_a">Botón que permite ir a la pantalla para introducir la contraseña</string>
 
 </resources>

@@ -1,12 +1,21 @@
 package com.example.valeapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 public class InicioSesionPass5 extends AppCompatActivity {
     private String passPaso1;
@@ -14,6 +23,7 @@ public class InicioSesionPass5 extends AppCompatActivity {
     private String passPaso3;
     private String passPaso4;
     private String passPaso5;
+    private String passCodificada = "";
     private String usuario;
 
     @Override
@@ -30,117 +40,117 @@ public class InicioSesionPass5 extends AppCompatActivity {
         passPaso4 = bundle.getString("pass4");
 
         ImageView pelotaSeleccionada = findViewById(R.id.pelotaSeleccionada);
-        ImageView yoyoSeleccionada = findViewById(R.id.yoyoSeleccionada);
+        ImageView yoyoSeleccionado = findViewById(R.id.yoyoSeleccionado);
         ImageView munecoSeleccionado = findViewById(R.id.munecoSeleccionado);
         ImageView bloquesSeleccionados = findViewById(R.id.bloquesSeleccionados);
 
-        cambiarEstadoSelección(cocheSeleccionado, false);
-        cambiarEstadoSelección(motoSeleccionada, false);
-        cambiarEstadoSelección(bicicletaSeleccionada, false);
-        cambiarEstadoSelección(helicopteroSeleccionado, false);
+        cambiarEstadoSelección(pelotaSeleccionada, false);
+        cambiarEstadoSelección(yoyoSeleccionado, false);
+        cambiarEstadoSelección(munecoSeleccionado, false);
+        cambiarEstadoSelección(bloquesSeleccionados, false);
 
 
-        final ImageButton coche = findViewById(R.id.Coche);
-        final ImageButton moto = findViewById(R.id.Moto);
-        final ImageButton bicicleta = findViewById(R.id.Bicicleta);
-        final ImageButton helicoptero = findViewById(R.id.Helicoptero);
+        final ImageButton pelota = findViewById(R.id.Pelota);
+        final ImageButton yoyo = findViewById(R.id.Yoyo);
+        final ImageButton muneco= findViewById(R.id.Muneco);
+        final ImageButton bloques = findViewById(R.id.Bloques);
         final ImageButton botonSiguiente = findViewById(R.id.irPass5);
         final ImageButton botonAnterior = findViewById(R.id.irPass3);
 
         botonSiguiente.setEnabled(false);
-        coche.setEnabled(true);
-        moto.setEnabled(true);
-        bicicleta.setEnabled(true);
-        helicoptero.setEnabled(true);
+        pelota.setEnabled(true);
+        yoyo.setEnabled(true);
+        muneco.setEnabled(true);
+        bloques.setEnabled(true);
 
-        coche.setContentDescription(getResources().getString(R.string.imagen_de_un_coche));
-        moto.setContentDescription(getResources().getString(R.string.imagen_de_una_moto));
-        bicicleta.setContentDescription(getResources().getString(R.string.imagen_de_una_bicicleta));
-        helicoptero.setContentDescription(getResources().getString(R.string.imagen_de_un_helicoptero));
+        pelota.setContentDescription(getResources().getString(R.string.imagen_de_una_pelota));
+        yoyo.setContentDescription(getResources().getString(R.string.imagen_de_un_yoy));
+        muneco.setContentDescription(getResources().getString(R.string.imagen_de_un_mu_eco));
+        bloques.setContentDescription(getResources().getString(R.string.imagen_de_unos_bloques));
 
-        //Boton coche
-        coche.setOnClickListener(new View.OnClickListener() {
+        //Boton pelota
+        pelota.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                cambiarEstadoSelección(cocheSeleccionado, true);
-                coche.setEnabled(false);
-                coche.setContentDescription(getResources().getString(R.string.coche_seleccionado));//
-                cambiarEstadoSelección(motoSeleccionada, false);
-                moto.setEnabled(true);
-                moto.setContentDescription(getResources().getString(R.string.imagen_de_una_moto));
-                cambiarEstadoSelección(bicicletaSeleccionada, false);
-                bicicleta.setEnabled(true);
-                bicicleta.setContentDescription(getResources().getString(R.string.imagen_de_una_bicicleta));
-                cambiarEstadoSelección(helicopteroSeleccionado, false);
-                helicoptero.setEnabled(true);
-                helicoptero.setContentDescription(getResources().getString(R.string.imagen_de_un_helicoptero));
+                cambiarEstadoSelección(pelotaSeleccionada, true);
+                pelota.setEnabled(false);
+                pelota.setContentDescription(getResources().getString(R.string.pelota_seleccionada));//
+                cambiarEstadoSelección(yoyoSeleccionado, false);
+                yoyo.setEnabled(true);
+                yoyo.setContentDescription(getResources().getString(R.string.imagen_de_un_yoy));
+                cambiarEstadoSelección(munecoSeleccionado, false);
+                muneco.setEnabled(true);
+                muneco.setContentDescription(getResources().getString(R.string.imagen_de_un_mu_eco));
+                cambiarEstadoSelección(bloquesSeleccionados, false);
+                bloques.setEnabled(true);
+                bloques.setContentDescription(getResources().getString(R.string.imagen_de_unos_bloques));
 
-                passPaso3 = "Coche";
+                passPaso5 = "Pelota";
 
                 botonSiguiente.setEnabled(true);
             }
         });
 
-        //Boton moto
-        moto.setOnClickListener(new View.OnClickListener() {
+        //Boton Yoyo
+        yoyo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                cambiarEstadoSelección(cocheSeleccionado, false);
-                coche.setEnabled(true);
-                coche.setContentDescription(getResources().getString(R.string.imagen_de_un_coche));
-                cambiarEstadoSelección(motoSeleccionada, true);
-                moto.setEnabled(false);
-                moto.setContentDescription(getResources().getString(R.string.moto_seleccionada));
-                cambiarEstadoSelección(bicicletaSeleccionada, false);
-                bicicleta.setEnabled(true);
-                bicicleta.setContentDescription(getResources().getString(R.string.imagen_de_una_bicicleta));
-                cambiarEstadoSelección(helicopteroSeleccionado, false);
-                helicoptero.setEnabled(true);
-                helicoptero.setContentDescription(getResources().getString(R.string.imagen_de_un_helicoptero));
+                cambiarEstadoSelección(pelotaSeleccionada, false);
+                pelota.setEnabled(true);
+                pelota.setContentDescription(getResources().getString(R.string.imagen_de_una_pelota));
+                cambiarEstadoSelección(yoyoSeleccionado, true);
+                yoyo.setEnabled(false);
+                yoyo.setContentDescription(getResources().getString(R.string.yoy_seleccionado));
+                cambiarEstadoSelección(munecoSeleccionado, false);
+                muneco.setEnabled(true);
+                muneco.setContentDescription(getResources().getString(R.string.imagen_de_un_mu_eco));
+                cambiarEstadoSelección(bloquesSeleccionados, false);
+                bloques.setEnabled(true);
+                bloques.setContentDescription(getResources().getString(R.string.imagen_de_unos_bloques));
 
-                passPaso3 = "Moto";
+                passPaso5 = "Yoyo";
 
                 botonSiguiente.setEnabled(true);
             }
         });
 
-        //Boton bicicleta
-        bicicleta.setOnClickListener(new View.OnClickListener() {
+        //Boton muneco
+        muneco.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                cambiarEstadoSelección(cocheSeleccionado, false);
-                coche.setEnabled(true);
-                coche.setContentDescription(getResources().getString(R.string.imagen_de_un_coche));
-                cambiarEstadoSelección(motoSeleccionada, false);
-                moto.setEnabled(true);
-                moto.setContentDescription(getResources().getString(R.string.imagen_de_una_moto));
-                cambiarEstadoSelección(bicicletaSeleccionada, true);
-                bicicleta.setEnabled(false);
-                bicicleta.setContentDescription(getResources().getString(R.string.bicicleta_seleccionada));
-                cambiarEstadoSelección(helicopteroSeleccionado, false);
-                helicoptero.setEnabled(true);
-                helicoptero.setContentDescription(getResources().getString(R.string.imagen_de_un_helicoptero));
+                cambiarEstadoSelección(pelotaSeleccionada, false);
+                pelota.setEnabled(true);
+                pelota.setContentDescription(getResources().getString(R.string.imagen_de_una_pelota));
+                cambiarEstadoSelección(yoyoSeleccionado, false);
+                yoyo.setEnabled(true);
+                yoyo.setContentDescription(getResources().getString(R.string.imagen_de_un_yoy));
+                cambiarEstadoSelección(munecoSeleccionado, true);
+                muneco.setEnabled(false);
+                muneco.setContentDescription(getResources().getString(R.string.mu_eco_seleccionado));
+                cambiarEstadoSelección(bloquesSeleccionados, false);
+                bloques.setEnabled(true);
+                bloques.setContentDescription(getResources().getString(R.string.imagen_de_unos_bloques));
 
-                passPaso3 = "Bicicleta";
+                passPaso5 = "Muneco";
 
                 botonSiguiente.setEnabled(true);
             }
         });
 
-        //Boton helicoptero
-        helicoptero.setOnClickListener(new View.OnClickListener() {
+        //Boton bloques
+        bloques.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                cambiarEstadoSelección(cocheSeleccionado, false);
-                coche.setEnabled(true);
-                coche.setContentDescription(getResources().getString(R.string.imagen_de_un_coche));
-                cambiarEstadoSelección(motoSeleccionada, false);
-                moto.setEnabled(true);
-                moto.setContentDescription(getResources().getString(R.string.imagen_de_una_moto));
-                cambiarEstadoSelección(bicicletaSeleccionada, false);
-                bicicleta.setEnabled(true);
-                bicicleta.setContentDescription(getResources().getString(R.string.imagen_de_una_bicicleta));
-                cambiarEstadoSelección(helicopteroSeleccionado, true);
-                helicoptero.setEnabled(false);
-                helicoptero.setContentDescription(getResources().getString(R.string.helicoptero_seleccionado));
+                cambiarEstadoSelección(pelotaSeleccionada, false);
+                pelota.setEnabled(true);
+                pelota.setContentDescription(getResources().getString(R.string.imagen_de_una_pelota));
+                cambiarEstadoSelección(yoyoSeleccionado, false);
+                yoyo.setEnabled(true);
+                yoyo.setContentDescription(getResources().getString(R.string.imagen_de_un_yoy));
+                cambiarEstadoSelección(munecoSeleccionado, false);
+                muneco.setEnabled(true);
+                muneco.setContentDescription(getResources().getString(R.string.imagen_de_un_mu_eco));
+                cambiarEstadoSelección(bloquesSeleccionados, true);
+                bloques.setEnabled(false);
+                bloques.setContentDescription(getResources().getString(R.string.bloques_seleccionados));
 
-                passPaso3 = "Helicoptero";
+                passPaso5 = "Bloques";
 
                 botonSiguiente.setEnabled(true);
             }
@@ -160,17 +170,14 @@ public class InicioSesionPass5 extends AppCompatActivity {
     }
 
     private void siguientePantallaPass() {
-        /*Intent intent = new Intent(this, InicioSesionPass5.class);
-        intent.putExtra("usuario", usuario);
-        intent.putExtra("pass1", passPaso1);
-        intent.putExtra("pass2", passPaso2);
-        intent.putExtra("pass3", passPaso3);
-        intent.putExtra("pass4", passPaso4);
-        startActivity(intent);*/
+        codificarPassword();
+        //Comprobar contraseña con servidor
+        new IniciaSesionPass().execute();
+
     }
 
     private void  anteriorPantallaPass(){
-        Intent intent = new Intent(this, InicioSesionPass3.class);
+        Intent intent = new Intent(this, InicioSesionPass4.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("pass1", passPaso1);
         intent.putExtra("pass2", passPaso2);
@@ -185,6 +192,98 @@ public class InicioSesionPass5 extends AppCompatActivity {
         else{
             imagen.setVisibility(View.INVISIBLE);
         }
+    }
+
+    class IniciaSesionPass extends AsyncTask<String, String, JSONObject> {
+        private final static String URL = "login-socios";
+        private JSONParser jsonParser = new JSONParser();
+        private Boolean errorInicio = true;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected JSONObject doInBackground(String... args) {
+
+            try {
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("username", usuario);
+                params.put("passwd", passCodificada);
+                Log.d("request", "starting");
+
+                JSONObject json = jsonParser.makeHttpRequest(URL, "POST", params, "");
+
+                if (json != null) {
+                    Log.d("JSON result:   ", json.toString());
+
+                    if (json.getInt("exito") == 0)
+                        errorInicio = true;
+                    else if (json.getInt("exito") == 1) {
+                        errorInicio = false;
+                    }
+
+                    return json;
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result){
+            super.onPostExecute(result);
+
+            if(!errorInicio){
+                //Pasar datos necesarios (usuario)
+                //Ir a pantalla de éxito
+                pantallaExitoPassword();
+            }
+            else {
+                //Ir a pantalla de error
+                pantallaErrorPassword();
+            }
+        }
+    }
+
+    private void pantallaExitoPassword(){
+        Intent intent = new Intent(this, ExitoPass.class);
+        startActivity(intent);
+    }
+
+    private void pantallaErrorPassword(){
+        Intent intent = new Intent(this, ErrorPass.class);
+        intent.putExtra("usuario", usuario);
+        startActivity(intent);
+    }
+
+    private void codificarPassword(){
+        String password = passPaso1+passPaso2+passPaso3+passPaso4+passPaso5;
+        System.out.println(password);
+        passCodificada = md5(password);
+    }
+
+    public String md5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (int i=0; i<messageDigest.length; i++)
+                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+
+            return hexString.toString();
+        }catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override

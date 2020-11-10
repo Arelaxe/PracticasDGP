@@ -124,7 +124,7 @@
                 android:layout_width="63dp"
                 android:layout_height="49dp"
                 android:background="#000000"
-                android:contentDescription="@string/bot_n_para_ir_al_siguiente_paso"
+                android:contentDescription="@string/bot_n_para_comprobar_la_contrase_a"
                 android:rotation="180"
                 android:scaleType="fitCenter"
                 android:scaleX="1"
@@ -160,20 +160,20 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/Coche"
+                android:id="@+id/Pelota"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/imagen_de_un_coche"
+                android:contentDescription="@string/imagen_de_una_pelota"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/coche" />
+                app:srcCompat="@drawable/pelota" />
 
             <ImageButton
-                android:id="@+id/Moto"
+                android:id="@+id/Yoyo"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/imagen_de_una_moto"
+                android:contentDescription="@string/imagen_de_un_yoy"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/moto" />
+                app:srcCompat="@drawable/yoyo" />
         </LinearLayout>
 
         <LinearLayout
@@ -182,20 +182,20 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/Bicicleta"
+                android:id="@+id/Muneco"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/imagen_de_una_bicicleta"
+                android:contentDescription="@string/imagen_de_un_mu_eco"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/bicicleta" />
+                app:srcCompat="@drawable/muneco" />
 
             <ImageButton
-                android:id="@+id/Helicoptero"
+                android:id="@+id/Bloques"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/imagen_de_un_helicoptero"
+                android:contentDescription="@string/imagen_de_unos_bloques"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/helicoptero" />
+                app:srcCompat="@drawable/bloques" />
         </LinearLayout>
     </LinearLayout>
 
@@ -214,17 +214,17 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/cocheSeleccionado"
+                android:id="@+id/pelotaSeleccionada"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/coche_seleccionado"
+                android:contentDescription="@string/pelota_seleccionada"
                 app:srcCompat="@drawable/tick" />
 
             <ImageView
-                android:id="@+id/motoSeleccionada"
+                android:id="@+id/yoyoSeleccionado"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/moto_seleccionada"
+                android:contentDescription="@string/yoy_seleccionado"
                 app:srcCompat="@drawable/tick" />
         </LinearLayout>
 
@@ -234,17 +234,17 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/bicicletaSeleccionada"
+                android:id="@+id/munecoSeleccionado"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/bicicleta_seleccionada"
+                android:contentDescription="@string/mu_eco_seleccionado"
                 app:srcCompat="@drawable/tick" />
 
             <ImageView
-                android:id="@+id/helicopteroSeleccionado"
+                android:id="@+id/bloquesSeleccionados"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/helicoptero_seleccionado"
+                android:contentDescription="@string/bloques_seleccionados"
                 app:srcCompat="@drawable/tick" />
         </LinearLayout>
     </LinearLayout>
