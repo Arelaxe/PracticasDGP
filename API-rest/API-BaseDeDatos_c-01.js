@@ -503,3 +503,20 @@ app.get("/listado-grupos", (request, response) => {
         }
     });
 });
+
+/******************************************************/
+// Eliminar grupo
+/******************************************************/
+app.post("/eliminar-grupo", (request, response) => {
+    collectionGrupos.removeOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo": request.body.nombre_facilitador }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Este grupo no existe o no se puede eliminar");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
