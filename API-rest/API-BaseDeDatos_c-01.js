@@ -74,6 +74,38 @@ app.post("/login", (request, response) => {
 });
 
 /******************************************************/
+// Login Socios
+/******************************************************/
+app.post("/login-socio", (request, response) => {
+
+    collectionUsuarios.findOne({ "rol" : "socio", "username":request.body.username }, (error, result) => {
+        if(error) {
+            return response.status(500).send(error);
+        }
+        if (result == "") { //Comprobación adicional que nunca debe fallar (la comprobación del usuario se realiza en pasos anteriores)
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":2}'); //Fallo del usuario
+            response.send(jsonRespuestaIncorrecta);
+        }
+        else{
+            collectionUsuarios.findOne({ "rol" : "socio", "username":request.body.username,"password":request.body.passwd }, (errorPass, resultPass) => {
+                if(errorPass) {
+                    return response.status(500).send(errorPass);
+                }
+                if (resultPass == ""){
+                    var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}'); //Fallo de la contraseña
+                    response.send(jsonRespuestaIncorrecta);
+                }
+                else{
+                    var jsonRespuestaCorrecta = JSON.parse('{"exito":1}');
+                    response.send(jsonRespuestaCorrecta); //Exito en login
+                }
+            }
+        );
+        }
+    });
+});
+
+/******************************************************/
 // Listado administradores
 /******************************************************/
 app.get("/listado-administradores", (request, response) => {
@@ -338,3 +370,4 @@ app.post("/crear-grupo", (request, response) => {
         }
     });
 });
+
