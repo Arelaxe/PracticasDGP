@@ -335,7 +335,7 @@ app.post("/info-usuario", (request, response) => {
 /******************************************************/
 // Facilitadores a cargo
 /******************************************************/
-app.get("/facilitadores-a-cargo", (request, response) => {
+app.post("/facilitadores-a-cargo", (request, response) => {
     collectionUsuarios.find({ "username": request.body.user_socio }, {"_id": 0, "facilitadoresACargo": 1}).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
@@ -423,6 +423,57 @@ app.post("/eliminar-grupo", (request, response) => {
         else {
             var jsonRespuestaCorrecta = JSON.parse('{"exito":1}');
             response.send(jsonRespuestaCorrecta);
+        }
+    });
+});
+
+/******************************************************/
+// Mis grupos
+/******************************************************/
+app.post("/mis-grupos", (request, response) => {
+    collectionGrupos.find({ "facilitadorACargo": request.body.username }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("¡Aún no has creado grupos!");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Info grupos
+/******************************************************/
+app.post("/info-grupo", (request, response) => {
+    collectionGrupos.find({ "nombre": request.body.nombreGrupo, "facilitadorACargo": request.body.facilitadorACargo }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el grupo");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Listado grupos
+/******************************************************/
+app.get("/listado-grupos", (request, response) => {
+    collectionGrupos.find({ }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("¡Aún no has creado grupos!");
+        }
+        else {
+            response.send(result);
         }
     });
 });
