@@ -34,6 +34,10 @@
             else{
 
             }
+
+            if($infoUsuario['rol'] == "admin" || $infoUsuario['rol'] == "ambos") $infoUsuario['grupo'] = "administradores";
+            else if ($infoUsuario['rol'] == "facilitador") $infoUsuario['grupo'] = "facilitadores";
+            else $infoUsuario['grupo'] = "socios";
     }
     } else{
         $idUsuario = -1;

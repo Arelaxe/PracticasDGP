@@ -9,7 +9,7 @@
 
         $infoRegistro['nombre'] = $_POST['Nombre'];
         $infoRegistro['username'] = $_POST['Identificador'];
-        $infoRegistro['password'] = md5($_POST['Contrasena']);
+        $infoRegistro['password'] = md5(utf8_encode($_POST['Contrasena']));
         $infoRegistro['rol'] = "socio";
         $infoRegistro['facilitadoresACargo'] = $facilitadoresACargo;
 

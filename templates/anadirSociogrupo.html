@@ -17,7 +17,23 @@
 </div>
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
-
+        <form action="php/anadirSocioGrupo.php" method="post">
+            <div class="class-group">
+                <label for="socioAnadir">Socio a añadir</label>
+                <select name="socioAnadir" id="" class="form-control">
+                    <option value="username1">Nombre1</option>
+                </select>
+            </div>
+            <div class="class-group">
+                <label for="grupoAnadir">Grupo a añadir</label>
+                <select name="grupoAnadir" id="" class="form-control">
+                    <option value="username1">Nombre1</option>
+                </select>
+            </div>
+            <div class="boton_centro">
+                <button type="submit" class="btn btn-primary">AÑADIR A GRUPO</button>
+            </div>
+        </form>
     </div>
 </div>
 {%endblock%}
