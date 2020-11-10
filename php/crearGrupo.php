@@ -13,6 +13,17 @@
             $jsoninfoGrupo = json_encode($infoGrupo);
 
             $result = crearGrupoApi($jsoninfoGrupo);
+            var_dump($result);
+            $result = json_encode($result);
+            $result = json_decode($result);
+
+            if ($result->name == "MongoError" && $result->code == 11000){
+                header("Location: ../crear_grupo.php?error=11000");  
+		    }
+            else{
+                header("Location: ../mis_grupos.php");
+                var_dump($result);
+		    }
         }
     }
 
