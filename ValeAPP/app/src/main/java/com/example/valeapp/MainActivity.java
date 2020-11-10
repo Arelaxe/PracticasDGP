@@ -5,8 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 
 public class MainActivity extends AppCompatActivity {
+
+    String nombreUsuario;
+
+    private Runnable taskNombreUsuario = new Runnable() {
+        public void run() {
+            inicioSesionNombreUsuario();
+        }
+    };
+
+    private Runnable taskContraseña = new Runnable() {
+        public void run() {
+            inicioSesionPass(nombreUsuario);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,16 +31,21 @@ public class MainActivity extends AppCompatActivity {
         AlmacenamientoInformacion infoUsuario = new AlmacenamientoInformacion();
         Context mContext = getApplicationContext();
 
-        String nombreUsuario = infoUsuario.getData(mContext);
+        nombreUsuario = infoUsuario.getData(mContext);
+
+        Handler handler = new Handler();
+
 
         if(nombreUsuario == null) {
             //Login Usuario
-            inicioSesionNombreUsuario();
+            handler.postDelayed(taskNombreUsuario, 1500);
         }
         else {
             // Login contraseña
-            inicioSesionPass(nombreUsuario);
+            handler.postDelayed(taskContraseña, 1500);
         }
+
+
     }
 
     private void inicioSesionNombreUsuario() {

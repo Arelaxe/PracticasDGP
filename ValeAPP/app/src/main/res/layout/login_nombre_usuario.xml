@@ -8,9 +8,8 @@
 
     <ImageButton
         android:id="@+id/siguienteLoginNombreUsuario"
-        android:layout_width="150dp"
-        android:layout_height="133dp"
-        android:layout_marginBottom="132dp"
+        android:layout_width="63dp"
+        android:layout_height="49dp"
         android:background="#000000"
         android:contentDescription="@string/bot_n_para_comprobar_el_nombre_de_usuario"
         android:rotation="-180"
@@ -19,8 +18,9 @@
         android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/usuario"
+        app:layout_constraintVertical_bias="0.699"
         app:srcCompat="@drawable/abc_vector_test" />
 
     <TextView
@@ -64,7 +64,7 @@
         android:ems="10"
         android:hint="@string/escribe_aqu_tu_nombre_de_usuario"
         android:inputType="textPersonName"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

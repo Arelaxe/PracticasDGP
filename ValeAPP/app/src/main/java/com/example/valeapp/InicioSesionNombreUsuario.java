@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,13 +21,14 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
     private EditText usuarioT;
     private String usuario;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_nombre_usuario);
 
         //Boton Inicio
-        final Button siguienteNombreUsuario = findViewById(R.id.siguienteLoginNombreUsuario);
+        final ImageButton siguienteNombreUsuario = findViewById(R.id.siguienteLoginNombreUsuario);
 
         usuarioT = (EditText) findViewById(R.id.usuario);
 

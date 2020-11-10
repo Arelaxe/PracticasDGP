@@ -9,19 +9,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ExitoPass extends AppCompatActivity {
 
+    private Runnable task = new Runnable() {
+        public void run() {
+            inicioSesionPass();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exito_pass);
-/*
-        //Boton Atras
-        final ImageButton volverInicioSesionPass = findViewById(R.id.idBotonVolverPass);
-
-        volverInicioSesionPass.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                inicioSesionPass();
-            }
-        });*/
+        /*
+        Handler handler = new Handler();
+        handler.postDelayed(task, 3000);*/
     }
 
     private void inicioSesionPass() {
@@ -31,10 +31,5 @@ public class ExitoPass extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
-
     }
 }

@@ -82,5 +82,9 @@
     <string name="bien_hecho_entrando_a_tu_cuenta">¡BIEN HECHO! Entrando a tu cuenta</string>
     <string name="bot_n_que_permite_ir_a_la_pantalla_para_introducir_la_contrase_a">Botón que permite ir a la pantalla para introducir la contraseña</string>
     <string name="imagen_de_exito_en_la_contrase_a">Imagen de exito en la contraseña</string>
-
+    <string name="elige_tu_imagen_paso_1">ELIGE TU IMAGEN PASO 1</string>
+    <string name="elige_tu_imagen_paso_2">ELIGE TU IMAGEN PASO 2</string>
+    <string name="elige_tu_imagen_paso_3">ELIGE TU IMAGEN PASO 3</string>
+    <string name="elige_tu_imagen_paso_4">ELIGE TU IMAGEN PASO 4</string>
+    <string name="elige_tu_imagen_paso_5">ELIGE TU IMAGEN PASO 5</string>
 </resources>
