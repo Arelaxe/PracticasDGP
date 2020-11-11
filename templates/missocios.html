@@ -22,12 +22,13 @@
                 <tr>
                     <td scope="row" class="td1">{{ usuario }}</td>
                     <td class="tdx"><button class="btn btn-success bt1">AÑADIR A GRUPO</button></td>
-                    <td class="tdx"><button class="btn btn-danger bt1">DESVINCULAR</button></td>
-                    <td class="tdn"><a href="./perfil.php?username={{ listadoUsernames[loop.index]}}">►</a></td>
+                    <td class="tdx"><button class="btn btn-danger bt1" onclick="window.location.replace('desvincular_socio.php?socioADesvincular={{listadoUsernames[loop.index-1]}}&nombreADesvincular={{usuario}}')">DESVINCULAR</button></td>
+                    <td class="tdn"><a href="./perfil.php?username={{ listadoUsernames[loop.index-1]}}">►</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <button class="btn btn-primary col-12" onclick="window.location.replace('vincular_socio.php')">VINCULAR NUEVO SOCIO</button>
     </div>
 </div>
 {%endblock%}

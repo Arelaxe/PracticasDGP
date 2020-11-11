@@ -50,3 +50,9 @@ function completarCamposUsuario(nombreUsuario, idUsuario, rolUsuario){
     document.getElementById('usernameAEliminar').setAttribute('value',idUsuario);
     document.getElementById('rolARedirigir').setAttribute('value',rolUsuario);
 }
+
+function completarCamposGrupo(nombreGrupo, facilitadorGrupo){
+    document.getElementById('nombreGrupoAEliminar').innerHTML = nombreGrupo;
+    document.getElementById('nombreGrupo').setAttribute('value',nombreGrupo);
+    document.getElementById('facilitadorACargo').setAttribute('value',facilitadorGrupo);
+}

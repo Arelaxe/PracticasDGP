@@ -35,17 +35,26 @@
         {%else%}
         <h4>Identificador</h4>
         {{infoUsuario.username}}
+        <h4>Facilitadores a cargo</h4>
+        <select class="form-control">
+          {%for facilitador in facilitadores%}
+            <option onclick="window.location.replace('perfil.php?username={{facilitador}}')">{{facilitador}}</option>
+          {%endfor%}
+        </select>
         <h4>Preferencias</h4>
         <div class="container">
             <div class="row">
                 <div class="col-3">
-                    <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                    <img src="img/video.png" alt="Video" class="imgprefs">
+                    <p>A</p>
                 </div>
                 <div class="col-3">
-                    <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                    <img src="img/audio.png" alt="Audio" class="imgprefs">
+                    <p>A</p>
                 </div>
                 <div class="col-3">
-                    <img src="img/ph.jpg" alt="PH" class="imgprefs">
+                    <img src="img/texto.png" alt="Texto" class="imgprefs">
+                    <p>A</p>
                 </div>
             </div>
         </div>

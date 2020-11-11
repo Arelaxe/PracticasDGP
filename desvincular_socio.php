@@ -3,7 +3,16 @@
     require_once '../vendor/autoload.php';
 
     session_start();
-    if(isset($_SESSION['usuario'])){
+    if(isset($_SESSION['usuario']) && isset($_GET['socioADesvincular'])){
+        $rol = $_SESSION['rol'];
+        $infoSocio = array();
+        $infoSocio['username'] = $_GET['socioADesvincular'];
+        $infoSocio['nombre'] = $_GET['nombreADesvincular'];
+        $listadoSociosVinculados = array();
+        array_push($listadoSociosVinculados,$infoSocio);
+    }
+
+    else if(isset($_SESSION['usuario'])){
         $rol = $_SESSION['rol'];
         $infoSociosVinculados = array();
         $infoSociosVinculados['user_facilitador'] = $_SESSION['usuario'] ;

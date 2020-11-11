@@ -23,6 +23,7 @@
 
         $infoUsuario = array();
         $listadoSocios = array();
+        $listadoFacilitadores = array();
 
         foreach($result as $item){
             $infoUsuario['nombre'] = $item->nombre;
@@ -39,7 +40,10 @@
                 $listadoSocios = listadoSociosVinculados($jsonInfoSociosVinculados);
             }
             else{
-
+                $facilitadores = $item->facilitadoresACargo;
+                foreach( $facilitadores as $facilitador){
+                    array_push($listadoFacilitadores,$facilitador);
+                }
             }
     }
     } else{
@@ -48,5 +52,5 @@
 
     
 
-    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios]);
+    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores] );
 ?>
