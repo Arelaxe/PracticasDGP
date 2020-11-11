@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class InicioSesionNombreUsuario extends AppCompatActivity {
     private EditText usuarioT;
@@ -35,7 +36,13 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
         siguienteNombreUsuario.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 usuario = usuarioT.getText().toString();
-                new IniciaSesion().execute();
+                try {
+                    new IniciaSesion().execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

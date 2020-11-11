@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class InicioSesionPass5 extends AppCompatActivity {
     private String passPaso1;
@@ -173,7 +174,13 @@ public class InicioSesionPass5 extends AppCompatActivity {
     private void siguientePantallaPass() {
         codificarPassword();
         //Comprobar contraseña con servidor
-        new IniciaSesionPass().execute();
+        try {
+            new IniciaSesionPass().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

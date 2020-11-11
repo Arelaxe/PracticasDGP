@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InicioSesionPass1">
+
+    <TextView
+        android:id="@+id/eligePreferencias"
+        android:layout_width="409dp"
+        android:layout_height="130dp"
+        android:contentDescription="@string/elige_tus_opciones_preferidas"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/elige_tus_opciones_preferidas"
+        android:textColor="#000"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:layout_width="306dp"
+        android:layout_height="329dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eligePreferencias">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/imagenAudio"
+                android:layout_width="77dp"
+                android:layout_height="89dp"
+                android:contentDescription="@string/imagen_de_audio"
+                app:srcCompat="@drawable/audio" />
+
+            <Button
+                android:id="@+id/botonPreferenciaAudio"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/opci_n_de_audio_seleccionada_pulsa_para_quitar_la_selecci_n"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="@string/audio"
+                android:textColor="#000"
+                android:textSize="30sp"
+                app:backgroundTint="@color/purple_200" />
+
+            <ImageView
+                android:id="@+id/tickAudioSeleccionado"
+                android:layout_width="80dp"
+                android:layout_height="89dp"
+                android:contentDescription="@string/audio_seleccionado"
+                app:srcCompat="@drawable/tick" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imagenCamaraVideo"
+                android:layout_width="77dp"
+                android:layout_height="89dp"
+                android:contentDescription="@string/imagen_de_v_deo"
+                app:srcCompat="@drawable/video" />
+
+            <Button
+                android:id="@+id/botonPreferenciaVideo"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/opci_n_de_v_deo_seleccionada_pulsa_para_quitar_la_selecci_n"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="@string/v_deo"
+                android:textColor="#000"
+                android:textSize="30sp"
+                app:backgroundTint="?android:attr/colorPressedHighlight" />
+
+            <ImageView
+                android:id="@+id/tickVideoSeleccionado"
+                android:layout_width="80dp"
+                android:layout_height="89dp"
+                android:contentDescription="@string/v_deo_seleccionado"
+                app:srcCompat="@drawable/tick" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imagenTexto"
+                android:layout_width="77dp"
+                android:layout_height="89dp"
+                android:contentDescription="@string/imagen_de_texto"
+                app:srcCompat="@drawable/texto" />
+
+            <Button
+                android:id="@+id/botonPreferenciaTexto"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/opci_n_de_texto_seleccionada_pulsa_para_quitar_la_selecci_n"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="@string/texto"
+                android:textColor="#000"
+                android:textSize="30sp"
+                app:backgroundTint="@android:color/holo_blue_dark" />
+
+            <ImageView
+                android:id="@+id/tickTextoSeleccionado"
+                android:layout_width="80dp"
+                android:layout_height="89dp"
+                android:contentDescription="@string/texto_seleccionado"
+                app:srcCompat="@drawable/tick" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

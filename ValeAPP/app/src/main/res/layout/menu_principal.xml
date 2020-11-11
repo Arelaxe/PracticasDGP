@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/misTareas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="@string/bot_n_para_acceder_a_mis_tareas">
+
+    <TextView
+        android:id="@+id/menuPrincipal"
+        android:layout_width="405dp"
+        android:layout_height="56dp"
+        android:contentDescription="@string/men_principal"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/men_principal"
+        android:textColor="#000"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="wrap_content"
+        android:layout_height="449dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuPrincipal">
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="411dp"
+            android:layout_height="113dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/botonMisTareas"
+                android:layout_width="0dp"
+                android:layout_height="113dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_tareas"
+                android:gravity="center|start"
+                android:text="@string/mis_tareas"
+                android:textSize="27sp"
+                app:backgroundTint="#AC0C01" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="411dp"
+            android:layout_height="113dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/botonMisProfes"
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:background="#FFFFFF"
+                android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_profes"
+                android:gravity="center|start"
+                android:text="@string/mis_profes"
+                android:textSize="27sp"
+                app:backgroundTint="#005A04" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout10"
+            android:layout_width="411dp"
+            android:layout_height="113dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/botonMisPreferencias"
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_preferencias"
+                android:gravity="center|start"
+                android:text="@string/mis_preferencias"
+                android:textSize="22sp"
+                app:backgroundTint="#4600C3" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="449dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout12"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout12"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout12">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="113dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgTareas"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:contentDescription="@string/imagen_asociada_al_bot_n_mis_tareas"
+                app:srcCompat="@drawable/tareas" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="113dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgMisProfes"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:contentDescription="@string/imagen_asociada_al_bot_n_mis_profes"
+                app:srcCompat="@drawable/profes" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="113dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgPreferencias"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/imagen_asociada_al_bot_n_mis_preferencias"
+                app:srcCompat="@drawable/preferencias" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

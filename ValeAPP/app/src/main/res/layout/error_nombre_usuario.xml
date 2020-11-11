@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/errorEnNombreUsuario"
-        android:layout_width="375dp"
-        android:layout_height="301dp"
+        android:layout_width="379dp"
+        android:layout_height="258dp"
         android:contentDescription="@string/error_en_el_nombre_de_usuario"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611"
+        app:layout_constraintVertical_bias="0.524"
         app:srcCompat="@drawable/error" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

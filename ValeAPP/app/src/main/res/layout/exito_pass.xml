@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/exitoEnPass"
         android:layout_width="375dp"
-        android:layout_height="301dp"
+        android:layout_height="224dp"
         android:contentDescription="@string/bien_hecho_entrando_a_tu_cuenta"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
@@ -27,11 +27,13 @@
         android:id="@+id/imageView6"
         android:layout_width="280dp"
         android:layout_height="328dp"
+        android:contentDescription="@string/imagen_de_exito_en_la_contrase_a"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/imagen_de_exito_en_la_contrase_a"
+        app:layout_constraintVertical_bias="0.63"
         app:srcCompat="@drawable/mano_arriba_bien" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

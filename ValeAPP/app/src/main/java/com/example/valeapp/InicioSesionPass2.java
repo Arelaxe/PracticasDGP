@@ -33,7 +33,6 @@ public class InicioSesionPass2 extends AppCompatActivity {
         cambiarEstadoSelección(naranjaSeleccionado, false);
         cambiarEstadoSelección(manzanaSeleccionado, false);
 
-
         final ImageButton fresa = findViewById(R.id.Fresa);
         final ImageButton platano = findViewById(R.id.Platano);
         final ImageButton naranja = findViewById(R.id.Naranja);

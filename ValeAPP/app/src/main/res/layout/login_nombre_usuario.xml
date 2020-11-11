@@ -57,14 +57,14 @@
 
     <EditText
         android:id="@+id/usuario"
-        android:layout_width="389dp"
-        android:layout_height="108dp"
+        android:layout_width="304dp"
+        android:layout_height="117dp"
         android:layout_marginTop="320dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/escribe_aqu_tu_nombre_de_usuario"
         android:inputType="textPersonName"
-        android:textSize="18sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
