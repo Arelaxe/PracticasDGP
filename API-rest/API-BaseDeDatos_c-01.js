@@ -520,3 +520,39 @@ app.post("/eliminar-grupo", (request, response) => {
         }
     });
 });
+
+/******************************************************/
+// Añadir preferencias usuario
+/******************************************************/
+app.post("/add-preferencias", (request, response) => {
+    collectionUsuarios.updateOne( {$and: [ {"username":request.body.username },  {"rol":"socio" }] },{$set: [{"preferenciaTexto": request.body.texto}, {"preferenciaAudio":request.body.audio}, {"preferenciaVideo": request.body.video}]}, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el socio");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Obtener preferencias usuario
+/******************************************************/
+// 
+app.get("/preferencias-usuario", (request, response) => {
+    collectionUsuarios.find({ "rol" : "socio", "username":request.query.username}, {projection: {_id:0 , preferenciaTexto: 1, preferenciaAudio: 1, preferenciaVideo: 1}}).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result[0].preferenciaTexto == null || result[0].preferenciaAudio == null || result[0].preferenciaVideo == null) {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
+        }
+        else {
+            response.send(result[0]);
+        }
+    });
+});
