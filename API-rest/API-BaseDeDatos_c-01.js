@@ -525,7 +525,12 @@ app.post("/eliminar-grupo", (request, response) => {
 // Añadir preferencias usuario
 /******************************************************/
 app.post("/add-preferencias", (request, response) => {
-    collectionUsuarios.updateOne( {$and: [ {"username":request.body.username },  {"rol":"socio" }] },{$set: {"preferenciaTexto": request.body.texto, "preferenciaAudio":request.body.audio, "preferenciaVideo": request.body.video}}, (error, result) => {
+
+    var texto = (request.body.texto === "true"); 
+    var audio = (request.body.audio === "true");
+    var video = (request.body.video === "true");
+
+    collectionUsuarios.updateOne( {$and: [ {"username":request.body.username },  {"rol":"socio" }] },{$set: {"preferenciaTexto":texto, "preferenciaAudio":audio, "preferenciaVideo":video}}, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
@@ -607,6 +612,40 @@ app.post("/anadir-grupo-socio", (request, response) => {
         }
         if (result == null) {
             response.send("No se encontró el facilitador");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/**/
+// Eliminar a socio de grupo
+/**/
+app.post("/eliminar-socio-grupo", (request, response) => {
+    collectionGrupos.updateOne({ "nombre": request.body.nombre_grupo }, { "$pull": { "socios": request.body.user_socio } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el grupo o el usuario");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/**/
+// Desvincular facilitador con socio
+/**/
+app.post("/eliminar-grupo-socio", (request, response) => {
+    collectionUsuarios.updateOne({ "username": request.body.user_socio }, { "$pull": { "grupos": request.body.nombre_grupo } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el socio o el grupo");
         }
         else {
             response.send(result);
