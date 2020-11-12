@@ -556,3 +556,54 @@ app.get("/preferencias-usuario", (request, response) => {
         }
     });
 });
+
+/**/
+// Edición Usuarios
+/**/
+app.post("/editarUsuario", (request, response) => {
+    collectionUsuarios.replaceOne({ "username": request.body.oldUsername }, request.body, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Registro incorrecto");
+        }
+        else {
+            response.send("Registro completado");
+        }
+    });
+});
+
+/**/
+// Añadir socio a grupo
+/**/
+app.post("/anadir-socio-grupo", (request, response) => {
+    collectionGrupo.updateOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo" : request.body.facilitadorACargo }, { "$push": { "socios": request.body.username } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el facilitador");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/**/
+// Añadir grupo a grupos de un socio. SIN TERMINAR
+/**/
+app.post("/anadir-socio-grupo", (request, response) => {
+    collectionUsuarios.updateOne({ "username": request.body.username}, { "$push": { "grupos": request.body.username } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró el facilitador");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
