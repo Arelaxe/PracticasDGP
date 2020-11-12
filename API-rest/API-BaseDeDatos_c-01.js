@@ -355,7 +355,7 @@ app.post("/facilitadores-a-cargo", (request, response) => {
 app.post("/vincular-socio-facilitador", (request, response) => {
     collectionUsuarios.updateOne({ "username":request.body.user_facilitador }, {"$push": {"sociosACargo": request.body.user_socio} }, (error, result) => {
         if (error) {
-            //return response.status(500).send(error);
+            return response.status(500).send(error);
         }
         if (result == null) {
             response.send("No se encontró el socio");
@@ -372,7 +372,7 @@ app.post("/vincular-socio-facilitador", (request, response) => {
 app.post("/vincular-facilitador-socio", (request, response) => {
     collectionUsuarios.updateOne({ "username":request.body.user_socio }, {"$push": {"facilitadoresACargo": request.body.user_facilitador} }, (error, result) => {
         if (error) {
-            //return response.status(500).send(error);
+            return response.status(500).send(error);
         }
         if (result == null) {
             response.send("No se encontró el facilitador");
@@ -389,7 +389,7 @@ app.post("/vincular-facilitador-socio", (request, response) => {
 app.post("/desvincular-socio-facilitador", (request, response) => {
     collectionUsuarios.updateOne({ "username":request.body.user_facilitador }, {"$pull": {"sociosACargo": request.body.user_socio} }, (error, result) => {
         if (error) {
-            //return response.status(500).send(error);
+            return response.status(500).send(error);
         }
         if (result == null) {
             response.send("No se encontró el socio");
@@ -406,7 +406,7 @@ app.post("/desvincular-socio-facilitador", (request, response) => {
 app.post("/desvincular-facilitador-socio", (request, response) => {
     collectionUsuarios.updateOne({ "username":request.body.user_socio }, {"$pull": {"facilitadoresACargo": request.body.user_facilitador} }, (error, result) => {
         if (error) {
-            //return response.status(500).send(error);
+            return response.status(500).send(error);
         }
         if (result == null) {
             response.send("No se encontró el socio");
