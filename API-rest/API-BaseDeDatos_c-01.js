@@ -592,9 +592,9 @@ app.post("/anadir-socio-grupo", (request, response) => {
 });
 
 /**/
-// Añadir grupo a grupos de un socio. SIN TERMINAR
+// Añadir grupo a grupos de un socio.
 /**/
-app.post("/anadir-socio-grupo", (request, response) => {
+app.post("/anadir-grupo-socio", (request, response) => {
     collectionUsuarios.updateOne({ "username": request.body.username}, { "$push": { "grupos": request.body.username } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
