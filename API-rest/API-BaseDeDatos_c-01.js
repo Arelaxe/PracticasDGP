@@ -525,15 +525,17 @@ app.post("/eliminar-grupo", (request, response) => {
 // Añadir preferencias usuario
 /******************************************************/
 app.post("/add-preferencias", (request, response) => {
-    collectionUsuarios.updateOne( {$and: [ {"username":request.body.username },  {"rol":"socio" }] },{$set: [{"preferenciaTexto": request.body.texto}, {"preferenciaAudio":request.body.audio}, {"preferenciaVideo": request.body.video}]}, (error, result) => {
+    collectionUsuarios.updateOne( {$and: [ {"username":request.body.username },  {"rol":"socio" }] },{$set: {"preferenciaTexto": request.body.texto, "preferenciaAudio":request.body.audio, "preferenciaVideo": request.body.video}}, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
         if (result == null) {
-            response.send("No se encontró el socio");
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
         }
         else {
-            response.send(result);
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+            response.send(jsonRespuestaIncorrecta);
         }
     });
 });
@@ -547,7 +549,11 @@ app.get("/preferencias-usuario", (request, response) => {
         if (error) {
             return response.status(500).send(error);
         }
-        if (result[0].preferenciaTexto == null || result[0].preferenciaAudio == null || result[0].preferenciaVideo == null) {
+        if (result == null) {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
+        }
+        else if (result[0].preferenciaTexto == null || result[0].preferenciaAudio == null || result[0].preferenciaVideo == null) {
             var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
             response.send(jsonRespuestaIncorrecta);
         }
