@@ -2,18 +2,26 @@ package com.example.valeapp;
 
 import android.content.Intent;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
 public class MisPreferencias extends AppCompatActivity {
     private String usuario;
     boolean audioSeleccionado = true;
     boolean videoSeleccionado = true;
     boolean textoSeleccionado = true;
+    JSONObject jsonPreferencias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,13 @@ public class MisPreferencias extends AppCompatActivity {
 
         //Obtener de la base de datos preferencias iniciales
         ////////////////////////////////////////////////////
+        try {
+            new GetPreferencias().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         if (audioSeleccionado){
 
@@ -138,5 +153,38 @@ public class MisPreferencias extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
+    }
+
+    class GetPreferencias extends AsyncTask<String, String, JSONObject> {
+        private final static String URL= "http://10.0.2.2/DS_P3/php/getRuletaActual.php";
+        private JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected JSONObject doInBackground(String... args) {
+
+            try{
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("username", usuario);
+
+                Log.d("request", "starting");
+
+                jsonPreferencias = jsonParser.makeHttpRequest(URL, "POST", params, "");
+
+                if (jsonPreferencias != null) {
+                    Log.d("JSON result:   ", jsonPreferencias.toString());
+
+                    return jsonPreferencias;
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }
