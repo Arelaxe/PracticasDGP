@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/volver_atras"
+          android:icon="@drawable/foto_volver_atras"
+          android:title="Volver atrás"/>
+    <item android:id="@+id/logout"
+          android:icon="@drawable/foto_logout"
+          android:title="Logout" />
+</menu>

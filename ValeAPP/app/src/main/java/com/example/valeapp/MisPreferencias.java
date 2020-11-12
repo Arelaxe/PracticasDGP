@@ -42,7 +42,7 @@ public class MisPreferencias extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.menu_preferencias);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
-        final ImageButton botonAtras = findViewById(R.id.botonLogout);
+        final ImageButton botonAtras = findViewById(R.id.volverMenuPrincipal);
 
         //Obtener de la base de datos preferencias iniciales
         ////////////////////////////////////////////////////
@@ -119,6 +119,13 @@ public class MisPreferencias extends AppCompatActivity {
                 irALogout();
             }
         });
+
+        //Boton Atrás
+        botonAtras.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                volverAMenuPrincipal();
+            }
+        });
     }
 
     private void irALogout(){
@@ -185,6 +192,10 @@ public class MisPreferencias extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        volverAMenuPrincipal();
+    }
+
+    public void volverAMenuPrincipal(){
         Intent intent = new Intent(this, MenuPrincipal.class);
         intent.putExtra("usuario", usuario);
         startActivity(intent);
@@ -258,4 +269,5 @@ public class MisPreferencias extends AppCompatActivity {
             return null;
         }
     }
+
 }

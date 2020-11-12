@@ -22,8 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1.1"
+        android:background="@color/black"
         android:contentDescription="@string/bot_n_para_salir_de_la_aplicaci_n"
         android:scaleType="fitCenter"
+        android:tint="@color/white"
         app:srcCompat="@drawable/foto_logout" />
 
 </LinearLayout>

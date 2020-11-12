@@ -16,7 +16,7 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/volverMenuPrincipal"
                 android:layout_width="100dp"
                 android:layout_height="41dp"
                 android:background="@color/black"
