@@ -7,10 +7,26 @@
     android:layout_height="match_parent"
     android:contentDescription="@string/bot_n_para_acceder_a_mis_tareas">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="412dp"
+        android:layout_height="82dp"
+        android:layout_marginBottom="68dp"
+        android:background="@color/green"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/menuPrincipal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <TextView
         android:id="@+id/menuPrincipal"
         android:layout_width="405dp"
         android:layout_height="56dp"
+        android:layout_marginTop="116dp"
         android:contentDescription="@string/men_principal"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
@@ -18,6 +34,7 @@
         android:textColor="#000"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"

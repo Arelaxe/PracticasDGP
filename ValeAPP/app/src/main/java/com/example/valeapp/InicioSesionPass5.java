@@ -270,6 +270,7 @@ public class InicioSesionPass5 extends AppCompatActivity {
 
     private void pantallaExitoPassword(){
         Intent intent = new Intent(this, ExitoPass.class);
+        intent.putExtra("usuario", usuario);
         startActivity(intent);
     }
 
@@ -286,7 +287,6 @@ public class InicioSesionPass5 extends AppCompatActivity {
 
     private void codificarPassword(){
         String password = passPaso1+passPaso2+passPaso3+passPaso4+passPaso5;
-        System.out.println(password);
         passCodificada = md5(password);
     }
 
@@ -314,14 +314,6 @@ public class InicioSesionPass5 extends AppCompatActivity {
         }
         return "";
     }
-    /*
-    public String md5(String input) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(input.getBytes());
-        byte[] digest = md.digest();
-        return DatatypeConverter.printHexBinary(digest).toUpperCase();
-    }
-     */
 
     @Override
     public void onBackPressed() {

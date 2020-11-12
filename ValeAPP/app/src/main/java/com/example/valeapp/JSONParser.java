@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class JSONParser {
 
     private final String CHARSET = "UTF-8";
-    //private final String URL = "http://10.0.2.2:5000/";
-    private final String URL = "http://192.168.1.34:5000/";
+    private final String URL = "http://10.0.2.2:5000/";
+    //private final String URL = "http://192.168.1.34:5000/";
     private HttpURLConnection conn;
     private DataOutputStream wr;
     private StringBuilder result;
@@ -31,13 +31,12 @@ public class JSONParser {
 
     public JSONObject makeHttpRequest(String url, String method,
                                       HashMap<String, String> params, String tipo) {
-      url = URL + url;
-      sbParams = new StringBuilder();
+        url = URL + url;
+        sbParams = new StringBuilder();
 
-      //sbParams.append("{");
-      int i = 0;
+        int i = 0;
 
-      for (String key : params.keySet()) {
+        for (String key : params.keySet()) {
           if (i != 0) {
               sbParams.append("&");
           }
@@ -49,8 +48,8 @@ public class JSONParser {
           }
 
           i++;
-      }
-      //sbParams.append("}");
+        }
+
         System.out.println((sbParams));
         if (method.equals("POST")) {
             // request method is POST

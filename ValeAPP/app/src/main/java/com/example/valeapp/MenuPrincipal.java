@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class MenuPrincipal extends AppCompatActivity {
     private String usuario;
@@ -17,9 +19,20 @@ public class MenuPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_principal);
 
+        Bundle bundle = getIntent().getExtras();
+        usuario = bundle.getString("usuario");
+
         final Button botonTareas = findViewById(R.id.botonMisTareas);
         final Button botonProfes = findViewById(R.id.botonMisProfes);
         final Button botonPreferencias = findViewById(R.id.botonMisPreferencias);
+        
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.menu);
+
+        final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
         //Boton tareas
         botonTareas.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +54,14 @@ public class MenuPrincipal extends AppCompatActivity {
                 irAMisPreferencias();
             }
         });
+
+        //Boton logout
+        botonLogout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                irALogout();
+            }
+        });
+        
     }
 
     private void irAMisTareas(){
@@ -57,6 +78,12 @@ public class MenuPrincipal extends AppCompatActivity {
 
     private void irAMisPreferencias(){
         Intent intent = new Intent(this, MisPreferencias.class);
+        intent.putExtra("usuario", usuario);
+        startActivity(intent);
+    }
+
+    private void irALogout(){
+        Intent intent = new Intent(this, Logout.class);
         intent.putExtra("usuario", usuario);
         startActivity(intent);
     }

@@ -20,8 +20,6 @@ import static androidx.lifecycle.Lifecycle.State.STARTED;
 
 public class ErrorPass extends AppCompatActivity {
     private String usuario;
-    private boolean active = false;
-    private Lifecycle estadoEnCicloVida;
     private Runnable task = new Runnable() {
         public void run() {
             inicioSesionPass();
