@@ -32,7 +32,9 @@
                 $infoUsuario['telefono'] = $item->telefono;
             }
             else{
-
+                $infoUsuario['preferenciaAudio'] = $item->preferenciaAudio;
+                $infoUsuario['preferenciaVideo'] = $item->preferenciaVideo;
+                $infoUsuario['preferenciaTexto'] = $item->preferenciaTexto;
             }
 
             if($infoUsuario['rol'] == "admin" || $infoUsuario['rol'] == "ambos") $infoUsuario['grupo'] = "administradores";

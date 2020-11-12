@@ -24,6 +24,7 @@
         $infoUsuario = array();
         $listadoSocios = array();
         $listadoFacilitadores = array();
+        $preferencias = array();
 
         foreach($result as $item){
             $infoUsuario['nombre'] = $item->nombre;
@@ -44,6 +45,18 @@
                 foreach( $facilitadores as $facilitador){
                     array_push($listadoFacilitadores,$facilitador);
                 }
+                
+                if(isset($item->preferenciaAudio)){
+                    /*Preferencias*/
+                    $preferencias['audio'] = $item->preferenciaAudio ? "Si" : "No" ;
+                    $preferencias['video'] = $item->preferenciaVideo ? "Si" : "No" ;
+                    $preferencias['texto'] = $item->preferenciaTexto ? "Si" : "No" ;
+                }
+                else{
+                    $preferencias['audio'] = "No" ;
+                    $preferencias['video'] = "No" ;
+                    $preferencias['texto'] = "No" ;
+                }
             }
     }
     } else{
@@ -52,5 +65,5 @@
 
     
 
-    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores] );
+    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias] );
 ?>

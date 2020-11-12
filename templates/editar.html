@@ -30,24 +30,41 @@
             {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
             <div class="class-group">
                 <h4>Correo</h4>
-                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.username }}">
+                <input type="text" class="form-control" name="username" value="{{ infoUsuario.username }}">
+                <input type="text" class="form-control" name="oldUsername" value="{{ infoUsuario.username }}" style="display: none;">
             </div>
             <div class="class-group">
                 <h4>Dirección</h4>
-                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.direccion }}">
+                <input type="text" class="form-control" name="direccion" value="{{ infoUsuario.direccion }}">
             </div>
             <div class="class-group">
                 <h4>Teléfono</h4>
-                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.telefono }}">
+                <input type="text" class="form-control" name="telefono" value="{{ infoUsuario.telefono }}">
+            </div>
+            <div class="class-group">
+                <h4>Contraseña actual</h4>
+                <input type="password" name="ContrasenaActual" class="form-control">
+            </div>
+            <div class="class-group">
+                <h4>Nueva contraseña</h4>
+                <input type="password" name="ContrasenaNueva" class="form-control">
+            </div>
+            <div class="class-group">
+                <h4>Confirmar contraseña</h4>
+                <input type="password" name="ContrasenaConfirmar" class="form-control">
             </div>
             {%else%}
             <div class="class-group">
                 <h4>Identificador</h4>
-                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.username }}">
+                <input type="text" class="form-control" name="username" value="{{ infoUsuario.username }}">
+                <input type="text" class="form-control" name="oldUsername" value="{{ infoUsuario.username }}" style="display: none;">
             </div>
 
             <div class="class-group">
                 <p>Generador de contraseña: <a href="#" onclick="ayuda()">(?)</a></p>
+                <div class="alert alert-warning">
+                    <p>No hay que crear una nueva contraseña si no se necesita</p>
+                </div>
                 <!--Zona 1: Formas-->
                 <div id="campo1" style="display: block;">
                     <p>Zona 1: Selecciona una forma</p>
@@ -221,7 +238,7 @@
 
             <div class="class-group" style="display: none;">
                 <p>Contraseña:</p>
-                <input type="password" name="Contrasena"  class="form-control" id="secuencia" value="" oninput="puedoRegistrar()">
+                <input type="password" name="password"  class="form-control" id="secuencia" value="" oninput="puedoRegistrar()">
             </div>
 
             <h4>Preferencias</h4>
@@ -229,21 +246,24 @@
                 <div class="row">
                     <div class="col-3">
                         <img src="img/video.png" alt="Video" class="imgprefs">
+                        <input type="checkbox" name="preferenciaVideo" id="" {% if infoUsuario.preferenciaVideo == true %}checked{% endif %}>
                     </div>
                     <div class="col-3">
                         <img src="img/audio.png" alt="Audio" class="imgprefs">
+                        <input type="checkbox" name="preferenciaAudio" id="" {% if infoUsuario.preferenciaAudio == true %}checked{% endif %}>
                     </div>
                     <div class="col-3">
                         <img src="img/texto.png" alt="Texto" class="imgprefs">
+                        <input type="checkbox" name="preferenciaTexto" id="" {% if infoUsuario.preferenciaTexto == true %}checked{% endif %}>
                     </div>
                 </div>
             </div>
             {% endif %}
-        </form>
         <br>
         <button id="submit" class="btn btn-success" class = "offset-lg-2 col-lg-8">GUARDAR CAMBIOS</button>
         <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('listado_{{infoUsuario.grupo}}.php')">CANCELAR</button>
         {% endif %}
+    </form>
     </div>
 </div>
 {%endblock%}
