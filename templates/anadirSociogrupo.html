@@ -21,7 +21,15 @@
             <div class="class-group">
                 <label for="socioAnadir">Socio a añadir</label>
                 <select name="socioAnadir" id="" class="form-control">
-                    <option value="username1">Nombre1</option>
+                    {% if socio != -1 %}
+                    <option value="{{ socio.username }}">{{ socio.nombre }}</option>
+                    {% else %}
+
+                    {%for s in socios%}
+                    <option value="{{ s.username }}">{{ s.nombre }}</option>
+                    {% endfor %}
+
+                    {% endif %}
                 </select>
             </div>
             <div class="class-group">

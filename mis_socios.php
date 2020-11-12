@@ -10,11 +10,10 @@
         $infoFacilitador = array();
         $infoFacilitador['username'] = $_SESSION['usuario'];
         $jsoninfoFacilitador = json_encode($infoFacilitador);
-        $listado = misSociosApi($jsoninfoFacilitador);
+        $listado_usernames = misSociosApi($jsoninfoFacilitador);
         $rol = $_SESSION['rol'];
-        $listado_usernames = $listado[0]->sociosACargo;
         $listado_nombres = array();
-
+        
         foreach($listado_usernames as $username){
             $infoUser['username'] = $username;
             $infoUserJson = json_encode($infoUser);

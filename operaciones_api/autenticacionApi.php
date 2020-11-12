@@ -177,7 +177,6 @@ function infoGrupoApi($jsonInfo){
      return $result;
 }
 
-
 function misSociosApi($jsonInfoFacilitador){
     // API URL
      $url = 'http://localhost:5000/mis-socios';
@@ -200,6 +199,7 @@ function misSociosApi($jsonInfoFacilitador){
      // Close cURL resource
      curl_close($ch);
      $result = json_decode($result);
+     $result = $result[0]->sociosACargo;
      return $result;
 }
 

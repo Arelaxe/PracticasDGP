@@ -6,12 +6,17 @@
      if($_SERVER['REQUEST_METHOD'] === "POST"){
         $infoRegistro = array();
         $facilitadoresACargo = array();
+        $grupos = array();
 
         $infoRegistro['nombre'] = $_POST['Nombre'];
         $infoRegistro['username'] = $_POST['Identificador'];
         $infoRegistro['password'] = md5(utf8_encode($_POST['Contrasena']));
         $infoRegistro['rol'] = "socio";
+        $infoRegistro['preferenciaTexto'] = true;
+        $infoRegistro['preferenciaAudio'] = true;
+        $infoRegistro['preferenciaVideo'] = true;
         $infoRegistro['facilitadoresACargo'] = $facilitadoresACargo;
+        $infoRegistro['grupos'] = $grupos;
 
         $jsoninfoRegistro = json_encode($infoRegistro);
 
