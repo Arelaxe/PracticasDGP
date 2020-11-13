@@ -33,7 +33,7 @@
                 {%for socio in infoGrupo.socios%}
                   <tr>
                     <td scope="row" class="td1">{{ socio }}</td>
-                    <td class="tdx"><button class="btn btn-danger bt1">ELIMINAR</button></td>
+                    <td class="tdx"><button class="btn btn-danger bt1" onclick="window.location.replace('eliminar_socio_grupo.php?grupo={{infoGrupo.nombre}}')">ELIMINAR</button></td>
                     <td class="tdn"><a href="./perfil.php?username={{socio}}">►</a></td>
                   </tr>
                 {%endfor%}

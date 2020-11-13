@@ -8,33 +8,109 @@
 
 {%block cuerpo%}
 <div class="container">
-    <div class="offset-lg-4 col-lg-4 titulo">
+    <div class="col-12 titulo">
         <h2>Menú principal</h2>
     </div>
 </div>
 <div class="container">
-    <div class="offset-lg-4 col-lg-4 sombreado">
-        <ul>
-            <li><a href="registrosocios.php">Registrar socio</a></li>
-            <li><a href="registro.php">Registrar facilitador/administrador</a></li>
-            <li><a href="listado_socios.php">Lista de socios</a></li>
-            <li><a href="listado_administradores.php">Lista de administradores</a></li>
-            <li><a href="listado_facilitadores.php">Lista de facilitadores</a></li>
-            <li><a href="mis_socios.php">Mis socios</a></li>
-            <li><a href="vincular_socio.php">Vincular socio</a></li>
-            <li><a href="desvincular_socio.php">Desvincular socio</a></li>
-            <li><a href="anadir_socio_grupo.php">Añadir socio a grupo</a></li>
-            <li><a href="eliminar_socio_grupo.php">Eliminar socio de grupo</a></li>
-            <li><a href="crear_grupo.php">Crear grupo</a></li>
-            <li><a href="mis_grupos.php">Mis grupos</a></li>
-            <li><a href="editar_grupo.php">Editar grupo</a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-        </ul>
+    <div class="col-lg-12 sombreado">
+        <div class="row">
+            {%if rol == "ambos" or rol=="admin"%}
+            <div class="card col-3">
+                <a href="registrosocios.php">
+                    <img class="card-img-top" src="img/OtroSocio.png" alt="Añadir socio">
+                    <div class="card-body">
+                        <h5 class="card-title">Registrar socio</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-3">
+                <a href="registro.php">
+                    <img class="card-img-top" src="img/OtroAdministrador.png" alt="Añadir personal">
+                    <div class="card-body">
+                        <h5 class="card-title">Registrar facilitador o administrador</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-3">
+                <a href="listado_administradores.php">
+                    <img class="card-img-top" src="img/Administrador.png" alt="Administradores">
+                    <div class="card-body">
+                        <h5 class="card-title">Listado de administradores</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-3">
+                <a href="listado_facilitadores.php">
+                    <img class="card-img-top" src="img/Facilitador.png" alt="Facilitadores">
+                    <div class="card-body">
+                        <h5 class="card-title">Listado de facilitadores</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-3">
+                <a href="listado_socios.php">
+                    <img class="card-img-top" src="img/Socio.png" alt="Socios">
+                    <div class="card-body">
+                        <h5 class="card-title">Listado de socios</h5>
+                    </div>
+                </a>
+            </div>
+            {%endif%}
+
+            {%if rol=="ambos" or rol=="facilitador"%}
+            <div class="card col-3">
+                <a href="mis_socios.php">
+                    <img class="card-img-top" src="img/Socios.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Mis socios</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-3">
+                <a href="vincular_socio.php">
+                    <img class="card-img-top" src="img/Vincular.png" alt="Vincular">
+                    <div class="card-body">
+                        <h5 class="card-title">Vincular socio</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-3">
+                <a href="desvincular_socio.php">
+                    <img class="card-img-top" src="img/Desvincular.png" alt="Desvincular">
+                    <div class="card-body">
+                        <h5 class="card-title">Desvincular socio</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-3">
+                <a href="crear_grupo.php">
+                    <img class="card-img-top" src="img/OtroGrupo.png" alt="Añadir grupo">
+                    <div class="card-body">
+                        <h5 class="card-title">Crear grupo</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-3">
+                <a href="mis_grupos.php">
+                    <img class="card-img-top" src="img/Grupo.png" alt="Grupo">
+                    <div class="card-body">
+                        <h5 class="card-title">Mis grupos</h5>
+                    </div>
+                </a>
+            </div>
+            {%endif%}
+            
+              
+          </div>
     </div>
 </div>
 {%endblock%}

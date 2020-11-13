@@ -121,3 +121,15 @@ footer {
 .prefs>p{
     text-align: center;
 }
+
+.card{
+    margin-top: 5px;
+}
+
+#busqueda{
+    margin-bottom: 2%;
+}
+
+.card-title{
+    text-align: center;
+}

@@ -17,14 +17,14 @@
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
         <script src="js/buscarTablas.js"></script>
-        <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar uno de mis socios...">
+        <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar uno de mis socios..." class="form-control">
 
         <table id="tablaBusqueda" class="table table-hover table-responsive">
             <tbody>
                 {% for usuario in listadoNombres %}
                 <tr>
                     <td scope="row" class="td1">{{ usuario }}</td>
-                    <td class="tdx"><button class="btn btn-success bt1">AÑADIR A GRUPO</button></td>
+                    <td class="tdx"><button class="btn btn-success bt1" onclick="window.location.replace('anadir_socio_grupo.php?socio={{listadoUsernames[loop.index-1]}}')">AÑADIR A GRUPO</button></td>
                     <td class="tdx"><button class="btn btn-danger bt1" onclick="window.location.replace('desvincular_socio.php?socioADesvincular={{listadoUsernames[loop.index-1]}}&nombreADesvincular={{usuario}}')">DESVINCULAR</button></td>
                     <td class="tdn"><a href="./perfil.php?username={{ listadoUsernames[loop.index-1]}}">►</a></td>
                 </tr>
