@@ -15,10 +15,14 @@
 </div>
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
-        <form action="php/crearGrupo.php" method="POST" class="offset-lg-1 col-lg-10">
+        <form action="php/editarGrupo.php" method="POST" class="offset-lg-1 col-lg-10">
             <div class="form-group">
-                <label for="nombre">Nombre del grupo</label>
-                <input type="text" id="nombre" name="nombre" value="{{infoGrupo.nombre}}" class="form-control">
+                <label for="nombre1">Nombre del grupo</label>
+                <input type="text" id="nombre1" name="nombre1" value="{{infoGrupo.nombre}}" class="form-control" disabled>
+                <input type="text" id="nombre" name="nombre" value="{{infoGrupo.nombre}}" class="form-control" style="display: none;">
+                <label for="facilitadorACargo1">Facilitador a cargo</label>
+                <input type="text" id="facilitadorACargo1" name="facilitadorACargo1" value="{{infoGrupo.facilitadorACargo}}" class="form-control" disabled>
+                <input type="text" id="facilitadorACargo" name="facilitadorACargo" value="{{infoGrupo.facilitadorACargo}}" class="form-control" style="display: none;">
             </div>
             <div class="form-group">
                 <label for="descripcion">Descripción</label>

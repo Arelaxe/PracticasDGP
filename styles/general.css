@@ -111,6 +111,7 @@ footer {
 .boton_centro{
     display: block;
     text-align: center;
+    margin-top: 5%;
 }
 
 .invisibilidad{

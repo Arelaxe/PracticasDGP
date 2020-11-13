@@ -27,15 +27,33 @@
             <p>{{infoGrupo.descripcion}}</p>
 
             <h4>Socios en el grupo:</h4>
-            <select class="form-control">
+            {%if infoGrupo.socios|length > 0%}
+            <table class="table table-hover table-responsive">
+              <tbody>
+                {%for socio in infoGrupo.socios%}
+                  <tr>
+                    <td scope="row" class="td1">{{ socio }}</td>
+                    <td class="tdx"><button class="btn btn-danger bt1">ELIMINAR</button></td>
+                    <td class="tdn"><a href="./perfil.php?username={{socio}}">►</a></td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
               {%for socio in infoGrupo.socios%}
-                <option onclick="window.location.replace('perfil.php?username={{socio.username}}')">{{socio.nombre}}</option>
-              {%endfor%}
-            </select>
 
-        <br>
-        <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('editar_grupo.php?nombre={{infoGrupo.nombre}}&facilitadorACargo={{infoGrupo.facilitadorACargo}}')">EDITAR</button>
-        <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
+              {%endfor%}
+            {%else%}
+              <h4>No tienes socios en el grupo todavía :(</h4>
+            {%endif%}
+            <button class="btn btn-primary bt1 col-12">AÑADIR SOCIO A GRUPO</button>
+
+            <br>
+
+            <div class="boton_centro">
+              <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('editar_grupo.php?nombre={{infoGrupo.nombre}}&facilitadorACargo={{infoGrupo.facilitadorACargo}}')">EDITAR</button>
+              <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
+            </div>
+        
 
         <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
             <div class="modal-dialog" role="document">
