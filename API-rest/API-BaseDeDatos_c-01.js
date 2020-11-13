@@ -589,7 +589,7 @@ app.post("/editarUsuario", (request, response) => {
 // Añadir socio a grupo
 /**/
 app.post("/anadir-socio-grupo", (request, response) => {
-    collectionGrupo.updateOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo" : request.body.facilitadorACargo }, { "$push": { "socios": request.body.username } }, (error, result) => {
+    collectionGrupo.updateOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo" : request.body.facilitadorACargo }, { "$push": { "socios": request.body.user_socio } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
@@ -606,7 +606,7 @@ app.post("/anadir-socio-grupo", (request, response) => {
 // Añadir grupo a grupos de un socio.
 /**/
 app.post("/anadir-grupo-socio", (request, response) => {
-    collectionUsuarios.updateOne({ "username": request.body.username}, { "$push": { "grupos": request.body.username } }, (error, result) => {
+    collectionUsuarios.updateOne({ "username": request.body.user_socio}, { "$push": { "grupos": request.body.nombre_grupo } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
