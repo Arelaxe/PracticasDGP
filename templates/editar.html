@@ -41,10 +41,12 @@
                 <h4>Teléfono</h4>
                 <input type="text" class="form-control" name="telefono" value="{{ infoUsuario.telefono }}">
             </div>
+            {%if rol=="facilitador" %}
             <div class="class-group">
                 <h4>Contraseña actual</h4>
                 <input type="password" name="ContrasenaActual" class="form-control">
             </div>
+            {%endif%}
             <div class="class-group">
                 <h4>Nueva contraseña</h4>
                 <input type="password" name="ContrasenaNueva" class="form-control">
@@ -56,7 +58,7 @@
             {%else%}
             <div class="class-group">
                 <h4>Identificador</h4>
-                <input type="text" class="form-control" name="username" value="{{ infoUsuario.username }}">
+                <input type="text" class="form-control" name="username" value="{{ infoUsuario.username }}" disabled>
                 <input type="text" class="form-control" name="oldUsername" value="{{ infoUsuario.username }}" style="display: none;">
             </div>
 
@@ -238,7 +240,7 @@
 
             <div class="class-group" style="display: none;">
                 <p>Contraseña:</p>
-                <input type="password" name="password"  class="form-control" id="secuencia" value="" oninput="puedoRegistrar()">
+                <input type="password" name="secuencia"  class="form-control" id="secuencia" value="" oninput="puedoRegistrar()">
             </div>
 
             <h4>Preferencias</h4>
@@ -266,4 +268,34 @@
     </form>
     </div>
 </div>
+
+<!--Modales-->
+{% if error == true %}
+<div class="modal fade" tabindex="-1" role="dialog" id="errorModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Error en la edición</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {%if coderror == "406"%}
+                <p>No coinciden la contraseña nueva y su confirmación</p>
+                {%endif%}
+                {%if coderror == "407"%}
+                <p>La contraseña actual no es correcta. No podemos cambiarla. Si no la conoce, contacte con un administrador.</p>
+                {%endif%}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div onload="errorRegistro()" id="errorLabel" class="invisibilidad">{{ error }}</div>
+<script type="text/javascript" src="../js/errorRegistro.js"></script>
+{% endif %}
+
 {%endblock%}
