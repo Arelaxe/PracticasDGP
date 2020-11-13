@@ -15,19 +15,36 @@
         <h2>Eliminar socio de grupo</h2>
     </div>
 </div>
+
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
-        <form action="php/anadirSocioGrupo.php" method="post">
+        <form action="php/eliminarSocioGrupo.php" method="post">
             <div class="class-group">
                 <label for="socioEliminar">Socio a eliminar</label>
                 <select name="socioEliminar" id="" class="form-control">
-                    <option value="username1">Nombre1</option>
+                    {% if socio != -1 %}
+                    <option value="{{ socio.username }}">{{ socio.nombre }}</option>
+                    {% else %}
+
+                    {%for s in socios%}
+                    <option value="{{ s.username }}">{{ s.nombre }}</option>
+                    {% endfor %}
+
+                    {% endif %}
                 </select>
             </div>
             <div class="class-group">
-                <label for="grupoEliminar">Grupo donde eliminar socio</label>
+                <label for="grupoEliminar">Grupo del que eliminarle</label>
                 <select name="grupoEliminar" id="" class="form-control">
-                    <option value="username1">Nombre1</option>
+                    {% if grupo != -1 %}
+                    <option value="{{ grupo }}">{{ grupo }} </option>
+                    {% else %}
+
+                    {%for g in grupos%}
+                    <option value="{{ g.nombre }}">{{ g.nombre }}</option>
+                    {% endfor %}
+
+                    {% endif %}
                 </select>
             </div>
             <div class="boton_centro">
