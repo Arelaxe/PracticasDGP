@@ -589,7 +589,7 @@ app.post("/editarUsuario", (request, response) => {
 // Añadir socio a grupo
 /**/
 app.post("/anadir-socio-grupo", (request, response) => {
-    collectionGrupo.updateOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo" : request.body.facilitadorACargo }, { "$push": { "socios": request.body.user_socio } }, (error, result) => {
+    collectionGrupos.updateOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo" : request.body.facilitadorACargo }, { "$push": { "socios": request.body.user_socio } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
