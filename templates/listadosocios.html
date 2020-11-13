@@ -4,7 +4,7 @@
 
 {%block breadcrumbs%}
 <li class="breadcrumb-item">Menú principal</li>
-<li class="breadcrumb-item active">Listado de Administradores</li>
+<li class="breadcrumb-item active">Listado de Socios</li>
 {%endblock%}
 
 
@@ -16,14 +16,17 @@
 </div>
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
-        <table class="table table-hover table-responsive">
+        <script src="js/buscarTablas.js"></script>
+        <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar socio...">
+
+        <table id="tablaBusqueda" class="table table-hover table-responsive">
             <tbody>
                 {% for nombre in nombres %}
                 <tr>
-                    <td scope="row"  class="td1"><a href="perfil.php?username={{ nombre.username }}">{{ nombre.nombre }}</a></td>
-                    <td  class="tdx"><button class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{nombre.username}}')">EDITAR</button></td>
-                    <td  class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposUsuario('{{nombre.nombre}}','{{nombre.username}}','socio')" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
-                    <td  class="tdn">►</td>
+                    <td scope="row" class="td1"><a href="perfil.php?username={{ nombre.username }}">{{ nombre.nombre }}</a></td>
+                    <td class="tdx"><button class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{nombre.username}}')">EDITAR</button></td>
+                    <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposUsuario('{{nombre.nombre}}','{{nombre.username}}','socio')" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
+                    <td class="tdn">►</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -32,28 +35,28 @@
 
     <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Eliminar {{nombre.rol}}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar {{nombre.rol}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Deseas eliminar al siguiente socio?</p>
+                    <h4 id="nombreAEliminar"></h4>
+                    <h4 id="usuarioAEliminar"></h4>
+                </div>
+                <div class="modal-footer">
+                    <form action="php/eliminarUsuario.php" method="post">
+                        <input type="text" name="username" id="usernameAEliminar" value="" style="display: none;">
+                        <input type="text" name="rol" id="rolARedirigir" value="" style="display: none;">
+                        <button type="submit" class="btn btn-danger">SÍ</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                    </form>
+                </div>
             </div>
-            <div class="modal-body">
-              <p>¿Deseas eliminar al siguiente socio?</p>
-              <h4 id="nombreAEliminar"></h4>
-              <h4 id="usuarioAEliminar"></h4>
-            </div>
-            <div class="modal-footer">
-                <form action="php/eliminarUsuario.php" method="post">
-                    <input type="text" name="username" id="usernameAEliminar" value="" style="display: none;">
-                    <input type="text" name="rol" id="rolARedirigir" value="" style="display: none;">
-                    <button type="submit" class="btn btn-danger" >SÍ</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                </form>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>
 {%endblock%}

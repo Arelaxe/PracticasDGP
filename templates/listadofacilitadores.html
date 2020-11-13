@@ -16,7 +16,10 @@
 </div>
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
-        <table class="table table-hover table-responsive">
+        <script src="js/buscarTablas.js"></script>
+        <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar facilitador...">
+
+        <table id="tablaBusqueda" class="table table-hover table-responsive">
             <tbody>
                 {% for i in nombres %}
                 <tr>
