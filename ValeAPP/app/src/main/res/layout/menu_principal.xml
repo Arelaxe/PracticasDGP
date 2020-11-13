@@ -66,7 +66,7 @@
                 android:gravity="center|start"
                 android:text="@string/mis_tareas"
                 android:textSize="27sp"
-                app:backgroundTint="#AC0C01" />
+                app:backgroundTint="@android:color/holo_red_light" />
 
         </LinearLayout>
 
@@ -79,14 +79,15 @@
 
             <Button
                 android:id="@+id/botonMisProfes"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="113dp"
+                android:layout_weight="1"
                 android:background="#FFFFFF"
                 android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_profes"
                 android:gravity="center|start"
                 android:text="@string/mis_profes"
                 android:textSize="27sp"
-                app:backgroundTint="#005A04" />
+                app:backgroundTint="@android:color/holo_orange_light" />
         </LinearLayout>
 
         <LinearLayout
@@ -103,7 +104,7 @@
                 android:gravity="center|start"
                 android:text="@string/mis_preferencias"
                 android:textSize="22sp"
-                app:backgroundTint="#4600C3" />
+                app:backgroundTint="@android:color/holo_blue_dark" />
         </LinearLayout>
 
     </LinearLayout>

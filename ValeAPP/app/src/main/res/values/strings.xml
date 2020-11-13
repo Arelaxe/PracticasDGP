@@ -108,9 +108,6 @@
     <string name="opci_n_de_audio_no_seleccionada_pulsa_para_seleccionar">Opción de audio no seleccionada. Pulsa para seleccionar</string>
     <string name="opci_n_de_v_deo_no_seleccionada_pulsa_para_seleccionar">Opción de vídeo no seleccionada. Pulsa para seleccionar</string>
     <string name="opci_n_de_texto_no_seleccionada_pulsa_para_seleccionar">Opción de texto no seleccionada. Pulsa para seleccionar</string>
-    <string name="imagen_de_v_deo">Imagen de vídeo</string>
-    <string name="imagen_de_texto">Imagen de texto</string>
-    <string name="imagen_de_audio">Imagen de audio</string>
     <string name="texto_seleccionado">Texto seleccionado</string>
     <string name="v_deo_seleccionado">Vídeo seleccionado</string>
     <string name="audio_seleccionado">Audio seleccionado</string>

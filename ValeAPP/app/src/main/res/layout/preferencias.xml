@@ -24,6 +24,7 @@
         android:id="@+id/eligePreferencias"
         android:layout_width="409dp"
         android:layout_height="130dp"
+        android:background="@android:color/holo_blue_dark"
         android:contentDescription="@string/elige_tus_opciones_preferidas"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
@@ -61,7 +62,6 @@
                 android:id="@+id/imagenAudio"
                 android:layout_width="77dp"
                 android:layout_height="89dp"
-                android:contentDescription="@string/imagen_de_audio"
                 app:srcCompat="@drawable/audio" />
 
             <Button
@@ -97,7 +97,6 @@
                 android:id="@+id/imagenCamaraVideo"
                 android:layout_width="77dp"
                 android:layout_height="89dp"
-                android:contentDescription="@string/imagen_de_v_deo"
                 app:srcCompat="@drawable/video" />
 
             <Button
@@ -110,7 +109,7 @@
                 android:text="@string/v_deo"
                 android:textColor="#000"
                 android:textSize="30sp"
-                app:backgroundTint="?android:attr/colorPressedHighlight" />
+                app:backgroundTint="@color/dark_yellow" />
 
             <ImageView
                 android:id="@+id/tickVideoSeleccionado"
@@ -132,7 +131,6 @@
                 android:id="@+id/imagenTexto"
                 android:layout_width="77dp"
                 android:layout_height="89dp"
-                android:contentDescription="@string/imagen_de_texto"
                 app:srcCompat="@drawable/texto" />
 
             <Button
@@ -145,7 +143,7 @@
                 android:text="@string/texto"
                 android:textColor="#000"
                 android:textSize="30sp"
-                app:backgroundTint="@android:color/holo_blue_dark" />
+                app:backgroundTint="@android:color/holo_red_light" />
 
             <ImageView
                 android:id="@+id/tickTextoSeleccionado"
