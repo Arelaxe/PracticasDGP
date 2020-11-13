@@ -586,10 +586,27 @@ app.post("/editarUsuario", (request, response) => {
 });
 
 /**/
+// Edición grupos
+/**/
+app.post("/editarGrupo", (request, response) => {
+    collectionGrupos.replaceOne({ "nombre": request.body.nombre , "facilitadorACargo" :  request.body.facilitadorACargo}, request.body, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Registro incorrecto");
+        }
+        else {
+            response.send("Registro completado");
+        }
+    });
+});
+
+/**/
 // Añadir socio a grupo
 /**/
 app.post("/anadir-socio-grupo", (request, response) => {
-    collectionGrupos.updateOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo" : request.body.facilitadorACargo }, { "$push": { "socios": request.body.user_socio } }, (error, result) => {
+    collectionGrupo.updateOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo" : request.body.facilitadorACargo }, { "$push": { "socios": request.body.username } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
@@ -606,7 +623,7 @@ app.post("/anadir-socio-grupo", (request, response) => {
 // Añadir grupo a grupos de un socio.
 /**/
 app.post("/anadir-grupo-socio", (request, response) => {
-    collectionUsuarios.updateOne({ "username": request.body.user_socio}, { "$push": { "grupos": request.body.nombre_grupo } }, (error, result) => {
+    collectionUsuarios.updateOne({ "username": request.body.username}, { "$push": { "grupos": request.body.username } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
