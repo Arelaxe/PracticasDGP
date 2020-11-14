@@ -205,7 +205,6 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/texto_del_bot_n_para_ir_al_siguiente_paso"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/siguiente"
             android:textColor="#000"
