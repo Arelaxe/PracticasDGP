@@ -81,10 +81,6 @@
                 android:layout_width="0dp"
                 android:layout_height="113dp"
                 android:layout_weight="1"
-<<<<<<< HEAD
-=======
-                android:background="#FFFFFF"
->>>>>>> af14dd545de6265454b605e87b090bd9408896b7
                 android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_profes"
                 android:gravity="center|start"
                 android:text="@string/mis_profes"

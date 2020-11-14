@@ -22,10 +22,6 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@color/cardview_shadow_end_color"
-<<<<<<< HEAD:ValeAPP/app/src/main/res/layout/barra_de_tareas.xml
-=======
-                android:contentDescription="@string/bot_n_para_volver_al_men_principal"
->>>>>>> af14dd545de6265454b605e87b090bd9408896b7:ValeAPP/app/src/main/res/layout/menu_preferencias.xml
                 android:scaleType="centerCrop"
                 android:tint="@color/black"
                 app:srcCompat="@drawable/abc_vector_test" />
