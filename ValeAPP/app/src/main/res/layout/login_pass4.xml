@@ -40,14 +40,14 @@
             android:layout_height="64dp"
             android:layout_marginBottom="488dp"
             android:contentDescription="@string/imagen_del_paso_1_marcada"
-            app:srcCompat="@android:drawable/radiobutton_on_background" />
+            app:srcCompat="@drawable/circulo_relleno" />
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:contentDescription="@string/imagen_del_paso_2_marcada"
-            app:srcCompat="@android:drawable/radiobutton_on_background" />
+            app:srcCompat="@drawable/circulo_relleno" />
 
         <ImageView
             android:id="@+id/imageView10"
@@ -55,7 +55,7 @@
             android:layout_height="64dp"
             android:layout_marginBottom="80dp"
             android:contentDescription="@string/imagen_del_paso_3_marcada"
-            app:srcCompat="@android:drawable/radiobutton_on_background" />
+            app:srcCompat="@drawable/circulo_relleno" />
 
         <ImageView
             android:id="@+id/imageView11"
@@ -63,14 +63,14 @@
             android:layout_height="64dp"
             android:layout_marginBottom="108dp"
             android:contentDescription="@string/imagen_del_paso_4_marcada_paso_actual"
-            app:srcCompat="@android:drawable/radiobutton_on_background" />
+            app:srcCompat="@drawable/circulo_relleno" />
 
         <ImageView
             android:id="@+id/imageView12"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:contentDescription="@string/imagen_del_paso_5_no_marcada"
-            app:srcCompat="@android:drawable/radiobutton_off_background" />
+            app:srcCompat="@drawable/circulo_no_relleno" />
     </LinearLayout>
 
     <LinearLayout

@@ -1,7 +1,6 @@
 package com.example.valeapp;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,10 +39,18 @@ public class MisPreferencias extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.menu_preferencias);
+        getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
+
+        //Modiciar Barra de Tareas para esta pantalla
+        final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        flechaAtras.setVisibility(View.VISIBLE);
+        flechaAtras.setContentDescription(getResources().getString(R.string.bot_n_para_volver_al_men_principal));
+        final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
+        textoFlechaAtras.setText(getResources().getString(R.string.volver_al_men_principal));
+        textoFlechaAtras.setVisibility(View.VISIBLE);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
-        final ImageButton botonAtras = findViewById(R.id.volverMenuPrincipal);
+        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
         //Obtener de la base de datos preferencias iniciales
         ////////////////////////////////////////////////////

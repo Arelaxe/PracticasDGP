@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/misTareas"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:contentDescription="@string/bot_n_para_acceder_a_mis_tareas">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -82,7 +81,10 @@
                 android:layout_width="0dp"
                 android:layout_height="113dp"
                 android:layout_weight="1"
+<<<<<<< HEAD
+=======
                 android:background="#FFFFFF"
+>>>>>>> af14dd545de6265454b605e87b090bd9408896b7
                 android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_profes"
                 android:gravity="center|start"
                 android:text="@string/mis_profes"
@@ -129,7 +131,6 @@
                 android:layout_height="85dp"
                 android:layout_gravity="center"
                 android:background="#FFFFFF"
-                android:contentDescription="@string/imagen_asociada_al_bot_n_mis_tareas"
                 app:srcCompat="@drawable/tareas" />
         </LinearLayout>
 
@@ -145,7 +146,6 @@
                 android:layout_height="85dp"
                 android:layout_gravity="center"
                 android:background="#FFFFFF"
-                android:contentDescription="@string/imagen_asociada_al_bot_n_mis_profes"
                 app:srcCompat="@drawable/profes" />
         </LinearLayout>
 
@@ -159,7 +159,6 @@
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/imagen_asociada_al_bot_n_mis_preferencias"
                 app:srcCompat="@drawable/preferencias" />
         </LinearLayout>
     </LinearLayout>

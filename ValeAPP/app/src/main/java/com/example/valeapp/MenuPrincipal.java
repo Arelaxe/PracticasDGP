@@ -2,10 +2,10 @@ package com.example.valeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,12 +25,18 @@ public class MenuPrincipal extends AppCompatActivity {
         final Button botonTareas = findViewById(R.id.botonMisTareas);
         final Button botonProfes = findViewById(R.id.botonMisProfes);
         final Button botonPreferencias = findViewById(R.id.botonMisPreferencias);
-        
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.menu);
+        getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
+
+        //Modiciar Barra de Tareas para esta pantalla
+        final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        flechaAtras.setVisibility(View.INVISIBLE);
+        final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
+        textoFlechaAtras.setVisibility(View.INVISIBLE);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
