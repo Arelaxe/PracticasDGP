@@ -11,7 +11,7 @@
 {%block cuerpo%}
 <div class="container">
     <div class="offset-lg-2 col-lg-8 titulo">
-        <h2>Perfil</h2>
+        <h1>Perfil</h1>
     </div>
 </div>
 <div class="container">
@@ -26,8 +26,9 @@
         {{ infoUsuario.direccion }}
         <h4>Teléfono</h4>
         {{ infoUsuario.telefono }}
-        <h4>Socios a cargo</h4>
-        <select class="form-control">
+        <br>
+        <label for="socios"><h4>Socios a cargo</h4></label>
+        <select class="form-control" id="socios">
           {% for i in sociosacargo %}
             <option value="{{i.username}}" onclick="window.location.replace('perfil.php?username={{i.username}}')">{{i.nombre}}</option>
           {%endfor%}
@@ -35,8 +36,9 @@
         {%else%}
         <h4>Identificador</h4>
         {{infoUsuario.username}}
-        <h4>Facilitadores a cargo</h4>
-        <select class="form-control">
+        <br>
+        <label for="facilitadores"><h4>Facilitadores a cargo</h4></label>
+        <select class="form-control" id="facilitadores">
           {%for facilitador in facilitadores%}
             <option onclick="window.location.replace('perfil.php?username={{facilitador}}')">{{facilitador}}</option>
           {%endfor%}
@@ -67,7 +69,7 @@
         {% endif %}
         <br>
         <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('editar.php?username={{infoUsuario.username}}')">EDITAR</button>
-        <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
+        <button id="botonEliminar" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
 
         <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
             <div class="modal-dialog" role="document">
@@ -85,8 +87,10 @@
                 </div>
                 <div class="modal-footer">
                     <form action="php/eliminarUsuario.php" method="post">
-                        <input type="text" name="username" value="{{infoUsuario.username}}" style="display: none;">
-                        <input type="text" name="rol" value="{{infoUsuario.rol}}" style="display: none;">
+                      <label for="username" hidden>Usuario</label>
+                        <input type="text" name="username" id="username" value="{{infoUsuario.username}}" style="display: none;">
+                        <label for="rol" hidden>Rol</label>
+                        <input type="text" name="rol" id="rol" value="{{infoUsuario.rol}}" style="display: none;">
                         <button type="submit" class="btn btn-danger">SÍ</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                     </form>

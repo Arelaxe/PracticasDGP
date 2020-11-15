@@ -14,257 +14,277 @@
 
 
 {%block cuerpo%}
-<div class="container">
+<div class="">
     <div class="offset-lg-2 col-lg-8 titulo">
         <h2>Editar</h2>
     </div>
 </div>
-<div class="container">
+<div class="">
     <div class="offset-lg-2 col-lg-8 sombreado" id="perfil">
         {% if id != -1 %}
-        <form action="php/editarUsuario.php" method="post">
-            <div class="class-group">
-                <h4>Nombre y apellidos</h4>
-                <input type="text" class="form-control" name="nombre" value="{{ infoUsuario.nombre }}">
-            </div>
-            {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
-            <div class="class-group">
-                <h4>Correo</h4>
-                <input type="text" class="form-control" name="username" value="{{ infoUsuario.username }}">
-                <input type="text" class="form-control" name="oldUsername" value="{{ infoUsuario.username }}" style="display: none;">
-            </div>
-            <div class="class-group">
-                <h4>Dirección</h4>
-                <input type="text" class="form-control" name="direccion" value="{{ infoUsuario.direccion }}">
-            </div>
-            <div class="class-group">
-                <h4>Teléfono</h4>
-                <input type="text" class="form-control" name="telefono" value="{{ infoUsuario.telefono }}">
-            </div>
-            {%if rol=="facilitador" %}
-            <div class="class-group">
-                <h4>Contraseña actual</h4>
-                <input type="password" name="ContrasenaActual" class="form-control">
-            </div>
-            {%endif%}
-            <div class="class-group">
-                <h4>Nueva contraseña</h4>
-                <input type="password" name="ContrasenaNueva" class="form-control">
-            </div>
-            <div class="class-group">
-                <h4>Confirmar contraseña</h4>
-                <input type="password" name="ContrasenaConfirmar" class="form-control">
-            </div>
-            {%else%}
-            <div class="class-group">
-                <h4>Identificador</h4>
-                <input type="text" class="form-control" name="username" value="{{ infoUsuario.username }}" disabled>
-                <input type="text" class="form-control" name="oldUsername" value="{{ infoUsuario.username }}" style="display: none;">
-            </div>
-
-            <div class="class-group">
-                <p>Generador de contraseña: <a href="#" onclick="ayuda()">(?)</a></p>
-                <div class="alert alert-warning">
-                    <p>No hay que crear una nueva contraseña si no se necesita</p>
-                </div>
-                <!--Zona 1: Formas-->
-                <div id="campo1" style="display: block;">
-                    <p>Zona 1: Selecciona una forma</p>
-                    <div class="container offset-lg-2">
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(1,0)"><img src="img/cuadrado.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(1,1)"><img src="img/circulo.png" class="img-pass"></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(1,2)"><img src="img/triangulo.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(1,3)"><img src="img/estrella.png" class="img-pass"></a>
-                            </div>
+        <form action="php/editarUsuario.php" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="card">
+                        <img class="card-img-top" src="img/phancho.jpg" alt="Card image cap">
+                        <div class="card-body">
+                                <label for="imagenPerfil">Imagen de perfil</label>
+                                <input type="file" id="imagenPerfil" name="imagenPerfil">
                         </div>
                     </div>
                 </div>
 
-                <!--Zona 2: Frutas-->
-                <div id="campo2" style="display: none;">
-                    <p>Zona 2: Elige una fruta</p>
-                    <div class="container offset-lg-2">
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(2,0)"><img src="img/fresa.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(2,1)"><img src="img/platano.png" class="img-pass"></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(2,2)"><img src="img/naranja.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(2,3)"><img src="img/manzana.png" class="img-pass"></a>
-                            </div>
-                        </div>
+                <div class="col-lg-8 col-xs-12">
+                    <div class="class-group">
+                        <label for="nombre"><h4>Nombre y apellidos</h4></label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="{{ infoUsuario.nombre }}">
                     </div>
-                </div>
-
-                <!--Zona 3: Animales-->
-                <div id="campo3" style="display: none;">
-                    <p>Zona : Elige un animal</p>
-                    <div class="container offset-lg-2">
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(3,0)"><img src="img/perro.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(3,1)"><img src="img/gato.png" class="img-pass"></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(3,2)"><img src="img/caballo.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(3,3)"><img src="img/pajaro.png" class="img-pass"></a>
-                            </div>
-                        </div>
+                    {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
+                    <div class="class-group">
+                        <label for="correo"><h4>Correo</h4></label>
+                        <input type="text" class="form-control" id="correo" name="username" value="{{ infoUsuario.username }}">
+                        <label for="correo2" hidden>Correo</label>
+                        <input type="text" class="form-control" id="correo2" name="oldUsername" value="{{ infoUsuario.username }}" style="display: none;">
                     </div>
-                </div>
-
-                <!--Zona 4: Vehiculos-->
-                <div id="campo4" style="display: none;">
-                    <p>Zona 4: Elige un vehiculo</p>
-                    <div class="container offset-lg-2">
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(4,0)"><img src="img/coche.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(4,1)"><img src="img/moto.png" class="img-pass"></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(4,2)"><img src="img/bicicleta.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(4,3)"><img src="img/helicoptero.png" class="img-pass"></a>
-                            </div>
-                        </div>
+                    <div class="class-group">
+                        <label for="direccion"><h4>Dirección</h4></label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" value="{{ infoUsuario.direccion }}">
                     </div>
-                </div>
-
-                <!--Zona 5: Juguetes-->
-                <div id="campo5" style="display: none;">
-                    <p>Zona 5: Elige un juguete</p>
-                    <div class="container offset-lg-2">
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(5,0)"><img src="img/pelota.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(5,1)"><img src="img/yoyo.png" class="img-pass"></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(5,2)"><img src="img/muneco.png" class="img-pass"></a>
-                            </div>
-                            <div class="col-4">
-                                <a href="#sombreado" onclick="avanzar(5,3)"><img src="img/bloques.png" class="img-pass"></a>
-                            </div>
-                        </div>
+                    <div class="class-group">
+                        <label for="telefono"><h4>Teléfono</h4></label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" value="{{ infoUsuario.telefono }}">
                     </div>
-                </div>
-
-                <div class="error" id="error_pass" style="display: none;">
-                    Hay que terminar de poner la contraseña
-                </div>
-               
-            </div>
-
-            <div class="class-group">
-                <div class="container secuenciasocio">
-                    <div class="row">
-                       <div class="container col-10">
-                           <div class="row">
-                                <div class="col-lg-2 col-xs-12">
-                                    <p>Contraseña del socio</p>
+                    {%if rol=="facilitador" %}
+                    <div class="class-group">
+                        <label for="ContrasenaActual"><h4>Contraseña actual</h4></label>
+                        <input type="password" id="ContrasenaActual" name="ContrasenaActual" class="form-control">
+                    </div>
+                    {%endif%}
+                    <div class="class-group">
+                        <label for="ContrasenaNueva"><h4>Nueva contraseña</h4></label>
+                        <input type="password" id="ContrasenaNueva" name="ContrasenaNueva" class="form-control">
+                    </div>
+                    <div class="class-group">
+                        <label for="ContrasenaConfirmar"><h4>Confirmar contraseña</h4></label>
+                        <input type="password" id="ContrasenaConfirmar" name="ContrasenaConfirmar" class="form-control">
+                    </div>
+                    {%else%}
+                    <div class="class-group">
+                        <label for="username"><h4>Identificador</h4></label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ infoUsuario.username }}" disabled>
+                        <label for="username2" hidden>Id</label>
+                        <input type="text" class="form-control" id="username2" name="oldUsername" value="{{ infoUsuario.username }}" style="display: none;">
+                    </div>
+        
+                    <div class="class-group">
+                        <p>Generador de contraseña: <a href="#" onclick="ayuda()">(?)</a></p>
+                        <div class="alert alert-warning">
+                            <p>No hay que crear una nueva contraseña si no se necesita</p>
+                        </div>
+                        <!--Zona 1: Formas-->
+                        <div id="campo1" style="display: block;">
+                            <p>Zona 1: Selecciona una forma</p>
+                            <div class="container offset-lg-2">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(1,0)"><img src="img/cuadrado.png" class="img-pass" alt="Cuadrado"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(1,1)"><img src="img/circulo.png" class="img-pass" alt="Circulo"></a>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 col-4">
-                                    <img src="img/cuadrado.png" alt="Cuadrado" class="miniimg" id="opcion0" style="display: none;">
-                                    <img src="img/circulo.png" alt="Circulo" class="miniimg" id="opcion1" style="display: none;">
-                                    <img src="img/triangulo.png" alt="Triangulo" class="miniimg" id="opcion2" style="display: none;">
-                                    <img src="img/estrella.png" alt="Estrella" class="miniimg" id="opcion3" style="display: none;">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(1,2)"><img src="img/triangulo.png" class="img-pass" alt="Triangulo"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(1,3)"><img src="img/estrella.png" class="img-pass" alt="Estrella"></a>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 col-4">
-                                    <img src="img/fresa.png" alt="Fresa" class="miniimg" id="opcion4" style="display: none;">
-                                    <img src="img/platano.png" alt="Platano" class="miniimg" id="opcion5" style="display: none;">
-                                    <img src="img/naranja.png" alt="Naranja" class="miniimg" id="opcion6" style="display: none;">
-                                    <img src="img/manzana.png" alt="Manzana" class="miniimg" id="opcion7" style="display: none;">
+                            </div>
+                        </div>
+        
+                        <!--Zona 2: Frutas-->
+                        <div id="campo2" style="display: none;">
+                            <p>Zona 2: Elige una fruta</p>
+                            <div class="container offset-lg-2">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(2,0)"><img src="img/fresa.png" class="img-pass" alt="Fresa"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(2,1)"><img src="img/platano.png" class="img-pass" alt="Platano"></a>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 col-4">
-                                    <img src="img/perro.png" alt="Perro" class="miniimg" id="opcion8" style="display: none;">
-                                    <img src="img/gato.png" alt="Gato" class="miniimg" id="opcion9" style="display: none;">
-                                    <img src="img/caballo.png" alt="Caballo" class="miniimg" id="opcion10" style="display: none;">
-                                    <img src="img/pajaro.png" alt="Pajaro" class="miniimg" id="opcion11" style="display: none;">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(2,2)"><img src="img/naranja.png" class="img-pass" alt="Naranja"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(2,3)"><img src="img/manzana.png" class="img-pass" alt="Manzana"></a>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 col-4">
-                                    <img src="img/coche.png" alt="Coche" class="miniimg" id="opcion12" style="display: none;">
-                                    <img src="img/moto.png" alt="Moto" class="miniimg" id="opcion13" style="display: none;">
-                                    <img src="img/bicicleta.png" alt="Bicicleta" class="miniimg" id="opcion14" style="display: none;">
-                                    <img src="img/helicoptero.png" alt="Helicoptero" class="miniimg" id="opcion15" style="display: none;">
+                            </div>
+                        </div>
+        
+                        <!--Zona 3: Animales-->
+                        <div id="campo3" style="display: none;">
+                            <p>Zona : Elige un animal</p>
+                            <div class="container offset-lg-2">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(3,0)"><img src="img/perro.png" class="img-pass" alt="Perro"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(3,1)"><img src="img/gato.png" class="img-pass" alt="Gato"></a>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 col-4">
-                                    <img src="img/pelota.png" alt="Pelota" class="miniimg" id="opcion16" style="display: none;">
-                                    <img src="img/yoyo.png" alt="Yoyo" class="miniimg" id="opcion17" style="display: none;">
-                                    <img src="img/muneco.png" alt="Muneco" class="miniimg" id="opcion18" style="display: none;">
-                                    <img src="img/bloques.png" alt="Bloques" class="miniimg" id="opcion19" style="display: none;">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(3,2)"><img src="img/caballo.png" class="img-pass" alt="Caballo"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(3,3)"><img src="img/pajaro.png" class="img-pass" alt="Pajaro"></a>
+                                    </div>
                                 </div>
-                           </div>
-                       </div>
-                       <div class="container col-lg-2 col-xs-12">
-                           <div class="row">
-                                <button type="button" class="btn btn-warning" onclick="reestablecer()">RESTABLECER</button>
-                           </div>
-                       </div>
-                        
+                            </div>
+                        </div>
+        
+                        <!--Zona 4: Vehiculos-->
+                        <div id="campo4" style="display: none;">
+                            <p>Zona 4: Elige un vehiculo</p>
+                            <div class="container offset-lg-2">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(4,0)"><img src="img/coche.png" class="img-pass" alt="Coche"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(4,1)"><img src="img/moto.png" class="img-pass" alt="Moto"></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(4,2)"><img src="img/bicicleta.png" class="img-pass" alt="Bicicleta"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(4,3)"><img src="img/helicoptero.png" class="img-pass" alt="Helicoptero"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <!--Zona 5: Juguetes-->
+                        <div id="campo5" style="display: none;">
+                            <p>Zona 5: Elige un juguete</p>
+                            <div class="container offset-lg-2">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(5,0)"><img src="img/pelota.png" class="img-pass" alt="Pelota"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(5,1)"><img src="img/yoyo.png" class="img-pass" alt="Yoyo"></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(5,2)"><img src="img/muneco.png" class="img-pass" alt="Muneco"></a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="#sombreado" onclick="avanzar(5,3)"><img src="img/bloques.png" class="img-pass" alt="Bloques"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="error" id="error_pass" style="display: none;">
+                            Hay que terminar de poner la contraseña
+                        </div>
+                       
                     </div>
+        
+                    <div class="class-group">
+                        <div class="container secuenciasocio">
+                            <div class="row">
+                               <div class="container col-10">
+                                   <div class="row">
+                                        <div class="col-lg-2 col-xs-12">
+                                            <p>Contraseña del socio</p>
+                                        </div>
+                                        <div class="col-lg-2 col-4">
+                                            <img src="img/cuadrado.png" alt="Cuadrado" class="miniimg" id="opcion0" style="display: none;">
+                                            <img src="img/circulo.png" alt="Circulo" class="miniimg" id="opcion1" style="display: none;">
+                                            <img src="img/triangulo.png" alt="Triangulo" class="miniimg" id="opcion2" style="display: none;">
+                                            <img src="img/estrella.png" alt="Estrella" class="miniimg" id="opcion3" style="display: none;">
+                                        </div>
+                                        <div class="col-lg-2 col-4">
+                                            <img src="img/fresa.png" alt="Fresa" class="miniimg" id="opcion4" style="display: none;">
+                                            <img src="img/platano.png" alt="Platano" class="miniimg" id="opcion5" style="display: none;">
+                                            <img src="img/naranja.png" alt="Naranja" class="miniimg" id="opcion6" style="display: none;">
+                                            <img src="img/manzana.png" alt="Manzana" class="miniimg" id="opcion7" style="display: none;">
+                                        </div>
+                                        <div class="col-lg-2 col-4">
+                                            <img src="img/perro.png" alt="Perro" class="miniimg" id="opcion8" style="display: none;">
+                                            <img src="img/gato.png" alt="Gato" class="miniimg" id="opcion9" style="display: none;">
+                                            <img src="img/caballo.png" alt="Caballo" class="miniimg" id="opcion10" style="display: none;">
+                                            <img src="img/pajaro.png" alt="Pajaro" class="miniimg" id="opcion11" style="display: none;">
+                                        </div>
+                                        <div class="col-lg-2 col-4">
+                                            <img src="img/coche.png" alt="Coche" class="miniimg" id="opcion12" style="display: none;">
+                                            <img src="img/moto.png" alt="Moto" class="miniimg" id="opcion13" style="display: none;">
+                                            <img src="img/bicicleta.png" alt="Bicicleta" class="miniimg" id="opcion14" style="display: none;">
+                                            <img src="img/helicoptero.png" alt="Helicoptero" class="miniimg" id="opcion15" style="display: none;">
+                                        </div>
+                                        <div class="col-lg-2 col-4">
+                                            <img src="img/pelota.png" alt="Pelota" class="miniimg" id="opcion16" style="display: none;">
+                                            <img src="img/yoyo.png" alt="Yoyo" class="miniimg" id="opcion17" style="display: none;">
+                                            <img src="img/muneco.png" alt="Muneco" class="miniimg" id="opcion18" style="display: none;">
+                                            <img src="img/bloques.png" alt="Bloques" class="miniimg" id="opcion19" style="display: none;">
+                                        </div>
+                                   </div>
+                               </div>
+                               <div class="container col-lg-2 col-xs-12">
+                                   <div class="row">
+                                        <button type="button" class="btn btn-warning" onclick="reestablecer()">RESTABLECER</button>
+                                   </div>
+                               </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="class-group" style="display: none;">
+                        <label for="secuencia">Contraseña:</label>
+                        <input type="password" name="secuencia"  class="form-control" id="secuencia" value="" oninput="puedoRegistrar()">
+                    </div>
+        
+                    <h4>Preferencias</h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="img/video.png" alt="Video" class="imgprefs">
+                                <label for="preferenciaVideo" hidden>Preferencia de Video</label>
+                                <input type="checkbox" name="preferenciaVideo" id="preferenciaVideo" {% if infoUsuario.preferenciaVideo == true %}checked{% endif %}>
+                            </div>
+                            <div class="col-3">
+                                <img src="img/audio.png" alt="Audio" class="imgprefs">
+                                <label for="preferenciaAudio" hidden>Preferencia de Audio</label>
+                                <input type="checkbox" name="preferenciaAudio" id="preferenciaAudio" {% if infoUsuario.preferenciaAudio == true %}checked{% endif %}>
+                            </div>
+                            <div class="col-3">
+                                <img src="img/texto.png" alt="Texto" class="imgprefs">
+                                <label for="preferenciaTexto" hidden>Preferencia de texto</label>
+                                <input type="checkbox" name="preferenciaTexto" id="preferenciaTexto" {% if infoUsuario.preferenciaTexto == true %}checked{% endif %}>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                <br>
+                <button id="submit" class="btn btn-success" class = "offset-lg-2 col-lg-8">GUARDAR CAMBIOS</button>
+                <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('listado_{{infoUsuario.grupo}}.php')">CANCELAR</button>
+                {% endif %}
                 </div>
+                
             </div>
-
-            <div class="class-group" style="display: none;">
-                <p>Contraseña:</p>
-                <input type="password" name="secuencia"  class="form-control" id="secuencia" value="" oninput="puedoRegistrar()">
-            </div>
-
-            <h4>Preferencias</h4>
-            <div class="container">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="img/video.png" alt="Video" class="imgprefs">
-                        <input type="checkbox" name="preferenciaVideo" id="" {% if infoUsuario.preferenciaVideo == true %}checked{% endif %}>
-                    </div>
-                    <div class="col-3">
-                        <img src="img/audio.png" alt="Audio" class="imgprefs">
-                        <input type="checkbox" name="preferenciaAudio" id="" {% if infoUsuario.preferenciaAudio == true %}checked{% endif %}>
-                    </div>
-                    <div class="col-3">
-                        <img src="img/texto.png" alt="Texto" class="imgprefs">
-                        <input type="checkbox" name="preferenciaTexto" id="" {% if infoUsuario.preferenciaTexto == true %}checked{% endif %}>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        <br>
-        <button id="submit" class="btn btn-success" class = "offset-lg-2 col-lg-8">GUARDAR CAMBIOS</button>
-        <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('listado_{{infoUsuario.grupo}}.php')">CANCELAR</button>
-        {% endif %}
     </form>
     </div>
 </div>

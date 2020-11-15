@@ -21,7 +21,7 @@
         <form action="php/eliminarSocioGrupo.php" method="post">
             <div class="class-group">
                 <label for="socioEliminar">Socio a eliminar</label>
-                <select name="socioEliminar" id="" class="form-control">
+                <select name="socioEliminar" id="socioEliminar" class="form-control">
                     {% if socio != -1 %}
                     <option value="{{ socio.username }}">{{ socio.nombre }}</option>
                     {% else %}
@@ -35,7 +35,7 @@
             </div>
             <div class="class-group">
                 <label for="grupoEliminar">Grupo del que eliminarle</label>
-                <select name="grupoEliminar" id="" class="form-control">
+                <select name="grupoEliminar" id="grupoEliminar" class="form-control">
                     {% if grupo != -1 %}
                     <option value="{{ grupo }}">{{ grupo }} </option>
                     {% else %}

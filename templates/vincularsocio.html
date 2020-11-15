@@ -19,7 +19,7 @@
         <form action="php/vincularSocio.php" method="post">
             <div class="class-group">
                 <label for="socioAVincular" >Socio a vincular</label>
-                <select name="socioAVincular" class="form-control">
+                <select name="socioAVincular" id="socioAVincular" class="form-control">
                     {%for socio in socios%}
                         <option value="{{socio.username}}">{{socio.nombre}}</option>
                     {%endfor%}

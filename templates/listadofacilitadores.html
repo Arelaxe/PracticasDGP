@@ -17,6 +17,7 @@
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
         <script src="js/buscarTablas.js"></script>
+        <label for="busqueda" hidden>Buscar facilitador</label>
         <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar facilitador..." class="form-control">
 
         <table id="tablaBusqueda" class="table table-hover table-responsive">
@@ -24,8 +25,8 @@
                 {% for i in nombres %}
                 <tr>
                     <td scope="row" class="td1"><a href="perfil.php?username={{i.username}}">{{ i.nombre }}</a></td>
-                    <td class="tdx"> <button id="boton" class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{i.username}}')">EDITAR</button> </td>
-                    <td class="tdx"> <button id="boton" class="btn btn-danger bt1" onclick="completarCamposUsuario('{{i.nombre}}','{{i.username}}','facilitador')" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button> </td>
+                    <td class="tdx"> <button id="botonEditar{{i.username}}" class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{i.username}}')">EDITAR</button> </td>
+                    <td class="tdx"> <button id="botonEliminar{{i.username}}" class="btn btn-danger bt1" onclick="completarCamposUsuario('{{i.nombre}}','{{i.username}}','facilitador')" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button> </td>
                     <td class="tdn">►</td>
                 </tr>
                 {% endfor %}
@@ -48,7 +49,9 @@
             </div>
             <div class="modal-footer">
                 <form action="php/eliminarUsuario.php" method="post">
+                  <label for="usernameAEliminar" hidden>Usuario a eliminar</label>
                     <input type="text" name="username" id="usernameAEliminar" value="" style="display: none;">
+                    <label for="rolARedirigir" hidden>Rol a redirigir</label>
                     <input type="text" name="rol" id="rolARedirigir" value="" style="display: none;">
                     <button type="submit" class="btn btn-danger">SÍ</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>

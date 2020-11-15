@@ -51,7 +51,7 @@
 
             <div class="boton_centro">
               <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('editar_grupo.php?nombre={{infoGrupo.nombre}}&facilitadorACargo={{infoGrupo.facilitadorACargo}}')">EDITAR</button>
-              <button id="boton" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
+              <button id="botonEliminar" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
             </div>
         
 
@@ -70,8 +70,10 @@
                 </div>
                 <div class="modal-footer">
                     <form action="php/eliminarGrupo.php" method="post">
-                        <input type="text" name="facilitadorACargo" value="{{infoGrupo.facilitadorACargo}}" style="display: none;">
-                        <input type="text" name="nombreGrupo" value="{{infoGrupo.nombre}}" style="display: none;">
+                      <label for="facilitadorACargo" hidden>Facilitador a Cargo</label>
+                        <input type="text" id="facilitadorACargo" name="facilitadorACargo" value="{{infoGrupo.facilitadorACargo}}" style="display: none;">
+                        <label for="nombreGrupo" hidden>Nombre de grupo</label>
+                        <input type="text" id="nombreGrupo" name="nombreGrupo" value="{{infoGrupo.nombre}}" style="display: none;">
                         <button type="submit" class="btn btn-danger">SÍ</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                     </form>
