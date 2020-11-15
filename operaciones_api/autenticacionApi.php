@@ -596,4 +596,42 @@ function eliminarSocioGrupoApi($jsonInfoUsuarios){
     // Close cURL resource
     curl_close($ch);
 }
+
+function sendFileApi($imageRealName){
+    $location = "../img/";
+    $url = "http://localhost:5000/upload";
+    $filename = $imageRealName;
+    $filedata = $location.$imageRealName;
+    if ($filedata != ''){
+        $jsonInfo = array();
+        $jsonInfo['filedata'] = base64_encode(file_get_contents($filedata));
+        $jsonInfo['filename'] = $imageRealName;
+
+        $jsonInfo = json_encode($jsonInfo);
+      // API URL
+        $url = 'http://localhost:5000/upload';
+
+        // Create a new cURL resource
+        $ch = curl_init($url);
+
+        // Attach encoded JSON string to the POST fields
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfo);
+
+        // Set the content type to application/json
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+        // Return response instead of outputting
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Execute the POST request
+        $result = curl_exec($ch);
+        // Close cURL resource
+        curl_close($ch);
+
+    }
+    else
+    {
+        $errmsg = "Please select the file";
+    }
+}
 ?>
