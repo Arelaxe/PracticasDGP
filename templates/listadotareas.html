@@ -26,12 +26,38 @@
                     <td scope="row" class="td1">{{ nombre }}</td>
                     <td class="tdx"><button class="btn btn-warning bt1">EDITAR</button></td>
                     <td class="tdx"><button class="btn btn-primary bt1">ENVIAR A SOCIO</button></td>
-                    <td class="tdx"><button class="btn btn-danger bt1">ELIMINAR</button></td>
+                    <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposTarea('{{nombre}}')"  data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
                     <td class="tdn"><a href="./tarea.php?id={{ ids[loop.index0] }}">►</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eliminar tarea</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Deseas eliminar la siguiente tarea?</p>
+                        <img class="card-img-top" src="img/phancho.jpg" alt="Card image cap">
+                        <h4 id="nombreAEliminar"></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="php/eliminarTarea.php" method="post">
+                            <input type="text" name="tareaAEliminar" id="tareaAEliminar" value="" style="display: none;">
+                            <input type="text" name="facilitador" id="facilitador" value="{{usuario}}" hidden>
+                            <button type="submit" class="btn btn-danger">SÍ</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {%endblock%}

@@ -56,3 +56,8 @@ function completarCamposGrupo(nombreGrupo, facilitadorGrupo){
     document.getElementById('nombreGrupo').setAttribute('value',nombreGrupo);
     document.getElementById('facilitadorACargo').setAttribute('value',facilitadorGrupo);
 }
+
+function completarCamposTarea(nombreTarea){
+    document.getElementById('nombreAEliminar').innerHTML = nombreTarea;
+    document.getElementById('tareaAEliminar').setAttribute('value',nombreTarea);
+}

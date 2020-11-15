@@ -22,5 +22,5 @@
         array_push($listado_ids, $tarea->_id);
 	}
 
-    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids, 'rol' => $rol]);
+    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids, 'rol' => $rol, 'usuario' => $_SESSION['usuario']]);
 ?>

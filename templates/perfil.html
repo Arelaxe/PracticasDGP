@@ -16,89 +16,96 @@
 </div>
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado" id="perfil">
-        {% if id != -1 %}
-        <h4>Nombre y apellidos</h4>
-        {{ infoUsuario.nombre }}
-        {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
-        <h4>Correo</h4>
-        {{ infoUsuario.username }}
-        <h4>Dirección</h4>
-        {{ infoUsuario.direccion }}
-        <h4>Teléfono</h4>
-        {{ infoUsuario.telefono }}
-        <br>
-        <label for="socios"><h4>Socios a cargo</h4></label>
-        <select class="form-control" id="socios">
-          {% for i in sociosacargo %}
-            <option value="{{i.username}}" onclick="window.location.replace('perfil.php?username={{i.username}}')">{{i.nombre}}</option>
-          {%endfor%}
-        </select>
-        {%else%}
-        <h4>Identificador</h4>
-        {{infoUsuario.username}}
-        <br>
-        <label for="facilitadores"><h4>Facilitadores a cargo</h4></label>
-        <select class="form-control" id="facilitadores">
-          {%for facilitador in facilitadores%}
-            <option onclick="window.location.replace('perfil.php?username={{facilitador}}')">{{facilitador}}</option>
-          {%endfor%}
-        </select>
-        <h4>Preferencias</h4>
-        <div class="container">
-            <div class="row">
-                <div class="col-3 prefs">
-                    <img src="img/video.png" alt="Video" class="imgprefs">
-                    <p>
-                      {{preferencias.video}}
-                    </p>
-                </div>
-                <div class="col-3 prefs">
-                    <img src="img/audio.png" alt="Audio" class="imgprefs">
-                    <p>
-                      {{preferencias.audio}}
-                    </p>
-                </div>
-                <div class="col-3 prefs">
-                    <img src="img/texto.png" alt="Texto" class="imgprefs">
-                    <p>
-                      {{preferencias.texto}}
-
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-xs-12 col-lg-4">
+          <img src="{{img}}" alt="Foto de perfil" class="imgprefs">
         </div>
-        {% endif %}
-        <br>
-        <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('editar.php?username={{infoUsuario.username}}')">EDITAR</button>
-        <button id="botonEliminar" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
-
-        <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Eliminar {{infoUsuario.rol}}</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>¿Deseas eliminar al siguiente {{infoUsuario.rol}}?</p>
-                  <h4>{{infoUsuario.nombre}}</h4>
-                  <h4>{{infoUsuario.username}}</h4>
-                </div>
-                <div class="modal-footer">
-                    <form action="php/eliminarUsuario.php" method="post">
-                      <label for="username" hidden>Usuario</label>
-                        <input type="text" name="username" id="username" value="{{infoUsuario.username}}" style="display: none;">
-                        <label for="rol" hidden>Rol</label>
-                        <input type="text" name="rol" id="rol" value="{{infoUsuario.rol}}" style="display: none;">
-                        <button type="submit" class="btn btn-danger">SÍ</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                    </form>
+        <div class="col-xs-12 col-lg-8">
+          {% if id != -1 %}
+          <h4>Nombre y apellidos</h4>
+          {{ infoUsuario.nombre }}
+          {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
+          <h4>Correo</h4>
+          {{ infoUsuario.username }}
+          <h4>Dirección</h4>
+          {{ infoUsuario.direccion }}
+          <h4>Teléfono</h4>
+          {{ infoUsuario.telefono }}
+          <br>
+          <label for="socios"><h4>Socios a cargo</h4></label>
+          <select class="form-control" id="socios">
+            {% for i in sociosacargo %}
+              <option value="{{i.username}}" onclick="window.location.replace('perfil.php?username={{i.username}}')">{{i.nombre}}</option>
+            {%endfor%}
+          </select>
+          {%else%}
+          <h4>Identificador</h4>
+          {{infoUsuario.username}}
+          <br>
+          <label for="facilitadores"><h4>Facilitadores a cargo</h4></label>
+          <select class="form-control" id="facilitadores">
+            {%for facilitador in facilitadores%}
+              <option onclick="window.location.replace('perfil.php?username={{facilitador}}')">{{facilitador}}</option>
+            {%endfor%}
+          </select>
+          <h4>Preferencias</h4>
+          <div class="container">
+              <div class="row">
+                  <div class="col-3 prefs">
+                      <img src="img/video.png" alt="Video" class="imgprefs">
+                      <p>
+                        {{preferencias.video}}
+                      </p>
+                  </div>
+                  <div class="col-3 prefs">
+                      <img src="img/audio.png" alt="Audio" class="imgprefs">
+                      <p>
+                        {{preferencias.audio}}
+                      </p>
+                  </div>
+                  <div class="col-3 prefs">
+                      <img src="img/texto.png" alt="Texto" class="imgprefs">
+                      <p>
+                        {{preferencias.texto}}
+  
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+          <br>
+          <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('editar.php?username={{infoUsuario.username}}')">EDITAR</button>
+          <button id="botonEliminar" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
+  
+          <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Eliminar {{infoUsuario.rol}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>¿Deseas eliminar al siguiente {{infoUsuario.rol}}?</p>
+                    <h4>{{infoUsuario.nombre}}</h4>
+                    <h4>{{infoUsuario.username}}</h4>
+                  </div>
+                  <div class="modal-footer">
+                      <form action="php/eliminarUsuario.php" method="post">
+                        <label for="username" hidden>Usuario</label>
+                          <input type="text" name="username" id="username" value="{{infoUsuario.username}}" style="display: none;">
+                          <label for="rol" hidden>Rol</label>
+                          <input type="text" name="rol" id="rol" value="{{infoUsuario.rol}}" style="display: none;">
+                          <button type="submit" class="btn btn-danger">SÍ</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                      </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        {% endif %}
+          {% endif %}
+        </div>
+      </div>
     </div>
 </div>
 {%endblock%}
