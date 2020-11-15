@@ -43,6 +43,12 @@ app.post("/upload", (request, response) => {
     response.send("imagen subida");
 });
 
+app.post("/get-image", function (req, res){
+    const fs = require('fs');
+    const contents = fs.readFileSync("media/"+req.body.ruta, {encoding: 'base64'});
+    res.send(contents);
+});
+
 /******************************************************/
 // Registro Usuarios
 /******************************************************/
