@@ -17,11 +17,14 @@
             $infoUsuarioEditado['rol'] = $usuario->rol;
 
             $nombre = saveFile("imagenPerfil");
-            var_dump($nombre);
+            
             if ($nombre != null){
                 $infoUsuarioEditado['imagenPerfil'] = $nombre;
                 sendFileApi($nombre);
-			}
+            }
+            else{
+                $infoUsuarioEditado['imagenPerfil'] = "default.jpg";
+            }
 
             if($infoUsuarioEditado['rol'] == "admin" || $infoUsuarioEditado['rol'] == "ambos" || $infoUsuarioEditado['rol'] == "facilitador"){
                 $infoUsuarioEditado['direccion'] = $_POST['direccion'];
