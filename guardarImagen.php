@@ -1,4 +1,6 @@
 <?php
+    include_once("operaciones_api/autenticacionApi.php");
+
     function saveFile($file){
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             $location = "../img/";
@@ -18,6 +20,15 @@
                 }
             }
         }
+    }
+
+    function getImage($imagen){
+        $ruta = array();
+        $ruta['ruta'] = $imagen;
+        $jsonruta = json_encode($ruta);
+        $result = getImageApi($jsonruta);
+        $result = base64_decode($result);
+        file_put_contents("img/".$ruta['ruta'], $result);
     }
 
 ?>

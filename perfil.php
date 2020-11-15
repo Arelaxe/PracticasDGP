@@ -1,6 +1,7 @@
 <?php
     require_once '../vendor/autoload.php';
     include_once("php/listasVinculaciones.php");
+    include_once("guardarImagen.php");
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
@@ -31,13 +32,8 @@
             $infoUsuario['username'] = $item->username;
             $infoUsuario['rol'] = $item->rol;
             $ruta = array();
-            $ruta['ruta'] = $item->imagenPerfil;
-            $jsonRuta = json_encode($ruta);
-            $result = getImageApi($jsonRuta);
-            $result = base64_decode($result);
-            file_put_contents("img/".$ruta['ruta'], $result);
-
-            $img = "img/".$ruta['ruta'];
+            getImage($item->imagenPerfil);
+            $img = "img/".$item->imagenPerfil;
             
             if($infoUsuario['rol'] == "admin" || $infoUsuario['rol'] == "ambos" || $infoUsuario['rol'] == "facilitador"){
                 $infoUsuario['direccion'] = $item->direccion;
