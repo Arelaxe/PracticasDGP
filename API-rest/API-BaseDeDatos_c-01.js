@@ -233,6 +233,23 @@ app.post("/editar-tarea", (request, response) => {
 });
 
 /******************************************************/
+// Info tarea
+/******************************************************/
+app.post("/info-tarea", (request, response) => {
+    collectionTareas.find({ "nombre": request.body.nombre, "creador": request.body.creador }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró la tarea");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
 // Listado tareas (La funcionalidad ahora mismo es un "mis tareas" de facilitador)
 /******************************************************/
 app.post("/listado-tareas", (request, response) => {
