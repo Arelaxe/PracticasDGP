@@ -219,7 +219,7 @@ app.post("/eliminar-tarea", (request, response) => {
 // Editar tarea
 /******************************************************/
 app.post("/editar-tarea", (request, response) => {
-    collectionTareas.replaceOne({ "creador": request.body.oldCreador, "nombre":request.body.oldNombre }, request.body, (error, result) => {
+    collectionTareas.replaceOne({ "creador": request.body.creador, "nombre":request.body.nombre }, request.body, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
