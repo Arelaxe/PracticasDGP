@@ -1,6 +1,7 @@
 <?php
 require_once '../vendor/autoload.php';
     require_once('operaciones_api/autenticacionApi.php');
+    require_once 'php/mostrarFotoPerfil.php';
     $grupos = array();
     $socios = array();
     session_start();
@@ -70,5 +71,5 @@ require_once '../vendor/autoload.php';
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('eliminarSocioGrupo.html',['rol' => $rol, 'grupo' => $grupo, 'socios' => $socios, 'socio' => $socio, 's_info' => $s_info[0], 'grupos' => $grupos]);
+    echo $twig->render('eliminarSocioGrupo.html',['rol' => $rol, 'grupo' => $grupo, 'socios' => $socios, 'socio' => $socio, 's_info' => $s_info[0], 'grupos' => $grupos, 'cuenta' => $_SESSION['usuario'], 'img' => $imagen]);
 ?>

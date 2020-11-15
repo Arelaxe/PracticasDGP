@@ -1,6 +1,7 @@
 <?php
     require_once 'php/listasVinculaciones.php';
     require_once('operaciones_api/autenticacionApi.php');
+    require_once 'php/mostrarFotoPerfil.php';
     require_once '../vendor/autoload.php';
 
     session_start();
@@ -19,5 +20,5 @@
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('vincularsocio.html',['rol' => $rol, 'socios' => $listadoSociosNoVinculados]);
+    echo $twig->render('vincularsocio.html',['rol' => $rol, 'socios' => $listadoSociosNoVinculados , 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
 ?>

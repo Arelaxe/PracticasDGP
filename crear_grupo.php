@@ -1,5 +1,6 @@
 <?php
     require_once '../vendor/autoload.php';
+    require_once 'php/mostrarFotoPerfil.php';
     session_start();
     $error = false;
 
@@ -13,6 +14,6 @@
         $loader = new \Twig\Loader\FilesystemLoader('templates');
         $twig = new \Twig\Environment($loader);
         $rol = $_SESSION['rol'];
-        echo $twig->render('creargrupo.html', ['rol' => $rol, 'error' => $error]);
+        echo $twig->render('creargrupo.html', ['rol' => $rol, 'error' => $error, 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario'] ]);
     }
 ?>

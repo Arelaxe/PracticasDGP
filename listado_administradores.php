@@ -1,6 +1,7 @@
 <?php
     require_once '../vendor/autoload.php';
     include_once("operaciones_api/autenticacionApi.php");
+    require_once 'php/mostrarFotoPerfil.php';
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
@@ -9,6 +10,7 @@
     if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'ambos'){
         $listado = listadoAdministradoresApi();
         $listado_nombres = array();
+        $imagen = fotoPerfil($_SESSION['usuario']);
         $rol = $_SESSION['rol'];
 
         foreach($listado as $elemento){
@@ -16,5 +18,5 @@
         }
     }
 
-    echo $twig->render('listadoadministradores.html', ['nombres' => $listado, 'rol' => $rol]);
+    echo $twig->render('listadoadministradores.html', ['nombres' => $listado, 'rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => $imagen]);
 ?>

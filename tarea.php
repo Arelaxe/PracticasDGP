@@ -1,5 +1,6 @@
 <?php
     require_once '../vendor/autoload.php';
+    require_once 'php/mostrarFotoPerfil.php';
     include_once("guardarImagen.php");
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
@@ -40,5 +41,5 @@
         $idUsuario = -1;
     }
 
-    echo $twig->render('informacionTarea.html',['rol' => $rol, 'info' => $infoTarea]);
+    echo $twig->render('informacionTarea.html',['rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
 ?>
