@@ -1,5 +1,6 @@
 <?php
     require_once "../operaciones_api/autenticacionApi.php";
+    require_once "../guardarImagen.php";
     session_start();
 
     if(isset($_SESSION['rol']) && isset($_POST['oldUsername'])){
@@ -14,6 +15,13 @@
             $infoUsuarioEditado['username'] = $_POST['username'];
             $infoUsuarioEditado['nombre'] = $_POST['nombre'];
             $infoUsuarioEditado['rol'] = $usuario->rol;
+
+            $nombre = saveFile("imagenPerfil");
+            var_dump($nombre);
+            if ($nombre != null){
+                $infoUsuarioEditado['imagenPerfil'] = $nombre;
+                sendFileApi($nombre);
+			}
 
             if($infoUsuarioEditado['rol'] == "admin" || $infoUsuarioEditado['rol'] == "ambos" || $infoUsuarioEditado['rol'] == "facilitador"){
                 $infoUsuarioEditado['direccion'] = $_POST['direccion'];
