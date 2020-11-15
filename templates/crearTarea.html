@@ -14,7 +14,7 @@
 </div>
 
 <div class="offset-1 col-10 sombreado">
-    <form action="" method="post">
+    <form action="php/crearTarea.php" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-3">
                 <div class="card">
@@ -22,8 +22,20 @@
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="inputGroupFile01">
+                              <input type="file" class="custom-file-input" id="fotoTarea" name="fotoTarea">
                               <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon02">Buscar imagen</label>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <img class="card-img-top" src="img/phancho.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="audioTarea" name="audioTarea">
+                              <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon02">Buscar audio</label>
                             </div>
                           </div>
                     </div>
@@ -35,8 +47,8 @@
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="inputGroupFile01">
-                              <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon02">Buscar medios</label>
+                              <input type="file" class="custom-file-input" id="videoTarea" name="videoTarea">
+                              <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon02">Buscar vídeo</label>
                             </div>
                           </div>
                     </div>
@@ -46,11 +58,11 @@
             <div class="col-8">
                 <div class="class-group">
                     <label for="nombreTarea">Título de la tarea</label>
-                    <input type="text" name="nombreTarea" id="" class="form-control">
+                    <input type="text" name="nombreTarea" id="nombreTarea" class="form-control">
                 </div>
                 <div class="class-group">
                     <label for="descripcionTarea">Descripción</label>
-                    <textarea name="descripcionTarea" id="" cols="30" rows="25" class="form-control"></textarea>
+                    <textarea name="descripcionTarea" id="descripcionTarea" cols="30" rows="25" class="form-control"></textarea>
                 </div>
             </div>
         </div>
@@ -63,4 +75,3 @@
     </form>
 </div>
 {%endblock%}
-
