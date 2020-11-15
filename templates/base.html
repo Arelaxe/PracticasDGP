@@ -19,18 +19,78 @@
 </head>
 
 <header>
-    <nav class="navbar navbar-dark navbar-expand">
-        <div class="img-logo">
-            <a href="index.php">
-                <img src="img/logo.png" alt="Página de Inicio" class="navbar-brand">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="img-logo mr-auto">
+        <a href="index.php">
+            <img src="img/logo.png" alt="Página de Inicio" class="navbar-brand">
+        </a>
+    </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          {%if rol == "admin" or rol == "ambos" or rol == "facilitador"%}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Socios
             </a>
-        </div>
-        {%if rol | length > 0%}
-        <a data-toggle="modal" data-target="#modalCierreSesion" class="nav-link text-white">Cerrar sesión</a>
-        {%else%}
-            <a href="login.php" class="nav-link text-white">Inicio de sesión</a>
-        {%endif%}
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {%if rol == "facilitador" or rol == "ambos"%}
+              <a class="dropdown-item" href="mis_socios.php">Mis socios</a>
+              {%endif%}
+              {%if rol == "admin" or rol == "ambos"%}
+              <a class="dropdown-item" href="registrosocios.php">Registrar socios</a>
+              <a class="dropdown-item" href="listado_socios.php">Lista de socios</a>
+              {%endif%}
+            </div>
+          </li>
 
+          {%if rol == "facilitador" or rol == "ambos"%}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Grupos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="mis_grupos.php">Mis grupos</a>
+              <a class="dropdown-item" href="crear_grupo.php">Crear grupo</a>
+            </div>
+          </li>
+          {%endif%}
+
+          {%if rol == "admin" or rol == "ambos"%}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Administradores
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="listado_administradores.php">Lista de administradores</a>
+              <a class="dropdown-item" href="registro.php">Registrar administrador/facilitador</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Facilitadores
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="listado_facilitadores.php">Lista de facilitadores</a>
+              <a class="dropdown-item" href="registro.php">Registrar administrador/facilitador</a>
+            </div>
+          </li>
+          {%endif%}
+          {%endif%}
+          <li class="nav-item">
+            {%if rol | length > 0%}
+              <a data-toggle="modal" data-target="#modalCierreSesion" class="nav-link text-white">Cerrar sesión</a>
+            {%else%}
+              <a href="login.php" class="nav-link text-white">Inicio de sesión</a>
+            {%endif%}
+          </li>
+          <li>
+            <a href="perfil.php?username={{cuenta}}"><img src="img/ph.jpg" class="image--cover" alt="Imagen de perfil"></a>
+          </li>
+        </ul>
+      </div>
     </nav>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -41,7 +101,7 @@
 </header>
 
 <body>
-    <div class="alert alert-warning" role="alert">
+    <div class="alert alert-warning" id="alert-dev">
         Esta web está en construcción
     </div>
 

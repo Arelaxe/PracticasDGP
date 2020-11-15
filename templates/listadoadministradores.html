@@ -17,6 +17,7 @@
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
         <script src="js/buscarTablas.js"></script>
+        <label for="busqueda" hidden>Buscar administrador</label>
         <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar administrador..." class="form-control">
 
         <table id="tablaBusqueda" class="table table-hover table-responsive">
@@ -49,7 +50,9 @@
           </div>
           <div class="modal-footer">
               <form action="php/eliminarUsuario.php" method="post">
+                <label for="usernameAEliminar" hidden>Usuario a eliminar - NULL</label>
                   <input type="text" name="username" id="usernameAEliminar" value="" style="display: none;">
+                  <label for="rolARedirigir" hidden>Rol a redirigir - NULL</label>
                   <input type="text" name="rol" id="rolARedirigir" value="" style="display: none;">
                   <button type="submit" class="btn btn-danger">SÍ</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>

@@ -9,7 +9,7 @@
     if(isset($_SESSION['usuario'])){
         
         $listado = listadoFacilitadoresApi();
-        $rol = "administracion";
+        $rol = $_SESSION['rol'];
     }
 
     $listado_nombres = array();

@@ -9,7 +9,7 @@
     if ($_SESSION['rol'] == 'admin' || $_SESSION['rol'] == 'ambos'){
         $listado = listadoAdministradoresApi();
         $listado_nombres = array();
-        $rol = "administracion";
+        $rol = $_SESSION['rol'];
 
         foreach($listado as $elemento){
             array_push($listado_nombres, $elemento->nombre);

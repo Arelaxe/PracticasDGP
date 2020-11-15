@@ -18,7 +18,11 @@ body{
 }
 
 .img-logo{
+    height: auto;
     width: 7%;
+    max-height: 72px;
+    max-width: 250px;
+    min-width: 100px;
 }
 
 .class-group{
@@ -26,8 +30,7 @@ body{
 }
 
 .nav-link:hover{
-    color: deeppink;
-    font-size: larger;
+    background-color: green;
 }
 
 .titulo{
@@ -132,4 +135,21 @@ footer {
 
 .card-title{
     text-align: center;
+}
+
+.image--cover {
+    height: auto;
+    width: auto;
+    max-height: 72px;
+    max-width: 250px;
+    min-height: 50px;
+    border-radius: 50%;
+  
+    object-fit: cover;
+    object-position: center right;
+    margin-left: 10px;
+  }
+
+.nav-item{
+    margin-top: 10px;
 }

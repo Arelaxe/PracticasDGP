@@ -45,7 +45,7 @@
         <div class="container">
             <form action="php/registroSocios.php" method="post">
                 <div class="class-group">
-                    <p>Nombre y apellidos:</p>
+                    <label for="nombre">Nombre y apellidos:</label>
                     <input type="text" name="Nombre" class="form-control" id="nombre">
                     <div class="error" id="error_name" style="display: none;">
                         El nombre debe estar relleno
@@ -53,8 +53,8 @@
                 </div>
 
                 <div class="class-group">
-                    <p>Identificador de socio:</p>
-                    <input type="text" name="Identificador" class="form-control" id="nombre" oninput="puedoRegistrar()">
+                    <label for="identificador">Identificador de socio:</label>
+                    <input type="text" name="Identificador" class="form-control" id="identificador" oninput="puedoRegistrar()">
                     <div class="error" id="error_nombre" style="display: none;">
                         El identificador debe estar relleno
                     </div>
@@ -67,18 +67,18 @@
                         <div class="container offset-lg-2">
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(1,0)"><img src="img/cuadrado.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(1,0)"><img src="img/cuadrado.png" class="img-pass" alt="Cuadrado"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(1,1)"><img src="img/circulo.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(1,1)"><img src="img/circulo.png" class="img-pass" alt="Circulo"></a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(1,2)"><img src="img/triangulo.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(1,2)"><img src="img/triangulo.png" class="img-pass" alt="Triangulo"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(1,3)"><img src="img/estrella.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(1,3)"><img src="img/estrella.png" class="img-pass" alt="Estrella"></a>
                                 </div>
                             </div>
                         </div>
@@ -90,18 +90,18 @@
                         <div class="container offset-lg-2">
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(2,0)"><img src="img/fresa.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(2,0)"><img src="img/fresa.png" class="img-pass" alt="Fresa"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(2,1)"><img src="img/platano.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(2,1)"><img src="img/platano.png" class="img-pass" alt="Platano"></a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(2,2)"><img src="img/naranja.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(2,2)"><img src="img/naranja.png" class="img-pass" alt="Naranja"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(2,3)"><img src="img/manzana.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(2,3)"><img src="img/manzana.png" class="img-pass" alt="Manzana"></a>
                                 </div>
                             </div>
                         </div>
@@ -113,18 +113,18 @@
                         <div class="container offset-lg-2">
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(3,0)"><img src="img/perro.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(3,0)"><img src="img/perro.png" class="img-pass" alt="Perro"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(3,1)"><img src="img/gato.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(3,1)"><img src="img/gato.png" class="img-pass" alt="Gato"></a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(3,2)"><img src="img/caballo.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(3,2)"><img src="img/caballo.png" class="img-pass" alt="Caballo"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(3,3)"><img src="img/pajaro.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(3,3)"><img src="img/pajaro.png" class="img-pass" alt="Pajaro"></a>
                                 </div>
                             </div>
                         </div>
@@ -136,18 +136,18 @@
                         <div class="container offset-lg-2">
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(4,0)"><img src="img/coche.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(4,0)"><img src="img/coche.png" class="img-pass" alt="Coche"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(4,1)"><img src="img/moto.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(4,1)"><img src="img/moto.png" class="img-pass" alt="Moto"></a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(4,2)"><img src="img/bicicleta.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(4,2)"><img src="img/bicicleta.png" class="img-pass" alt="Bicicleta"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(4,3)"><img src="img/helicoptero.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(4,3)"><img src="img/helicoptero.png" class="img-pass" alt="Helicoptero"></a>
                                 </div>
                             </div>
                         </div>
@@ -159,18 +159,18 @@
                         <div class="container offset-lg-2">
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(5,0)"><img src="img/pelota.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(5,0)"><img src="img/pelota.png" class="img-pass" alt="Pelota"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(5,1)"><img src="img/yoyo.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(5,1)"><img src="img/yoyo.png" class="img-pass" alt="Yoyo"></a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(5,2)"><img src="img/muneco.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(5,2)"><img src="img/muneco.png" class="img-pass" alt="Muneco"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="#sombreado" onclick="avanzar(5,3)"><img src="img/bloques.png" class="img-pass"></a>
+                                    <a href="#sombreado" onclick="avanzar(5,3)"><img src="img/bloques.png" class="img-pass" alt="Bloques"></a>
                                 </div>
                             </div>
                         </div>
@@ -187,34 +187,34 @@
                         <div class="row">
                             <div class="container col-10">
                                 <div class="row">
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-xs-12">
                                         <p>Contraseña del socio</p>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-4">
                                         <img src="img/cuadrado.png" alt="Cuadrado" class="miniimg" id="opcion0" style="display: none;">
                                         <img src="img/circulo.png" alt="Circulo" class="miniimg" id="opcion1" style="display: none;">
                                         <img src="img/triangulo.png" alt="Triangulo" class="miniimg" id="opcion2" style="display: none;">
                                         <img src="img/estrella.png" alt="Estrella" class="miniimg" id="opcion3" style="display: none;">
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-4">
                                         <img src="img/fresa.png" alt="Fresa" class="miniimg" id="opcion4" style="display: none;">
                                         <img src="img/platano.png" alt="Platano" class="miniimg" id="opcion5" style="display: none;">
                                         <img src="img/naranja.png" alt="Naranja" class="miniimg" id="opcion6" style="display: none;">
                                         <img src="img/manzana.png" alt="Manzana" class="miniimg" id="opcion7" style="display: none;">
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-4">
                                         <img src="img/perro.png" alt="Perro" class="miniimg" id="opcion8" style="display: none;">
                                         <img src="img/gato.png" alt="Gato" class="miniimg" id="opcion9" style="display: none;">
                                         <img src="img/caballo.png" alt="Caballo" class="miniimg" id="opcion10" style="display: none;">
                                         <img src="img/pajaro.png" alt="Pajaro" class="miniimg" id="opcion11" style="display: none;">
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-4">
                                         <img src="img/coche.png" alt="Coche" class="miniimg" id="opcion12" style="display: none;">
                                         <img src="img/moto.png" alt="Moto" class="miniimg" id="opcion13" style="display: none;">
                                         <img src="img/bicicleta.png" alt="Bicicleta" class="miniimg" id="opcion14" style="display: none;">
                                         <img src="img/helicoptero.png" alt="Helicoptero" class="miniimg" id="opcion15" style="display: none;">
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-4">
                                         <img src="img/pelota.png" alt="Pelota" class="miniimg" id="opcion16" style="display: none;">
                                         <img src="img/yoyo.png" alt="Yoyo" class="miniimg" id="opcion17" style="display: none;">
                                         <img src="img/muneco.png" alt="Muneco" class="miniimg" id="opcion18" style="display: none;">
@@ -222,7 +222,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="container col-2">
+                            <div class="container col-lg-2 col-xs-12">
                                 <div class="row">
                                     <button type="button" class="btn btn-warning" onclick="reestablecer()">RESTABLECER</button>
                                 </div>
@@ -234,6 +234,7 @@
 
                 <div class="class-group" style="display: none;">
                     <p>Contraseña:</p>
+                    <label for="secuencia">.</label>
                     <input type="password" name="Contrasena" class="form-control" id="secuencia" value="" oninput="puedoRegistrar()">
                 </div>
 
