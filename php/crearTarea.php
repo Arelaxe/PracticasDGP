@@ -18,6 +18,7 @@
                 $infoTarea['fotoTarea'] = $foto;
                 sendFileApi($foto);
             }
+            else $infoTarea['fotoTarea'] = "" ;
         }
         
         if ($_FILES['videoTarea'] != ""){
@@ -26,6 +27,7 @@
                 $infoTarea['videoTarea'] = $video;
                 sendFileApi($video);
             }
+            else $infoTarea['videoTarea'] = "" ;
         }
         
         if ($_FILES['audioTarea'] != null){
@@ -33,7 +35,8 @@
             if ($audio != null){
                 $infoTarea['audioTarea'] = $audio;
                 sendFileApi($audio);
-		    }
+            }
+            else $infoTarea['audioTarea'] = "" ;
         }
 
         var_dump($infoTarea);

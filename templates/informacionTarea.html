@@ -16,36 +16,43 @@
 <div class="offset-1 col-10 sombreado">
         <div class="row">
             <div class="col-3">
-                <img class="card-img-top" src="{{ info.fotoTarea }}" alt="Card image cap">
+                <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
             </div>
             <div class="col-8">
                 <div class="class-group">
                     <h4 for="nombreTarea">Título de la tarea</h4>
-                    <p>{{ info.nombre }}</p>
+                    <p>{{ infoTarea.nombre }}</p>
                 </div>
                 <div class="class-group">
                     <h4>Descripción</h4>
-                    <p>{{ info.descripcion }}</p>
+                    <p>{{ infoTarea.descripcion }}</p>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-10 offset-2">
-                <div id="video" class="class-griup">
-                    <h4>Vídeo subido</h4>
-                    <img src="{{ info.videoTarea }}" alt="">
+            {%if infoTarea.videoTarea != "img/" %}
+            <div class="col-10 offset-1">
+                <h4>Vídeo subido</h4>
+                <div id="video" class="class-group embed-responsive embed-responsive-16by9">
+                    
+                    <iframe src="{{ infoTarea.videoTarea }}" class="embed-responsive-item" allowfullscreen></iframe>
                 </div>
             </div>
-            <div class="col-10 offset-2">
-                <div id="audio" class="class-griup">
-                    <h4>Audio subido</h4>
-                    <img src="{{ info.audioTarea }}" alt="">
+            {%endif%}
+            {%if infoTarea.audioTarea != "img/"%}
+            <div class="col-10 offset-1">
+                <h4>Audio subido</h4>
+                <div id="audio" class="class-group">
+                    <audio controls class="">
+                        <source src="{{ infoTarea.audioTarea }}">
+                    </audio>
                 </div>
             </div>
+            {%endif%}
         </div>
         <div class="boton_centro">
-            <button type="submit" class="btn btn-warning">EDITAR TAREA</button>
+            <button type="submit" class="btn btn-warning" onclick="window.location.replace('editar_tarea.php?nombre={{infoTarea.nombre}}')">EDITAR TAREA</button>
             <button type="button" class="btn btn-primary">ENVIAR A SOCIO</button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
         </div>
@@ -54,20 +61,20 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Eliminar {{nombre.rol}}</h5>
+                    <h5 class="modal-title">Eliminar tarea</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p>¿Deseas eliminar la siguiente tarea?</p>
-                    <img class="card-img-top" src="img/phancho.jpg" alt="Card image cap">
-                    <h4 id="nombreAEliminar">tarea de ejemplo</h4>
+                    <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
+                    <h4 id="nombreAEliminar">{{ infoTarea.nombre }}</h4>
                 </div>
                 <div class="modal-footer">
                     <form action="php/eliminarTarea.php" method="post">
-                        <input type="text" name="username" id="usernameAEliminar" value="" style="display: none;">
-                        <input type="text" name="rol" id="rolARedirigir" value="" style="display: none;">
+                        <input type="text" name="tareaAEliminar" id="tareaAEliminar" value="{{infoTarea.nombre}}" style="display: none;">
+                            <input type="text" name="facilitador" id="facilitador" value="{{infoTarea.creador}}" hidden>
                         <button type="submit" class="btn btn-danger">SÍ</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                     </form>

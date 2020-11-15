@@ -29,7 +29,6 @@
         $infoTarea['nombre'] = $result[0]->nombre;
         $infoTarea['creador'] = $result[0]->creador;
         $infoTarea['descripcion'] = $result[0]->descripcion;
-        $infoTarea['fechaCreacion'] = $result[0]->fechaCreacion;
         getImage($result[0]->fotoTarea);
         $infoTarea['fotoTarea'] = "img/".$result[0]->fotoTarea;
         getImage($result[0]->videoTarea);
@@ -41,5 +40,5 @@
         $idUsuario = -1;
     }
 
-    echo $twig->render('informacionTarea.html',['rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
+    echo $twig->render('informacionTarea.html',['infoTarea' => $infoTarea ,'rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
 ?>

@@ -31,7 +31,10 @@
     
                
                   <div class="card">
-                    <img class="card-img-top" src="{{ infoTarea.videoTarea }}" alt="Card image cap" width="80%">
+                    <div id="video" class="card-img-top class-group embed-responsive embed-responsive-16by9">
+                    
+                      <iframe src="{{ infoTarea.videoTarea }}" class="embed-responsive-item" allowfullscreen></iframe>
+                    </div>
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <div class="custom-file">
@@ -43,7 +46,11 @@
                   </div>
 
                   <div class="card">
-                    <img class="card-img-top" src="{{ infoTarea.audioTarea }}" alt="Card image cap" width="80%">
+                    <div id="audio" class="class-group card-img-top">
+                      <audio controls class="">
+                          <source src="{{ infoTarea.audioTarea }}">
+                      </audio>
+                    </div>
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <div class="custom-file">

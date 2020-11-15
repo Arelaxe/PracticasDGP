@@ -38,5 +38,5 @@
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('editarTarea.html',['infoTarea' =>  $infoTarea ,'rol' => $rol, /'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario']]);
+    echo $twig->render('editarTarea.html',['infoTarea' =>  $infoTarea ,'rol' => $rol, 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario']]);
 ?>

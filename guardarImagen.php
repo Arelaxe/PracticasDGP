@@ -4,7 +4,7 @@
     function saveFile($file){
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             $location = "../img/";
-            if(isset($_FILES[$file]))
+            if(isset($_FILES[$file]) && $_FILES[$file]['name'] != "")
             {
                 $Image = $_FILES[$file]['tmp_name'];
                 $ImageContent = addslashes(file_get_contents($Image));
@@ -19,6 +19,12 @@
                     return null;
                 }
             }
+            else{
+                return null;
+            }
+        }
+        else{
+            return null;
         }
     }
 
