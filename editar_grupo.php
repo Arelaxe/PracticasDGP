@@ -1,6 +1,7 @@
 <?php
     require_once '../vendor/autoload.php';
     require_once "operaciones_api/autenticacionApi.php";
+    require_once 'php/mostrarFotoPerfil.php';
 
     session_start();
     if(isset($_SESSION['usuario'])){
@@ -24,5 +25,5 @@
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('editargrupo.html',['infoGrupo' =>  $infoGrupo[0] ,'rol' => $rol]);
+    echo $twig->render('editargrupo.html',['infoGrupo' =>  $infoGrupo[0] ,'rol' => $rol, 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario']]);
 ?>

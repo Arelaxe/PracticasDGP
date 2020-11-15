@@ -1,6 +1,8 @@
 <?php
     require_once '../vendor/autoload.php';
     include_once("operaciones_api/autenticacionApi.php");
+    require_once "guardarImagen.php";
+    require_once 'php/mostrarFotoPerfil.php';
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
@@ -39,6 +41,9 @@
             $infoUsuario['nombre'] = $item->nombre;
             $infoUsuario['username'] = $item->username;
             $infoUsuario['rol'] = $item->rol;
+            getImage($item->imagenPerfil);
+            $infoUsuario['imagenPerfil'] = "img/".$item->imagenPerfil;
+
             if($infoUsuario['rol'] == "admin" || $infoUsuario['rol'] == "ambos" || $infoUsuario['rol'] == "facilitador"){
                 $infoUsuario['direccion'] = $item->direccion;
                 $infoUsuario['telefono'] = $item->telefono;
@@ -59,5 +64,5 @@
 
     
 
-    echo $twig->render('editar.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'error' => $error, 'coderror' => $coderror]);
+    echo $twig->render('editar.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'error' => $error, 'coderror' => $coderror, 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario']]);
 ?>
