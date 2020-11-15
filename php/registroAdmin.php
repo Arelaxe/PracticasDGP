@@ -14,6 +14,7 @@
         $infoRegistro['direccion'] = $_POST['direccion'];
         $infoRegistro['telefono'] = $_POST['telefono'];
         $infoRegistro['sociosACargo'] = $sociosACargo;
+        $infoRegistro['imagenPerfil'] = "default.jpg";
 
         $jsoninfoRegistro = json_encode($infoRegistro);
 
