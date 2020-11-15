@@ -1,0 +1,77 @@
+{%extends "base.html"%}
+
+{%block titulo%}Editar tarea{%endblock%}
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Menú principal</li>
+<li class="breadcrumb-item">Tareas</li>
+<li class="breadcrumb-item active">Editar tarea</li>
+{%endblock%}
+
+{%block cuerpo%}
+<div class="offset-1 col-10 titulo">
+    <h1>Editar tarea</h1>
+</div>
+
+<div class="offset-1 col-10 sombreado">
+    <form action="" method="post">
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <img class="card-img-top" src="{{tarea.foto}}" alt="Card image cap">
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="inputGroupFile01">
+                              <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon02">Buscar imagen</label>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+    
+               
+                  <div class="card">
+                    <img class="card-img-top" src="{{tarea.video}}" alt="Card image cap" width="80%">
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="inputGroupFile01">
+                              <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon02">Buscar medios</label>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <img class="card-img-top" src="{{tarea.audio}}" alt="Card image cap" width="80%">
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="inputGroupFile01">
+                              <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon02">Buscar medios</label>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-8">
+                <div class="class-group">
+                    <label for="nombreTarea">Título de la tarea</label>
+                    <input type="text" name="nombreTarea" id="" value="{{tarea.nombre}}" class="form-control" disabled>
+                </div>
+                <div class="class-group">
+                    <label for="descripcionTarea">Descripción</label>
+                    <textarea name="descripcionTarea" id="" cols="30" rows="25" class="form-control">{{tarea.descripcion}}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="boton_centro">
+            <button type="submit" class="btn btn-success">GUARDAR CAMBIOS</button>
+            <button class="btn btn-danger" onclick="window.location.replace('listado_tareas.php')">CANCELAR</button>
+        </div>
+    </form>
+</div>
+{%endblock%}
+
