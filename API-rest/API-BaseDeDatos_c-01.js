@@ -8,8 +8,8 @@ const CONNECTION_URL = process.env.MONGO_CONNECTION_URL;
 const DATABASE_NAME = process.env.DATABASE_NAME;
 
 var app = Express();
-app.use(BodyParser.json());
-app.use(BodyParser.urlencoded({ extended: true }));
+app.use(BodyParser.json({ limit: '1024mb', extended: true }));
+app.use(BodyParser.urlencoded({limit:'1024mb', extended: true }));
 // var jsonParser = BodyParser.json();
 
 var database, collectionUsuarios, collectionGrupos;
@@ -25,6 +25,22 @@ app.listen(5000, () => {
         collectionGrupos = database.collection("Grupos");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
+});
+
+var callback = (err) => {
+    if (err) throw err;
+    console.log('It\'s saved!');
+}
+
+
+app.post("/upload", (request, response) => {
+    
+    const fs = require('fs');
+
+    var b64 = Buffer.from(request.body.filedata, 'base64');
+    fs.writeFile('media/'+request.body.filename, b64, callback);
+
+    response.send("imagen subida");
 });
 
 /******************************************************/
