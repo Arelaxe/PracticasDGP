@@ -210,6 +210,23 @@ app.post("/eliminar-tarea", (request, response) => {
 });
 
 /******************************************************/
+// Editar tarea
+/******************************************************/
+app.post("/editar-tarea", (request, response) => {
+    collectionTareas.replaceOne({ "creador": request.body.oldCreador, "nombre":request.body.oldNombre }, request.body, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Fallo en la edición");
+        }
+        else {
+            response.send("Edición completada");
+        }
+    });
+});
+
+/******************************************************/
 // Listado tareas (La funcionalidad ahora mismo es un "mis tareas" de facilitador)
 /******************************************************/
 app.post("/listado-tareas", (request, response) => {
