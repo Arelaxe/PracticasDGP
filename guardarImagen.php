@@ -23,12 +23,14 @@
     }
 
     function getImage($imagen){
-        $ruta = array();
-        $ruta['ruta'] = $imagen;
-        $jsonruta = json_encode($ruta);
-        $result = getImageApi($jsonruta);
-        $result = base64_decode($result);
-        file_put_contents("img/".$ruta['ruta'], $result);
+        if($imagen != ""){
+            $ruta = array();
+            $ruta['ruta'] = $imagen;
+            $jsonruta = json_encode($ruta);
+            $result = getImageApi($jsonruta);
+            $result = base64_decode($result);
+            file_put_contents("img/".$ruta['ruta'], $result);
+        }
     }
 
 ?>

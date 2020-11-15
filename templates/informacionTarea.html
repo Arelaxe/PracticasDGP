@@ -5,37 +5,42 @@
 {%block breadcrumbs%}
 <li class="breadcrumb-item">Menú principal</li>
 <li class="breadcrumb-item">Tareas</li>
-<li class="breadcrumb-item active">Crear tarea</li>
+<li class="breadcrumb-item active">Información de tarea</li>
 {%endblock%}
 
 {%block cuerpo%}
 <div class="offset-1 col-10 titulo">
-    <h1>Crear tarea</h1>
+    <h1>Información de tarea</h1>
 </div>
 
 <div class="offset-1 col-10 sombreado">
-    <form action="" method="post">
         <div class="row">
             <div class="col-3">
-                <img class="card-img-top" src="img/phancho.jpg" alt="Card image cap">
+                <img class="card-img-top" src="{{ info.fotoTarea }}" alt="Card image cap">
             </div>
             <div class="col-8">
                 <div class="class-group">
                     <h4 for="nombreTarea">Título de la tarea</h4>
-                    <p>---</p>
+                    <p>{{ info.nombre }}</p>
                 </div>
                 <div class="class-group">
                     <h4>Descripción</h4>
-                    <p>---</p>
+                    <p>{{ info.descripcion }}</p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-10 offset-2">
-                <div id="medios" class="class-griup">
-                    <h4>Medios subidos</h4>
-                    <img src="img/phancho.jpg" alt="">
+                <div id="video" class="class-griup">
+                    <h4>Vídeo subido</h4>
+                    <img src="{{ info.videoTarea }}" alt="">
+                </div>
+            </div>
+            <div class="col-10 offset-2">
+                <div id="audio" class="class-griup">
+                    <h4>Audio subido</h4>
+                    <img src="{{ info.audioTarea }}" alt="">
                 </div>
             </div>
         </div>
@@ -44,7 +49,6 @@
             <button type="button" class="btn btn-primary">ENVIAR A SOCIO</button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
         </div>
-    </form>
 
     <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
         <div class="modal-dialog" role="document">
@@ -73,4 +77,3 @@
     </div>
 </div>
 {%endblock%}
-

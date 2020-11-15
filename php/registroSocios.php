@@ -17,6 +17,7 @@
         $infoRegistro['preferenciaVideo'] = true;
         $infoRegistro['facilitadoresACargo'] = $facilitadoresACargo;
         $infoRegistro['grupos'] = $grupos;
+        $infoRegistro['imagenPerfil'] = 'default.jpg';
 
         $jsoninfoRegistro = json_encode($infoRegistro);
 
