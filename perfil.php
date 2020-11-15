@@ -30,6 +30,15 @@
             $infoUsuario['nombre'] = $item->nombre;
             $infoUsuario['username'] = $item->username;
             $infoUsuario['rol'] = $item->rol;
+            $ruta = array();
+            $ruta['ruta'] = $item->imagenPerfil;
+            $jsonRuta = json_encode($ruta);
+            $result = getImageApi($jsonRuta);
+            $result = base64_decode($result);
+            file_put_contents("img/".$ruta['ruta'], $result);
+
+            $img = "img/".$ruta['ruta'];
+            
             if($infoUsuario['rol'] == "admin" || $infoUsuario['rol'] == "ambos" || $infoUsuario['rol'] == "facilitador"){
                 $infoUsuario['direccion'] = $item->direccion;
                 $infoUsuario['telefono'] = $item->telefono;
@@ -65,5 +74,5 @@
 
     
 
-    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias] );
+    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias, 'img' => $img] );
 ?>
