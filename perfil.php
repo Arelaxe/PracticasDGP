@@ -31,7 +31,6 @@
             $infoUsuario['nombre'] = $item->nombre;
             $infoUsuario['username'] = $item->username;
             $infoUsuario['rol'] = $item->rol;
-            $ruta = array();
             getImage($item->imagenPerfil);
             $img = "img/".$item->imagenPerfil;
             
