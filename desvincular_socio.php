@@ -1,6 +1,7 @@
 <?php
     require_once 'php/listasVinculaciones.php';
     require_once '../vendor/autoload.php';
+    require_once 'php/mostrarFotoPerfil.php';
 
     session_start();
     if(isset($_SESSION['usuario']) && isset($_GET['socioADesvincular'])){
@@ -24,5 +25,5 @@
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('desvincularsocio.html',['rol' => $rol, 'listaSocios' => $listadoSociosVinculados]);
+    echo $twig->render('desvincularsocio.html',['rol' => $rol, 'listaSocios' => $listadoSociosVinculados , 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario']]);
 ?>

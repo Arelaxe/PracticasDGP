@@ -1,5 +1,6 @@
 <?php
     require_once '../vendor/autoload.php';
+    require_once 'php/mostrarFotoPerfil.php';
 
     session_start();
     
@@ -10,12 +11,12 @@
 
     if(isset($_SESSION['usuario'])){     
         $rol = $_SESSION['rol'];
-
+        $imagen = fotoPerfil($_SESSION['usuario']);
         if (isset($_GET['error']))
                 if ($_GET['error']=="11000")
                     $error = true;
     }
     else $rol = "";
 
-    echo $twig->render('registrosocios.html', ['rol' => $rol, 'error' => $error]);
+    echo $twig->render('registrosocios.html', ['rol' => $rol, 'error' => $error, 'img' => $imagen, 'cuenta' => $_SESSION['usuario']]);
 ?>

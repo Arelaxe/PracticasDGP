@@ -1,6 +1,7 @@
 <?php
     require_once '../vendor/autoload.php';
     include_once("php/listasVinculaciones.php");
+    require_once 'php/mostrarFotoPerfil.php';
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
@@ -25,5 +26,5 @@
 
     
 
-    echo $twig->render('perfilGrupo.html', ['infoGrupo' =>  $infoGrupo[0] , 'rol' => $rol]);
+    echo $twig->render('perfilGrupo.html', ['infoGrupo' =>  $infoGrupo[0] , 'rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
 ?>

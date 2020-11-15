@@ -1,6 +1,8 @@
 <?php
     require_once '../vendor/autoload.php';
     include_once("operaciones_api/autenticacionApi.php");
+    require_once 'php/mostrarFotoPerfil.php';
+    
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
@@ -22,5 +24,5 @@
         array_push($listado_ids, $tarea->_id);
 	}
 
-    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids, 'rol' => $rol, 'usuario' => $_SESSION['usuario']]);
+    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids, 'rol' => $rol, 'usuario' => $_SESSION['usuario'], 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
 ?>

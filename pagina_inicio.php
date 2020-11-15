@@ -1,7 +1,6 @@
 <?php
     require_once '../vendor/autoload.php';
-    require_once 'operaciones_api/autenticacionApi.php';
-    include_once("guardarImagen.php");
+    require_once 'php/mostrarFotoPerfil.php';
 
     session_start();
 
@@ -10,14 +9,7 @@
 
     if(isset($_SESSION['usuario'])){
         $rol = $_SESSION['rol'];
-        $usuario = array();
-        $usuario['username'] = $_SESSION['usuario'] ;
-        $jsonUsuario = json_encode($usuario);
-        $resultadoInfo = infoPerfilApi($jsonUsuario);
-        foreach($resultadoInfo as $item){
-            getImageApi($item->imagenPerfil);
-            $imagen = 'img/' . $item->imagenPerfil;
-        }
+        $imagen = fotoPerfil($_SESSION['usuario']);
     }
     else $rol = "";
 

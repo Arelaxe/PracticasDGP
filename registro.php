@@ -1,8 +1,10 @@
 <?php
     require_once '../vendor/autoload.php';
+    require_once 'php/mostrarFotoPerfil.php';
     session_start();
     
     $error = false;
+    $imagen = fotoPerfil($_SESSION['usuario']);
 
     if(isset($_SESSION['usuario']) && ($_SESSION['rol'] == "admin" || $_SESSION['rol'] == "ambos")){
         if($_SERVER['REQUEST_METHOD'] === "GET"){
@@ -17,9 +19,9 @@
         $twig = new \Twig\Environment($loader);
         $rol = $_SESSION['rol'];
     
-        echo $twig->render('registro.html', ['rol' => $rol, 'error' => $error]);
+        echo $twig->render('registro.html', ['rol' => $rol, 'error' => $error, 'cuenta' => $_SESSION['usuario'], 'img' => $imagen]);
     }
     else{
-        print("Has de iniciar sesión");
+        print("Has de iniciar sesiï¿½n");
 	}
 ?>

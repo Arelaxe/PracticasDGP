@@ -2,6 +2,7 @@
     require_once '../vendor/autoload.php';
     include_once("php/listasVinculaciones.php");
     include_once("guardarImagen.php");
+    require_once 'php/mostrarFotoPerfil.php';
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
@@ -70,5 +71,5 @@
 
     
 
-    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias, 'img' => $img] );
+    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias, 'imagen' => $img , 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario']] );
 ?>

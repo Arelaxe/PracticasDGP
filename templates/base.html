@@ -28,7 +28,7 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="padding-right: 2%;">
         <ul class="navbar-nav">
           {%if rol == "admin" or rol == "ambos" or rol == "facilitador"%}
           <li class="nav-item dropdown">
@@ -56,6 +56,16 @@
               <a class="dropdown-item" href="crear_grupo.php">Crear grupo</a>
             </div>
           </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Tareas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="listado_tareas.php">Mis tareas</a>
+              <a class="dropdown-item" href="crear_tarea.php">Crear tarea</a>
+            </div>
+          </li>
           {%endif%}
 
           {%if rol == "admin" or rol == "ambos"%}
@@ -79,16 +89,19 @@
           </li>
           {%endif%}
           {%endif%}
-          <li class="nav-item">
-            {%if rol | length > 0%}
-              <a data-toggle="modal" data-target="#modalCierreSesion" class="nav-link text-white">Cerrar sesión</a>
+          {%if rol | length > 0%}
+          <li class="nav-item dropdown" style="margin-top: -2%;">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{img}}" class="image--cover" alt="Imagen de perfil">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="perfil.php?username={{cuenta}}" class="dropdown-item">Mi perfil</a>
+                <a data-toggle="modal" data-target="#modalCierreSesion" class="dropdown-item">Cerrar sesión</a>
+            </div>
+          </li>
             {%else%}
-              <a href="login.php" class="nav-link text-white">Inicio de sesión</a>
+            <li class="nav-link"><a href="login.php" class="text-white">Iniciar sesión</a></li>
             {%endif%}
-          </li>
-          <li>
-            <a href="perfil.php?username={{cuenta}}"><img src="{{img}}" class="image--cover" alt="Imagen de perfil"></a>
-          </li>
         </ul>
       </div>
     </nav>
