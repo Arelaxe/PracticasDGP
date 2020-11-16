@@ -10,14 +10,12 @@
         android:id="@+id/my_toolbar"
         android:layout_width="412dp"
         android:layout_height="82dp"
-        android:layout_marginBottom="68dp"
-        android:background="@color/green"
+        android:background="@color/verde_vale"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
