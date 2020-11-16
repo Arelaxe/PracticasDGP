@@ -65,6 +65,7 @@
             <div class="col-8">
                 <div class="class-group">
                     <label for="nombre">Título de la tarea</label>
+                    <label for="nombreFalso" hidden>Título de la tarea</label>
                     <input type="text" name="nombreFalso" id="nombreFalso" value="{{ infoTarea.nombre }}" class="form-control" disabled>
                     <input type="text" name="nombre" id="nombre" value="{{ infoTarea.nombre }}" class="form-control" hidden>
                 </div>
@@ -77,7 +78,7 @@
 
         <div class="boton_centro">
             <button type="submit" class="btn btn-success">GUARDAR CAMBIOS</button>
-            <button class="btn btn-danger" onclick="window.location.replace('listado_tareas.php')">CANCELAR</button>
+            <button type="button" class="btn btn-danger" onclick="window.location.replace('listado_tareas.php')">CANCELAR</button>
         </div>
     </form>
 </div>

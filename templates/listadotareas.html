@@ -11,12 +11,13 @@
 {%block cuerpo%}
 <div class="container">
     <div class="offset-lg-2 col-lg-8 titulo">
-        <h2>Listado de Tareas</h2>
+        <h1>Listado de Tareas</h1>
     </div>
 </div>
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
         <script src="js/buscarTablas.js"></script>
+        <label for="busqueda">Buscar tarea</label>
         <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar tarea..." class="form-control">
 
         <table id="tablaBusqueda" class="table table-hover table-responsive">
@@ -49,7 +50,9 @@
                     </div>
                     <div class="modal-footer">
                         <form action="php/eliminarTarea.php" method="post">
+                            <label for="tareaAEliminar" hidden>Buscar tarea</label>
                             <input type="text" name="tareaAEliminar" id="tareaAEliminar" value="" style="display: none;">
+                            <label for="facilitador" hidden>Buscar tarea</label>
                             <input type="text" name="facilitador" id="facilitador" value="{{usuario}}" hidden>
                             <button type="submit" class="btn btn-danger">SÍ</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>

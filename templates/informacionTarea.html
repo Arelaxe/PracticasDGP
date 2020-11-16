@@ -73,6 +73,8 @@
                 </div>
                 <div class="modal-footer">
                     <form action="php/eliminarTarea.php" method="post">
+                        <label for="tareaAEliminar" hidden>Tarea a eliminar</label>
+                        <label for="facilitador" hidden>Facilitador a cargo</label>
                         <input type="text" name="tareaAEliminar" id="tareaAEliminar" value="{{infoTarea.nombre}}" style="display: none;">
                             <input type="text" name="facilitador" id="facilitador" value="{{infoTarea.creador}}" hidden>
                         <button type="submit" class="btn btn-danger">SÍ</button>

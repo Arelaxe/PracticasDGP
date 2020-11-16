@@ -23,7 +23,12 @@
                 sendFileApi($nombre);
             }
             else{
-                $infoUsuarioEditado['imagenPerfil'] = "default.jpg";
+                if(!empty($usuario->imagenPerfil)){
+                    $infoUsuarioEditado['imagenPerfil'] = $usuario->imagenPerfil;
+                }
+                else{
+                    $infoUsuarioEditado['imagenPerfil'] = "default.jpg";
+                }        
             }
 
             if($infoUsuarioEditado['rol'] == "admin" || $infoUsuarioEditado['rol'] == "ambos" || $infoUsuarioEditado['rol'] == "facilitador"){

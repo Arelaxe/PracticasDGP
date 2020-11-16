@@ -4,6 +4,16 @@
     session_start();
 
     if(isset($_SESSION['usuario']) && isset($_POST['nombre'])){
+
+        /*Extraemos la info original de la tarea */
+        $infoTarea = array();
+        $infoTarea['nombre'] = $_POST['nombre'];
+        $infoTarea['creador'] = $_SESSION['usuario'];
+        $jsonInfoTarea = json_encode($infoTarea);
+        $resultado = json_decode(infoTareaApi($jsonInfoTarea));
+        var_dump($resultado);
+
+        /*Extraemos del formulario los datos para su edición*/
         $infoTareaPeticion = array();
         $infoTareaPeticion['nombre'] = $_POST['nombre'];
         $infoTareaPeticion['creador'] = $_SESSION['usuario'];
@@ -11,12 +21,12 @@
 
         $fotoTarea = saveFile("fotoTarea");
             
-        if ($fotoTarea != null){
+        if ($fotoTarea != ""){
             $infoTareaPeticion['fotoTarea'] = $fotoTarea;
             sendFileApi($fotoTarea);
         }
         else{
-            $infoTareaPeticion['fotoTarea'] = "";
+            $infoTareaPeticion['fotoTarea'] = $resultado[0]->fotoTarea;
         }
 
         $videoTarea = saveFile("videoTarea");
@@ -26,7 +36,7 @@
             sendFileApi($videoTarea);
         }
         else{
-            $infoTareaPeticion['videoTarea'] = "";
+            $infoTareaPeticion['videoTarea'] = $resultado[0]->videoTarea;
         }
 
         $audioTarea = saveFile("audioTarea");
@@ -36,7 +46,7 @@
             sendFileApi($audioTarea);
         }
         else{
-            $infoTareaPeticion['audioTarea'] = "";
+            $infoTareaPeticion['audioTarea'] = $resultado[0]->audioTarea;
         }
 
 
