@@ -176,6 +176,6 @@ public class InicioSesionPass2 extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        anteriorPantallaPass();
     }
 }

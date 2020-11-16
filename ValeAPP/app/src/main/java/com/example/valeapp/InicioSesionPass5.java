@@ -317,6 +317,6 @@ public class InicioSesionPass5 extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        anteriorPantallaPass();
     }
 }
