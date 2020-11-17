@@ -93,10 +93,10 @@
     <string name="mis_tareas">MIS TAREAS</string>
     <string name="bot_n_para_ir_al_men_de_mis_preferencias">Botón para ir al menú de MIS PREFERENCIAS</string>
     <string name="mis_preferencias">MIS PREFERENCIAS</string>
-    <string name="bot_n_para_ir_al_men_de_mis_profes">Botón para ir al menú de MIS PROFES</string>
-    <string name="mis_profes">MIS PROFES</string>
+    <string name="bot_n_para_ir_al_men_de_mis_profes">Botón para ir al menú de MIS FACILITADORES</string>
+    <string name="mis_profes">MIS FACILITADORES</string>
     <string name="imagen_asociada_al_bot_n_mis_tareas">Imagen asociada al botón MIS TAREAS</string>
-    <string name="imagen_asociada_al_bot_n_mis_profes">Imagen asociada al botón MIS PROFES</string>
+    <string name="imagen_asociada_al_bot_n_mis_profes">Imagen asociada al botón MIS FACILITADORES</string>
     <string name="imagen_asociada_al_bot_n_mis_preferencias">Imagen asociada al botón MIS PREFERENCIAS</string>
     <string name="elige_tus_opciones_preferidas">ELIGE TUS OPCIONES PREFERIDAS</string>
     <string name="audio">AUDIO</string>

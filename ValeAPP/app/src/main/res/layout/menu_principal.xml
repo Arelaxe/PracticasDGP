@@ -101,7 +101,7 @@
                 android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_preferencias"
                 android:gravity="center|start"
                 android:text="@string/mis_preferencias"
-                android:textSize="22sp"
+                android:textSize="27sp"
                 app:backgroundTint="@android:color/holo_blue_dark" />
         </LinearLayout>
 
@@ -142,7 +142,7 @@
                 android:layout_height="85dp"
                 android:layout_gravity="center"
                 android:background="#FFFFFF"
-                app:srcCompat="@drawable/profes" />
+                app:srcCompat="@drawable/facilitador" />
         </LinearLayout>
 
         <LinearLayout
