@@ -77,13 +77,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/botonMisProfes"
+                android:id="@+id/botonMisFacilitadores"
                 android:layout_width="0dp"
                 android:layout_height="113dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_profes"
+                android:contentDescription="@string/bot_n_para_ir_al_men_de_mis_facilitadores"
                 android:gravity="center|start"
-                android:text="@string/mis_profes"
+                android:text="@string/mis_facilitadores"
                 android:textSize="27sp"
                 app:backgroundTint="@android:color/holo_orange_light" />
         </LinearLayout>

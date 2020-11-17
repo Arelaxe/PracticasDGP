@@ -41,7 +41,7 @@ public class MisPreferencias extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
-        //Modiciar Barra de Tareas para esta pantalla
+        //Modicar Barra de Tareas para esta pantalla
         final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
         flechaAtras.setVisibility(View.VISIBLE);
         flechaAtras.setContentDescription(getResources().getString(R.string.bot_n_para_volver_al_men_principal));

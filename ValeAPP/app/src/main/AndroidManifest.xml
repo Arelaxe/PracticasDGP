@@ -22,6 +22,7 @@
         <activity android:name=".MisPreferencias"></activity>
         <activity android:name=".Logout"></activity>
         <activity android:name=".MenuPrincipal"></activity>
+        <activity android:name=".MisTareas"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

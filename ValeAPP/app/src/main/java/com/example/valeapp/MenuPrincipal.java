@@ -23,7 +23,7 @@ public class MenuPrincipal extends AppCompatActivity {
         usuario = bundle.getString("usuario");
 
         final Button botonTareas = findViewById(R.id.botonMisTareas);
-        final Button botonProfes = findViewById(R.id.botonMisProfes);
+        final Button botonFacilitadores = findViewById(R.id.botonMisFacilitadores);
         final Button botonPreferencias = findViewById(R.id.botonMisPreferencias);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -43,14 +43,14 @@ public class MenuPrincipal extends AppCompatActivity {
         //Boton tareas
         botonTareas.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                irAMisTareas();
             }
         });
 
-        //Boton profes
-        botonProfes.setOnClickListener(new View.OnClickListener() {
+        //Boton Facilitadores
+        botonFacilitadores.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                irAMisFacilitadores();
             }
         });
 
@@ -71,13 +71,13 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
     private void irAMisTareas(){
-        /*Intent intent = new Intent(this, MisTareas.class);
+        Intent intent = new Intent(this, MisTareas.class);
         intent.putExtra("usuario", usuario);
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
-    private void irAMisProfes(){
-        /*Intent intent = new Intent(this, MisProfes.class);
+    private void irAMisFacilitadores(){
+        /*Intent intent = new Intent(this, MisFacilitadores.class);
         intent.putExtra("usuario", usuario);
         startActivity(intent);*/
     }
