@@ -23,6 +23,7 @@ app.listen(5000, () => {
         collectionUsuarios = database.collection("Usuarios");
         collectionTareas = database.collection("Tareas");
         collectionGrupos = database.collection("Grupos");
+        collectionAsignacionTareas = database.collection("AsignacionTareas");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
 });
@@ -610,7 +611,7 @@ app.get("/preferencias-usuario", (request, response) => {
         if (error) {
             return response.status(500).send(error);
         }
-        if (result == null) {
+        if (result == null || result[0] == null) {
             var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
             response.send(jsonRespuestaIncorrecta);
         }
@@ -624,9 +625,9 @@ app.get("/preferencias-usuario", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Edición Usuarios
-/**/
+/******************************************************/
 app.post("/editarUsuario", (request, response) => {
     collectionUsuarios.replaceOne({ "username": request.body.oldUsername }, request.body, (error, result) => {
         if (error) {
@@ -641,9 +642,9 @@ app.post("/editarUsuario", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Edición grupos
-/**/
+/******************************************************/
 app.post("/editarGrupo", (request, response) => {
     collectionGrupos.replaceOne({ "nombre": request.body.nombre , "facilitadorACargo" :  request.body.facilitadorACargo}, request.body, (error, result) => {
         if (error) {
@@ -658,9 +659,9 @@ app.post("/editarGrupo", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Añadir socio a grupo
-/**/
+/******************************************************/
 app.post("/anadir-socio-grupo", (request, response) => {
     collectionGrupos.updateOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo" : request.body.facilitadorACargo }, { "$push": { "socios": request.body.user_socio } }, (error, result) => {
         if (error) {
@@ -675,9 +676,9 @@ app.post("/anadir-socio-grupo", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Añadir grupo a grupos de un socio.
-/**/
+/******************************************************/
 app.post("/anadir-grupo-socio", (request, response) => {
     collectionUsuarios.updateOne({ "username": request.body.user_socio}, { "$push": { "grupos": request.body.nombre_grupo } }, (error, result) => {
         if (error) {
@@ -692,9 +693,9 @@ app.post("/anadir-grupo-socio", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Eliminar a socio de grupo
-/**/
+/******************************************************/
 app.post("/eliminar-socio-grupo", (request, response) => {
     collectionGrupos.updateOne({ "nombre": request.body.nombre_grupo }, { "$pull": { "socios": request.body.user_socio } }, (error, result) => {
         if (error) {
@@ -709,9 +710,9 @@ app.post("/eliminar-socio-grupo", (request, response) => {
     });
 });
 
-/**/
+/******************************************************/
 // Desvincular facilitador con socio
-/**/
+/******************************************************/
 app.post("/eliminar-grupo-socio", (request, response) => {
     collectionUsuarios.updateOne({ "username": request.body.user_socio }, { "$pull": { "grupos": request.body.nombre_grupo } }, (error, result) => {
         if (error) {
@@ -722,6 +723,38 @@ app.post("/eliminar-grupo-socio", (request, response) => {
         }
         else {
             response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Obtener tareas del socio
+/******************************************************/
+app.get("/tareas-socio", (request, response) => {
+    collectionAsignacionTareas.find({"socioAsignado":request.query.username}, {projection: {_id:0 , nombreTarea: 1, creador: 1}}).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if ( result == null || result[0] == null) {
+            response.send("No tienes ninguna tarea");
+        }
+        else {
+            jsonRespuestaCorrecta = result[0];
+
+                collectionTareas.find({ "nombre": jsonRespuestaCorrecta.nombreTarea, "creador": jsonRespuestaCorrecta.creador}, {projection: {_id:0 , fotoTarea: 1} }).toArray(function (error, result) {
+                    if (error) {
+                        return response.status(500).send(error);
+                    }
+                    if ( result[0] == null) {
+                        response.send("No tienes ninguna tarea");
+                    }
+                    else {
+                        const fs = require('fs');
+                        const contents = fs.readFileSync("media/"+result[0].fotoTarea, {encoding: 'base64'});
+                        jsonRespuestaCorrecta.fotoTarea = contents;
+                        response.send(jsonRespuestaCorrecta); 
+                    }
+                });
         }
     });
 });
