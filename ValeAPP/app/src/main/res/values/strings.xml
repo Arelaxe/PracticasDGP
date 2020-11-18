@@ -118,4 +118,6 @@
     <string name="bot_n_para_volver_al_men_principal">Botón para volver al menú principal</string>
     <string name="mis_facilitadores">MIS FACILITADORES</string>
     <string name="bot_n_para_ir_al_men_de_mis_facilitadores">Botón para ir al menú de mis facilitadores</string>
+    <string name="mis_tareas2">mis tareas</string>
+    <string name="mis_tareas3">MIS TAREAS</string>
 </resources>
