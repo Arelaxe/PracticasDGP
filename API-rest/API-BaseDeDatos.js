@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const Express = require("express");
 const BodyParser = require("body-parser");
+const { get } = require('http');
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 const CONNECTION_URL = process.env.MONGO_CONNECTION_URL;
@@ -731,25 +732,36 @@ app.post("/eliminar-grupo-socio", (request, response) => {
 // Obtener tareas del socio
 /******************************************************/
 app.get("/tareas-socio", (request, response) => {
-    result = collectionAsignacionTareas.find({"socioAsignado":request.query.username}, {projection: {_id:0 , nombreTarea: 1, creador: 1}}).toArray();
-    console.log(result);
-    if ( result == null || result[0] == null) {
-        console.log("estoy en primer if");
-        response.send(result);
-    }
-
-    else {
-        let jsonRespuestaCorrecta = result;
-        for (let i = 0; i<jsonRespuestaCorrecta.length; i++){
-            var innerResult = collectionTareas.find({ "nombre": result[i].nombreTarea, "creador": result[i].creador}, {projection: {_id:0 , fotoTarea: 1} }).toArray();
-
-            const fs = require('fs');
-            const contents = fs.readFileSync("media/"+innerResult[0].fotoTarea, {encoding: 'base64'});
-            jsonRespuestaCorrecta[i].fotoTarea = "contents";
-            console.log(jsonRespuestaCorrecta[i]);
-
+    let jsonRespuestaCorrecta;
+    
+    var getTareas = async function(){
+        var result = await collectionAsignacionTareas.find({"socioAsignado":request.query.username}, {projection: {_id:0 , nombreTarea: 1, creador: 1}}).toArray();
+        if ( result == null || result[0] == null) {
+            response.send(result);
         }
-        var respuestaFormateada= "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
-        response.send(respuestaFormateada); 
+        else {
+            jsonRespuestaCorrecta = result;  
+        }
     }
+    
+    var obtenerTareasConImagen = async function(){
+        await getTareas();
+        for (var i = 0; i<jsonRespuestaCorrecta.length; i++){
+            var innerResult = await collectionTareas.find({ "nombre": jsonRespuestaCorrecta[i].nombreTarea, "creador": jsonRespuestaCorrecta[i].creador}, {projection: {_id:0 , fotoTarea: 1} }).toArray();
+            if ( innerResult == null || innerResult[0] == null) {
+                response.send(innerResult);
+            }
+            else {
+                const fs = require('fs');
+                const contents = fs.readFileSync("media/"+innerResult[0].fotoTarea, {encoding: 'base64'});
+                jsonRespuestaCorrecta[i].fotoTarea = contents; 
+            }                   
+        }
+    }
+
+    obtenerTareasConImagen().then(() => {
+        var respuestaFormateada = "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
+        response.send(respuestaFormateada);
+    }).catch(err => console.log(err));
+ 
 });
