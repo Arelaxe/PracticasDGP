@@ -731,30 +731,25 @@ app.post("/eliminar-grupo-socio", (request, response) => {
 // Obtener tareas del socio
 /******************************************************/
 app.get("/tareas-socio", (request, response) => {
-    collectionAsignacionTareas.find({"socioAsignado":request.query.username}, {projection: {_id:0 , nombreTarea: 1, creador: 1}}).toArray(function (error, result) {
-        if (error) {
-            return response.status(500).send(error);
-        }
-        if ( result == null || result[0] == null) {
-            response.send("No tienes ninguna tarea");
-        }
-        else {
-            jsonRespuestaCorrecta = result[0];
+    result = collectionAsignacionTareas.find({"socioAsignado":request.query.username}, {projection: {_id:0 , nombreTarea: 1, creador: 1}}).toArray();
+    console.log(result);
+    if ( result == null || result[0] == null) {
+        console.log("estoy en primer if");
+        response.send(result);
+    }
 
-                collectionTareas.find({ "nombre": jsonRespuestaCorrecta.nombreTarea, "creador": jsonRespuestaCorrecta.creador}, {projection: {_id:0 , fotoTarea: 1} }).toArray(function (error, result) {
-                    if (error) {
-                        return response.status(500).send(error);
-                    }
-                    if ( result[0] == null) {
-                        response.send("No tienes ninguna tarea");
-                    }
-                    else {
-                        const fs = require('fs');
-                        const contents = fs.readFileSync("media/"+result[0].fotoTarea, {encoding: 'base64'});
-                        jsonRespuestaCorrecta.fotoTarea = contents;
-                        response.send(jsonRespuestaCorrecta); 
-                    }
-                });
+    else {
+        let jsonRespuestaCorrecta = result;
+        for (let i = 0; i<jsonRespuestaCorrecta.length; i++){
+            var innerResult = collectionTareas.find({ "nombre": result[i].nombreTarea, "creador": result[i].creador}, {projection: {_id:0 , fotoTarea: 1} }).toArray();
+
+            const fs = require('fs');
+            const contents = fs.readFileSync("media/"+innerResult[0].fotoTarea, {encoding: 'base64'});
+            jsonRespuestaCorrecta[i].fotoTarea = "contents";
+            console.log(jsonRespuestaCorrecta[i]);
+
         }
-    });
+        var respuestaFormateada= "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
+        response.send(respuestaFormateada); 
+    }
 });
