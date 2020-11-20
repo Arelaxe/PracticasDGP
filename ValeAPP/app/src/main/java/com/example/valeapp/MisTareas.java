@@ -21,6 +21,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -108,42 +109,67 @@ public class MisTareas extends AppCompatActivity {
 
     @SuppressLint("ResourceType")
     private void creaListaTareas() throws JSONException {
-        String[] names = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}; // 20 names
-        Button[] buttons = new Button[20];
-        for (int i = 0; i < 20; i++) {
-            Button button = new Button(this);
-            button.setText(names[i]);
-            buttons[i] = button;
-        }
         LinearLayout layout = (LinearLayout)findViewById(R.id.LayoutTareas);
-
-        for (int i = 0; i < 20; i++) {
+        JSONArray arrayTareas = jsonTareas.getJSONArray("arrayRespuesta");
+        for (int i = 0; i < arrayTareas.length(); i++) {
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT
             );
-            int left = 10;
-            int top = 0;
-            int right = 10;
-            int bottom = 30;
-            int height =  75;
-            int width =  75;
+            int left = 20;
+            int top = 20;
+            int right = 20;
+            int bottom = 25;
+            int height =  240;
+            int width =  240;
 
             params.setMargins(left, top, right, bottom);
-            layout.addView(buttons[i]);
-            buttons[i].setContentDescription(names[i]);
-            buttons[i].setBackgroundColor(getResources().getInteger(R.color.grey));
-            buttons[i].setTextColor(getResources().getInteger(R.color.black));
-            buttons[i].setTextSize(25);
-            buttons[i].setGravity(View.TEXT_ALIGNMENT_TEXT_START);
-            buttons[i].setLayoutParams(params);
-            byte[] data = Base64.decode(jsonTareas.getString("fotoTarea"), Base64.DEFAULT);
+            Button tarea = new Button(this);
+            layout.addView(tarea);
+            tarea.setText(((JSONObject) arrayTareas.get(i)).getString("nombreTarea").toUpperCase());
+            tarea.setContentDescription(((JSONObject) arrayTareas.get(i)).getString("nombreTarea"));
+            tarea.setBackgroundColor(getResources().getInteger(R.color.grey));
+            tarea.setTextColor(getResources().getInteger(R.color.black));
+            tarea.setTextSize(35);
+            tarea.setGravity(View.TEXT_ALIGNMENT_TEXT_START);
+            tarea.setLayoutParams(params);
+            byte[] data = Base64.decode(((JSONObject) arrayTareas.get(i)).getString("fotoTarea"), Base64.DEFAULT);
             Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
             Drawable imagenTarea = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
+            final int tarea_i = i;
+            Drawable dEscalado = null;
 
-            buttons[i].setCompoundDrawablesWithIntrinsicBounds(null, null, imagenTarea, null);
+           /* if (((JSONObject) arrayTareas.get(i)).getBoolean("evaluada")){
+                tarea.setContentDescription(((JSONObject) arrayTareas.get(i)).getString("nombreTarea") + ". Tarea evaluada");
+                Drawable dr = getResources().getDrawable(R.drawable.tick);
+                Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+                // Escalar
+                dEscalado= new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 50, 50, true));
+            }
+            else */if (((JSONObject) arrayTareas.get(i)).getBoolean("respondida")){
+                tarea.setContentDescription(((JSONObject) arrayTareas.get(i)).getString("nombreTarea") + ". Tarea respondida");
+                Drawable dr = getResources().getDrawable(R.drawable.tick);
+                Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+                // Escalar
+                dEscalado= new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 50, 50, true));
+            }
+            tarea.setCompoundDrawablesWithIntrinsicBounds(imagenTarea, null, dEscalado, null);
+            //Boton Atrás
+            tarea.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        tareaDetallada(((JSONObject) arrayTareas.get(tarea_i)).getString("creador"), ((JSONObject) arrayTareas.get(tarea_i)).getString("nombreTarea"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
+    }
+
+    public void tareaDetallada(String creador, String nombreTarea){
+        System.out.println(creador + " " + nombreTarea);
     }
 
     class GetTareas extends AsyncTask<String, String, JSONObject> {
