@@ -752,7 +752,7 @@ app.get("/tareas-socio", (request, response) => {
     let jsonRespuestaCorrecta;
     
     var getTareas = async function(){
-        var result = await collectionAsignacionTareas.find({"socioAsignado":request.query.username}, {projection: {_id:0 , nombreTarea: 1, creador: 1, respondida:1
+        var result = await collectionAsignacionTareas.find({"socioAsignado":request.query.username}, {projection: {_id:0 , nombreTarea: 1, creador: 1, respondida:1, nuevoMensaje:1
         }}).toArray();
         if ( result == null || result[0] == null) {
             response.send(result);
