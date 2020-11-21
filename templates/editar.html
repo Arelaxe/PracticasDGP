@@ -41,6 +41,10 @@
                     </div>
                     {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
                     <div class="class-group">
+                        <label for="nombre"><h4>Nombre preferido</h4></label>
+                        <input type="text" class="form-control" name="mote" id="mote" value="{{ infoUsuario.mote }}">
+                    </div>
+                    <div class="class-group">
                         <label for="correo"><h4>Correo</h4></label>
                         <input type="text" class="form-control" id="correo" name="username" value="{{ infoUsuario.username }}">
                         <label for="correo2" hidden>Correo</label>

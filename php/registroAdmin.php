@@ -8,6 +8,7 @@
         $sociosACargo = array();
 
         $infoRegistro['nombre'] = $_POST['nombre'];
+        $infoRegistro['mote'] = $_POST['mote'];
         $infoRegistro['username'] = $_POST['email'];
         $infoRegistro['password'] = md5($_POST['pass']);
         $infoRegistro['rol'] = $_POST['rol'];

@@ -33,6 +33,7 @@
 
             if($infoUsuarioEditado['rol'] == "admin" || $infoUsuarioEditado['rol'] == "ambos" || $infoUsuarioEditado['rol'] == "facilitador"){
                 $infoUsuarioEditado['direccion'] = $_POST['direccion'];
+                $infoUsuarioEditado['mote'] = $_POST['mote'];
                 $infoUsuarioEditado['telefono'] = $_POST['telefono'];
                 $infoUsuarioEditado['sociosACargo'] = $usuario->sociosACargo;
 

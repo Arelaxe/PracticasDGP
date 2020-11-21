@@ -25,6 +25,8 @@
           <h4>Nombre y apellidos</h4>
           {{ infoUsuario.nombre }}
           {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
+          <h4>Mote / Nombre preferido</h4>
+          {{ infoUsuario.mote }}
           <h4>Correo</h4>
           {{ infoUsuario.username }}
           <h4>Dirección</h4>
@@ -45,7 +47,7 @@
           <label for="facilitadores"><h4>Facilitadores a cargo</h4></label>
           <select class="form-control" id="facilitadores">
             {%for facilitador in facilitadores%}
-              <option onclick="window.location.replace('perfil.php?username={{facilitador}}')">{{facilitador}}</option>
+              <option onclick="window.location.replace('perfil.php?username={{facilitador.username}}')">{{facilitador.nombre}}</option>
             {%endfor%}
           </select>
           <h4>Preferencias</h4>

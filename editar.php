@@ -45,6 +45,7 @@
             $infoUsuario['imagenPerfil'] = "img/".$item->imagenPerfil;
 
             if($infoUsuario['rol'] == "admin" || $infoUsuario['rol'] == "ambos" || $infoUsuario['rol'] == "facilitador"){
+                $infoUsuario['mote'] = $item->mote;
                 $infoUsuario['direccion'] = $item->direccion;
                 $infoUsuario['telefono'] = $item->telefono;
             }

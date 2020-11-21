@@ -36,6 +36,7 @@
             $img = "img/".$item->imagenPerfil;
             
             if($infoUsuario['rol'] == "admin" || $infoUsuario['rol'] == "ambos" || $infoUsuario['rol'] == "facilitador"){
+                $infoUsuario['mote'] = $item->mote;
                 $infoUsuario['direccion'] = $item->direccion;
                 $infoUsuario['telefono'] = $item->telefono;
 
@@ -48,9 +49,12 @@
             else{
                 $facilitadores = $item->facilitadoresACargo;
                 foreach( $facilitadores as $facilitador){
-                    array_push($listadoFacilitadores,$facilitador);
+                    $infoFacilitador = array();
+                    $infoFacilitador['username'] = $facilitador;
+                    $jsonInfoFacilitador = json_encode($infoFacilitador);
+                    $result = infoPerfilApi($jsonInfoFacilitador);
+                    array_push($listadoFacilitadores,$result[0]);
                 }
-                
                 if(isset($item->preferenciaAudio)){
                     /*Preferencias*/
                     $preferencias['audio'] = $item->preferenciaAudio ? "Si" : "No" ;
