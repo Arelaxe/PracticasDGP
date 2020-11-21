@@ -77,9 +77,9 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
     private void irAMisFacilitadores(){
-        /*Intent intent = new Intent(this, MisFacilitadores.class);
+        Intent intent = new Intent(this, MisFacilitadores.class);
         intent.putExtra("usuario", usuario);
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
     private void irAMisPreferencias(){

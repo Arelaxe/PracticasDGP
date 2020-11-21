@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
@@ -29,15 +28,15 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
-public class MisTareas extends AppCompatActivity {
+public class MisFacilitadores extends AppCompatActivity {
 
     private String usuario;
-    JSONObject jsonTareas;
+    JSONObject jsonFacilitadores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_tareas);
+        setContentView(R.layout.menu_facilitadores);
 
         Bundle bundle = getIntent().getExtras();
         usuario = bundle.getString("usuario");
@@ -70,7 +69,7 @@ public class MisTareas extends AppCompatActivity {
         }
 
         try {
-            creaListaTareas();
+            creaListaFacilitadores();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -109,10 +108,10 @@ public class MisTareas extends AppCompatActivity {
     }
 
     @SuppressLint("ResourceType")
-    private void creaListaTareas() throws JSONException {
+    private void creaListaFacilitadores() throws JSONException {
         LinearLayout layout = (LinearLayout)findViewById(R.id.LayoutTareas);
-        JSONArray arrayTareas = jsonTareas.getJSONArray("arrayRespuesta");
-        for (int i = 0; i < arrayTareas.length(); i++) {
+        JSONArray arrayFacilitadores = jsonFacilitadores.getJSONArray("arrayRespuesta");
+        for (int i = 0; i < arrayFacilitadores.length(); i++) {
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -126,54 +125,42 @@ public class MisTareas extends AppCompatActivity {
             int width =  240;
 
             params.setMargins(left, top, right, bottom);
-            Button tarea = new Button(this);
-            layout.addView(tarea);
-            tarea.setText(((JSONObject) arrayTareas.get(i)).getString("nombreTarea").toUpperCase());
-            tarea.setContentDescription(((JSONObject) arrayTareas.get(i)).getString("nombreTarea"));
-            tarea.setBackgroundColor(getResources().getInteger(R.color.grey));
-            tarea.setTextColor(getResources().getInteger(R.color.black));
-            tarea.setTextSize(32);
-            tarea.setCompoundDrawablePadding(20);
-            tarea.setLayoutParams(params);
-            tarea.setGravity(Gravity.CENTER_VERTICAL);
-            byte[] data = Base64.decode(((JSONObject) arrayTareas.get(i)).getString("fotoTarea"), Base64.DEFAULT);
+            Button facilitador = new Button(this);
+            layout.addView(facilitador);
+            facilitador.setText(((JSONObject) arrayFacilitadores.get(i)).getString("mote").toUpperCase());
+            facilitador.setContentDescription(((JSONObject) arrayFacilitadores.get(i)).getString("mote"));
+            facilitador.setBackgroundColor(getResources().getInteger(R.color.grey));
+            facilitador.setTextColor(getResources().getInteger(R.color.black));
+            facilitador.setTextSize(32);
+            facilitador.setCompoundDrawablePadding(50);
+            facilitador.setPadding(0, 0, 0, 0);
+            facilitador.setLayoutParams(params);
+            facilitador.setGravity(Gravity.CENTER_VERTICAL);
+            byte[] data = Base64.decode(((JSONObject) arrayFacilitadores.get(i)).getString("fotoFacilitador"), Base64.DEFAULT);
             Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
             Drawable imagenTarea = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
-            final int tarea_i = i;
+            final int facilitador_i = i;
+
+            /*
             Drawable dEscalado = null;
 
             int alturaImagen = 110;
             int anchuraImagen = 65;
-            //Respondida y nuevo mensaje
-            if (((JSONObject) arrayTareas.get(i)).getBoolean("nuevoMensaje") && ((JSONObject) arrayTareas.get(i)).getBoolean("respondida")){
-                tarea.setContentDescription(((JSONObject) arrayTareas.get(i)).getString("nombreTarea") + ". Tienes un nuevo mensaje en el chat de la tarea. Tarea respondida");
-                Drawable dr = getResources().getDrawable(R.drawable.tick_chat);
-                Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-                // Escalar
-                dEscalado= new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, anchuraImagen, alturaImagen, true));
-            }
-            //Respondida
-            else if (((JSONObject) arrayTareas.get(i)).getBoolean("respondida")){
-                tarea.setContentDescription(((JSONObject) arrayTareas.get(i)).getString("nombreTarea") + ". Tarea respondida");
-                Drawable dr = getResources().getDrawable(R.drawable.tick_tarea);
-                Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-                // Escalar
-                dEscalado= new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, anchuraImagen, alturaImagen, true));
-            }
-            //nuevo mensaje
-            else if (((JSONObject) arrayTareas.get(i)).getBoolean("nuevoMensaje")){
+
+            //nuevo mensaje ///// Por ahora no
+            if (((JSONObject) arrayTareas.get(i)).getBoolean("nuevoMensaje")){
                 tarea.setContentDescription(((JSONObject) arrayTareas.get(i)).getString("nombreTarea") + ". Tienes un nuevo mensaje en el chat de la tarea.");
                 Drawable dr = getResources().getDrawable(R.drawable.chat);
                 Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
                 // Escalar
                 dEscalado= new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, anchuraImagen, alturaImagen, true));
-            }
-            tarea.setCompoundDrawablesWithIntrinsicBounds(imagenTarea, null, dEscalado, null);
+            }*/
+            facilitador.setCompoundDrawablesWithIntrinsicBounds(imagenTarea, null, null, null);
             //Boton Atrás
-            tarea.setOnClickListener(new View.OnClickListener() {
+            facilitador.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     try {
-                        tareaDetallada(((JSONObject) arrayTareas.get(tarea_i)).getString("creador"), ((JSONObject) arrayTareas.get(tarea_i)).getString("nombreTarea"));
+                        infoFacilitador(((JSONObject) arrayFacilitadores.get(facilitador_i)).getString("username"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -182,12 +169,12 @@ public class MisTareas extends AppCompatActivity {
         }
     }
 
-    public void tareaDetallada(String creador, String nombreTarea){
-        System.out.println(creador + " " + nombreTarea);
+    public void infoFacilitador(String facilitador){
+        System.out.println(facilitador);
     }
 
     class GetTareas extends AsyncTask<String, String, JSONObject> {
-        private final static String URL= "tareas-socio";
+        private final static String URL= "facilitadores-socio";
         private JSONParser jsonParser = new JSONParser();
 
         @Override
@@ -204,12 +191,12 @@ public class MisTareas extends AppCompatActivity {
 
                 Log.d("request", "starting");
 
-                jsonTareas = jsonParser.makeHttpRequest(URL, "GET", params, "");
+                jsonFacilitadores = jsonParser.makeHttpRequest(URL, "GET", params, "");
 
-                if (jsonTareas != null) {
-                    Log.d("JSON result:   ", jsonTareas.toString());
+                if (jsonFacilitadores != null) {
+                    Log.d("JSON result:   ", jsonFacilitadores.toString());
 
-                    return jsonTareas;
+                    return jsonFacilitadores;
                 }
             } catch (Exception e) {
 
