@@ -269,6 +269,23 @@ app.post("/listado-tareas", (request, response) => {
 });
 
 /******************************************************/
+// Listado tareas para administración
+/******************************************************/
+app.get("/listado-tareas-admin", (request, response) => {
+    collectionTareas.find({}).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No hay socios");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
 // Mis socios
 /******************************************************/
 app.post("/mis-socios", (request, response) => {
