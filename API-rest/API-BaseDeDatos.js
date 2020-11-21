@@ -750,11 +750,13 @@ app.post("/eliminar-grupo-socio", (request, response) => {
 /******************************************************/
 app.get("/tareas-socio", (request, response) => {
     let jsonRespuestaCorrecta;
+    let hayError = false;
     
     var getTareas = async function(){
         var result = await collectionAsignacionTareas.find({"socioAsignado":request.query.username}, {projection: {_id:0 , nombreTarea: 1, creador: 1, respondida:1, nuevoMensaje:1
         }}).toArray();
         if ( result == null || result[0] == null) {
+            hayError = true;
             response.send(result);
         }
         else {
@@ -764,22 +766,133 @@ app.get("/tareas-socio", (request, response) => {
     
     var obtenerTareasConImagen = async function(){
         await getTareas();
-        for (var i = 0; i<jsonRespuestaCorrecta.length; i++){
-            var innerResult = await collectionTareas.find({ "nombre": jsonRespuestaCorrecta[i].nombreTarea, "creador": jsonRespuestaCorrecta[i].creador}, {projection: {_id:0 , fotoTarea: 1} }).toArray();
-            if ( innerResult == null || innerResult[0] == null) {
-                response.send(innerResult);
+        if (!hayError){
+            for (var i = 0; i<jsonRespuestaCorrecta.length; i++){
+                var innerResult = await collectionTareas.find({ "nombre": jsonRespuestaCorrecta[i].nombreTarea, "creador": jsonRespuestaCorrecta[i].creador}, {projection: {_id:0 , fotoTarea: 1} }).toArray();
+                if ( innerResult == null || innerResult[0] == null) {
+                    hayError = true;
+                    response.send(innerResult);
+                }
+                else {
+                    const fs = require('fs');
+                    const contents = fs.readFileSync("media/"+innerResult[0].fotoTarea, {encoding: 'base64'});
+                    jsonRespuestaCorrecta[i].fotoTarea = contents; 
+                }                   
             }
-            else {
-                const fs = require('fs');
-                const contents = fs.readFileSync("media/"+innerResult[0].fotoTarea, {encoding: 'base64'});
-                jsonRespuestaCorrecta[i].fotoTarea = contents; 
-            }                   
         }
     }
 
     obtenerTareasConImagen().then(() => {
-        var respuestaFormateada = "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
-        response.send(respuestaFormateada);
+        if(!hayError){
+            var respuestaFormateada = "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
+            response.send(respuestaFormateada);
+        }
     }).catch(err => console.log(err));
  
+});
+
+
+/******************************************************/
+// Obtener facilitadores del socio
+/******************************************************/
+app.get("/facilitadores-socio", (request, response) => {
+    let jsonRespuestaCorrecta = new Array ();
+    let hayError = false;
+    
+    var getFacilitadores = async function(){
+        var result = await collectionUsuarios.find({"username":request.query.username}, {projection: {_id:0 , facilitadoresACargo: 1}}).toArray();
+        if ( result == null || result[0] == null) {
+            hayError = true;
+            response.send(result);
+        }
+        else {
+
+            for (var i = 0; i<result[0].facilitadoresACargo.length; i++){
+                let respuesta = '{ \"username":' + '"' + result[0].facilitadoresACargo[i] + '"' + '}';
+                jsonRespuestaCorrecta.push(JSON.parse(respuesta));
+            }
+            
+            console.log("RESPUESTA FACILITADORES: " + JSON.stringify(jsonRespuestaCorrecta));
+        }
+    }
+    
+    var obtenerFacilitadoresConImagen = async function(){
+        await getFacilitadores();
+        if (!hayError){
+            
+            for (var i = 0; i<jsonRespuestaCorrecta.length; i++){
+                var innerResult = await collectionUsuarios.find({ "username": jsonRespuestaCorrecta[i].username}, {projection: {_id:0 , imagenPerfil: 1, mote:1} }).toArray();
+                if ( innerResult == null || innerResult[0] == null) {
+                    hayError = true;
+                    response.send(innerResult);
+                }
+                else {
+                    const fs = require('fs');
+                    const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
+                    jsonRespuestaCorrecta[i].fotoFacilitador = contents; 
+                    jsonRespuestaCorrecta[i].mote = innerResult[0].mote;
+                }                   
+            }
+            
+        }
+    }
+
+    obtenerFacilitadoresConImagen().then(() => {
+        if(!hayError){
+            var respuestaFormateada = "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
+            response.send(respuestaFormateada);
+         }
+    }).catch(err => console.log(err));
+ 
+});
+
+/******************************************************/
+// Enviar tarea
+/******************************************************/
+app.post("/enviar-tarea", (request, response) => {
+    collectionAsignacionTareas.insertOne(request.body, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Fallo en el envio de tarea");
+        }
+        else {
+            response.send("Envío completado");
+        }
+    });
+});
+
+/******************************************************/
+// Tareas enviadas
+/******************************************************/
+app.post("/tareas-enviadas", (request, response) => {
+    collectionAsignacionTareas.find({ "creador": request.body.creador }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Aún no has creado tareas!");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Info tarea enviada
+/******************************************************/
+app.post("/info-tarea-enviada", (request, response) => {
+    collectionAsignacionTareas.find({ "nombreTarea": request.body.nombreTarea, "creador": request.body.creador, "socioAsignado" : request.body.socioAsignado }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró la tarea");
+        }
+        else {
+            response.send(result);
+        }
+    });
 });
