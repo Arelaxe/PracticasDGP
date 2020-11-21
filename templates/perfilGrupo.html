@@ -30,11 +30,11 @@
             {%if infoGrupo.socios|length > 0%}
             <table class="table table-hover table-responsive">
               <tbody>
-                {%for socio in infoGrupo.socios%}
+                {%for socio in socios%}
                   <tr>
-                    <td scope="row" class="td1"><a href="./perfil.php?username={{socio}}">{{ socio }}</a></td>
-                    <td class="tdx"><button class="btn btn-danger bt1" onclick="window.location.replace('eliminar_socio_grupo.php?grupo={{infoGrupo.nombre}}')">ELIMINAR</button></td>
-                    <td class="tdn"><a href="./perfil.php?username={{socio}}">►</a></td>
+                    <td scope="row" class="td1"><a href="./perfil.php?username={{socio.username}}">{{ socio.nombre }}</a></td>
+                    <td class="tdx"><button class="btn btn-danger bt1" onclick="window.location.replace('eliminar_socio_grupo.php?grupo={{infoGrupo.nombre}}&socio={{socio.username}}')">ELIMINAR</button></td>
+                    <td class="tdn"><a href="./perfil.php?username={{socio.username}}">►</a></td>
                   </tr>
                 {%endfor%}
               </tbody>

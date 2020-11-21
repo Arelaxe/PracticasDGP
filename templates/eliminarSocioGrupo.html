@@ -22,7 +22,9 @@
             <div class="class-group">
                 <label for="socioEliminar">Socio a eliminar</label>
                 <select name="socioEliminar" id="socioEliminar" class="form-control">
-                    {% if socio != -1 %}
+                    {% if socio != -1 and grupo !=-1 %}
+                    <option value="{{ s_info.username }}">{{ s_info.nombre }}</option>
+                    {% elseif socio != -1 %}
                     <option value="{{ socio.username }}">{{ socio.nombre }}</option>
                     {% else %}
 
