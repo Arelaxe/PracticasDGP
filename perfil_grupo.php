@@ -20,11 +20,20 @@
 
         $infoGrupo = infoGrupoApi($jsonInfoPerfil);
 
+        $socios = array();
+
+        foreach ($infoGrupo[0]->socios as $socio){
+            $s_array = array();
+            $s_array['username'] = $socio;
+            $jsonInfoSocio = json_encode($s_array);
+            $infoSocio = infoPerfilApi($jsonInfoSocio);
+            array_push($socios, $infoSocio[0]);
+        }
     } else{
         $idUsuario = -1;
     }
 
     
 
-    echo $twig->render('perfilGrupo.html', ['infoGrupo' =>  $infoGrupo[0] , 'rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
+    echo $twig->render('perfilGrupo.html', ['infoGrupo' =>  $infoGrupo[0] , 'rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario']), 'socios' => $socios]);
 ?>

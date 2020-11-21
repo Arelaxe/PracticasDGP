@@ -7,7 +7,15 @@ require_once '../vendor/autoload.php';
     session_start();
     if(isset($_SESSION['usuario'])){
         $rol = $_SESSION['rol'];
-        if (isset($_GET['grupo'])){
+        if (isset($_GET['grupo']) && isset($_GET['socio'])){
+            $grupo = $_GET['grupo'];
+            $socio = $_GET['socio'];
+            $s_array = array();
+            $s_array['username'] = $socio;
+            $json_s_array = json_encode($s_array);
+            $s_info = infoPerfilApi($json_s_array);
+        }
+        else if (isset($_GET['grupo'])){
             $socio = -1;
             $grupo = $_GET['grupo'];
             $listaNombres = array();
@@ -71,5 +79,5 @@ require_once '../vendor/autoload.php';
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('eliminarSocioGrupo.html',['rol' => $rol, 'grupo' => $grupo, 'socios' => $socios, 'socio' => $socio, 's_info' => $s_info[0], 'grupos' => $grupos, 'cuenta' => $_SESSION['usuario'], 'img' => $imagen]);
+    echo $twig->render('eliminarSocioGrupo.html',['rol' => $rol, 'grupo' => $grupo, 'socios' => $socios, 'socio' => $socio, 's_info' => $s_info[0], 'grupos' => $grupos, 'cuenta' => $_SESSION['usuario']]);
 ?>
