@@ -758,7 +758,7 @@ function editarTareaApi($jsoninfoTarea){
 
 function enviarTareaApi($jsoninfoTarea){
     // API URL
-    $url = 'http://localhost:5000/registro';
+    $url = 'http://localhost:5000/enviar-tarea';
 
     // Create a new cURL resource
     $ch = curl_init($url);
