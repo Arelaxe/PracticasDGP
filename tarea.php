@@ -16,7 +16,7 @@
 
         $idTarea = array();
         $idTarea['nombre'] = $_GET['nombre'];
-        $idTarea['creador'] = $idUsuario;
+        isset($_GET['creador']) ? $idTarea['creador'] = $_GET['creador'] : $idTarea['creador'] = $idUsuario;
 
         $jsonIdTarea = json_encode($idTarea);
 

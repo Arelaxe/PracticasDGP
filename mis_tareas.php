@@ -9,19 +9,20 @@
     session_start();
 
     if(isset($_SESSION['usuario'])){
-        $listado = listadoTareasAdminApi();
+        $infoFacilitador = array();
+        $infoFacilitador['username'] = $_SESSION['usuario'];
+        $jsoninfoFacilitador = json_encode($infoFacilitador);
+        $listado = listadoTareasApi($jsoninfoFacilitador);
         $rol = $_SESSION['rol'];
     }
 
     $listado_nombres = array();
-    $listado_creadores = array();
     $listado_ids = array();
 
     foreach ($listado as $tarea){
         array_push($listado_nombres, $tarea->nombre);
-        array_push($listado_creadores, $tarea->creador);
         array_push($listado_ids, $tarea->_id);
-    }
+	}
 
-    echo $twig->render('listadotareas.html', ['nombres' => $listado_nombres, 'creadores' => $listado_creadores , 'ids' => $listado_ids, 'rol' => $rol, 'usuario' => $_SESSION['usuario'], 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
+    echo $twig->render('mistareas.html', ['nombres' => $listado_nombres, 'ids' => $listado_ids, 'rol' => $rol, 'usuario' => $_SESSION['usuario'], 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario'])]);
 ?>

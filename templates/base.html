@@ -46,6 +46,21 @@
             </div>
           </li>
 
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Tareas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% if rol == "admin" or rol == "ambos"  %}
+                <a class="dropdown-item" href="listado_tareas.php">Listado de tareas</a>
+              {% endif %}
+              {% if rol == "facilitador" or rol == "ambos" %}
+                <a class="dropdown-item" href="mis_tareas.php">Mis tareas</a>
+                <a class="dropdown-item" href="crear_tarea.php">Crear tarea</a>
+              {% endif %}
+            </div>
+          </li>
+
           {%if rol == "facilitador" or rol == "ambos"%}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,15 +72,6 @@
             </div>
           </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Tareas
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="listado_tareas.php">Mis tareas</a>
-              <a class="dropdown-item" href="crear_tarea.php">Crear tarea</a>
-            </div>
-          </li>
           {%endif%}
 
           {%if rol == "admin" or rol == "ambos"%}

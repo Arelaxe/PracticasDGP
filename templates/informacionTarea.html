@@ -52,8 +52,10 @@
             {%endif%}
         </div>
         <div class="boton_centro">
-            <button type="submit" class="btn btn-warning" onclick="window.location.replace('editar_tarea.php?nombre={{infoTarea.nombre}}')">EDITAR TAREA</button>
-            <button type="button" class="btn btn-primary">ENVIAR A SOCIO</button>
+            {% if cuenta == infoTarea.creador %}
+                <button type="submit" class="btn btn-warning" onclick="window.location.replace('editar_tarea.php?nombre={{infoTarea.nombre}}')">EDITAR TAREA</button>
+                <button type="button" class="btn btn-primary">ENVIAR A SOCIO</button>
+            {% endif %} 
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
         </div>
 

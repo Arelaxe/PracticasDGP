@@ -1,4 +1,4 @@
-﻿{%extends "base.html"%}
+{%extends "base.html"%}
 
 {%block titulo%}Listado de Tareas{%endblock%}
 
@@ -24,11 +24,9 @@
             <tbody>
                 {% for nombre in nombres %}
                 <tr>
-                    <td scope="row" class="td1"><a href="./tarea.php?nombre={{nombre}}">{{ nombre }}</a></td>
-                    <td class="tdx"><button class="btn btn-warning bt1" onclick="window.location.replace('editar_tarea.php?nombre={{nombre}}')">EDITAR</button></td>
-                    <td class="tdx"><button class="btn btn-primary bt1">ENVIAR A SOCIO</button></td>
-                    <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposTarea('{{nombre}}')"  data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
-                    <td class="tdn"><a href="./tarea.php?nombre={{nombre}}">►</a></td>
+                    <td scope="row" class="td1"><a href="./tarea.php?nombre={{nombre}}&creador={{creadores[loop.index0]}}">{{ nombre }}</a> (<a href="perfil.php?username={{creadores[loop.index0]}}">{{creadores[loop.index0]}}</a>) </td>
+                    <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposTareaCreador('{{nombre}}','{{creadores[loop.index0]}}')"  data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
+                    <td class="tdn"><a href="./tarea.php?nombre={{nombre}}&creador={{creadores[loop.index0]}}">►</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -61,3 +61,9 @@ function completarCamposTarea(nombreTarea){
     document.getElementById('nombreAEliminar').innerHTML = nombreTarea;
     document.getElementById('tareaAEliminar').setAttribute('value',nombreTarea);
 }
+
+function completarCamposTareaCreador(nombreTarea,nombreCreador){
+    document.getElementById('nombreAEliminar').innerText = nombreTarea + " (" + nombreCreador + ")";
+    document.getElementById('tareaAEliminar').setAttribute('value',nombreTarea);
+    document.getElementById('facilitador').setAttribute('value',nombreCreador);
+}

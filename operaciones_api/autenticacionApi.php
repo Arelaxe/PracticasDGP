@@ -75,6 +75,14 @@ function listadoSociosApi(){
      return $response;
 }
 
+function listadoTareasAdminApi(){
+    // API URL
+     $url = 'http://localhost:5000/listado-tareas-admin';
+
+     $response = json_decode(file_get_contents($url));
+     return $response;
+}
+
 function infoPerfilApi($jsonInfoPerfil){
     // API URL
      $url = 'http://localhost:5000/perfil';
