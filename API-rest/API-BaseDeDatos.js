@@ -791,6 +791,52 @@ app.get("/tareas-socio", (request, response) => {
  
 });
 
+/******************************************************/
+// Obtener una tarea del socio
+/******************************************************/
+app.get("/obtener-tarea", (request, response) => {
+    let jsonRespuestaCorrecta;
+    let hayError = false;
+    
+    var getTarea = async function(){
+        var result = await collectionTareas.find({ "nombre": request.query.nombreTarea, "creador": request.query.creador}, {projection: {_id:0 , nombre:1, 
+            creador:1 , descripcion:1, fotoTarea: 1, audioTarea:1, videoTarea:1} }).toArray();
+        if ( result == null || result[0] == null) {
+            hayError = true;
+            response.send(result);
+        }
+        else {
+            jsonRespuestaCorrecta = result;  
+        }
+    }
+    
+    var obtenerMoteImagenFacilitador = async function(){
+        await getTarea();
+        if (!hayError){
+            for (var i = 0; i<jsonRespuestaCorrecta.length; i++){
+                var innerResult = await collectionUsuarios.find({ "username": jsonRespuestaCorrecta[i].creador}, {projection: {_id:0 , imagenPerfil: 1, mote:1} }).toArray();
+                if ( innerResult == null || innerResult[0] == null) {
+                    hayError = true;
+                    response.send(innerResult);
+                }
+                else {
+                    const fs = require('fs');
+                    const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
+                    jsonRespuestaCorrecta[i].fotoFacilitador = contents; 
+                    jsonRespuestaCorrecta[i].mote = innerResult[0].mote;
+                }                   
+            }
+        }
+    }
+
+    obtenerMoteImagenFacilitador().then(() => {
+        if(!hayError){
+            var respuestaFormateada = "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
+            response.send(respuestaFormateada);
+        }
+    }).catch(err => console.log(err));
+ 
+});
 
 /******************************************************/
 // Obtener facilitadores del socio
