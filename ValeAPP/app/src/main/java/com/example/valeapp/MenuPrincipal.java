@@ -90,7 +90,6 @@ public class MenuPrincipal extends AppCompatActivity {
 
     private void irALogout(){
         Intent intent = new Intent(this, Logout.class);
-        intent.putExtra("usuario", usuario);
         startActivity(intent);
     }
 

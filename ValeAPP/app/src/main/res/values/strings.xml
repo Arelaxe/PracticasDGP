@@ -122,4 +122,7 @@
     <string name="mis_tareas3">MIS TAREAS</string>
     <string name="mis_facilitadores_menu">MIS FACILITADORES</string>
     <string name="mis_facilitadores_menu_texto">Mis facilitadores</string>
+    <string name="ir_a_chat">Botón para ir al chat de la tarea</string>
+    <string name="bot_n_respoder_a_la_tarea">Botón respoder a la tarea</string>
+    <string name="responder">RESPONDER</string>
 </resources>

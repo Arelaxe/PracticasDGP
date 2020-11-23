@@ -74,7 +74,6 @@ public class MisFacilitadores extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -92,7 +91,6 @@ public class MisFacilitadores extends AppCompatActivity {
 
     private void irALogout(){
         Intent intent = new Intent(this, Logout.class);
-        intent.putExtra("usuario", usuario);
         startActivity(intent);
     }
 

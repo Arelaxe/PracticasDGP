@@ -75,7 +75,6 @@ public class MisTareas extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -93,7 +92,6 @@ public class MisTareas extends AppCompatActivity {
 
     private void irALogout(){
         Intent intent = new Intent(this, Logout.class);
-        intent.putExtra("usuario", usuario);
         startActivity(intent);
     }
 
@@ -184,6 +182,12 @@ public class MisTareas extends AppCompatActivity {
 
     public void tareaDetallada(String creador, String nombreTarea){
         System.out.println(creador + " " + nombreTarea);
+        Intent intent = new Intent(this, TareaDetallada.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("guardarRespuesta", false);
+        startActivity(intent);
     }
 
     class GetTareas extends AsyncTask<String, String, JSONObject> {
