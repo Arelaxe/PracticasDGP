@@ -822,7 +822,16 @@ app.get("/obtener-tarea", (request, response) => {
                 else {
                     const fs = require('fs');
                     const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
-                    jsonRespuestaCorrecta[i].fotoFacilitador = contents; 
+                    jsonRespuestaCorrecta[i].fotoFacilitador = contents;
+                    
+                    if (jsonRespuestaCorrecta[i].fotoTarea != "placeholder-image-83226358.png"){
+                        const fotoTarea = fs.readFileSync("media/"+jsonRespuestaCorrecta[i].fotoTarea, {encoding: 'base64'});
+                        jsonRespuestaCorrecta[i].fotoTarea = fotoTarea;
+                    }
+                    else {
+                        jsonRespuestaCorrecta[i].fotoTarea = "";
+                    }
+                    
                     jsonRespuestaCorrecta[i].mote = innerResult[0].mote;
                 }                   
             }
