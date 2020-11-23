@@ -831,8 +831,7 @@ app.get("/obtener-tarea", (request, response) => {
 
     obtenerMoteImagenFacilitador().then(() => {
         if(!hayError){
-            var respuestaFormateada = "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
-            response.send(respuestaFormateada);
+            response.send(jsonRespuestaCorrecta[0]);
         }
     }).catch(err => console.log(err));
  
