@@ -794,7 +794,7 @@ app.get("/tareas-socio", (request, response) => {
 /******************************************************/
 // Obtener una tarea del socio
 /******************************************************/
-app.get("/obtener-tarea", (request, response) => {
+app.get("/obtener-tarea-socio", (request, response) => {
     let jsonRespuestaCorrecta;
     let hayError = false;
     
@@ -806,41 +806,58 @@ app.get("/obtener-tarea", (request, response) => {
             response.send(result);
         }
         else {
-            jsonRespuestaCorrecta = result;  
+            jsonRespuestaCorrecta = result[0];  
+            
+        }
+    }
+
+    
+    var obtenerFormatoEntrega = async function (){
+        var result = await collectionAsignacionTareas.find({ "socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador }, {projection: {_id:0 , permiteAudio: 1, permiteTexto:1, permiteVideo:1} }).toArray();
+
+        if ( result == null || result[0] == null) {
+            hayError = true;
+            response.send(result);
+        }
+        else {
+            jsonRespuestaCorrecta.permiteAudio = result[0].permiteAudio; 
+            jsonRespuestaCorrecta.permiteTexto = result[0].permiteTexto;
+            jsonRespuestaCorrecta.permiteVideo = result[0].permiteVideo;
+            
         }
     }
     
     var obtenerMoteImagenFacilitador = async function(){
         await getTarea();
+        await obtenerFormatoEntrega();
         if (!hayError){
-            for (var i = 0; i<jsonRespuestaCorrecta.length; i++){
-                var innerResult = await collectionUsuarios.find({ "username": jsonRespuestaCorrecta[i].creador}, {projection: {_id:0 , imagenPerfil: 1, mote:1} }).toArray();
-                if ( innerResult == null || innerResult[0] == null) {
-                    hayError = true;
-                    response.send(innerResult);
+            var innerResult = await collectionUsuarios.find({ "username": jsonRespuestaCorrecta.creador}, {projection: {_id:0 , imagenPerfil: 1, mote:1} }).toArray();
+            if ( innerResult == null || innerResult[0] == null) {
+                hayError = true;
+                response.send(innerResult);
+            }
+            else {
+                const fs = require('fs');
+                const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
+                jsonRespuestaCorrecta.fotoFacilitador = contents;
+                
+                if (jsonRespuestaCorrecta.fotoTarea != "placeholder-image-83226358.png"){
+                    const fotoTarea = fs.readFileSync("media/"+jsonRespuestaCorrecta.fotoTarea, {encoding: 'base64'});
+                    jsonRespuestaCorrecta.fotoTarea = fotoTarea;
                 }
                 else {
-                    const fs = require('fs');
-                    const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
-                    jsonRespuestaCorrecta[i].fotoFacilitador = contents;
-                    
-                    if (jsonRespuestaCorrecta[i].fotoTarea != "placeholder-image-83226358.png"){
-                        const fotoTarea = fs.readFileSync("media/"+jsonRespuestaCorrecta[i].fotoTarea, {encoding: 'base64'});
-                        jsonRespuestaCorrecta[i].fotoTarea = fotoTarea;
-                    }
-                    else {
-                        jsonRespuestaCorrecta[i].fotoTarea = "";
-                    }
-                    
-                    jsonRespuestaCorrecta[i].mote = innerResult[0].mote;
-                }                   
-            }
+                    jsonRespuestaCorrecta.fotoTarea = "";
+                }
+                
+                jsonRespuestaCorrecta.mote = innerResult[0].mote;
+            }                   
         }
     }
 
+
     obtenerMoteImagenFacilitador().then(() => {
         if(!hayError){
-            response.send(jsonRespuestaCorrecta[0]);
+            response.send(jsonRespuestaCorrecta);
         }
     }).catch(err => console.log(err));
  
