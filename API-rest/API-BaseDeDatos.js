@@ -797,6 +797,7 @@ app.get("/tareas-socio", (request, response) => {
 app.get("/obtener-tarea-socio", (request, response) => {
     let jsonRespuestaCorrecta;
     let hayError = false;
+    const fs = require('fs');
     
     var getTarea = async function(){
         var result = await collectionTareas.find({ "nombre": request.query.nombreTarea, "creador": request.query.creador}, {projection: {_id:0 , nombre:1, 
@@ -805,9 +806,9 @@ app.get("/obtener-tarea-socio", (request, response) => {
             hayError = true;
             response.send(result);
         }
-        else {
+        else {   
             jsonRespuestaCorrecta = result[0];  
-            
+           
         }
     }
 
@@ -837,7 +838,7 @@ app.get("/obtener-tarea-socio", (request, response) => {
                 response.send(innerResult);
             }
             else {
-                const fs = require('fs');
+                
                 const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
                 jsonRespuestaCorrecta.fotoFacilitador = contents;
                 
@@ -848,11 +849,15 @@ app.get("/obtener-tarea-socio", (request, response) => {
                 else {
                     jsonRespuestaCorrecta.fotoTarea = "";
                 }
-                
+                const videoCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.videoTarea, {encoding: 'base64'});
+                jsonRespuestaCorrecta.videoTarea = videoCodificado;
+                const audioCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.audioTarea, {encoding: 'base64'});
+                jsonRespuestaCorrecta.audioTarea = audioCodificado;
                 jsonRespuestaCorrecta.mote = innerResult[0].mote;
             }                   
         }
     }
+    
 
 
     obtenerMoteImagenFacilitador().then(() => {
