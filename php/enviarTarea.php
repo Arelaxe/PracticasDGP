@@ -18,8 +18,22 @@
             $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format(DateTimeInterface::W3C);
             $jsonInfoTareaEnviar = json_encode($infoTareaEnviar);
 
-            $result = enviarTareaApi($jsonInfoTareaEnviar);
-            header('Location: ../tarea.php?nombre=' . $infoTareaEnviar['nombreTarea']);
+            /*Comprobamos que el socio puede enviar una tarea según sus preferencias*/
+            $infoSocioObjetivo = array();
+            $infoSocioObjetivo['username'] = $infoTareaEnviar['socioAsignado'] ;
+            $jsonInfoSocioObjetivo = json_encode($infoSocioObjetivo);
+            $resultado = infoPerfilApi($jsonInfoSocioObjetivo);
+
+            foreach($resultado as $socio){
+                var_dump($socio);
+                if($socio->preferenciaVideo === $infoTareaEnviar['permiteVideo'] || $socio->preferenciaAudio === $infoTareaEnviar['permiteAudio'] || $socio->preferenciaTexto === $infoTareaEnviar['permiteTexto']){
+                    $result = enviarTareaApi($jsonInfoTareaEnviar);
+                    header('Location: ../tarea.php?nombre=' . $infoTareaEnviar['nombreTarea']);
+                }
+                else{
+                    header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=450');
+                }
+            }
         }
     }
 ?>

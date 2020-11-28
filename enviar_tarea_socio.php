@@ -9,6 +9,8 @@
     }
     else $rol = "";
 
+    $error = isset($_GET['error']);
+
     if (isset($_GET['nombre'])) {
         $nombreTarea = $_GET['nombre'];
         $creador = $_SESSION['usuario'];
@@ -37,5 +39,5 @@
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('enviarTareaSocio.html', ['nombreTarea' => $nombreTarea, 'creador' => $creador, 'socios' =>$socios, 'rol' => $rol]);
+    echo $twig->render('enviarTareaSocio.html', ['nombreTarea' => $nombreTarea, 'creador' => $creador, 'socios' =>$socios, 'rol' => $rol, 'error' => $error]);
 ?>
