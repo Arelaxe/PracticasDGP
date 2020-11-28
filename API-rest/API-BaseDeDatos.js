@@ -873,6 +873,32 @@ app.get("/obtener-tarea-socio", (request, response) => {
  
 });
 
+
+/******************************************************/
+// Enviar respuesta a tarea (como socio)
+/******************************************************/
+app.post("/enviar-respuesta-tarea", (request, response) => {
+    
+    const fs = require('fs');
+
+    var b64 = Buffer.from(request.body.filedata, 'base64');
+    fs.writeFile('media/respuesta_'+request.query.nombreTarea+"_" + request.query.username + "."+ request.query.formatoEntrega, b64, callback);
+
+    collectionAsignacionTareas.updateOne({"socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador}, { "$set": { "respondida": true, "fechaEntrega": $currentDate } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró la tarea");
+        }
+        else {
+            response.send(result);
+        }
+    });
+ 
+    
+});
+
 /******************************************************/
 // Obtener facilitadores del socio
 /******************************************************/
