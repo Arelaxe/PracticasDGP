@@ -93,7 +93,7 @@ public class TareaDetallada extends AppCompatActivity{
         nombreTareaDetallada.setText(nombreTarea.toUpperCase());
         nombreTareaDetallada.setContentDescription(nombreTarea);
 
-        //Informarmión del facilitador
+        //Informarmción del facilitador
         try {
             setInformacionProfesional();
         } catch (JSONException e) {
@@ -220,10 +220,11 @@ public class TareaDetallada extends AppCompatActivity{
 
         //Audio de la tarea
         if (!jsonTareas.getString("audioTarea").equals("")) {
+            descargarAudioTarea();
             ImageButton audio = new ImageButton(this);
             audio.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //mostrarAudio();
+                    mostrarMultimedia(nombreAudio);
                 }
             });
             Drawable drVideo = getResources().getDrawable(R.drawable.audio);
@@ -240,7 +241,7 @@ public class TareaDetallada extends AppCompatActivity{
             ImageButton video = new ImageButton(this);
             video.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    mostrarVideo(nombreVideo);
+                    mostrarMultimedia(nombreVideo);
                 }
             });
             Drawable drVideo = getResources().getDrawable(R.drawable.video);
@@ -251,20 +252,12 @@ public class TareaDetallada extends AppCompatActivity{
             video.setContentDescription("Ver vídeo");
             layout.addView(video);
         }
-        /*
-
-
-        try {
-            playVideo(vid);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
     }
 
     private void descargarVideoTarea() throws JSONException {
         try {
-            nombreVideo = jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp4";
-            File file = new File(Environment.getExternalStorageDirectory() + File.separator + "Movies/" + nombreVideo);
+            nombreVideo = "Movies/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp4";
+            File file = new File(Environment.getExternalStorageDirectory() + File.separator + nombreVideo);
             file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
             byte[] data = Base64.decode(jsonTareas.getString("videoTarea"), Base64.DEFAULT);
@@ -275,7 +268,21 @@ public class TareaDetallada extends AppCompatActivity{
         }
     }
 
-    public void mostrarVideo(String nombreMultimedia){
+    private void descargarAudioTarea() throws JSONException {
+        try {
+            nombreVideo = "Sounds/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp3";
+            File file = new File(Environment.getExternalStorageDirectory() + File.separator + nombreVideo);
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            byte[] data = Base64.decode(jsonTareas.getString("audioTarea"), Base64.DEFAULT);
+            fos.write(data);
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mostrarMultimedia(String nombreMultimedia){
         Intent intent = new Intent(this, Multimedia.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
@@ -288,6 +295,7 @@ public class TareaDetallada extends AppCompatActivity{
         }
         startActivity(intent);
     }
+
 
     class GetTareaDetallada extends AsyncTask<String, String, JSONObject> {
         private final static String URL= "obtener-tarea-socio";

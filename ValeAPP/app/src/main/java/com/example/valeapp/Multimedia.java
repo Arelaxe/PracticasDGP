@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -37,8 +39,6 @@ public class Multimedia  extends AppCompatActivity{
     private Boolean guardarRespuesta;
     private String nombreMultimadia;
     private Toolbar myToolbar;
-    static boolean horizontal = false;
-    static boolean videoComenzado = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,47 +63,85 @@ public class Multimedia  extends AppCompatActivity{
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        if (!horizontal){
-            getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
+        getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
-            //Modicar Barra de Tareas para esta pantalla
-            final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
-            flechaAtras.setVisibility(View.VISIBLE);
-            flechaAtras.setContentDescription("Volver a la tarea");
-            final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-            textoFlechaAtras.setText("Volver a la tarea");
-            textoFlechaAtras.setVisibility(View.VISIBLE);
-            final ImageButton botonLogout = findViewById(R.id.botonLogout);
-            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
-            //Boton logout
-            botonLogout.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    irALogout();
-                }
-            });
+        //Modicar Barra de Tareas para esta pantalla
+        final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        flechaAtras.setVisibility(View.VISIBLE);
+        flechaAtras.setContentDescription("Volver a la tarea");
+        final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
+        textoFlechaAtras.setText("Volver a la tarea");
+        textoFlechaAtras.setVisibility(View.VISIBLE);
+        final ImageButton botonLogout = findViewById(R.id.botonLogout);
+        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        //Boton logout
+        botonLogout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                irALogout();
+            }
+        });
 
-            //Boton Atrás
-            botonAtras.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    volverATarea();
-                }
-            });
-        }
-        else{
-            getSupportActionBar().hide();
-        }
-
+        //Boton Atrás
+        botonAtras.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                volverATarea();
+            }
+        });
         reproducirMultimedia();
     }
 
     private void reproducirMultimedia(){
-        UniversalVideoView mVideoView = findViewById(R.id.multimediaView);
-        Uri uri = Uri.parse(Environment.getExternalStorageDirectory() + File.separator + "Movies/" + nombreMultimadia);
-        mVideoView.setVideoURI(uri);
-        UniversalMediaController mMediaController = findViewById(R.id.media_controller);
-        mVideoView.setMediaController(mMediaController);
 
-        mVideoView.start();
+
+        UniversalVideoView multimediaView = findViewById(R.id.multimediaView);
+        Uri uri = Uri.parse(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
+        multimediaView.setVideoURI(uri);
+        UniversalMediaController mMediaController = findViewById(R.id.media_controller);
+        multimediaView.setMediaController(mMediaController);
+/*
+        multimediaView.setVideoViewCallback(new UniversalVideoView.VideoViewCallback() {
+            private static final String TAG = "";
+            private boolean isFullscreen;
+            private int cachedHeight;
+
+            @Override
+            public void onScaleChange(boolean isFullscreen) {
+                this.isFullscreen = isFullscreen;
+                if (isFullscreen) {
+                    ViewGroup.LayoutParams layoutParams = multimediaView.getLayoutParams();
+                    layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    multimediaView.setLayoutParams(layoutParams);
+
+                } else {
+                    ViewGroup.LayoutParams layoutParams = multimediaView.getLayoutParams();
+                    layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    layoutParams.height = this.cachedHeight;
+                    multimediaView.setLayoutParams(layoutParams);
+                }
+            }
+            @Override
+            public void onPause(MediaPlayer mediaPlayer) { // Video pause
+                Log.d(TAG, "onPause UniversalVideoView callback");
+            }
+
+            @Override
+            public void onStart(MediaPlayer mediaPlayer) { // Video start/resume to play
+                Log.d(TAG, "onStart UniversalVideoView callback");
+            }
+
+            @Override
+            public void onBufferingStart(MediaPlayer mediaPlayer) {// steam start loading
+                Log.d(TAG, "onBufferingStart UniversalVideoView callback");
+            }
+
+            @Override
+            public void onBufferingEnd(MediaPlayer mediaPlayer) {// steam end loading
+                Log.d(TAG, "onBufferingEnd UniversalVideoView callback");
+            }
+
+        });*/
+        multimediaView.start();
     }
     
     @Override
@@ -128,9 +166,9 @@ public class Multimedia  extends AppCompatActivity{
         super.onConfigurationChanged(newConfig);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            horizontal = true;
+           getSupportActionBar().hide();
         } else {
-            horizontal = false;
+            getSupportActionBar().show();
         }
     }
 
