@@ -838,29 +838,34 @@ app.get("/obtener-tarea-socio", (request, response) => {
                 response.send(innerResult);
             }
             else {
-                
-                const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
-                jsonRespuestaCorrecta.fotoFacilitador = contents;
-                
-                if (jsonRespuestaCorrecta.fotoTarea != "placeholder-image-83226358.png"){
-                    const fotoTarea = fs.readFileSync("media/"+jsonRespuestaCorrecta.fotoTarea, {encoding: 'base64'});
-                    jsonRespuestaCorrecta.fotoTarea = fotoTarea;
-                }
-                else {
-                    jsonRespuestaCorrecta.fotoTarea = "";
-                }
-                const videoCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.videoTarea, {encoding: 'base64'});
-                jsonRespuestaCorrecta.videoTarea = videoCodificado;
-                const audioCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.audioTarea, {encoding: 'base64'});
-                jsonRespuestaCorrecta.audioTarea = audioCodificado;
+                jsonRespuestaCorrecta.fotoFacilitador = innerResult[0].imagenPerfil;
                 jsonRespuestaCorrecta.mote = innerResult[0].mote;
             }                   
         }
     }
+
+    var obtenerMedia = async function(){
+        await obtenerMoteImagenFacilitador();
+
+        const contents = fs.readFileSync("media/"+jsonRespuestaCorrecta.fotoFacilitador, {encoding: 'base64'});
+        jsonRespuestaCorrecta.fotoFacilitador = contents;
+        
+        if (jsonRespuestaCorrecta.fotoTarea != "placeholder-image-83226358.png"){
+            const fotoTarea = fs.readFileSync("media/"+jsonRespuestaCorrecta.fotoTarea, {encoding: 'base64'});
+            jsonRespuestaCorrecta.fotoTarea = fotoTarea;
+        }
+        else {
+            jsonRespuestaCorrecta.fotoTarea = "";
+        }
+        const videoCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.videoTarea, {encoding: 'base64'});
+        jsonRespuestaCorrecta.videoTarea = videoCodificado;
+        const audioCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.audioTarea, {encoding: 'base64'});
+        jsonRespuestaCorrecta.audioTarea = audioCodificado;
+    }
     
 
 
-    obtenerMoteImagenFacilitador().then(() => {
+    obtenerMedia().then(() => {
         if(!hayError){
             response.send(jsonRespuestaCorrecta);
         }
