@@ -69,7 +69,7 @@
     <LinearLayout
         android:id="@+id/LayoutFacilitador"
         android:layout_width="0dp"
-        android:layout_height="146dp"
+        android:layout_height="wrap_content"
         android:background="@color/grey"
         android:baselineAligned="true"
         android:gravity="start|center_vertical"
@@ -77,4 +77,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoTareaDetallada"></LinearLayout>
+
+    <ScrollView
+        android:id="@+id/infoTarea"
+        android:layout_width="386dp"
+        android:layout_height="311dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LayoutFacilitador">
+
+        <LinearLayout
+            android:id="@+id/layoutInfoTarea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

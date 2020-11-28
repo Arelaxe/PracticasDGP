@@ -25,6 +25,7 @@
         <activity android:name=".MisTareas"></activity>
         <activity android:name=".MisFacilitadores"></activity>
         <activity android:name=".TareaDetallada"></activity>
+        <activity android:name=".Multimedia"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
