@@ -106,6 +106,7 @@ public class Multimedia  extends AppCompatActivity{
 
     private void comprobarMultimediaDescargado(){
         File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
+        System.out.println(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
         if (!multimedia.exists()){
             descargarMultimedia(multimedia);
         }

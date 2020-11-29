@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -43,20 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Context mContext = getApplicationContext();
 
         nombreUsuario = infoUsuario.getData(mContext);
-
-        Handler handler = new Handler();
         verifyStoragePermissions(this);
-
-        if(nombreUsuario == null) {
-            //Login Usuario
-            handler.postDelayed(taskNombreUsuario, 3000);
-        }
-        else {
-            // Login contraseña
-            handler.postDelayed(taskContraseña, 3000);
-        }
-
-
     }
 
     private void inicioSesionNombreUsuario() {
@@ -86,10 +74,9 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param activity
      */
-    public static void verifyStoragePermissions(Activity activity) {
+    public void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
         if (permission != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
@@ -97,6 +84,38 @@ public class MainActivity extends AppCompatActivity {
                     PERMISSIONS_STORAGE,
                     REQUEST_EXTERNAL_STORAGE
             );
+        }
+        else{
+            comprobarUsuario();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        requestCode = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+       if (requestCode != PackageManager.PERMISSION_GRANTED){
+           closeNow();
+       }
+       else{
+           comprobarUsuario();
+       }
+    }
+    private void comprobarUsuario(){
+        Handler handler = new Handler();
+        if(nombreUsuario == null) {
+            //Login Usuario
+            handler.postDelayed(taskNombreUsuario, 3000);
+        }
+        else {
+            // Login contraseña
+            handler.postDelayed(taskContraseña, 3000);
+        }
+    }
+    private void closeNow() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            finishAffinity();
+        } else {
+            finish();
         }
     }
 }

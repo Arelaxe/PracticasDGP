@@ -219,8 +219,8 @@ public class TareaDetallada extends AppCompatActivity{
         }
 
         //Audio de la tarea
-        if(!jsonTareas.getBoolean("tieneAudio")){
-            nombreVideo = "Sounds/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp3";
+        if(jsonTareas.getBoolean("tieneAudio")){
+            nombreAudio = "Music/" + nombreTarea + "_" + jsonTareas.getString("mote") + ".mp3";
             ImageButton audio = new ImageButton(this);
             audio.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -240,9 +240,9 @@ public class TareaDetallada extends AppCompatActivity{
             descargarAudioTarea();
         }*/
         //Video de la tarea
-        if(!jsonTareas.getBoolean("tieneVideo")){
+        if(jsonTareas.getBoolean("tieneVideo")){
         //if (!jsonTareas.getString("videoTarea").equals("")) {
-            nombreVideo = "Movies/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp4";
+            nombreVideo = "Movies/" + nombreTarea + "_" + jsonTareas.getString("mote") + ".mp4";
             //descargarVideoTarea();
             ImageButton video = new ImageButton(this);
             video.setOnClickListener(new View.OnClickListener() {
