@@ -61,7 +61,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>No coinciden las preferencias del usuario con los formatos soportados.</p>
+                {% if code == "440" %}
+                    <p>No coinciden las preferencias del usuario con los medios utilizados para el enunciado de la tarea.
+                         Por ejemplo, el usuario solo puede oir un audio pero no le estás enviando un audio.</p>
+                {% endif %}
+                {% if code == "450" %}
+                    <p>No coinciden las preferencias del usuario con los formatos soportados.</p>
+                {% endif %}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>

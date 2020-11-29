@@ -48,4 +48,28 @@
         </div>
     </form>
 </div>
+
+<!--Modal de error por incompatibilidades en preferencias o enunciado-->
+{% if error == true %}
+<div class="modal fade" tabindex="-1" role="dialog" id="errorModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Error en el envío de tarea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>No hay medios para entender de qué va la tarea.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div onload="errorRegistro()" id="errorLabel" class="invisibilidad">{{ error }}</div>
+<script type="text/javascript" src="../js/errorRegistro.js"></script>
+{% endif %}
 {%endblock%}

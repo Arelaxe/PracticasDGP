@@ -1,6 +1,7 @@
 <?php
     require_once '../vendor/autoload.php';
     require_once "operaciones_api/autenticacionApi.php";
+    require_once 'php/mostrarFotoPerfil.php';
 
     session_start();
 
@@ -10,6 +11,8 @@
     else $rol = "";
 
     $error = isset($_GET['error']);
+    $codigo = 0 ;
+    if(isset($_GET['error'])) $codigo = $_GET['error'];
 
     if (isset($_GET['nombre'])) {
         $nombreTarea = $_GET['nombre'];
@@ -39,5 +42,5 @@
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('enviarTareaSocio.html', ['nombreTarea' => $nombreTarea, 'creador' => $creador, 'socios' =>$socios, 'rol' => $rol, 'error' => $error]);
+    echo $twig->render('enviarTareaSocio.html', ['nombreTarea' => $nombreTarea, 'creador' => $creador, 'socios' =>$socios, 'rol' => $rol, 'img' => fotoPerfil($_SESSION['usuario']) ,'error' => $error, 'code' => $codigo]);
 ?>

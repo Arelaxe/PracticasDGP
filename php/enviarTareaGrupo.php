@@ -21,6 +21,23 @@
             $infoTareaEnviar['fechaEntrega'] = $timestamp->format(DateTimeInterface::W3C);
             $timestampFinal = date_create($_POST['fechaLimiteEntrega']);
             $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format(DateTimeInterface::W3C);
+            $infoTareaEnviar['respondida'] = false ;
+            $infoTareaEnviar['nuevoMensaje'] = false;
+
+            $infoTareaObjetivo = array();
+            $infoTareaObjetivo['nombre'] = $infoTareaEnviar['nombreTarea'] ;
+            $infoTareaObjetivo['creador'] = $infoTareaEnviar['creador'] ;
+            $jsonInfoTareaObjetivo = json_encode($infoTareaObjetivo);
+            $resultadoTarea = json_decode(infoTareaApi($jsonInfoTareaObjetivo));
+
+            foreach($resultadoTarea as $tarea){
+                $infoTareaEnviar['tieneAudio'] = !(empty($tarea->audioTarea)) ;
+                $infoTareaEnviar['tieneVideo'] = !(empty($tarea->videoTarea)) ;
+                $infoTareaEnviar['tieneTexto'] = !(empty($tarea->descripcion)) ;
+                if(!$infoTareaEnviar['tieneAudio'] && !$infoTareaEnviar['tieneVideo'] && !$infoTareaEnviar['tieneTexto']){
+                    header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=410');
+                }
+            }
             
             foreach($infoGrupo[0]->socios as $socio){
                 $infoTareaEnviar['socioAsignado'] = $socio;

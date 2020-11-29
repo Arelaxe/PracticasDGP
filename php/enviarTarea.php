@@ -16,23 +16,48 @@
             $infoTareaEnviar['fechaEntrega'] = $timestamp->format(DateTimeInterface::W3C);
             $timestampFinal = date_create($_POST['fechaLimiteEntrega']);
             $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format(DateTimeInterface::W3C);
-            $jsonInfoTareaEnviar = json_encode($infoTareaEnviar);
+            $infoTareaEnviar['respondida'] = false ;
+            $infoTareaEnviar['nuevoMensaje'] = false;
 
+            /*Comprobamos que la tarea que se envia al socio tiene información según sus preferencias*/
             /*Comprobamos que el socio puede enviar una tarea según sus preferencias*/
+
             $infoSocioObjetivo = array();
             $infoSocioObjetivo['username'] = $infoTareaEnviar['socioAsignado'] ;
             $jsonInfoSocioObjetivo = json_encode($infoSocioObjetivo);
             $resultado = infoPerfilApi($jsonInfoSocioObjetivo);
 
+            $infoTareaObjetivo = array();
+            $infoTareaObjetivo['nombre'] = $infoTareaEnviar['nombreTarea'] ;
+            $infoTareaObjetivo['creador'] = $infoTareaEnviar['creador'] ;
+            $jsonInfoTareaObjetivo = json_encode($infoTareaObjetivo);
+            $resultadoTarea = json_decode(infoTareaApi($jsonInfoTareaObjetivo));
+
             foreach($resultado as $socio){
                 var_dump($socio);
-                if($socio->preferenciaVideo === $infoTareaEnviar['permiteVideo'] || $socio->preferenciaAudio === $infoTareaEnviar['permiteAudio'] || $socio->preferenciaTexto === $infoTareaEnviar['permiteTexto']){
-                    $result = enviarTareaApi($jsonInfoTareaEnviar);
-                    header('Location: ../tarea.php?nombre=' . $infoTareaEnviar['nombreTarea']);
+                foreach($resultadoTarea as $tarea){
+                    var_dump($tarea);
+                    var_dump($infoTareaEnviar);
+                    $infoTareaEnviar['tieneAudio'] = !(empty($tarea->audioTarea)) ;
+                    $infoTareaEnviar['tieneVideo'] = !(empty($tarea->videoTarea)) ;
+                    $infoTareaEnviar['tieneTexto'] = !(empty($tarea->descripcion)) ;
+                    if(!(($infoTareaEnviar['tieneTexto'] && $infoTareaEnviar['tieneTexto'] === $socio->preferenciaTexto)||($infoTareaEnviar['tieneVideo'] && $infoTareaEnviar['tieneVideo'] === $socio->preferenciaVideo)||($infoTareaEnviar['tieneAudio'] && $infoTareaEnviar['tieneAudio'] === $socio->preferenciaAudio))){
+                        header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=440');
+                    }
+                    else{
+                        if($socio->preferenciaVideo === $infoTareaEnviar['permiteVideo'] || $socio->preferenciaAudio === $infoTareaEnviar['permiteAudio'] || $socio->preferenciaTexto === $infoTareaEnviar['permiteTexto']){
+                            $jsonInfoTareaEnviar = json_encode($infoTareaEnviar);
+                            $result = enviarTareaApi($jsonInfoTareaEnviar);
+                            header('Location: ../tarea.php?nombre=' . $infoTareaEnviar['nombreTarea']);
+                        }
+        
+                        else{
+                            header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=450');
+                        }
+                    }
                 }
-                else{
-                    header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=450');
-                }
+
+                
             }
         }
     }
