@@ -2,6 +2,7 @@ package com.example.valeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,15 +14,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.RECORD_AUDIO;
+
 public class MainActivity extends AppCompatActivity {
 
     String nombreUsuario;
 
     // Guardar permisos
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
+    private final int REQUEST_EXTERNAL_STORAGE = 1;
+    private String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.CAMERA
     };
 
     private Runnable taskNombreUsuario = new Runnable() {
@@ -77,7 +83,9 @@ public class MainActivity extends AppCompatActivity {
     public void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
+        int permisoGrabar = ActivityCompat.checkSelfPermission(getApplicationContext(),
+                RECORD_AUDIO);
+        if (permission != PackageManager.PERMISSION_GRANTED && permisoGrabar != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
                     activity,
@@ -85,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE
             );
         }
+
         else{
             comprobarUsuario();
         }
@@ -93,7 +102,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         requestCode = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-       if (requestCode != PackageManager.PERMISSION_GRANTED){
+        int permisoAudio = ActivityCompat.checkSelfPermission(this, RECORD_AUDIO);
+        int permisoVideo = ActivityCompat.checkSelfPermission(this, CAMERA);
+       if (requestCode != PackageManager.PERMISSION_GRANTED || permisoAudio != PackageManager.PERMISSION_GRANTED ||
+        permisoVideo != PackageManager.PERMISSION_GRANTED){
            closeNow();
        }
        else{

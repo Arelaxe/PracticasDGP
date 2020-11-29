@@ -70,6 +70,7 @@ public class TareaDetallada extends AppCompatActivity{
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
         final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        final ImageButton botonSiguiente = findViewById(R.id.irRespuesta);
 
         if (guardarRespuesta){
 
@@ -120,6 +121,13 @@ public class TareaDetallada extends AppCompatActivity{
                 volverAMisTareas();
             }
         });
+
+        //Boton Siguiente
+        botonSiguiente.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                irARespuesta();
+            }
+        });
     }
 
     private void irALogout(){
@@ -135,6 +143,15 @@ public class TareaDetallada extends AppCompatActivity{
     public void volverAMisTareas(){
         Intent intent = new Intent(this, MisTareas.class);
         intent.putExtra("usuario", usuario);
+        startActivity(intent);
+    }
+
+    public void irARespuesta(){
+        Intent intent = new Intent(this, RespuestaTarea.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("guardarRespuesta", guardarRespuesta);
         startActivity(intent);
     }
 
