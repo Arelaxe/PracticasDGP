@@ -35,18 +35,19 @@
                 $infoTareaEnviar['tieneVideo'] = !(empty($tarea->videoTarea)) ;
                 $infoTareaEnviar['tieneTexto'] = !(empty($tarea->descripcion)) ;
                 if(!$infoTareaEnviar['tieneAudio'] && !$infoTareaEnviar['tieneVideo'] && !$infoTareaEnviar['tieneTexto']){
-                    header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=410');
+                    header('Location: ../enviar_tarea_grupo.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=410');
+                }
+                else{
+                    foreach($infoGrupo[0]->socios as $socio){
+                        $infoTareaEnviar['socioAsignado'] = $socio;
+                        $jsonInfoTareaEnviar = json_encode($infoTareaEnviar);
+        
+                        $result = enviarTareaApi($jsonInfoTareaEnviar);
+                    }
+                    
+                    header('Location: ../tarea.php?nombre=' . $infoTareaEnviar['nombreTarea']);
                 }
             }
-            
-            foreach($infoGrupo[0]->socios as $socio){
-                $infoTareaEnviar['socioAsignado'] = $socio;
-                $jsonInfoTareaEnviar = json_encode($infoTareaEnviar);
-
-                $result = enviarTareaApi($jsonInfoTareaEnviar);
-            }
-            
-            header('Location: ../tarea.php?nombre=' . $infoTareaEnviar['nombreTarea']);
         }
     }
 ?>
