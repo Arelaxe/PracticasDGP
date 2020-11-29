@@ -127,6 +127,31 @@ function listadoTareasApi($jsonInfoFacilitador){
      return $result;
 }
 
+function tareasEnviadasApi($jsonInfoFacilitador){
+    // API URL
+     $url = 'http://localhost:5000/tareas-enviadas';
+
+      // Create a new cURL resource
+     $ch = curl_init($url);
+
+     // Attach encoded JSON string to the POST fields
+     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoFacilitador);
+
+     // Set the content type to application/json
+     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+     // Return response instead of outputting
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+     // Execute the POST request
+     $result = curl_exec($ch);
+
+     // Close cURL resource
+     curl_close($ch);
+     $result = json_decode($result);
+     return $result;
+}
+
 function misGruposApi($jsonInfoFacilitador){
     // API URL
      $url = 'http://localhost:5000/mis-grupos';
@@ -681,6 +706,31 @@ function eliminarTareaApi($jsonInfoUsuario){
    return $result;
 }
 
+function eliminarTareaEnviadaApi($jsonInfoTarea){
+    // API URL
+    $url = 'http://localhost:5000/eliminar-tarea-enviada';
+
+    // Create a new cURL resource
+   $ch = curl_init($url);
+
+   // Attach encoded JSON string to the POST fields
+   curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoTarea);
+
+   // Set the content type to application/json
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+   // Return response instead of outputting
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+   // Execute the POST request
+   $result = curl_exec($ch);
+
+   // Close cURL resource
+   curl_close($ch);
+   $result = json_decode($result);
+   return $result;
+}
+
 function crearTareaApi($jsoninfoTarea){
     // API URL
     $url = 'http://localhost:5000/crear-tarea';
@@ -754,6 +804,14 @@ function editarTareaApi($jsoninfoTarea){
     curl_close($ch);
     
     return $result;
+}
+
+function listadoTareasAdminApi(){
+    // API URL
+     $url = 'http://localhost:5000/listado-tareas-admin';
+
+     $response = json_decode(file_get_contents($url));
+     return $response;
 }
 
 function enviarTareaApi($jsoninfoTarea){
