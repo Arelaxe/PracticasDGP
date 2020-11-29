@@ -580,23 +580,6 @@ app.get("/listado-grupos", (request, response) => {
 });
 
 /******************************************************/
-// Eliminar grupo
-/******************************************************/
-app.post("/eliminar-grupo", (request, response) => {
-    collectionGrupos.removeOne({ "nombre": request.body.nombre_grupo, "facilitadorACargo": request.body.nombre_facilitador }).toArray(function (error, result) {
-        if (error) {
-            return response.status(500).send(error);
-        }
-        if (result == null) {
-            response.send("Este grupo no existe o no se puede eliminar");
-        }
-        else {
-            response.send(result);
-        }
-    });
-});
-
-/******************************************************/
 // Añadir preferencias usuario
 /******************************************************/
 app.post("/add-preferencias", (request, response) => {
@@ -991,7 +974,7 @@ app.post("/tareas-enviadas", (request, response) => {
 // Editar tarea enviada o mandar tarea con nuevo mensaje
 /******************************************************/
 app.post("/editar-tarea-enviada", (request, response) => {
-    collectionAsignacionTareas.replaceOne({ "_id":request.body.id }, request.body, (error, result) => {
+    collectionAsignacionTareas.replaceOne({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }, request.body, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
@@ -1008,15 +991,17 @@ app.post("/editar-tarea-enviada", (request, response) => {
 // Eliminar tarea mandada
 /******************************************************/
 app.post("/eliminar-tarea-enviada", (request, response) => {
-    collectionAsignacionTareas.removeOne({ "_id":request.body.id }).toArray(function (error, result) {
+    collectionAsignacionTareas.deleteOne({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
         if (result == null) {
-            response.send("Esta tarea no existe, no está enviada o no se puede eliminar");
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
         }
         else {
-            response.send(result);
+            var jsonRespuestaCorrecta = JSON.parse('{"exito":1}');
+            response.send(jsonRespuestaCorrecta);
         }
     });
 });
@@ -1025,7 +1010,7 @@ app.post("/eliminar-tarea-enviada", (request, response) => {
 // Info tarea enviada
 /******************************************************/
 app.post("/info-tarea-enviada", (request, response) => {
-    collectionAsignacionTareas.find({ "nombreTarea": request.body.nombreTarea, "creador": request.body.creador, "socioAsignado" : request.body.socioAsignado }).toArray(function (error, result) {
+    collectionAsignacionTareas.find({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
