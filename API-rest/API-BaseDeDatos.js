@@ -974,7 +974,7 @@ app.post("/enviar-tarea", (request, response) => {
 // Tareas enviadas
 /******************************************************/
 app.post("/tareas-enviadas", (request, response) => {
-    collectionAsignacionTareas.find({ "creador": request.body.creador }).toArray(function (error, result) {
+    collectionAsignacionTareas.find({ "creador": request.body.creador }).sort({vista: 1, nuevoMensaje: -1}).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
