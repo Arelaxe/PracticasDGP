@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.universalvideoview.UniversalVideoView;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -39,6 +41,8 @@ public class Multimedia  extends AppCompatActivity{
     private Boolean guardarRespuesta;
     private String nombreMultimadia;
     private Toolbar myToolbar;
+    private String tipo;
+    private JSONObject jsonMultimedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +55,9 @@ public class Multimedia  extends AppCompatActivity{
         nombreTarea = bundle.getString("nombreTarea");
         guardarRespuesta = bundle.getBoolean("guardarRespuesta");
         nombreMultimadia = bundle.getString("nombreMultimedia");
+        tipo = bundle.getString("tipo");
 
-
-        //esVideo
+        comprobarMultimediaDescargado();
 
         if (guardarRespuesta){
 
@@ -92,58 +96,42 @@ public class Multimedia  extends AppCompatActivity{
 
     private void reproducirMultimedia(){
 
-
         UniversalVideoView multimediaView = findViewById(R.id.multimediaView);
         Uri uri = Uri.parse(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
         multimediaView.setVideoURI(uri);
         UniversalMediaController mMediaController = findViewById(R.id.media_controller);
         multimediaView.setMediaController(mMediaController);
-/*
-        multimediaView.setVideoViewCallback(new UniversalVideoView.VideoViewCallback() {
-            private static final String TAG = "";
-            private boolean isFullscreen;
-            private int cachedHeight;
-
-            @Override
-            public void onScaleChange(boolean isFullscreen) {
-                this.isFullscreen = isFullscreen;
-                if (isFullscreen) {
-                    ViewGroup.LayoutParams layoutParams = multimediaView.getLayoutParams();
-                    layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    multimediaView.setLayoutParams(layoutParams);
-
-                } else {
-                    ViewGroup.LayoutParams layoutParams = multimediaView.getLayoutParams();
-                    layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = this.cachedHeight;
-                    multimediaView.setLayoutParams(layoutParams);
-                }
-            }
-            @Override
-            public void onPause(MediaPlayer mediaPlayer) { // Video pause
-                Log.d(TAG, "onPause UniversalVideoView callback");
-            }
-
-            @Override
-            public void onStart(MediaPlayer mediaPlayer) { // Video start/resume to play
-                Log.d(TAG, "onStart UniversalVideoView callback");
-            }
-
-            @Override
-            public void onBufferingStart(MediaPlayer mediaPlayer) {// steam start loading
-                Log.d(TAG, "onBufferingStart UniversalVideoView callback");
-            }
-
-            @Override
-            public void onBufferingEnd(MediaPlayer mediaPlayer) {// steam end loading
-                Log.d(TAG, "onBufferingEnd UniversalVideoView callback");
-            }
-
-        });*/
         multimediaView.start();
     }
-    
+
+    private void comprobarMultimediaDescargado(){
+        File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
+        if (!multimedia.exists()){
+            descargarMultimedia(multimedia);
+        }
+    }
+
+    private void descargarMultimedia(File multimedia){
+        try {
+            //Descargar el archivo multimedia
+            try {
+                new GetMultimediaTarea().execute().get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            multimedia.createNewFile();
+            FileOutputStream fos = new FileOutputStream(multimedia);
+            byte[] data = Base64.decode(jsonMultimedia.getString("multimedia"), Base64.DEFAULT);
+            fos.write(data);
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onBackPressed() {
         volverATarea();
@@ -172,9 +160,43 @@ public class Multimedia  extends AppCompatActivity{
         }
     }
 
-
     private void irALogout(){
         Intent intent = new Intent(this, Logout.class);
         startActivity(intent);
+    }
+
+    class GetMultimediaTarea extends AsyncTask<String, String, JSONObject> {
+        private final static String URL= "obtener-multimedia-tarea-socio";
+        private JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        protected JSONObject doInBackground(String... args) {
+
+            try{
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("username", usuario);
+                params.put("creador", creador);
+                params.put("nombreTarea", nombreTarea);
+                params.put("tipo", tipo);
+
+                Log.d("request", "starting");
+
+                jsonMultimedia = jsonParser.makeHttpRequest(URL, "GET", params, "");
+
+                if (jsonMultimedia != null) {
+                    Log.d("JSON result:   ", jsonMultimedia.toString());
+
+                    return jsonMultimedia;
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

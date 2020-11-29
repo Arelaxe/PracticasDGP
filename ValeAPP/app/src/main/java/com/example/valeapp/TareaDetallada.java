@@ -219,29 +219,35 @@ public class TareaDetallada extends AppCompatActivity{
         }
 
         //Audio de la tarea
-        if (!jsonTareas.getString("audioTarea").equals("")) {
-            descargarAudioTarea();
+        if(!jsonTareas.getBoolean("tieneAudio")){
+            nombreVideo = "Sounds/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp3";
             ImageButton audio = new ImageButton(this);
             audio.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    mostrarMultimedia(nombreAudio);
+                    mostrarMultimedia(nombreAudio, "audio");
                 }
             });
-            Drawable drVideo = getResources().getDrawable(R.drawable.audio);
-            Bitmap bitmap = ((BitmapDrawable) drVideo).getBitmap();
+            Drawable drAudio = getResources().getDrawable(R.drawable.audio);
+            Bitmap bitmap = ((BitmapDrawable) drAudio).getBitmap();
             // Escalar
             Drawable dEscaladoAudio = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
             audio.setImageDrawable(dEscaladoAudio);
-            audio.setContentDescription("Ver audio");
+            audio.setContentDescription("Escuchar audio");
             layout.addView(audio);
         }
+        /*
+        if (!jsonTareas.getString("audioTarea").equals("")) {
+            descargarAudioTarea();
+        }*/
         //Video de la tarea
-        if (!jsonTareas.getString("videoTarea").equals("")) {
-            descargarVideoTarea();
+        if(!jsonTareas.getBoolean("tieneVideo")){
+        //if (!jsonTareas.getString("videoTarea").equals("")) {
+            nombreVideo = "Movies/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp4";
+            //descargarVideoTarea();
             ImageButton video = new ImageButton(this);
             video.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    mostrarMultimedia(nombreVideo);
+                    mostrarMultimedia(nombreVideo, "video");
                 }
             });
             Drawable drVideo = getResources().getDrawable(R.drawable.video);
@@ -256,7 +262,7 @@ public class TareaDetallada extends AppCompatActivity{
 
     private void descargarVideoTarea() throws JSONException {
         try {
-            nombreVideo = "Movies/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp4";
+            //nombreVideo = "Movies/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp4";
             File file = new File(Environment.getExternalStorageDirectory() + File.separator + nombreVideo);
             file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
@@ -270,7 +276,7 @@ public class TareaDetallada extends AppCompatActivity{
 
     private void descargarAudioTarea() throws JSONException {
         try {
-            nombreVideo = "Sounds/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp3";
+            //nombreVideo = "Sounds/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp3";
             File file = new File(Environment.getExternalStorageDirectory() + File.separator + nombreVideo);
             file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
@@ -282,14 +288,14 @@ public class TareaDetallada extends AppCompatActivity{
         }
     }
 
-    public void mostrarMultimedia(String nombreMultimedia){
+    public void mostrarMultimedia(String nombreMultimedia, String tipo){
         Intent intent = new Intent(this, Multimedia.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("nombreMultimedia", nombreMultimedia);
-
+        intent.putExtra("tipo", tipo);
         if (guardarRespuesta){
 
         }
