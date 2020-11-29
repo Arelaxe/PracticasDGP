@@ -783,8 +783,7 @@ app.get("/obtener-tarea-socio", (request, response) => {
     const fs = require('fs');
     
     var getTarea = async function(){
-        var result = await collectionTareas.find({ "nombre": request.query.nombreTarea, "creador": request.query.creador}, {projection: {_id:0 , nombre:1, 
-            creador:1 , descripcion:1, fotoTarea: 1, audioTarea:1, videoTarea:1} }).toArray();
+        var result = await collectionTareas.find({ "nombre": request.query.nombreTarea, "creador": request.query.creador}, {projection: {_id:0 , descripcion:1, fotoTarea: 1} }).toArray();
         if ( result == null || result[0] == null) {
             hayError = true;
             response.send(result);
@@ -797,7 +796,7 @@ app.get("/obtener-tarea-socio", (request, response) => {
 
     
     var obtenerFormatoEntrega = async function (){
-        var result = await collectionAsignacionTareas.find({ "socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador }, {projection: {_id:0 , permiteAudio: 1, permiteTexto:1, permiteVideo:1} }).toArray();
+        var result = await collectionAsignacionTareas.find({ "socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador }, {projection: {_id:0 , permiteAudio: 1, permiteTexto:1, permiteVideo:1, tieneAudio:1, tieneVideo:1} }).toArray();
 
         if ( result == null || result[0] == null) {
             hayError = true;
@@ -807,7 +806,8 @@ app.get("/obtener-tarea-socio", (request, response) => {
             jsonRespuestaCorrecta.permiteAudio = result[0].permiteAudio; 
             jsonRespuestaCorrecta.permiteTexto = result[0].permiteTexto;
             jsonRespuestaCorrecta.permiteVideo = result[0].permiteVideo;
-            
+            jsonRespuestaCorrecta.tieneAudio = result[0].tieneAudio; 
+            jsonRespuestaCorrecta.tieneVideo = result[0].tieneVideo;
         }
     }
     
@@ -815,7 +815,7 @@ app.get("/obtener-tarea-socio", (request, response) => {
         await getTarea();
         await obtenerFormatoEntrega();
         if (!hayError){
-            var innerResult = await collectionUsuarios.find({ "username": jsonRespuestaCorrecta.creador}, {projection: {_id:0 , imagenPerfil: 1, mote:1} }).toArray();
+            var innerResult = await collectionUsuarios.find({ "username": request.query.creador}, {projection: {_id:0 , imagenPerfil: 1, mote:1} }).toArray();
             if ( innerResult == null || innerResult[0] == null) {
                 hayError = true;
                 response.send(innerResult);
@@ -840,17 +840,64 @@ app.get("/obtener-tarea-socio", (request, response) => {
         else {
             jsonRespuestaCorrecta.fotoTarea = "";
         }
-        const videoCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.videoTarea, {encoding: 'base64'});
-        jsonRespuestaCorrecta.videoTarea = videoCodificado;
-        const audioCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.audioTarea, {encoding: 'base64'});
-        jsonRespuestaCorrecta.audioTarea = audioCodificado;
     }
     
-
-
     obtenerMedia().then(() => {
         if(!hayError){
             response.send(jsonRespuestaCorrecta);
+        }
+    }).catch(err => console.log(err));
+ 
+});
+
+
+/******************************************************/
+// Obtener multimedia de la tarea del socio (video, audio)
+/******************************************************/
+app.get("/obtener-multimedia-tarea-socio", (request, response) => {
+    let jsonRespuestaCorrecta;
+    let jsonMultimedia = {};
+    let hayError = false;
+    const fs = require('fs');
+    
+    var obtenerMedia = async function(){ 
+        if (request.query.tipo == "audio"){
+            await getAudioTarea();
+        }
+        else if (request.query.tipo == "video"){
+            await getVideoTarea();
+        }
+    }
+
+    var getVideoTarea = async function(){
+        var result = await collectionTareas.find({ "nombre": request.query.nombreTarea, "creador": request.query.creador}, {projection: {_id:0, videoTarea:1} }).toArray();
+        if ( result == null || result[0] == null) {
+            hayError = true;
+            response.send(result);
+        }
+        else {   
+            jsonRespuestaCorrecta = result[0];
+            const videoCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.videoTarea, {encoding: 'base64'});
+            jsonMultimedia.multimedia = videoCodificado;
+        }
+    }
+
+    var getAudioTarea = async function(){
+        var result = await collectionTareas.find({ "nombre": request.query.nombreTarea, "creador": request.query.creador}, {projection: {_id:0, audioTarea:1} }).toArray();
+        if ( result == null || result[0] == null) {
+            hayError = true;
+            response.send(result);
+        }
+        else {   
+            jsonRespuestaCorrecta = result[0];
+            const audioCodificado = fs.readFileSync("media/"+jsonRespuestaCorrecta.audioTarea, {encoding: 'base64'});
+            jsonMultimedia.multimedia = audioCodificado;
+        }
+    }
+
+    obtenerMedia().then(() => {
+        if(!hayError){
+            response.send(jsonMultimedia);
         }
     }).catch(err => console.log(err));
  
@@ -867,7 +914,7 @@ app.post("/enviar-respuesta-tarea", (request, response) => {
     var b64 = Buffer.from(request.body.filedata, 'base64');
     fs.writeFile('media/respuesta_'+request.query.nombreTarea+"_" + request.query.username + "."+ request.query.formatoEntrega, b64, callback);
 
-    collectionAsignacionTareas.updateOne({"socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador}, { "$set": { "respondida": true, "fechaEntrega": $currentDate } }, (error, result) => {
+    collectionAsignacionTareas.updateOne({"socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador}, { "$set": { "respondida": true, "fechaEntrega": $currentDate, "vista":true } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
