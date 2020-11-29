@@ -979,7 +979,41 @@ app.post("/tareas-enviadas", (request, response) => {
             return response.status(500).send(error);
         }
         if (result == null) {
-            response.send("Aún no has creado tareas!");
+            response.send("Aún no has enviado tareas!");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Editar tarea enviada o mandar tarea con nuevo mensaje
+/******************************************************/
+app.post("/editar-tarea-enviada", (request, response) => {
+    collectionAsignacionTareas.replaceOne({ "_id":request.body.id }, request.body, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Fallo en la actualizacíón");
+        }
+        else {
+            response.send("Actualización completada");
+        }
+    });
+});
+
+/******************************************************/
+// Eliminar tarea mandada
+/******************************************************/
+app.post("/eliminar-tarea-enviada", (request, response) => {
+    collectionAsignacionTareas.removeOne({ "_id":request.body.id }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Esta tarea no existe, no está enviada o no se puede eliminar");
         }
         else {
             response.send(result);
