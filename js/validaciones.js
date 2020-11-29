@@ -67,3 +67,11 @@ function completarCamposTareaCreador(nombreTarea,nombreCreador){
     document.getElementById('tareaAEliminar').setAttribute('value',nombreTarea);
     document.getElementById('facilitador').setAttribute('value',nombreCreador);
 }
+
+function completarCamposAsignacion(creador, socioAsignado, nombreTarea, fechaEntrega){
+    document.getElementById('nombreAEliminar').innerText = nombreTarea;
+    document.getElementById('creador').setAttribute('value',creador);
+    document.getElementById('socioAsignado').setAttribute('value',socioAsignado);
+    document.getElementById('nombreTarea').setAttribute('value',nombreTarea);
+    document.getElementById('fechaEntrega').setAttribute('value',fechaEntrega);
+}
