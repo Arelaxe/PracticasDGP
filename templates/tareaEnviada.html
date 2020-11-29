@@ -1,0 +1,111 @@
+{%extends "base.html"%}
+
+{%block titulo%}Tarea enviada{%endblock%}
+
+{%block breadcrumbs%}
+<li class="breadcrumb-item">Menú principal</li>
+<li class="breadcrumb-item">Tareas</li>
+<li class="breadcrumb-item active">Tarea enviada</li>
+{%endblock%}
+
+{%block cuerpo%}
+<div class="offset-1 col-10 titulo">
+    <h1>Tarea enviada</h1>
+</div>
+
+<div class="offset-1 col-10 sombreado">
+    <div class="row">
+        <div class="col-lg-6 col-xs-12">
+            <div class="row">
+                <div class="col-3">
+                    <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
+                </div>
+                <div class="col-8">
+                    <div class="class-group">
+                        <h4 for="nombreTarea">Título de la tarea</h4>
+                        <p>{{ infoTarea.nombre }}</p>
+                    </div>
+                    <div class="class-group">
+                        <h4>Descripción</h4>
+                        <p>{{ infoTarea.descripcion }}</p>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                {%if infoTarea.videoTarea != "img/" %}
+                <div class="col-10 offset-1">
+                    <h4>Vídeo subido</h4>
+                    <div id="video" class="class-group embed-responsive embed-responsive-16by9">
+                        
+                        <iframe src="{{ infoTarea.videoTarea }}" class="embed-responsive-item" allowfullscreen></iframe>
+                    </div>
+                </div>
+                {%endif%}
+                {%if infoTarea.audioTarea != "img/"%}
+                <div class="col-10 offset-1">
+                    <h4>Audio subido</h4>
+                    <div id="audio" class="class-group">
+                        <audio controls class="">
+                            <source src="{{ infoTarea.audioTarea }}">
+                        </audio>
+                    </div>
+                </div>
+                {%endif%}
+            </div>
+        </div>
+    
+        <div class="col-xs-12 col-lg-6 sombreado_extra">
+            <h4>Socio</h4>
+            <p>Nombre de socio</p>
+            <h4>Enviado el</h4>
+            <p>15/12/2020</p>
+            <h4>Fecha límite de entrega</h4>
+            <p>6/1/2021</p>
+            <h4>Respuesta</h4>
+            <p>???</p>
+            <h4>Chat con el socio</h4>
+            <div class="chat">
+                Div del chat
+            </div>
+        </div>
+    </div>
+
+        <div class="boton_centro">
+            {% if cuenta == infoTarea.creador %}
+                <button type="submit" class="btn btn-warning" onclick="window.location.replace('editar_tarea.php?nombre={{infoTarea.nombre}}')">EDITAR TAREA</button>
+                <button type="button" class="btn btn-primary" onclick="window.location.replace('enviar_tarea_socio.php?nombre={{infoTarea.nombre}}')">ENVIAR A SOCIO</button>
+                <button type="button" class="btn btn-info" onclick="window.location.replace('enviar_tarea_grupo.php?nombre={{infoTarea.nombre}}')">ENVIAR A GRUPO</button>
+            {% endif %}  
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
+        </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar tarea</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Deseas eliminar la siguiente tarea?</p>
+                    <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
+                    <h4 id="nombreAEliminar">{{ infoTarea.nombre }}</h4>
+                </div>
+                <div class="modal-footer">
+                    <form action="php/eliminarTarea.php" method="post">
+                        <label for="tareaAEliminar" hidden>Tarea a eliminar</label>
+                        <label for="facilitador" hidden>Facilitador a cargo</label>
+                        <input type="text" name="tareaAEliminar" id="tareaAEliminar" value="{{infoTarea.nombre}}" style="display: none;">
+                            <input type="text" name="facilitador" id="facilitador" value="{{infoTarea.creador}}" hidden>
+                        <button type="submit" class="btn btn-danger">SÍ</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
