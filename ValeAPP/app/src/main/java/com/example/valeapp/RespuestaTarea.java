@@ -1,3 +1,4 @@
+
 package com.example.valeapp;
 
 import android.annotation.SuppressLint;
@@ -198,7 +199,7 @@ System.out.println(tipoRespuesta);
     }
 
     public void volverATareaDetallada(){
-        Intent intent = new Intent(this, RespuestaTarea.class);
+        Intent intent = new Intent(this, TareaDetallada.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
@@ -297,6 +298,7 @@ System.out.println(tipoRespuesta);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("nombreMultimedia", nombreMultimedia);
         intent.putExtra("tipo", tipo);
+        System.out.println(tipo);
         intent.putExtra("tareaDetallada", false);
         intent.putExtra("mote", mote);
         if (guardarRespuesta){

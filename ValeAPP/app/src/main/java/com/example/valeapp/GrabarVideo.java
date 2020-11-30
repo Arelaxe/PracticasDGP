@@ -2,6 +2,7 @@ package com.example.valeapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
@@ -58,6 +59,7 @@ public class GrabarVideo extends AppCompatActivity {
         nombreTarea = bundle.getString("nombreTarea");
         guardarRespuesta = bundle.getBoolean("guardarRespuesta");
         mote = bundle.getString("mote");
+        System.out.println(mote);
         tipoRespuesta = bundle.getString("tipoRespuesta");
 
         nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote +".mp4";
@@ -202,6 +204,16 @@ public class GrabarVideo extends AppCompatActivity {
                     camara.setParameters(parameters);
                     camaraConfigurada = true;
                 }
+
+                if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    camara.setDisplayOrientation(90);
+                    //lp.height = surfaceViewCamara.hight;
+                    //lp.width = (int) (previewSurfaceHeight / aspect);
+                } else {
+                    camara.setDisplayOrientation(0);
+                    //lp.width = previewSurfaceWidth;
+                    //lp.height = (int) (previewSurfaceWidth / aspect);
+                }
             }
         }
     }
@@ -232,7 +244,11 @@ public class GrabarVideo extends AppCompatActivity {
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setVideoEncoder(MediaRecorder.OutputFormat.MPEG_4);
+        mediaRecorder.setAudioEncodingBitRate(196608);
+        mediaRecorder.setVideoSize(1280, 720);
+        mediaRecorder.setVideoEncodingBitRate(15000000);
         mediaRecorder.setOutputFile(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + nombreVideo);
+        mediaRecorder.setOrientationHint(90);
 
         try {
             camara.stopPreview();
@@ -266,14 +282,13 @@ public class GrabarVideo extends AppCompatActivity {
     }
 
     public void volverARespuesta(){
-        camara.stopPreview();
-        camara.release();
 
-        Intent intent = new Intent(this, TareaDetallada.class);
+        Intent intent = new Intent(this, RespuestaTarea.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
+        intent.putExtra("tipoRespuesta", "video");
         startActivity(intent);
     }
 }

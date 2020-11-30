@@ -196,6 +196,7 @@ public class TareaDetallada extends AppCompatActivity{
         TextView moteFacilitador = new TextView(this);
         layout.addView(moteFacilitador);
         moteFacilitador.setText(jsonTareas.getString("mote").toUpperCase());
+        mote = jsonTareas.getString("mote");
         moteFacilitador.setContentDescription(jsonTareas.getString("mote").toUpperCase());
         moteFacilitador.setTextColor(getResources().getInteger(R.color.black));
         moteFacilitador.setTextSize(30);

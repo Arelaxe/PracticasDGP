@@ -60,7 +60,7 @@ public class Multimedia  extends AppCompatActivity{
         tipo = bundle.getString("tipo");
         tareaDetallada = bundle.getBoolean("tareaDetallada");
 
-        comprobarMultimediaDescargado();
+
 
         if (guardarRespuesta){
 
@@ -74,6 +74,7 @@ public class Multimedia  extends AppCompatActivity{
 
         //Modicar Barra de Tareas para esta pantalla
         if (tareaDetallada){
+            comprobarMultimediaDescargado();
             final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
             flechaAtras.setVisibility(View.VISIBLE);
             flechaAtras.setContentDescription("Volver a la tarea");
@@ -195,6 +196,7 @@ public class Multimedia  extends AppCompatActivity{
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("mote", mote);
+        intent.putExtra("tipoRespuesta",tipo);
         if (guardarRespuesta){
 
         }
