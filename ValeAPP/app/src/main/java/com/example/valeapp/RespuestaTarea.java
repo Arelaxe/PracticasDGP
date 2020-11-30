@@ -114,7 +114,7 @@ System.out.println(tipoRespuesta);
         else if (tipoRespuesta.equals("d")){
             //texto
         }
-        else if (tipoRespuesta.equals("audio")){
+        else if (tipoRespuesta.equals("video")){
             crearBotonGrabarVideo();
         }
 

@@ -289,6 +289,7 @@ public class GrabarVideo extends AppCompatActivity {
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("tipoRespuesta", "video");
+        intent.putExtra("mote", mote);
         startActivity(intent);
     }
 }

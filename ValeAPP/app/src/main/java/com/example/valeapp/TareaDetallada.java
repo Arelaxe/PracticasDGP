@@ -168,7 +168,7 @@ public class TareaDetallada extends AppCompatActivity{
         else if (jsonTareas.getBoolean("permiteTexto")){
             tipoRespuesta = "texto";
         }
-        intent.putExtra("tipoRespuesta",tipoRespuesta);
+        intent.putExtra("tipoRespuesta","video");
         startActivity(intent);
     }
 
