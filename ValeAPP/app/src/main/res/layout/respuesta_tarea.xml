@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
-            android:text="@string/responder"
+            android:text="@string/enviar"
             android:textColor="#000"
             android:textSize="24sp" />
     </LinearLayout>

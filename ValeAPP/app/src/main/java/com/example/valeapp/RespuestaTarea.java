@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,24 +30,40 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.universalvideoview.UniversalMediaController;
+import com.universalvideoview.UniversalVideoView;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 public class RespuestaTarea extends AppCompatActivity{
     private String usuario;
     String creador;
     String nombreTarea;
+    String mote;
     JSONObject jsonTareas;
     boolean guardarRespuesta;
     String AudioSavePathInDevice = null;
-    MediaRecorder mediaRecorder ;
+    String VideoSavePathInDevice = null;
+    MediaRecorder mediaRecorder;
+    String nombreAudio = null;
+    String nombreVideo = null;
+    Boolean tieneAudio = false;
+    Boolean tieneVideo = false;
+    ImageButton audio = null;
+    ImageButton video = null;
+    String tipo = null;
+
     public static final int RequestPermissionCode = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +77,11 @@ public class RespuestaTarea extends AppCompatActivity{
         creador = bundle.getString("creador");
         nombreTarea = bundle.getString("nombreTarea");
         guardarRespuesta = bundle.getBoolean("guardarRespuesta");
+        mote = bundle.getString("mote");
+        tipo = bundle.getString("tipo");
+
+        nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote +".3gp";
+        nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote +".mp4";
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -83,7 +106,16 @@ public class RespuestaTarea extends AppCompatActivity{
 
         }
 
-        crearBotonRespuesta();
+        if (tipo.equals("audio")){
+            crearBotonGrabarAudio();
+        }
+        else if (tipo.equals("texto")){
+            //crearBotonGrabarAudio();
+        }
+        else if (tipo.equals("video")){
+            crearBotonGrabarVideo();
+        }
+
 
 
         //Boton logout
@@ -99,9 +131,20 @@ public class RespuestaTarea extends AppCompatActivity{
                 volverATareaDetallada();
             }
         });
+
+        tieneAudio = comprobarMultimediaRespuesta(nombreAudio);
+        tieneVideo = comprobarMultimediaRespuesta(nombreVideo);
+
+        if (tieneAudio){
+            crearBotonEscucharAudio();
+        }
+        else if (tieneVideo){
+            crearBotonVerVideo();
+        }
+
     }
 
-    private void crearBotonRespuesta(){
+    private void crearBotonGrabarAudio(){
         LinearLayout layout = (LinearLayout)findViewById(R.id.layoutRespuesta);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -115,10 +158,34 @@ public class RespuestaTarea extends AppCompatActivity{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
-                    grabar();
+                    grabacionAudio();
                 } else {
                     // The toggle is disabled
-                    pararGrabacion();
+                    pararGrabacionAudio();
+                }
+            }
+        });
+        layout.addView(botonGrabar);
+    }
+
+    private void crearBotonGrabarVideo(){
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutRespuesta);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+
+        ToggleButton botonGrabar = new ToggleButton(this);
+
+        //Boton Grabar
+        botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled
+                    grabacionVideo();
+                } else {
+                    // The toggle is disabled
+                    pararGrabacionVideo();
                 }
             }
         });
@@ -136,7 +203,7 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     public void volverATareaDetallada(){
-        Intent intent = new Intent(this, RespuestaTarea.class);
+        Intent intent = new Intent(this, TareaDetallada.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
@@ -153,12 +220,37 @@ public class RespuestaTarea extends AppCompatActivity{
                 result1 == PackageManager.PERMISSION_GRANTED;
     }
 
-    public void grabar(){
+    public void grabacionAudio(){
         if(checkPermission()) {
-            System.out.println(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "Music/" + "AudioRecording.3gp");
-            AudioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "Music/" + "AudioRecording.3gp";
+            AudioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + nombreAudio;
 
             grabarAudio();
+
+            try {
+                mediaRecorder.prepare();
+                mediaRecorder.start();
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+
+        } else {
+            requestPermission();
+        }
+    }
+
+    public void grabacionVideo(){
+        if(checkPermission()) {
+            VideoSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + nombreVideo;
+            Camera.open();
+            Camera.setPreviewDisplay();
+            Camera.startPreview();
+            Camera.unlock();
+            grabarVideo();
 
             try {
                 mediaRecorder.prepare();
@@ -182,18 +274,103 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     public void grabarAudio(){
+        if (tieneAudio){
+            audio.setVisibility(INVISIBLE);
+        }
+
         mediaRecorder=new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        //mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        //mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        mediaRecorder.setAudioEncodingBitRate(16*44100);
+        mediaRecorder.setAudioSamplingRate(44100);
+
         mediaRecorder.setOutputFile(AudioSavePathInDevice);
     }
 
-    public void pararGrabacion(){
-        System.out.println("dsksldsd");
+    public void grabarVideo(){
+        if (tieneVideo){
+            video.setVisibility(INVISIBLE);
+        }
+
+        mediaRecorder=new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        //mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        //mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        mediaRecorder.setAudioEncodingBitRate(16*44100);
+        mediaRecorder.setAudioSamplingRate(44100);
+
+        mediaRecorder.setOutputFile(AudioSavePathInDevice);
+    }
+
+
+    public void pararGrabacionAudio(){
         mediaRecorder.stop();
         mediaRecorder.release();
+        if (!tieneAudio){
+            crearBotonEscucharAudio();
+            tieneAudio = true;
+        }
+        audio.setVisibility(VISIBLE);
+    }
 
+    public void mostrarMultimedia(String nombreMultimedia, String tipo){
+        Intent intent = new Intent(this, Multimedia.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("guardarRespuesta", guardarRespuesta);
+        intent.putExtra("nombreMultimedia", nombreMultimedia);
+        intent.putExtra("tipo", tipo);
+        intent.putExtra("tareaDetallada", false);
+        intent.putExtra("mote", mote);
+        if (guardarRespuesta){
+
+        }
+        startActivity(intent);
+    }
+
+    private void crearBotonEscucharAudio () {
+        audio = new ImageButton(this);
+        audio.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mostrarMultimedia(nombreAudio, "audio");
+            }
+        });
+        Drawable drAudio = getResources().getDrawable(R.drawable.audio);
+        Bitmap bitmap = ((BitmapDrawable) drAudio).getBitmap();
+        // Escalar
+        Drawable dEscaladoAudio = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
+        audio.setImageDrawable(dEscaladoAudio);
+        audio.setContentDescription("Escuchar audio");
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layoutRespuesta);
+        layout.addView(audio);
+    }
+
+    private void crearBotonVerVideo () {
+        video = new ImageButton(this);
+        video.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mostrarMultimedia(nombreVideo, "video");
+            }
+        });
+        Drawable drAudio = getResources().getDrawable(R.drawable.video);
+        Bitmap bitmap = ((BitmapDrawable) drAudio).getBitmap();
+        // Escalar
+        Drawable dEscaladoAudio = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
+        video.setImageDrawable(dEscaladoAudio);
+        video.setContentDescription("Ver video");
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layoutRespuesta);
+        layout.addView(video);
+    }
+
+    private Boolean comprobarMultimediaRespuesta(String nombreMultimadia){
+        File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
+        return multimedia.exists();
     }
 
 

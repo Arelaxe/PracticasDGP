@@ -37,6 +37,7 @@ public class TareaDetallada extends AppCompatActivity{
     private String usuario;
     String creador;
     String nombreTarea;
+    String mote;
     JSONObject jsonTareas;
     boolean guardarRespuesta;
     String nombreVideo = "";
@@ -125,7 +126,11 @@ public class TareaDetallada extends AppCompatActivity{
         //Boton Siguiente
         botonSiguiente.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                irARespuesta();
+                try {
+                    irARespuesta();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -146,15 +151,24 @@ public class TareaDetallada extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void irARespuesta(){
+    public void irARespuesta() throws JSONException {
         Intent intent = new Intent(this, RespuestaTarea.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
-        Boolean tipoRespuesta;
-       // if (jsonTareas.getBoolean())
-        //intent.putExtra("tipoRespuesta", )
+        intent.putExtra("mote", mote);
+        String tipoRespuesta = "";
+        if (jsonTareas.getBoolean("permiteAudio")){
+            tipoRespuesta = "audio";
+        }
+        else if (jsonTareas.getBoolean("permiteVideo")){
+            tipoRespuesta = "video";
+        }
+        else if (jsonTareas.getBoolean("permiteTexto")){
+            tipoRespuesta = "texto";
+        }
+        intent.putExtra("tipoRespuesta",tipoRespuesta);
         startActivity(intent);
     }
 
@@ -255,10 +269,7 @@ public class TareaDetallada extends AppCompatActivity{
             audio.setContentDescription("Escuchar audio");
             layout.addView(audio);
         }
-        /*
-        if (!jsonTareas.getString("audioTarea").equals("")) {
-            descargarAudioTarea();
-        }*/
+
         //Video de la tarea
         if(jsonTareas.getBoolean("tieneVideo")){
         //if (!jsonTareas.getString("videoTarea").equals("")) {
@@ -316,6 +327,7 @@ public class TareaDetallada extends AppCompatActivity{
         intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("nombreMultimedia", nombreMultimedia);
         intent.putExtra("tipo", tipo);
+        intent.putExtra("tareaDetallada", true);
         if (guardarRespuesta){
 
         }

@@ -39,9 +39,11 @@ public class Multimedia  extends AppCompatActivity{
     private String creador;
     private String nombreTarea;
     private Boolean guardarRespuesta;
+    private Boolean tareaDetallada;
     private String nombreMultimadia;
     private Toolbar myToolbar;
     private String tipo;
+    private String mote;
     private JSONObject jsonMultimedia;
 
     @Override
@@ -56,6 +58,7 @@ public class Multimedia  extends AppCompatActivity{
         guardarRespuesta = bundle.getBoolean("guardarRespuesta");
         nombreMultimadia = bundle.getString("nombreMultimedia");
         tipo = bundle.getString("tipo");
+        tareaDetallada = bundle.getBoolean("tareaDetallada");
 
         comprobarMultimediaDescargado();
 
@@ -70,27 +73,57 @@ public class Multimedia  extends AppCompatActivity{
         getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
         //Modicar Barra de Tareas para esta pantalla
-        final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
-        flechaAtras.setVisibility(View.VISIBLE);
-        flechaAtras.setContentDescription("Volver a la tarea");
-        final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-        textoFlechaAtras.setText("Volver a la tarea");
-        textoFlechaAtras.setVisibility(View.VISIBLE);
-        final ImageButton botonLogout = findViewById(R.id.botonLogout);
-        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
-        //Boton logout
-        botonLogout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                irALogout();
-            }
-        });
+        if (tareaDetallada){
+            final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
+            flechaAtras.setVisibility(View.VISIBLE);
+            flechaAtras.setContentDescription("Volver a la tarea");
+            final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
+            textoFlechaAtras.setText("Volver a la tarea");
+            textoFlechaAtras.setVisibility(View.VISIBLE);
+            final ImageButton botonLogout = findViewById(R.id.botonLogout);
+            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
-        //Boton Atrás
-        botonAtras.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                volverATarea();
-            }
-        });
+            //Boton logout
+            botonLogout.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    irALogout();
+                }
+            });
+
+            //Boton Atrás
+            botonAtras.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    volverATarea();
+                }
+            });
+        }
+        else {
+            final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
+            flechaAtras.setVisibility(View.VISIBLE);
+            flechaAtras.setContentDescription("Volver a respuesta");
+            final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
+            textoFlechaAtras.setText("Volver a respuesta");
+            textoFlechaAtras.setVisibility(View.VISIBLE);
+            final ImageButton botonLogout = findViewById(R.id.botonLogout);
+            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+
+            //Boton logout
+            botonLogout.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    irALogout();
+                }
+            });
+
+            //Boton Atrás
+            botonAtras.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    volverARespuestaTarea();
+                }
+            });
+            mote = bundle.getString("mote");
+        }
+
+
         reproducirMultimedia();
     }
 
@@ -135,7 +168,12 @@ public class Multimedia  extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        volverATarea();
+        if(tareaDetallada){
+            volverATarea();
+        }
+        else {
+            volverARespuestaTarea();
+        }
     }
 
     public void volverATarea(){
@@ -144,6 +182,19 @@ public class Multimedia  extends AppCompatActivity{
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
+        if (guardarRespuesta){
+
+        }
+        startActivity(intent);
+    }
+
+    public void volverARespuestaTarea(){
+        Intent intent = new Intent(this, RespuestaTarea.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("guardarRespuesta", guardarRespuesta);
+        intent.putExtra("mote", mote);
         if (guardarRespuesta){
 
         }

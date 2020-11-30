@@ -125,4 +125,5 @@
     <string name="ir_a_chat">Botón para ir al chat de la tarea</string>
     <string name="bot_n_respoder_a_la_tarea">Botón respoder a la tarea</string>
     <string name="responder">RESPONDER</string>
+    <string name="enviar">ENVIAR</string>
 </resources>
