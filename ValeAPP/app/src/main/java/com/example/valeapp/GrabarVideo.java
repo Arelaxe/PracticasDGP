@@ -1,17 +1,22 @@
 package com.example.valeapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.ActionBar;
@@ -31,16 +36,14 @@ public class GrabarVideo extends AppCompatActivity {
     String mote;
     JSONObject jsonTareas;
     boolean guardarRespuesta;
-    String AudioSavePathInDevice = null;
-    String VideoSavePathInDevice = null;
     MediaRecorder mediaRecorder;
     String nombreVideo = null;
-    Boolean tieneAudio = false;
-    Boolean tieneVideo = false;
-    ImageButton audio = null;
-    ImageButton video = null;
     String tipoRespuesta = null;
     Camera camara;
+    SurfaceView surfaceViewCamara;
+    SurfaceHolder holder;
+    boolean inPreview = false;
+    Boolean camaraConfigurada = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +95,16 @@ public class GrabarVideo extends AppCompatActivity {
         });
 
         final ToggleButton botonGrabar = findViewById(R.id.botonGrabar);
-
-        Camera camara = Camera.open();
+        camara = Camera.open();
         camara.getParameters();
+
         try {
-            camara.setPreviewDisplay(findViewById(R.id.grabarVideoSurface));
+            camara.stopPreview();
+            surfaceViewCamara = findViewById(R.id.grabarVideoSurface);
+            holder = surfaceViewCamara.getHolder();
+            holder.addCallback(surfaceCallback);
+            camara.setPreviewDisplay(surfaceViewCamara.getHolder());
+            camara.startPreview();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,6 +127,102 @@ public class GrabarVideo extends AppCompatActivity {
         });
     }
 
+    private void startPreview() {
+        if (camaraConfigurada && camara!=null) {
+            camara.startPreview();
+            inPreview=true;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        camara=Camera.open();
+        startPreview();
+    }
+
+    @Override
+    public void onPause() {
+        if (inPreview) {
+            camara.stopPreview();
+        }
+
+        camara.release();
+        camara=null;
+        inPreview=false;
+
+        super.onPause();
+    }
+
+    private Camera.Size getBestPreviewSize(int width, int height,
+                                           Camera.Parameters parameters) {
+        Camera.Size result=null;
+
+        for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
+            if (size.width<=width && size.height<=height) {
+                if (result==null) {
+                    result=size;
+                }
+                else {
+                    int resultArea=result.width*result.height;
+                    int newArea=size.width*size.height;
+
+                    if (newArea>resultArea) {
+                        result=size;
+                    }
+                }
+            }
+        }
+
+        return(result);
+    }
+
+    @SuppressLint("LongLogTag")
+    private void initPreview(int width, int height) {
+        if (camara!=null && holder.getSurface()!=null) {
+            try {
+                camara.setPreviewDisplay(holder);
+            }
+            catch (Throwable t) {
+                Log.e("PreviewDemo-surfaceCallback",
+                        "Exception in setPreviewDisplay()", t);
+                Toast
+                        .makeText(GrabarVideo.this, t.getMessage(), Toast.LENGTH_LONG)
+                        .show();
+            }
+
+            if (!camaraConfigurada) {
+                Camera.Parameters parameters=camara.getParameters();
+                Camera.Size size = getBestPreviewSize(height, width,
+                        parameters);
+
+                if (size!=null) {
+                    parameters.setPreviewSize(size.width, size.height);
+                    camara.setParameters(parameters);
+                    camaraConfigurada = true;
+                }
+            }
+        }
+    }
+    SurfaceHolder.Callback surfaceCallback=new SurfaceHolder.Callback() {
+        public void surfaceCreated(SurfaceHolder holder) {
+            // no-op -- wait until surfaceChanged()
+        }
+
+        public void surfaceChanged(SurfaceHolder holder,
+                                   int format, int width,
+                                   int height) {
+            initPreview(width, height);
+            startPreview();
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+
+        }
+    };
+
     public void grabacionVideo() throws IOException {
         camara.unlock();
         mediaRecorder = new MediaRecorder();
@@ -129,7 +233,18 @@ public class GrabarVideo extends AppCompatActivity {
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setVideoEncoder(MediaRecorder.OutputFormat.MPEG_4);
         mediaRecorder.setOutputFile(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + nombreVideo);
-        camara.setPreviewDisplay(findViewById(R.id.grabarVideoSurface));
+
+        try {
+            camara.stopPreview();
+            surfaceViewCamara = findViewById(R.id.grabarVideoSurface);
+            holder = surfaceViewCamara.getHolder();
+            holder.addCallback(surfaceCallback);
+            camara.setPreviewDisplay(surfaceViewCamara.getHolder());
+            camara.startPreview();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         mediaRecorder.prepare();
         mediaRecorder.start();
     }
