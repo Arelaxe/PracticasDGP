@@ -38,6 +38,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -62,7 +63,7 @@ public class RespuestaTarea extends AppCompatActivity{
     Boolean tieneVideo = false;
     ImageButton audio = null;
     ImageButton video = null;
-    String tipo = null;
+    String tipoRespuesta = null;
 
     public static final int RequestPermissionCode = 1;
     @Override
@@ -78,7 +79,7 @@ public class RespuestaTarea extends AppCompatActivity{
         nombreTarea = bundle.getString("nombreTarea");
         guardarRespuesta = bundle.getBoolean("guardarRespuesta");
         mote = bundle.getString("mote");
-        tipo = bundle.getString("tipo");
+        tipoRespuesta = bundle.getString("tipoRespuesta");
 
         nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote +".3gp";
         nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote +".mp4";
@@ -92,9 +93,9 @@ public class RespuestaTarea extends AppCompatActivity{
         //Modicar Barra de Tareas para esta pantalla
         final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
         flechaAtras.setVisibility(View.VISIBLE);
-        flechaAtras.setContentDescription(getResources().getString(R.string.mis_tareas2));
+        flechaAtras.setContentDescription("VOLVER A LA TAREA");
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-        textoFlechaAtras.setText(getResources().getString(R.string.mis_tareas3));
+        textoFlechaAtras.setText("VOLVER A LA TAREA");
         textoFlechaAtras.setVisibility(View.VISIBLE);
         final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
@@ -105,14 +106,14 @@ public class RespuestaTarea extends AppCompatActivity{
         else{
 
         }
-
-        if (tipo.equals("audio")){
+System.out.println(tipoRespuesta);
+        if (tipoRespuesta.equals("d")){
             crearBotonGrabarAudio();
         }
-        else if (tipo.equals("texto")){
-            //crearBotonGrabarAudio();
+        else if (tipoRespuesta.equals("d")){
+            //texto
         }
-        else if (tipo.equals("video")){
+        else if (tipoRespuesta.equals("audio")){
             crearBotonGrabarVideo();
         }
 
@@ -175,18 +176,12 @@ public class RespuestaTarea extends AppCompatActivity{
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
 
-        ToggleButton botonGrabar = new ToggleButton(this);
+        Button botonGrabar = new Button(this);
 
         //Boton Grabar
-        botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
-                    grabacionVideo();
-                } else {
-                    // The toggle is disabled
-                    pararGrabacionVideo();
-                }
+        botonGrabar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                irAGrabarVideo();
             }
         });
         layout.addView(botonGrabar);
@@ -203,14 +198,17 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     public void volverATareaDetallada(){
-        Intent intent = new Intent(this, TareaDetallada.class);
+        Intent intent = new Intent(this, RespuestaTarea.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
+        intent.putExtra("mote", mote);
+        if (guardarRespuesta){
+
+        }
         startActivity(intent);
     }
-
     public boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(),
                 WRITE_EXTERNAL_STORAGE);
@@ -245,28 +243,21 @@ public class RespuestaTarea extends AppCompatActivity{
 
     public void grabacionVideo(){
         if(checkPermission()) {
-            VideoSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + nombreVideo;
-            Camera.open();
-            Camera.setPreviewDisplay();
-            Camera.startPreview();
-            Camera.unlock();
-            grabarVideo();
-
-            try {
-                mediaRecorder.prepare();
-                mediaRecorder.start();
-            } catch (IllegalStateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
+            irAGrabarVideo();
         } else {
             requestPermission();
         }
+    }
+
+    private void irAGrabarVideo(){
+        Intent intent = new Intent(this, GrabarVideo.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("guardarRespuesta", guardarRespuesta);
+        intent.putExtra("mote", mote);
+        intent.putExtra("tipoRespuesta",tipoRespuesta);
+        startActivity(intent);
     }
 
     private void requestPermission() {
@@ -278,10 +269,8 @@ public class RespuestaTarea extends AppCompatActivity{
             audio.setVisibility(INVISIBLE);
         }
 
-        mediaRecorder=new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        //mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        //mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);;
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         mediaRecorder.setAudioEncodingBitRate(16*44100);
@@ -289,24 +278,6 @@ public class RespuestaTarea extends AppCompatActivity{
 
         mediaRecorder.setOutputFile(AudioSavePathInDevice);
     }
-
-    public void grabarVideo(){
-        if (tieneVideo){
-            video.setVisibility(INVISIBLE);
-        }
-
-        mediaRecorder=new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        //mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        //mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        mediaRecorder.setAudioEncodingBitRate(16*44100);
-        mediaRecorder.setAudioSamplingRate(44100);
-
-        mediaRecorder.setOutputFile(AudioSavePathInDevice);
-    }
-
 
     public void pararGrabacionAudio(){
         mediaRecorder.stop();
@@ -368,8 +339,8 @@ public class RespuestaTarea extends AppCompatActivity{
         layout.addView(video);
     }
 
-    private Boolean comprobarMultimediaRespuesta(String nombreMultimadia){
-        File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
+    private Boolean comprobarMultimediaRespuesta(String nombreMultimedia){
+        File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimedia);
         return multimedia.exists();
     }
 

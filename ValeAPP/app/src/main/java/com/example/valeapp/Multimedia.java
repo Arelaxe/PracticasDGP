@@ -78,7 +78,7 @@ public class Multimedia  extends AppCompatActivity{
             flechaAtras.setVisibility(View.VISIBLE);
             flechaAtras.setContentDescription("Volver a la tarea");
             final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-            textoFlechaAtras.setText("Volver a la tarea");
+            textoFlechaAtras.setText("VOLVER A LA TAREA");
             textoFlechaAtras.setVisibility(View.VISIBLE);
             final ImageButton botonLogout = findViewById(R.id.botonLogout);
             final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
@@ -102,7 +102,7 @@ public class Multimedia  extends AppCompatActivity{
             flechaAtras.setVisibility(View.VISIBLE);
             flechaAtras.setContentDescription("Volver a respuesta");
             final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-            textoFlechaAtras.setText("Volver a respuesta");
+            textoFlechaAtras.setText("VOLVER A LA RESPUESTA");
             textoFlechaAtras.setVisibility(View.VISIBLE);
             final ImageButton botonLogout = findViewById(R.id.botonLogout);
             final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);

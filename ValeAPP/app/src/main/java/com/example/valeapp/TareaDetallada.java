@@ -291,34 +291,6 @@ public class TareaDetallada extends AppCompatActivity{
         }
     }
 
-    private void descargarVideoTarea() throws JSONException {
-        try {
-            //nombreVideo = "Movies/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp4";
-            File file = new File(Environment.getExternalStorageDirectory() + File.separator + nombreVideo);
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] data = Base64.decode(jsonTareas.getString("videoTarea"), Base64.DEFAULT);
-            fos.write(data);
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void descargarAudioTarea() throws JSONException {
-        try {
-            //nombreVideo = "Sounds/" + jsonTareas.getString("nombre") + "_" + jsonTareas.getString("mote") + ".mp3";
-            File file = new File(Environment.getExternalStorageDirectory() + File.separator + nombreVideo);
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] data = Base64.decode(jsonTareas.getString("audioTarea"), Base64.DEFAULT);
-            fos.write(data);
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void mostrarMultimedia(String nombreMultimedia, String tipo){
         Intent intent = new Intent(this, Multimedia.class);
         intent.putExtra("usuario", usuario);
