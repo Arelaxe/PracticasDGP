@@ -15,10 +15,12 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,17 +73,18 @@ public class RespuestaTarea extends AppCompatActivity{
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setText(getResources().getString(R.string.mis_tareas3));
         textoFlechaAtras.setVisibility(View.VISIBLE);
-
-        final ImageButton botonLogout = findViewById(R.id.botonLogout);
-        final Button botonGrabar = findViewById(R.id.grabar);
         final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
+        final ImageButton botonLogout = findViewById(R.id.botonLogout);
         if (guardarRespuesta){
 
         }
         else{
 
         }
+
+        crearBotonRespuesta();
+
 
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
@@ -96,15 +99,30 @@ public class RespuestaTarea extends AppCompatActivity{
                 volverATareaDetallada();
             }
         });
+    }
+
+    private void crearBotonRespuesta(){
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutRespuesta);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+
+        ToggleButton botonGrabar = new ToggleButton(this);
 
         //Boton Grabar
-        botonGrabar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                grabar();
+        botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled
+                    grabar();
+                } else {
+                    // The toggle is disabled
+                    pararGrabacion();
+                }
             }
         });
-
-
+        layout.addView(botonGrabar);
     }
 
     private void irALogout(){
@@ -113,7 +131,7 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
         volverATareaDetallada();
     }
 
@@ -137,10 +155,10 @@ public class RespuestaTarea extends AppCompatActivity{
 
     public void grabar(){
         if(checkPermission()) {
+            System.out.println(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "Music/" + "AudioRecording.3gp");
+            AudioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "Music/" + "AudioRecording.3gp";
 
-            AudioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "audio" + "AudioRecording.3gp";
-
-            MediaRecorderReady();
+            grabarAudio();
 
             try {
                 mediaRecorder.prepare();
@@ -163,12 +181,19 @@ public class RespuestaTarea extends AppCompatActivity{
         ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO}, RequestPermissionCode);
     }
 
-    public void MediaRecorderReady(){
+    public void grabarAudio(){
         mediaRecorder=new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         mediaRecorder.setOutputFile(AudioSavePathInDevice);
+    }
+
+    public void pararGrabacion(){
+        System.out.println("dsksldsd");
+        mediaRecorder.stop();
+        mediaRecorder.release();
+
     }
 
 

@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int permisoGrabar = ActivityCompat.checkSelfPermission(getApplicationContext(),
-                RECORD_AUDIO);
+                Manifest.permission.RECORD_AUDIO);
         if (permission != PackageManager.PERMISSION_GRANTED && permisoGrabar != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE
             );
         }
-
         else{
             comprobarUsuario();
         }

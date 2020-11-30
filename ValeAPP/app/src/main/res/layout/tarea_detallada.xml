@@ -82,6 +82,7 @@
         android:id="@+id/infoTarea"
         android:layout_width="386dp"
         android:layout_height="311dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -152,6 +152,9 @@ public class TareaDetallada extends AppCompatActivity{
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("guardarRespuesta", guardarRespuesta);
+        Boolean tipoRespuesta;
+       // if (jsonTareas.getBoolean())
+        //intent.putExtra("tipoRespuesta", )
         startActivity(intent);
     }
 
@@ -204,7 +207,7 @@ public class TareaDetallada extends AppCompatActivity{
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
-        layout.setBackgroundColor(R.color.white);
+        layout.setBackgroundColor(getResources().getInteger(R.color.white));
         int left = 20;
         int top = 20;
         int right = 20;
