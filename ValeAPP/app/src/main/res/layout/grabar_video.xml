@@ -24,15 +24,14 @@
         android:layout_height="550dp"
         app:layout_constraintBottom_toTopOf="@+id/botonGrabar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ToggleButton
         android:id="@+id/botonGrabar"
-        android:layout_width="127dp"
-        android:layout_height="72dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="16dp"
         android:text="@string/togglebutton"
         app:layout_constraintBottom_toBottomOf="parent"
