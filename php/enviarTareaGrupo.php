@@ -34,7 +34,10 @@
                 $infoTareaEnviar['tieneAudio'] = !(empty($tarea->audioTarea)) ;
                 $infoTareaEnviar['tieneVideo'] = !(empty($tarea->videoTarea)) ;
                 $infoTareaEnviar['tieneTexto'] = !(empty($tarea->descripcion)) ;
-                if(!$infoTareaEnviar['tieneAudio'] && !$infoTareaEnviar['tieneVideo'] && !$infoTareaEnviar['tieneTexto']){
+                if(!($infoTareaEnviar['permiteVideo'] || $infoTareaEnviar['permiteTexto'] || $infoTareaEnviar['permiteAudio'])){
+                    header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=440');
+                }
+                else if(!$infoTareaEnviar['tieneAudio'] && !$infoTareaEnviar['tieneVideo'] && !$infoTareaEnviar['tieneTexto']){
                     header('Location: ../enviar_tarea_grupo.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=410');
                 }
                 else{

@@ -41,7 +41,11 @@
                     $infoTareaEnviar['tieneAudio'] = !(empty($tarea->audioTarea)) ;
                     $infoTareaEnviar['tieneVideo'] = !(empty($tarea->videoTarea)) ;
                     $infoTareaEnviar['tieneTexto'] = !(empty($tarea->descripcion)) ;
-                    if(!(($infoTareaEnviar['tieneTexto'] && $infoTareaEnviar['tieneTexto'] === $socio->preferenciaTexto)||($infoTareaEnviar['tieneVideo'] && $infoTareaEnviar['tieneVideo'] === $socio->preferenciaVideo)||($infoTareaEnviar['tieneAudio'] && $infoTareaEnviar['tieneAudio'] === $socio->preferenciaAudio))){
+                    if(!($infoTareaEnviar['permiteVideo'] || $infoTareaEnviar['permiteTexto'] || $infoTareaEnviar['permiteAudio'])){
+                        header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=440');
+                    }
+
+                    else if(!(($infoTareaEnviar['tieneTexto'] && $infoTareaEnviar['tieneTexto'] === $socio->preferenciaTexto)||($infoTareaEnviar['tieneVideo'] && $infoTareaEnviar['tieneVideo'] === $socio->preferenciaVideo)||($infoTareaEnviar['tieneAudio'] && $infoTareaEnviar['tieneAudio'] === $socio->preferenciaAudio))){
                         header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=440');
                     }
                     else{
