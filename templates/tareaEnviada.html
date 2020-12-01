@@ -15,55 +15,67 @@
 
 <div class="offset-1 col-10 sombreado">
     <div class="row">
-        <div class="col-lg-6 col-xs-12">
+        <div class="col-lg-8 col-xs-12">
             <div class="row">
                 <div class="col-3">
                     <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
                 </div>
                 <div class="col-8">
                     <div class="class-group">
-                        <h4 for="nombreTarea">Título de la tarea</h4>
-                        <p>{{ infoTarea.nombre }}</p>
+                        <h2 for="nombreTarea">{{ infoTarea.nombre }}</h4>
                     </div>
                     <div class="class-group">
-                        <h4>Descripción</h4>
                         <p>{{ infoTarea.descripcion }}</p>
                     </div>
+
+                    {%if infoTarea.audioTarea != "img/"%}
+                        <h4>Audio de la tarea</h4>
+                        <div class="class-group">
+                            
+                            <audio controls id="audio" class="embed-responsive-item audio_w">
+                                <source src="{{ infoTarea.audioTarea }}">
+                            </audio>
+                        </div>
+                    {%endif%}
+
+                    {%if infoTarea.videoTarea != "img/" %}
+                        <h4>Vídeo de la tarea</h4>
+                        <div id="video" class="class-group embed-responsive embed-responsive-16by9">
+                            
+                            <iframe src="{{ infoTarea.videoTarea }}" class="embed-responsive-item" allowfullscreen></iframe>
+                        </div>
+                    {%endif%}
                 </div>
-            </div>
-    
-            <div class="row">
-                {%if infoTarea.videoTarea != "img/" %}
-                <div class="col-10 offset-1">
-                    <h4>Vídeo subido</h4>
-                    <div id="video" class="class-group embed-responsive embed-responsive-16by9">
-                        
-                        <iframe src="{{ infoTarea.videoTarea }}" class="embed-responsive-item" allowfullscreen></iframe>
-                    </div>
-                </div>
-                {%endif%}
-                {%if infoTarea.audioTarea != "img/"%}
-                <div class="col-10 offset-1">
-                    <h4>Audio subido</h4>
-                    <div id="audio" class="class-group">
-                        <audio controls class="">
-                            <source src="{{ infoTarea.audioTarea }}">
-                        </audio>
-                    </div>
-                </div>
-                {%endif%}
             </div>
         </div>
     
-        <div class="col-xs-12 col-lg-6 sombreado_extra">
+        <div class="col-xs-12 col-lg-4 sombreado_extra">
             <h4>Socio</h4>
-            <p>Nombre de socio</p>
+            <p>{{entrega.nombreSocio}}</p>
             <h4>Enviado el</h4>
-            <p>15/12/2020</p>
+            <p>{{entrega.fechaEnvio}}</p>
             <h4>Fecha límite de entrega</h4>
-            <p>6/1/2021</p>
+            <p>{{entrega.fechaLimiteEntrega}}</p>
             <h4>Respuesta</h4>
-            <p>???</p>
+                {% if entrega.respuesta == "" %}
+                    <p>El socio no ha entregado nada todavía</p>
+                {% else %}
+                    {% if entrega.permiteAudio == true %}
+                        <div class="class-group">    
+                            <audio controls id="audio" class="embed-responsive-item audio_w">
+                                <source src="{{ entrega.respuesta }}">
+                            </audio>
+                        </div>
+                    {% endif %}
+                    {% if entrega.permiteVideo == true %}
+                        <div id="video" class="class-group embed-responsive embed-responsive-16by9">    
+                            <iframe src="{{ entrega.respuesta }}" class="embed-responsive-item" allowfullscreen></iframe>
+                        </div>
+                    {% endif %}
+                    {% if entrega.permiteTexto == true %}
+                        <p>{{entrega.respuesta}}</p>
+                    {% endif %}
+            {% endif %}
             <h4>Chat con el socio</h4>
             <div class="chat">
                 Div del chat

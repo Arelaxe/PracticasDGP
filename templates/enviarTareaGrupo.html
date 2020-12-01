@@ -17,26 +17,28 @@
 <div class="offset-1 col-10 sombreado">
     <form action="php/enviarTareaGrupo.php" method="post" enctype="multipart/form-data">
         <div class="class-group">
-            <label for="nombre">Título de la tarea</label>
+            <label for="nombre"><h3>Título de la tarea</h3></label>
             <label for="nombreFalso" hidden>Título de la tarea</label>
             <input type="text" name="nombreFalso" id="nombreFalso" value="{{nombreTarea}}" class="form-control" disabled>
             <input type="text" name="nombre" id="nombre" value="{{nombreTarea}}" class="form-control" hidden>
             <input type="text" name="creador" id="creador" value="{{creador}}" class="form-control" hidden>
         </div>
         <div class="class-group">
-            <label for="permiteAudio">Audio</label>
-            <input type="checkbox" name="permiteAudio" id="permiteAudio">
-            <label for="permiteVideo">Vídeo</label>
-            <input type="checkbox" name="permiteVideo" id="permiteVideo">
-            <label for="permiteTexto">Texto</label>
-            <input type="checkbox" name="permiteTexto" id="permiteTexto">
+            <label><h3>¿Cómo prefiere el formato de entrega?</h3></label>
+            <br>
+            <label for="permiteAudio" class="opcionRadio">Audio</label>
+            <input type="radio" name="formatoEntrega" value="permiteAudio" id="permiteAudio">
+            <label for="permiteVideo" class="opcionRadio">Vídeo</label>
+            <input type="radio" name="formatoEntrega" value="permiteVideo" id="permiteVideo">
+            <label for="permiteTexto" class="opcionRadio">Texto</label>
+            <input type="radio" name="formatoEntrega" value="permiteTexto" id="permiteTexto">
         </div>
         <div class="class-group">
-            <label for="fechaLimiteEntrega">Fecha de entrega</label>
-            <input type="date" name="fechaLimiteEntrega" id="fechaLimiteEntrega">
+            <label for="fechaLimiteEntrega"><h3>Fecha de entrega</h3></label>
+            <input type="date" name="fechaLimiteEntrega" id="fechaLimiteEntrega" class="form-control">
         </div>
         <div class="class-group">
-            <label for="socioAsignado">Enviar a</label>
+            <label for="socioAsignado"><h3>Enviar al grupo...</h3></label>
             <select type="date" name="grupoAsignado" id="grupoAsignado" class="form-control">
                 {%for grupo in grupos%}
                 <option value="{{ grupo.nombre }}">{{ grupo.nombre }}</option>

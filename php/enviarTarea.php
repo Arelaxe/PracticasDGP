@@ -8,16 +8,17 @@
             $infoTareaEnviar = array();
             $infoTareaEnviar['nombreTarea'] = $_POST['nombre'];
             $infoTareaEnviar['creador'] = $_POST['creador'] ;
-            $_POST['permiteVideo'] === "on" ? $infoTareaEnviar['permiteVideo'] = true : $infoTareaEnviar['permiteVideo'] = false;
-            $_POST['permiteAudio'] === "on" ? $infoTareaEnviar['permiteAudio'] = true : $infoTareaEnviar['permiteAudio'] = false;
-            $_POST['permiteTexto'] === "on" ? $infoTareaEnviar['permiteTexto'] = true : $infoTareaEnviar['permiteTexto'] = false;
+            $_POST['formatoEntrega'] === "permiteVideo" ? $infoTareaEnviar['permiteVideo'] = true : $infoTareaEnviar['permiteVideo'] = false;
+            $_POST['formatoEntrega'] === "permiteAudio" ? $infoTareaEnviar['permiteAudio'] = true : $infoTareaEnviar['permiteAudio'] = false;
+            $_POST['formatoEntrega'] === "permiteTexto" ? $infoTareaEnviar['permiteTexto'] = true : $infoTareaEnviar['permiteTexto'] = false;
             $infoTareaEnviar['socioAsignado'] = $_POST['socioAsignado'];
             $timestamp = new DateTime();
-            $infoTareaEnviar['fechaEntrega'] = $timestamp->format(DateTimeInterface::W3C);
+            $infoTareaEnviar['fechaEntrega'] = $timestamp->format("Y-m-d\TH:i:s");
             $timestampFinal = date_create($_POST['fechaLimiteEntrega']);
-            $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format(DateTimeInterface::W3C);
+            $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format("Y-m-d\TH:i:s");
             $infoTareaEnviar['respondida'] = false ;
             $infoTareaEnviar['nuevoMensaje'] = false;
+            $infoTareaEnviar['respuesta'] = "";
 
             /*Comprobamos que la tarea que se envia al socio tiene información según sus preferencias*/
             /*Comprobamos que el socio puede enviar una tarea según sus preferencias*/
@@ -41,6 +42,7 @@
                     $infoTareaEnviar['tieneAudio'] = !(empty($tarea->audioTarea)) ;
                     $infoTareaEnviar['tieneVideo'] = !(empty($tarea->videoTarea)) ;
                     $infoTareaEnviar['tieneTexto'] = !(empty($tarea->descripcion)) ;
+                    var_dump($infoTareaEnviar);
                     if(!($infoTareaEnviar['permiteVideo'] || $infoTareaEnviar['permiteTexto'] || $infoTareaEnviar['permiteAudio'])){
                         header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=440');
                     }

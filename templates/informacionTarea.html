@@ -18,39 +18,35 @@
             <div class="col-3">
                 <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
             </div>
+            
             <div class="col-8">
                 <div class="class-group">
-                    <h4 for="nombreTarea">Título de la tarea</h4>
-                    <p>{{ infoTarea.nombre }}</p>
+                    <h2 for="nombreTarea">{{ infoTarea.nombre }}</h2    >
                 </div>
                 <div class="class-group">
-                    <h4>Descripción</h4>
                     <p>{{ infoTarea.descripcion }}</p>
                 </div>
-            </div>
-        </div>
 
-        <div class="row">
-            {%if infoTarea.videoTarea != "img/" %}
-            <div class="col-10 offset-1">
-                <h4>Vídeo subido</h4>
+                {%if infoTarea.audioTarea != "img/"%}
+                        <h4>Audio de la tarea</h4>
+                        <div class="class-group">
+                            
+                            <audio controls id="audio" class="embed-responsive-item audio_w">
+                                <source src="{{ infoTarea.audioTarea }}">
+                            </audio>
+                        </div>
+                    {%endif%}
+
+                {%if infoTarea.videoTarea != "img/" %}
+                <h4>Vídeo de la tarea</h4>
                 <div id="video" class="class-group embed-responsive embed-responsive-16by9">
                     
                     <iframe src="{{ infoTarea.videoTarea }}" class="embed-responsive-item" allowfullscreen></iframe>
                 </div>
             </div>
             {%endif%}
-            {%if infoTarea.audioTarea != "img/"%}
-            <div class="col-10 offset-1">
-                <h4>Audio subido</h4>
-                <div id="audio" class="class-group">
-                    <audio controls class="">
-                        <source src="{{ infoTarea.audioTarea }}">
-                    </audio>
-                </div>
-            </div>
-            {%endif%}
         </div>
+
         <div class="boton_centro">
             {% if cuenta == infoTarea.creador %}
                 <button type="submit" class="btn btn-warning" onclick="window.location.replace('editar_tarea.php?nombre={{infoTarea.nombre}}')">EDITAR TAREA</button>

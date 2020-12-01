@@ -24,57 +24,74 @@
           {% if id != -1 %}
           <h4>Nombre y apellidos</h4>
           {{ infoUsuario.nombre }}
+          <br><br>
           {% if infoUsuario.rol == "admin" or infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
           <h4>Mote / Nombre preferido</h4>
           {{ infoUsuario.mote }}
+          <br><br>
           <h4>Correo</h4>
           {{ infoUsuario.username }}
+          <br><br>
           <h4>Dirección</h4>
           {{ infoUsuario.direccion }}
+          <br><br>
           <h4>Teléfono</h4>
           {{ infoUsuario.telefono }}
-          <br>
+          <br><br>
+          
+          {% if infoUsuario.rol == "facilitador" or infoUsuario.rol == "ambos" %}
           <label for="socios"><h4>Socios a cargo</h4></label>
           <select class="form-control" id="socios">
             {% for i in sociosacargo %}
               <option value="{{i.username}}" onclick="window.location.replace('perfil.php?username={{i.username}}')">{{i.nombre}}</option>
             {%endfor%}
           </select>
+          <br>
+          {% endif %}
+          <br>
           {%else%}
           <h4>Identificador</h4>
           {{infoUsuario.username}}
-          <br>
+          <br><br>
           <label for="facilitadores"><h4>Facilitadores a cargo</h4></label>
           <select class="form-control" id="facilitadores">
             {%for facilitador in facilitadores%}
               <option onclick="window.location.replace('perfil.php?username={{facilitador.username}}')">{{facilitador.nombre}}</option>
             {%endfor%}
           </select>
+          <br><br>
           <h4>Preferencias</h4>
           <div class="container">
               <div class="row">
-                  <div class="col-3 prefs">
+                  <div class="col-4 prefs">
+                    {% if preferencias.video == "Si" %}
                       <img src="img/video.png" alt="Video" class="imgprefs">
-                      <p>
-                        {{preferencias.video}}
-                      </p>
+                    {% else %}
+                      <img src="img/noVideo.png" alt="Video" class="imgprefs">
+                    {% endif %}
+                      
+
                   </div>
-                  <div class="col-3 prefs">
-                      <img src="img/audio.png" alt="Audio" class="imgprefs">
-                      <p>
-                        {{preferencias.audio}}
-                      </p>
+                  <div class="col-4 prefs">
+                    {% if preferencias.audio == "Si" %}
+                      <img src="img/audio.png" alt="Video" class="imgprefs">
+                    {% else %}
+                      <img src="img/noAudio.png" alt="Video" class="imgprefs">
+                    {% endif %}
                   </div>
-                  <div class="col-3 prefs">
-                      <img src="img/texto.png" alt="Texto" class="imgprefs">
-                      <p>
-                        {{preferencias.texto}}
-  
+
+                  <div class="col-4 prefs">
+                    {% if preferencias.texto == "Si" %}
+                      <img src="img/texto.png" alt="Video" class="imgprefs">
+                    {% else %}
+                      <img src="img/noTexto.png" alt="Video" class="imgprefs">
+                    {% endif %}
                   </div>
               </div>
           </div>
+          <br><br>
           {% endif %}
-          <br>
+          
           <button id="boton" class="btn btn-warning" class = "offset-lg-2 col-lg-8" onclick="window.location.replace('editar.php?username={{infoUsuario.username}}')">EDITAR</button>
           <button id="botonEliminar" class="btn btn-danger" class = "offset-lg-2 col-lg-8" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
   

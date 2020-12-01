@@ -14,15 +14,16 @@
 
             $infoTareaEnviar['nombreTarea'] = $_POST['nombre'];
             $infoTareaEnviar['creador'] = $_POST['creador'] ;
-            $_POST['permiteVideo'] === "on" ? $infoTareaEnviar['permiteVideo'] = true : $infoTareaEnviar['permiteVideo'] = false;
-            $_POST['permiteAudio'] === "on" ? $infoTareaEnviar['permiteAudio'] = true : $infoTareaEnviar['permiteAudio'] = false;
-            $_POST['permiteTexto'] === "on" ? $infoTareaEnviar['permiteTexto'] = true : $infoTareaEnviar['permiteTexto'] = false;
+            $_POST['formatoEntrega'] === "permiteVideo" ? $infoTareaEnviar['permiteVideo'] = true : $infoTareaEnviar['permiteVideo'] = false;
+            $_POST['formatoEntrega'] === "permiteAudio" ? $infoTareaEnviar['permiteAudio'] = true : $infoTareaEnviar['permiteAudio'] = false;
+            $_POST['formatoEntrega'] === "permiteTexto" ? $infoTareaEnviar['permiteTexto'] = true : $infoTareaEnviar['permiteTexto'] = false;
             $timestamp = new DateTime();
-            $infoTareaEnviar['fechaEntrega'] = $timestamp->format(DateTimeInterface::W3C);
+            $infoTareaEnviar['fechaEntrega'] = $timestamp->format("Y-m-d\TH:i:s");
             $timestampFinal = date_create($_POST['fechaLimiteEntrega']);
-            $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format(DateTimeInterface::W3C);
+            $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format("Y-m-d\TH:i:s");
             $infoTareaEnviar['respondida'] = false ;
             $infoTareaEnviar['nuevoMensaje'] = false;
+            $infoTareaEnviar['respuesta'] = "";
 
             $infoTareaObjetivo = array();
             $infoTareaObjetivo['nombre'] = $infoTareaEnviar['nombreTarea'] ;

@@ -160,3 +160,43 @@ footer {
 .nav-item{
     margin-top: 10px;
 }
+
+input[type='checkbox'] {
+    zoom: 2;
+  transform: scale(2);
+  -ms-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2);
+  -moz-transform: scale(2);
+  transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  margin-right: 3%;
+}
+
+input[type='radio'] {
+    zoom: 1.5;
+  transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  margin-right: 3%;
+}
+
+
+#busqueda{
+    font-size: larger;
+}
+
+#audio{
+    width: 100%;
+    max-width: 600px;
+}
