@@ -38,7 +38,6 @@ public class Multimedia  extends AppCompatActivity{
     private String usuario;
     private String creador;
     private String nombreTarea;
-    private Boolean guardarRespuesta;
     private Boolean tareaDetallada;
     private String nombreMultimadia;
     private Toolbar myToolbar;
@@ -55,16 +54,9 @@ public class Multimedia  extends AppCompatActivity{
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");
         nombreTarea = bundle.getString("nombreTarea");
-        guardarRespuesta = bundle.getBoolean("guardarRespuesta");
         nombreMultimadia = bundle.getString("nombreMultimedia");
         tipo = bundle.getString("tipo");
         tareaDetallada = bundle.getBoolean("tareaDetallada");
-
-
-
-        if (guardarRespuesta){
-
-        }
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -75,14 +67,13 @@ public class Multimedia  extends AppCompatActivity{
         //Modicar Barra de Tareas para esta pantalla
         if (tareaDetallada){
             comprobarMultimediaDescargado();
-            final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
-            flechaAtras.setVisibility(View.VISIBLE);
-            flechaAtras.setContentDescription("Volver a la tarea");
+            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+            botonAtras.setVisibility(View.VISIBLE);
+            botonAtras.setContentDescription("Volver a la tarea");
             final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
             textoFlechaAtras.setText("VOLVER A LA TAREA");
             textoFlechaAtras.setVisibility(View.VISIBLE);
             final ImageButton botonLogout = findViewById(R.id.botonLogout);
-            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
             //Boton logout
             botonLogout.setOnClickListener(new View.OnClickListener() {
@@ -182,10 +173,7 @@ public class Multimedia  extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
-        if (guardarRespuesta){
 
-        }
         startActivity(intent);
     }
 
@@ -194,12 +182,9 @@ public class Multimedia  extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("mote", mote);
         intent.putExtra("tipoRespuesta",tipo);
-        if (guardarRespuesta){
 
-        }
         startActivity(intent);
     }
 

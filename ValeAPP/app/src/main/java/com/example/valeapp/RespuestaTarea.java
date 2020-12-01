@@ -10,6 +10,8 @@ import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -26,15 +28,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.view.View.INVISIBLE;
+import static android.view.View.TEXT_ALIGNMENT_CENTER;
 import static android.view.View.VISIBLE;
 
 public class RespuestaTarea extends AppCompatActivity{
@@ -43,20 +50,20 @@ public class RespuestaTarea extends AppCompatActivity{
     String nombreTarea;
     String mote;
     JSONObject jsonTareas;
-    boolean guardarRespuesta;
     String AudioSavePathInDevice = null;
-    String VideoSavePathInDevice = null;
     MediaRecorder mediaRecorder;
     String nombreAudio = null;
     String nombreVideo = null;
     Boolean tieneAudio = false;
     Boolean tieneVideo = false;
+    Boolean tieneTexto = false;
     ImageButton audio = null;
     ImageButton video = null;
     String tipoRespuesta = null;
     TextView textoEscucharAudio;
     TextView textoVerVideo;
-
+    String textoRespuesta;
+    String nombreTexto;
     public static final int RequestPermissionCode = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +76,8 @@ public class RespuestaTarea extends AppCompatActivity{
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");
         nombreTarea = bundle.getString("nombreTarea");
-        guardarRespuesta = bundle.getBoolean("guardarRespuesta");
         mote = bundle.getString("mote");
         tipoRespuesta = bundle.getString("tipoRespuesta");
-
-        nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".3gp";
-        nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".mp4";
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -92,47 +95,123 @@ public class RespuestaTarea extends AppCompatActivity{
         final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
-        if (guardarRespuesta){
 
+        if (tipoRespuesta.equals("audio")){
+            nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".3gp";
+            crearBotonGrabarAudio();
+            tieneAudio = comprobarMultimediaRespuesta(nombreAudio);
+            if (tieneAudio){
+                crearBotonEscucharAudio();
+            }
         }
-        else{
-
+        else if (tipoRespuesta.equals("texto")){
+            nombreTexto = this.getFilesDir() + "/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".txt";
+            crearRespuestaTexto();
+            tieneTexto = comprobarMultimediaRespuesta(nombreTexto);
+            if (tieneTexto){
+                try {
+                    inicializaTexto();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        if (true){
-            //crearBotonGrabarAudio();
+        else if (tipoRespuesta.equals("video")){
+            nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".mp4";
             crearBotonGrabarVideo();
-        }
-        else if (true){
-            //texto
-        }
-        else if (true){
-            crearBotonGrabarVideo();
+            tieneVideo = comprobarMultimediaRespuesta(nombreVideo);
+            if (tieneVideo){
+                crearBotonVerVideo();
+            }
         }
 
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                irALogout();
+                try {
+                    irALogout();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         //Boton Atrás
         botonAtras.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                volverATareaDetallada();
+                try {
+                    volverATareaDetallada();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void crearRespuestaTexto(){
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutRespuesta);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+
+        TextView textoInicial = new TextView(this);
+        textoInicial.setText("ESCRIBE TU RESPUESTA");
+        textoInicial.setTextSize(34);
+        textoInicial.setContentDescription("ESCRIBE TU RESPUESTA");
+        textoInicial.setPadding(0, 0, 0, 50);
+        textoInicial.setTextColor(getResources().getColor(R.color.black));
+        textoInicial.setGravity(Gravity.CENTER);
+        TextInputEditText textoTarea = new TextInputEditText(this);
+        textoTarea.setBackgroundColor(getResources().getColor(R.color.grey));
+        textoTarea.setTextSize(28);
+
+        textoTarea.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                textoRespuesta = textoTarea.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
-        tieneAudio = comprobarMultimediaRespuesta(nombreAudio);
-        tieneVideo = comprobarMultimediaRespuesta(nombreVideo);
+        layout.addView(textoInicial);
+        layout.addView(textoTarea);
+    }
 
-        if (false){
-            crearBotonEscucharAudio();
+    private void inicializaTexto() throws IOException {
+        File texto = new File(nombreTexto);
+        int longitud = (int) texto.length();
+        byte[] bytes = new byte[longitud];
+System.out.println(Environment.getExternalStorageDirectory() + nombreTexto);
+        FileInputStream in = new FileInputStream(texto);
+        try {
+            in.read(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            in.close();
         }
-        else if (true){
-            crearBotonVerVideo();
-        }
+    }
 
+    private void almacenarTexto() throws IOException {
+        File texto = new File(nombreTexto);
+        texto.createNewFile();
+        FileOutputStream stream = new FileOutputStream(texto);
+
+        if (textoRespuesta == null){
+            textoRespuesta = "";
+        }
+        stream.write(textoRespuesta.getBytes());
+        stream.close();
     }
 
     private void crearBotonGrabarAudio(){
@@ -166,6 +245,9 @@ public class RespuestaTarea extends AppCompatActivity{
 
         //Boton Grabar
         botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+
+            final ImageButton botonLogout = findViewById(R.id.botonLogout);
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
@@ -173,12 +255,16 @@ public class RespuestaTarea extends AppCompatActivity{
                     botonGrabar.setBackgroundDrawable(dEscaladoDejarGrabar);
                     botonGrabar.setContentDescription("Pulsa para grabar audio");
                     textoAudio.setText("PARAR GRABACIÓN");
+                    botonAtras.setEnabled(false);
+                    botonLogout.setEnabled(false);
                 } else {
                     // The toggle is disabled
                     pararGrabacionAudio();
                     botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
                     botonGrabar.setContentDescription("Pulsa para dejar de grabar audio");
                     textoAudio.setText("GRABAR AUDIO");
+                    botonAtras.setEnabled(true);
+                    botonLogout.setEnabled(true);
                 }
             }
         });
@@ -221,26 +307,33 @@ public class RespuestaTarea extends AppCompatActivity{
         textoVideo.setPadding(0, 30, 0, 60);
     }
 
-    private void irALogout(){
+    private void irALogout() throws IOException {
+        if(tipoRespuesta.equals("texto")){
+            almacenarTexto();
+        }
         Intent intent = new Intent(this, Logout.class);
         startActivity(intent);
     }
 
     @Override
     public void onBackPressed(){
-        volverATareaDetallada();
+        try {
+            volverATareaDetallada();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void volverATareaDetallada(){
+    public void volverATareaDetallada() throws IOException {
+        if(tipoRespuesta.equals("texto")){
+            almacenarTexto();
+        }
+
         Intent intent = new Intent(this, TareaDetallada.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("mote", mote);
-        if (guardarRespuesta){
-
-        }
         startActivity(intent);
     }
     public boolean checkPermission() {
@@ -280,7 +373,6 @@ public class RespuestaTarea extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("mote", mote);
         intent.putExtra("tipoRespuesta",tipoRespuesta);
         startActivity(intent);
@@ -322,15 +414,11 @@ public class RespuestaTarea extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("nombreMultimedia", nombreMultimedia);
         intent.putExtra("tipo", tipo);
-        System.out.println(tipo);
         intent.putExtra("tareaDetallada", false);
         intent.putExtra("mote", mote);
-        if (guardarRespuesta){
 
-        }
         startActivity(intent);
     }
 

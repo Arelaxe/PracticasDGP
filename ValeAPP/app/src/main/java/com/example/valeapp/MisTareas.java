@@ -49,15 +49,14 @@ public class MisTareas extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
         //Modicar Barra de Tareas para esta pantalla
-        final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
-        flechaAtras.setVisibility(View.VISIBLE);
-        flechaAtras.setContentDescription(getResources().getString(R.string.bot_n_para_volver_al_men_principal));
+        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        botonAtras.setVisibility(View.VISIBLE);
+        botonAtras.setContentDescription(getResources().getString(R.string.bot_n_para_volver_al_men_principal));
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setText(getResources().getString(R.string.volver_al_men_principal));
         textoFlechaAtras.setVisibility(View.VISIBLE);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
-        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
         //Obtener de la base de datos las tareas de socio
         ////////////////////////////////////////////////////
@@ -186,7 +185,6 @@ public class MisTareas extends AppCompatActivity {
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", false);
         startActivity(intent);
     }
 

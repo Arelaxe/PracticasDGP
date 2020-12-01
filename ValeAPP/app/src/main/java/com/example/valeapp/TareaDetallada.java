@@ -39,7 +39,6 @@ public class TareaDetallada extends AppCompatActivity{
     String nombreTarea;
     String mote;
     JSONObject jsonTareas;
-    boolean guardarRespuesta;
     String nombreVideo = "";
     String nombreAudio = "";
 
@@ -53,7 +52,6 @@ public class TareaDetallada extends AppCompatActivity{
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");
         nombreTarea = bundle.getString("nombreTarea");
-        guardarRespuesta = bundle.getBoolean("guardarRespuesta");
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -62,23 +60,15 @@ public class TareaDetallada extends AppCompatActivity{
         getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
         //Modicar Barra de Tareas para esta pantalla
-        final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
-        flechaAtras.setVisibility(View.VISIBLE);
-        flechaAtras.setContentDescription(getResources().getString(R.string.mis_tareas2));
+        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        botonAtras.setVisibility(View.VISIBLE);
+        botonAtras.setContentDescription(getResources().getString(R.string.mis_tareas2));
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setText(getResources().getString(R.string.mis_tareas3));
         textoFlechaAtras.setVisibility(View.VISIBLE);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
-        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
         final ImageButton botonSiguiente = findViewById(R.id.irRespuesta);
-
-        if (guardarRespuesta){
-
-        }
-        else{
-
-        }
 
         //Obtener de la base de datos las tareas de socio
         ////////////////////////////////////////////////////
@@ -156,7 +146,6 @@ public class TareaDetallada extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("mote", mote);
         String tipoRespuesta = "";
         if (jsonTareas.getBoolean("permiteAudio")){
@@ -168,7 +157,7 @@ public class TareaDetallada extends AppCompatActivity{
         else if (jsonTareas.getBoolean("permiteTexto")){
             tipoRespuesta = "texto";
         }
-        intent.putExtra("tipoRespuesta","video");
+        intent.putExtra("tipoRespuesta",tipoRespuesta);
         startActivity(intent);
     }
 
@@ -312,12 +301,9 @@ public class TareaDetallada extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("texto", jsonTareas.getString("descripcion"));
         intent.putExtra("tareaDetallada", true);
-        if (guardarRespuesta){
 
-        }
         startActivity(intent);
     }
 
@@ -326,13 +312,10 @@ public class TareaDetallada extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("nombreMultimedia", nombreMultimedia);
         intent.putExtra("tipo", tipo);
         intent.putExtra("tareaDetallada", true);
-        if (guardarRespuesta){
 
-        }
         startActivity(intent);
     }
 

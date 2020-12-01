@@ -33,8 +33,8 @@ public class MenuPrincipal extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
         //Modiciar Barra de Tareas para esta pantalla
-        final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
-        flechaAtras.setVisibility(View.INVISIBLE);
+        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        botonAtras.setVisibility(View.INVISIBLE);
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setVisibility(View.INVISIBLE);
 

@@ -38,8 +38,6 @@ public class GrabarVideo extends AppCompatActivity {
     String creador;
     String nombreTarea;
     String mote;
-    JSONObject jsonTareas;
-    boolean guardarRespuesta;
     MediaRecorder mediaRecorder;
     String nombreVideo = null;
     String tipoRespuesta = null;
@@ -60,7 +58,6 @@ public class GrabarVideo extends AppCompatActivity {
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");
         nombreTarea = bundle.getString("nombreTarea");
-        guardarRespuesta = bundle.getBoolean("guardarRespuesta");
         mote = bundle.getString("mote");
         System.out.println(mote);
         tipoRespuesta = bundle.getString("tipoRespuesta");
@@ -74,13 +71,12 @@ public class GrabarVideo extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
         //Modicar Barra de Tareas para esta pantalla
-        final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
-        flechaAtras.setVisibility(View.VISIBLE);
-        flechaAtras.setContentDescription("VOLVER A LA RESPUESTA");
+        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        botonAtras.setVisibility(View.VISIBLE);
+        botonAtras.setContentDescription("VOLVER A LA RESPUESTA");
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setText("VOLVER A LA RESPUESTA");
         textoFlechaAtras.setVisibility(View.VISIBLE);
-        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
@@ -137,6 +133,8 @@ public class GrabarVideo extends AppCompatActivity {
                         grabacionVideo();
                         botonGrabar.setContentDescription("Detener grabación");
                         botonGrabar.setBackgroundDrawable(dEscaladoDejarGrabar);
+                        botonAtras.setEnabled(false);
+                        botonLogout.setEnabled(false);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -145,6 +143,8 @@ public class GrabarVideo extends AppCompatActivity {
                     pararGrabacionVideo();
                     botonGrabar.setContentDescription("Grabar");
                     botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
+                    botonAtras.setEnabled(true);
+                    botonLogout.setEnabled(true);
                 }
             }
         });
@@ -308,7 +308,6 @@ public class GrabarVideo extends AppCompatActivity {
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("guardarRespuesta", guardarRespuesta);
         intent.putExtra("tipoRespuesta", "video");
         intent.putExtra("mote", mote);
         startActivity(intent);

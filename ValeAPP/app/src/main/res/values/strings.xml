@@ -127,4 +127,7 @@
     <string name="responder">RESPONDER</string>
     <string name="enviar">ENVIAR</string>
     <string name="togglebutton">ToggleButton</string>
+    <string name="textview">TextView</string>
+    <string name="descripci_n">Descripción</string>
+    <string name="descripci_n2">DESCRIPCIÓN</string>
 </resources>
