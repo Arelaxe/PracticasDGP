@@ -39,7 +39,7 @@
         android:id="@+id/textoTareas"
         android:layout_width="405dp"
         android:layout_height="56dp"
-        android:background="@android:color/holo_red_light"
+        android:background="#FF44EC"
         android:contentDescription="@string/mis_tareas2"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"

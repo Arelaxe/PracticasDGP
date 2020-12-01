@@ -3,6 +3,9 @@ package com.example.valeapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
@@ -62,7 +65,7 @@ public class GrabarVideo extends AppCompatActivity {
         System.out.println(mote);
         tipoRespuesta = bundle.getString("tipoRespuesta");
 
-        nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote +".mp4";
+        nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".mp4";
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -111,6 +114,20 @@ public class GrabarVideo extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar_video_mini);
+        Bitmap bitmap = ((BitmapDrawable) dGrabar).getBitmap();
+        // Escalar
+        Drawable dEscaladoGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
+
+        Drawable dDejarGrabar = getResources().getDrawable(R.drawable.detener);
+        Bitmap bitmap2 = ((BitmapDrawable) dDejarGrabar).getBitmap();
+        // Escalar
+        Drawable dEscaladoDejarGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap2, 120, 120, true));
+
+        botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
+
+        botonGrabar.setContentDescription("Grabar");
+
         //Boton Grabar
         botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -118,12 +135,16 @@ public class GrabarVideo extends AppCompatActivity {
                     // The toggle is enabled
                     try {
                         grabacionVideo();
+                        botonGrabar.setContentDescription("Detener grabación");
+                        botonGrabar.setBackgroundDrawable(dEscaladoDejarGrabar);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     // The toggle is disabled
                     pararGrabacionVideo();
+                    botonGrabar.setContentDescription("Grabar");
+                    botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
                 }
             }
         });

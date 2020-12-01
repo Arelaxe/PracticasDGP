@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -76,22 +75,20 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoTareaDetallada"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textoTareaDetallada">
 
-    <ScrollView
-        android:id="@+id/infoTarea"
-        android:layout_width="386dp"
-        android:layout_height="311dp"
-        android:background="#FFFFFF"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutInfoTarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LayoutFacilitador">
+        app:layout_constraintTop_toBottomOf="@+id/textoTareaDetallada"
+        app:layout_constraintVertical_bias="0.638" />
 
-        <LinearLayout
-            android:id="@+id/layoutInfoTarea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

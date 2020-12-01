@@ -1,26 +1,21 @@
 
 package com.example.valeapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.hardware.Camera;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -31,17 +26,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.universalvideoview.UniversalMediaController;
-import com.universalvideoview.UniversalVideoView;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -65,6 +54,8 @@ public class RespuestaTarea extends AppCompatActivity{
     ImageButton audio = null;
     ImageButton video = null;
     String tipoRespuesta = null;
+    TextView textoEscucharAudio;
+    TextView textoVerVideo;
 
     public static final int RequestPermissionCode = 1;
     @Override
@@ -82,8 +73,8 @@ public class RespuestaTarea extends AppCompatActivity{
         mote = bundle.getString("mote");
         tipoRespuesta = bundle.getString("tipoRespuesta");
 
-        nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote +".3gp";
-        nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote +".mp4";
+        nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".3gp";
+        nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".mp4";
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -107,18 +98,16 @@ public class RespuestaTarea extends AppCompatActivity{
         else{
 
         }
-System.out.println(tipoRespuesta);
-        if (tipoRespuesta.equals("d")){
-            crearBotonGrabarAudio();
-        }
-        else if (tipoRespuesta.equals("d")){
-            //texto
-        }
-        else if (tipoRespuesta.equals("video")){
+        if (true){
+            //crearBotonGrabarAudio();
             crearBotonGrabarVideo();
         }
-
-
+        else if (true){
+            //texto
+        }
+        else if (true){
+            crearBotonGrabarVideo();
+        }
 
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
@@ -137,10 +126,10 @@ System.out.println(tipoRespuesta);
         tieneAudio = comprobarMultimediaRespuesta(nombreAudio);
         tieneVideo = comprobarMultimediaRespuesta(nombreVideo);
 
-        if (tieneAudio){
+        if (false){
             crearBotonEscucharAudio();
         }
-        else if (tieneVideo){
+        else if (true){
             crearBotonVerVideo();
         }
 
@@ -155,19 +144,47 @@ System.out.println(tipoRespuesta);
 
         ToggleButton botonGrabar = new ToggleButton(this);
 
+        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar);
+        Bitmap bitmap = ((BitmapDrawable) dGrabar).getBitmap();
+        // Escalar
+        Drawable dEscaladoGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
+
+        Drawable dDejarGrabar = getResources().getDrawable(R.drawable.dejar_grabar);
+        Bitmap bitmap2 = ((BitmapDrawable) dDejarGrabar).getBitmap();
+        // Escalar
+        Drawable dEscaladoDejarGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap2, 120, 120, true));
+
+        botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
+
+        TextView textoAudio = new TextView(this);
+        textoAudio.setText("GRABAR AUDIO");
+        textoAudio.setTextSize(25);
+        textoAudio.setGravity(Gravity.CENTER);
+        textoAudio.setTextColor(getResources().getColor(R.color.black));
+        botonGrabar.setTextOff("");
+        botonGrabar.setTextOn("");
+
         //Boton Grabar
         botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
                     grabacionAudio();
+                    botonGrabar.setBackgroundDrawable(dEscaladoDejarGrabar);
+                    botonGrabar.setContentDescription("Pulsa para grabar audio");
+                    textoAudio.setText("PARAR GRABACIÓN");
                 } else {
                     // The toggle is disabled
                     pararGrabacionAudio();
+                    botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
+                    botonGrabar.setContentDescription("Pulsa para dejar de grabar audio");
+                    textoAudio.setText("GRABAR AUDIO");
                 }
             }
         });
         layout.addView(botonGrabar);
+        layout.addView(textoAudio);
+        textoAudio.setPadding(0, 30, 0, 60);
     }
 
     private void crearBotonGrabarVideo(){
@@ -179,6 +196,20 @@ System.out.println(tipoRespuesta);
 
         Button botonGrabar = new Button(this);
 
+        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar_video);
+        Bitmap bitmap = ((BitmapDrawable) dGrabar).getBitmap();
+        // Escalar
+        Drawable dEscaladoGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
+        botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
+
+        botonGrabar.setContentDescription("Pulsa para grabar un vídeo");
+
+        TextView textoVideo = new TextView(this);
+        textoVideo.setText("GRABAR VIDEO");
+        textoVideo.setTextSize(25);
+        textoVideo.setGravity(Gravity.CENTER);
+        textoVideo.setTextColor(getResources().getColor(R.color.black));
+
         //Boton Grabar
         botonGrabar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -186,6 +217,8 @@ System.out.println(tipoRespuesta);
             }
         });
         layout.addView(botonGrabar);
+        layout.addView(textoVideo);
+        textoVideo.setPadding(0, 30, 0, 60);
     }
 
     private void irALogout(){
@@ -242,14 +275,6 @@ System.out.println(tipoRespuesta);
         }
     }
 
-    public void grabacionVideo(){
-        if(checkPermission()) {
-            irAGrabarVideo();
-        } else {
-            requestPermission();
-        }
-    }
-
     private void irAGrabarVideo(){
         Intent intent = new Intent(this, GrabarVideo.class);
         intent.putExtra("usuario", usuario);
@@ -268,6 +293,7 @@ System.out.println(tipoRespuesta);
     public void grabarAudio(){
         if (tieneAudio){
             audio.setVisibility(INVISIBLE);
+            textoEscucharAudio.setVisibility(INVISIBLE);
         }
 
         mediaRecorder = new MediaRecorder();
@@ -288,6 +314,7 @@ System.out.println(tipoRespuesta);
             tieneAudio = true;
         }
         audio.setVisibility(VISIBLE);
+        textoEscucharAudio.setVisibility(VISIBLE);
     }
 
     public void mostrarMultimedia(String nombreMultimedia, String tipo){
@@ -322,6 +349,15 @@ System.out.println(tipoRespuesta);
         audio.setContentDescription("Escuchar audio");
         LinearLayout layout = (LinearLayout) findViewById(R.id.layoutRespuesta);
         layout.addView(audio);
+
+        textoEscucharAudio = new TextView(this);
+        textoEscucharAudio.setText("ESCUCHAR AUDIO");
+        textoEscucharAudio.setTextSize(25);
+        textoEscucharAudio.setGravity(Gravity.CENTER);
+        textoEscucharAudio.setTextColor(getResources().getColor(R.color.black));
+
+        layout.addView(textoEscucharAudio);
+        textoEscucharAudio.setPadding(0, 30, 0, 0);
     }
 
     private void crearBotonVerVideo () {
@@ -339,6 +375,14 @@ System.out.println(tipoRespuesta);
         video.setContentDescription("Ver video");
         LinearLayout layout = (LinearLayout) findViewById(R.id.layoutRespuesta);
         layout.addView(video);
+
+        textoVerVideo = new TextView(this);
+        textoVerVideo.setText("VER VIDEO");
+        textoVerVideo.setTextSize(25);
+        textoVerVideo.setGravity(Gravity.CENTER);
+        textoVerVideo.setTextColor(getResources().getColor(R.color.black));
+        layout.addView(textoVerVideo);
+        textoVerVideo.setPadding(0, 30, 0, 30);
     }
 
     private Boolean comprobarMultimediaRespuesta(String nombreMultimedia){

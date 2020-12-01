@@ -54,6 +54,7 @@
         android:id="@+id/layoutRespuesta"
         android:layout_width="380dp"
         android:layout_height="478dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"

@@ -205,7 +205,7 @@ public class TareaDetallada extends AppCompatActivity{
         Drawable dr = getResources().getDrawable(R.drawable.chat_cuadrado);
         Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
         // Escalar
-        Drawable dEscalado = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 50, 50, true));
+        Drawable dEscalado = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
         ImageButton botonChat = new ImageButton(this);
         botonChat.setImageDrawable(dEscalado);
         botonChat.setBackgroundColor(getResources().getInteger(R.color.white));
@@ -227,8 +227,8 @@ public class TareaDetallada extends AppCompatActivity{
         int top = 20;
         int right = 20;
         int bottom = 25;
-        int height =  340;
-        int width =  340;
+        int height =  300;
+        int width =  300;
 
         params.setMargins(left, top, right, bottom);
 
@@ -243,14 +243,29 @@ public class TareaDetallada extends AppCompatActivity{
             fotoTareaImageView.setPadding(20, 0, 50, 0);
         }
 
+        LinearLayout layoutBotonesTarea = new LinearLayout(this);
+        layoutBotonesTarea.setOrientation(0); //Horizontal
+        layoutBotonesTarea.setGravity(Gravity.CENTER);
+        layout.addView(layoutBotonesTarea);
         //Descipción de la tarea
         if (!jsonTareas.getString("descripcion").equals("")) {
-            TextView descripcionTarea = new TextView(this);
-            layout.addView(descripcionTarea);
-            descripcionTarea.setText(jsonTareas.getString("descripcion").toUpperCase());
-            descripcionTarea.setContentDescription(jsonTareas.getString("descripcion").toUpperCase());
-            descripcionTarea.setTextColor(getResources().getInteger(R.color.black));
-            descripcionTarea.setTextSize(25);
+            ImageButton texto = new ImageButton(this);
+            texto.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        mostrarTexto();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            Drawable drTexto = getResources().getDrawable(R.drawable.texto);
+            Bitmap bitmap = ((BitmapDrawable) drTexto).getBitmap();
+            // Escalar
+            Drawable dEscaladoAudio = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
+            texto.setImageDrawable(dEscaladoAudio);
+            texto.setContentDescription("Ver descripción");
+            layoutBotonesTarea.addView(texto);
         }
 
         //Audio de la tarea
@@ -268,7 +283,7 @@ public class TareaDetallada extends AppCompatActivity{
             Drawable dEscaladoAudio = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
             audio.setImageDrawable(dEscaladoAudio);
             audio.setContentDescription("Escuchar audio");
-            layout.addView(audio);
+            layoutBotonesTarea.addView(audio);
         }
 
         //Video de la tarea
@@ -288,8 +303,22 @@ public class TareaDetallada extends AppCompatActivity{
             Drawable dEscaladoVideo = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
             video.setImageDrawable(dEscaladoVideo);
             video.setContentDescription("Ver vídeo");
-            layout.addView(video);
+            layoutBotonesTarea.addView(video);
         }
+    }
+
+    public void mostrarTexto() throws JSONException {
+        Intent intent = new Intent(this, Texto.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("guardarRespuesta", guardarRespuesta);
+        intent.putExtra("texto", jsonTareas.getString("descripcion"));
+        intent.putExtra("tareaDetallada", true);
+        if (guardarRespuesta){
+
+        }
+        startActivity(intent);
     }
 
     public void mostrarMultimedia(String nombreMultimedia, String tipo){
