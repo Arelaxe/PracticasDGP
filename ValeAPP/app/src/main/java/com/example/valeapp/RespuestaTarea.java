@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -64,13 +65,14 @@ public class RespuestaTarea extends AppCompatActivity{
     TextView textoVerVideo;
     String textoRespuesta;
     String nombreTexto;
+    TextInputEditText textoTarea;
+
     public static final int RequestPermissionCode = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.respuesta_tarea);
-
 
         Bundle bundle = getIntent().getExtras();
         usuario = bundle.getString("usuario");
@@ -105,7 +107,7 @@ public class RespuestaTarea extends AppCompatActivity{
             }
         }
         else if (tipoRespuesta.equals("texto")){
-            nombreTexto = this.getFilesDir() + "/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".txt";
+            nombreTexto = "Download/" + nombreTarea + "_"+ mote + "_"+ usuario +".txt";
             crearRespuestaTexto();
             tieneTexto = comprobarMultimediaRespuesta(nombreTexto);
             if (tieneTexto){
@@ -162,7 +164,7 @@ public class RespuestaTarea extends AppCompatActivity{
         textoInicial.setPadding(0, 0, 0, 50);
         textoInicial.setTextColor(getResources().getColor(R.color.black));
         textoInicial.setGravity(Gravity.CENTER);
-        TextInputEditText textoTarea = new TextInputEditText(this);
+        textoTarea = new TextInputEditText(this);
         textoTarea.setBackgroundColor(getResources().getColor(R.color.grey));
         textoTarea.setTextSize(28);
 
@@ -188,30 +190,30 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     private void inicializaTexto() throws IOException {
-        File texto = new File(nombreTexto);
+        File texto = new File(Environment.getExternalStorageDirectory() + File.separator + nombreTexto);
         int longitud = (int) texto.length();
         byte[] bytes = new byte[longitud];
-System.out.println(Environment.getExternalStorageDirectory() + nombreTexto);
         FileInputStream in = new FileInputStream(texto);
         try {
             in.read(bytes);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            in.close();
         }
+        in.close();
+        textoTarea.setText(new String (bytes));
     }
 
     private void almacenarTexto() throws IOException {
-        File texto = new File(nombreTexto);
+        File texto = new File(Environment.getExternalStorageDirectory() + File.separator + nombreTexto);
         texto.createNewFile();
-        FileOutputStream stream = new FileOutputStream(texto);
+        FileOutputStream fos = new FileOutputStream(texto);
 
         if (textoRespuesta == null){
             textoRespuesta = "";
         }
-        stream.write(textoRespuesta.getBytes());
-        stream.close();
+        byte[] data = textoRespuesta.getBytes();
+        fos.write(data);
+        fos.close();
     }
 
     private void crearBotonGrabarAudio(){

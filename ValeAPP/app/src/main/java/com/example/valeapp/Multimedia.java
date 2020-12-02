@@ -34,12 +34,11 @@ import java.util.concurrent.ExecutionException;
 
 public class Multimedia  extends AppCompatActivity{
 
-    private EditText usuarioT;
     private String usuario;
     private String creador;
     private String nombreTarea;
     private Boolean tareaDetallada;
-    private String nombreMultimadia;
+    private String nombreMultimedia;
     private Toolbar myToolbar;
     private String tipo;
     private String mote;
@@ -54,7 +53,7 @@ public class Multimedia  extends AppCompatActivity{
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");
         nombreTarea = bundle.getString("nombreTarea");
-        nombreMultimadia = bundle.getString("nombreMultimedia");
+        nombreMultimedia = bundle.getString("nombreMultimedia");
         tipo = bundle.getString("tipo");
         tareaDetallada = bundle.getBoolean("tareaDetallada");
 
@@ -122,7 +121,7 @@ public class Multimedia  extends AppCompatActivity{
     private void reproducirMultimedia(){
 
         UniversalVideoView multimediaView = findViewById(R.id.multimediaView);
-        Uri uri = Uri.parse(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
+        Uri uri = Uri.parse(Environment.getExternalStorageDirectory() + File.separator + nombreMultimedia);
         multimediaView.setVideoURI(uri);
         UniversalMediaController mMediaController = findViewById(R.id.media_controller);
         multimediaView.setMediaController(mMediaController);
@@ -130,8 +129,7 @@ public class Multimedia  extends AppCompatActivity{
     }
 
     private void comprobarMultimediaDescargado(){
-        File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
-        System.out.println(Environment.getExternalStorageDirectory() + File.separator + nombreMultimadia);
+        File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimedia);
         if (!multimedia.exists()){
             descargarMultimedia(multimedia);
         }
