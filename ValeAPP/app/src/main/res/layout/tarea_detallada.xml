@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/irRespuesta"
+            android:id="@+id/responderPregunta"
             android:layout_width="63dp"
             android:layout_height="49dp"
             android:background="#000000"

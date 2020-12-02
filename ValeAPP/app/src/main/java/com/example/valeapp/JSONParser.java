@@ -30,7 +30,7 @@ public class JSONParser {
     }
 
     public JSONObject makeHttpRequest(String url, String method,
-                                      HashMap<String, String> params, String tipo) {
+                                      HashMap<String, String> params) {
         url = URL + url;
         sbParams = new StringBuilder();
 

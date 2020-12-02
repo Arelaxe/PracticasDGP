@@ -222,7 +222,7 @@ public class Multimedia  extends AppCompatActivity{
 
                 Log.d("request", "starting");
 
-                jsonMultimedia = jsonParser.makeHttpRequest(URL, "GET", params, "");
+                jsonMultimedia = jsonParser.makeHttpRequest(URL, "GET", params);
 
                 if (jsonMultimedia != null) {
                     Log.d("JSON result:   ", jsonMultimedia.toString());

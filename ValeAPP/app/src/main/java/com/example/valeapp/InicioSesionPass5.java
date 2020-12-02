@@ -221,7 +221,7 @@ public class InicioSesionPass5 extends AppCompatActivity {
                 params.put("passwd", passCodificada);
                 Log.d("request", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(URL, "POST", params, "");
+                JSONObject json = jsonParser.makeHttpRequest(URL, "POST", params);
 
                 if (json != null) {
                     Log.d("JSON result:   ", json.toString());

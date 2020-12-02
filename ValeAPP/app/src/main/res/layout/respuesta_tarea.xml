@@ -29,11 +29,11 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/irRespuesta"
+            android:id="@+id/irEnviarRespuesta"
             android:layout_width="63dp"
             android:layout_height="49dp"
             android:background="#000000"
-            android:contentDescription="@string/bot_n_respoder_a_la_tarea"
+            android:contentDescription="@string/enviar_respuesta"
             android:rotation="180"
             android:scaleType="fitCenter"
             android:scaleX="1"

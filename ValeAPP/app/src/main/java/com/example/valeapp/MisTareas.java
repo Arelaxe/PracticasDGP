@@ -206,7 +206,7 @@ public class MisTareas extends AppCompatActivity {
 
                 Log.d("request", "starting");
 
-                jsonTareas = jsonParser.makeHttpRequest(URL, "GET", params, "");
+                jsonTareas = jsonParser.makeHttpRequest(URL, "GET", params);
 
                 if (jsonTareas != null) {
                     Log.d("JSON result:   ", jsonTareas.toString());

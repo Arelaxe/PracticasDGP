@@ -188,7 +188,7 @@ public class MisFacilitadores extends AppCompatActivity {
 
                 Log.d("request", "starting");
 
-                jsonFacilitadores = jsonParser.makeHttpRequest(URL, "GET", params, "");
+                jsonFacilitadores = jsonParser.makeHttpRequest(URL, "GET", params);
 
                 if (jsonFacilitadores != null) {
                     Log.d("JSON result:   ", jsonFacilitadores.toString());

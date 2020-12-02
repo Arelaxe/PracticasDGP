@@ -46,11 +46,10 @@ import static android.view.View.TEXT_ALIGNMENT_CENTER;
 import static android.view.View.VISIBLE;
 
 public class RespuestaTarea extends AppCompatActivity{
-    private String usuario;
+    String usuario;
     String creador;
     String nombreTarea;
     String mote;
-    JSONObject jsonTareas;
     String AudioSavePathInDevice = null;
     MediaRecorder mediaRecorder;
     String nombreAudio = null;
@@ -98,6 +97,8 @@ public class RespuestaTarea extends AppCompatActivity{
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
+        final ImageButton botonResponder = findViewById(R.id.irEnviarRespuesta);
+
         if (tipoRespuesta.equals("audio")){
             nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".3gp";
             crearBotonGrabarAudio();
@@ -143,6 +144,17 @@ public class RespuestaTarea extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     volverATareaDetallada();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        botonResponder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    responder();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -480,38 +492,41 @@ public class RespuestaTarea extends AppCompatActivity{
         return multimedia.exists();
     }
 
+    private void responder() throws IOException {
+        boolean puedeResponder = false;
+        String formato = "";
+        String nombreArchivo = "";
 
-    class EnviarRespuestaTarea extends AsyncTask<String, String, JSONObject> {
-        private final static String URL= "obtener-tarea-socio";
-        private JSONParser jsonParser = new JSONParser();
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        if (tipoRespuesta.equals("audio")){
+            puedeResponder = comprobarMultimediaRespuesta(nombreAudio);
+            formato = ".3gp";
+            nombreArchivo = nombreAudio;
+        } else if(tipoRespuesta.equals("texto")){
+            puedeResponder = comprobarMultimediaRespuesta(nombreTexto);
+            nombreArchivo = nombreTexto;
+            formato = ".txt";
+        } else if(tipoRespuesta.equals("video")){
+            puedeResponder = comprobarMultimediaRespuesta(nombreAudio);
+            nombreArchivo = nombreVideo;
+            formato = ".mp4";
         }
-        protected JSONObject doInBackground(String... args) {
-
-            try{
-                HashMap<String, String> params = new HashMap<>();
-
-                params.put("username", usuario);
-                params.put("creador", creador);
-                params.put("nombreTarea", nombreTarea);
-
-                Log.d("request", "starting");
-
-                jsonTareas = jsonParser.makeHttpRequest(URL, "GET", params, "");
-
-                if (jsonTareas != null) {
-                    Log.d("JSON result:   ", jsonTareas.toString());
-
-                    return jsonTareas;
-                }
-            } catch (Exception e) {
-
-                e.printStackTrace();
-            }
-            return null;
+        if (puedeResponder){
+            enviarRespuesta(formato, nombreArchivo);
         }
     }
+
+    private void enviarRespuesta(String formato, String nombreArchivo) throws IOException {
+        if(tipoRespuesta.equals("texto")){
+            almacenarTexto();
+        }
+        Intent intent = new Intent(this, EnviarRespuesta.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("nombreArchivo", nombreArchivo);
+        intent.putExtra("formato", formato);
+
+        startActivity(intent);
+    }
+
 }

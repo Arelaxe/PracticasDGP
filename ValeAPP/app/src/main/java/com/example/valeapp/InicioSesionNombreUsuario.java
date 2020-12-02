@@ -65,7 +65,7 @@ public class InicioSesionNombreUsuario extends AppCompatActivity {
 
                 Log.d("request", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(URL, "GET", params, "");
+                JSONObject json = jsonParser.makeHttpRequest(URL, "GET", params);
 
                 if (json != null) {
                     Log.d("JSON result:   ", json.toString());

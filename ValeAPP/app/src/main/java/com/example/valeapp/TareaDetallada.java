@@ -47,7 +47,6 @@ public class TareaDetallada extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tarea_detallada);
-
         Bundle bundle = getIntent().getExtras();
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");
@@ -68,7 +67,7 @@ public class TareaDetallada extends AppCompatActivity{
         textoFlechaAtras.setVisibility(View.VISIBLE);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
-        final ImageButton botonSiguiente = findViewById(R.id.irRespuesta);
+        final ImageButton botonSiguiente = findViewById(R.id.responderPregunta);
 
         //Obtener de la base de datos las tareas de socio
         ////////////////////////////////////////////////////
@@ -98,7 +97,6 @@ public class TareaDetallada extends AppCompatActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -339,7 +337,7 @@ public class TareaDetallada extends AppCompatActivity{
 
                 Log.d("request", "starting");
 
-                jsonTareas = jsonParser.makeHttpRequest(URL, "GET", params, "");
+                jsonTareas = jsonParser.makeHttpRequest(URL, "GET", params);
 
                 if (jsonTareas != null) {
                     Log.d("JSON result:   ", jsonTareas.toString());

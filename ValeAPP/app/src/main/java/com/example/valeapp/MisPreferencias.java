@@ -226,7 +226,7 @@ public class MisPreferencias extends AppCompatActivity {
 
                 Log.d("request", "starting");
 
-                jsonPreferencias = jsonParser.makeHttpRequest(URL, "GET", params, "");
+                jsonPreferencias = jsonParser.makeHttpRequest(URL, "GET", params);
 
                 if (jsonPreferencias != null) {
                     Log.d("JSON result:   ", jsonPreferencias.toString());
@@ -262,7 +262,7 @@ public class MisPreferencias extends AppCompatActivity {
 
                 Log.d("request", "starting");
 
-                jsonPreferencias = jsonParser.makeHttpRequest(URL, "POST", params, "SetPreferencias");
+                jsonPreferencias = jsonParser.makeHttpRequest(URL, "POST", params);
 
                 if (jsonPreferencias != null) {
                     Log.d("JSON result:   ", jsonPreferencias.toString());
