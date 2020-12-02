@@ -121,7 +121,7 @@ public class EnviarRespuesta extends AppCompatActivity{
                 params.put("nombreTarea", nombreTarea);
                 params.put("formatoEntrega", formato);
                 params.put("filedata", respuesta);
-System.out.println(respuesta);
+
                 Log.d("request", "starting");
 
                 jsonRespuesta = jsonParser.makeHttpRequest(URL, "POST", params);

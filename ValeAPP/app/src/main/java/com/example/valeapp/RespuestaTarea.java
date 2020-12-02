@@ -509,7 +509,7 @@ public class RespuestaTarea extends AppCompatActivity{
                 almacenarTexto();
             }
         } else if(tipoRespuesta.equals("video")){
-            puedeResponder = comprobarMultimediaRespuesta(nombreAudio);
+            puedeResponder = comprobarMultimediaRespuesta(nombreVideo);
             nombreArchivo = nombreVideo;
             formato = ".mp4";
         }
