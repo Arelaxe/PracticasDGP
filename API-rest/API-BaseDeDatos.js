@@ -919,7 +919,7 @@ app.post("/enviar-respuesta-tarea", (request, response) => {
         fs.writeFile('media/'+ resp, b64, callback);
     }
 
-    collectionAsignacionTareas.updateOne({"socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador}, { "$set": { "respondida": true, "fechaEntrega": $currentDate, "vista":true, "respuesta":resp } }, (error, result) => {
+    collectionAsignacionTareas.updateOne({"socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador}, { "$set": { "respondida": true, "fechaEntrega": new Date(), "vista":true, "respuesta":resp } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
