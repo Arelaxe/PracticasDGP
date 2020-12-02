@@ -909,20 +909,26 @@ app.get("/obtener-multimedia-tarea-socio", (request, response) => {
 /******************************************************/
 app.post("/enviar-respuesta-tarea", (request, response) => {
     
-    var resp = 'respuesta_' + request.query.nombreTarea + "_" + request.query.username + "."+ request.query.formatoEntrega;
-    if (request.query.formatoEntrega == ".txt"){
+    var resp = ""; 
+    if (request.body.formatoEntrega == ".txt"){
         resp = request.body.filedata;
     }
     else {
         const fs = require('fs');
-        var b64 = Buffer.from(request.body.filedata, 'base64');
-        fs.writeFile('media/'+ resp, b64, callback);
+        resp = 'respuesta_' + request.body.nombreTarea + "_" + request.body.username + request.body.formatoEntrega;
+        request.body.filedata = request.body.filedata.replace(/ /g,"+");
+        let buff = Buffer.from(request.body.filedata, 'base64');
+        fs.writeFile('media/' + resp, buff, (err) => {
+            if (err) throw err;
+            console.log('Uploaded response to task');
+        });
     }
 
-    collectionAsignacionTareas.updateOne({"socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador}, { $set: { "respondida": true, "fechaEntrega": new Date(), "vista":true, "respuesta":resp } }, (error, result) => {
+    collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "respondida": true, "fechaEntrega": new Date(), "vista":true, "respuesta":resp } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
+        
         if (result == null) {
             var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
             response.send(jsonRespuestaIncorrecta);
