@@ -929,7 +929,7 @@ app.post("/enviar-respuesta-tarea", (request, response) => {
         }
         else {
             var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
-            response.send(jsonRespuestaIncorrecta);
+            response.send(jsonRespuestaIncorrecta); 
         }
     });
     
