@@ -505,6 +505,9 @@ public class RespuestaTarea extends AppCompatActivity{
             puedeResponder = comprobarMultimediaRespuesta(nombreTexto);
             nombreArchivo = nombreTexto;
             formato = ".txt";
+            if (!textoRespuesta.equals("")){
+                almacenarTexto();
+            }
         } else if(tipoRespuesta.equals("video")){
             puedeResponder = comprobarMultimediaRespuesta(nombreAudio);
             nombreArchivo = nombreVideo;
@@ -516,9 +519,6 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     private void enviarRespuesta(String formato, String nombreArchivo) throws IOException {
-        if(tipoRespuesta.equals("texto")){
-            almacenarTexto();
-        }
         Intent intent = new Intent(this, EnviarRespuesta.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
