@@ -909,23 +909,29 @@ app.get("/obtener-multimedia-tarea-socio", (request, response) => {
 /******************************************************/
 app.post("/enviar-respuesta-tarea", (request, response) => {
     
-    const fs = require('fs');
+    var resp = 'respuesta_' + request.query.nombreTarea + "_" + request.query.username + "."+ request.query.formatoEntrega;
+    if (request.query.formatoEntrega == ".txt"){
+        resp = request.body.filedata;
+    }
+    else {
+        const fs = require('fs');
+        var b64 = Buffer.from(request.body.filedata, 'base64');
+        fs.writeFile('media/'+ resp, b64, callback);
+    }
 
-    var b64 = Buffer.from(request.body.filedata, 'base64');
-    fs.writeFile('media/respuesta_'+request.query.nombreTarea+"_" + request.query.username + "."+ request.query.formatoEntrega, b64, callback);
-
-    collectionAsignacionTareas.updateOne({"socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador}, { "$set": { "respondida": true, "fechaEntrega": $currentDate, "vista":true } }, (error, result) => {
+    collectionAsignacionTareas.updateOne({"socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador}, { "$set": { "respondida": true, "fechaEntrega": $currentDate, "vista":true, "respuesta":resp } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
         if (result == null) {
-            response.send("No se encontró la tarea");
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
         }
         else {
-            response.send(result);
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+            response.send(jsonRespuestaIncorrecta);
         }
     });
- 
     
 });
 
