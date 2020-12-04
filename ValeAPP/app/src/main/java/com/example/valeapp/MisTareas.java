@@ -180,7 +180,6 @@ public class MisTareas extends AppCompatActivity {
     }
 
     public void tareaDetallada(String creador, String nombreTarea){
-        System.out.println(creador + " " + nombreTarea);
         Intent intent = new Intent(this, TareaDetallada.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);

@@ -200,6 +200,13 @@ public class TareaDetallada extends AppCompatActivity{
         botonChat.setTranslationX(95);
         botonChat.setPadding(0, 0, 0, 0);
         layout.addView(botonChat);
+
+        botonChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iniciarChat();
+            }
+        });
     }
 
     @SuppressLint("ResourceType")
@@ -350,5 +357,12 @@ public class TareaDetallada extends AppCompatActivity{
             }
             return null;
         }
+    }
+    private void iniciarChat(){
+        Intent intent = new Intent(this, Chat.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        startActivity(intent);
     }
 }
