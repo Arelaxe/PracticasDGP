@@ -53,7 +53,6 @@ public class GrabarVideo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grabar_video);
 
-
         Bundle bundle = getIntent().getExtras();
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");

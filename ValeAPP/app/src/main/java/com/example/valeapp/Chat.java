@@ -1,7 +1,9 @@
 package com.example.valeapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,7 +25,11 @@ import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
 import com.scaledrone.lib.SubscribeOptions;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 public class Chat extends AppCompatActivity implements RoomListener {
 
@@ -39,6 +45,7 @@ public class Chat extends AppCompatActivity implements RoomListener {
     private String creador;
     private String nombreTarea;
     private Room room;
+    private JSONObject jsonChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +136,8 @@ public class Chat extends AppCompatActivity implements RoomListener {
                 System.err.println(reason);
             }
         });
+
+        setChatVisto();
     }
 
     public void sendMessage(View view) {
@@ -137,6 +146,7 @@ public class Chat extends AppCompatActivity implements RoomListener {
             scaledrone.publish(roomName,usuario + separador + message);
             editText.getText().clear();
         }
+        setChatVisto();
     }
 
     @Override
@@ -180,6 +190,7 @@ public class Chat extends AppCompatActivity implements RoomListener {
     }
 
     public void volverTareaDetallada(){
+        setChatVisto();
         Intent intent = new Intent(this, TareaDetallada.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
@@ -192,8 +203,53 @@ public class Chat extends AppCompatActivity implements RoomListener {
     }
 
     private void irALogout(){
+        setChatVisto();
         Intent intent = new Intent(this, Logout.class);
         startActivity(intent);
+    }
+
+    class SetChatVisto extends AsyncTask<String, String, JSONObject> {
+        private final static String URL= "chat-visto-tarea-socio";
+        private JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected JSONObject doInBackground(String... args) {
+
+            try{
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("username", usuario);
+                params.put("creador", creador);
+                params.put("nombreTarea", nombreTarea);
+
+                Log.d("request", "starting");
+
+                jsonChat = jsonParser.makeHttpRequest(URL, "POST", params);
+
+                if (jsonChat != null) {
+                    Log.d("JSON result:   ", jsonChat.toString());
+                    return jsonChat;
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private void setChatVisto(){
+        try {
+            new SetChatVisto().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
