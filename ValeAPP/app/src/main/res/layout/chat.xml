@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar2"
+        android:layout_width="412dp"
+        android:layout_height="82dp"
+        android:background="@color/verde_vale"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:clipToPadding="false"
         android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar2"
         tools:context="com.example.scaledrone.chat.MainActivity">
 
         <ListView
-            android:layout_width="match_parent"
             android:id="@+id/messages_view"
-            android:layout_weight="2"
-            android:divider="#fff"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:layout_weight="2"
+            android:divider="#fff" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,10 +49,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:ems="10"
-                android:hint="Write a message"
+                android:hint="ESCRIBE UN MENSAJE"
                 android:inputType="text"
                 android:paddingHorizontal="10dp"
-                android:text="" />
+                android:text=""
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="24sp" />
 
             <ImageButton
                 android:layout_width="46dp"
@@ -43,9 +63,9 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/enviar_chat"
+                android:onClick="sendMessage"
                 android:padding="20dp"
-                android:scaleType="fitCenter"
-                android:onClick="sendMessage"/>
+                android:scaleType="fitCenter" />
         </LinearLayout>
     </LinearLayout>
 

@@ -204,7 +204,11 @@ public class TareaDetallada extends AppCompatActivity{
         botonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iniciarChat();
+                try {
+                    iniciarChat();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -358,11 +362,15 @@ public class TareaDetallada extends AppCompatActivity{
             return null;
         }
     }
-    private void iniciarChat(){
+    private void iniciarChat() throws JSONException {
         Intent intent = new Intent(this, Chat.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
+        //intent.putExtra("idChat", jsonTareas.getString("idChat"));
+        //intent.putExtra("nombreChat", jsonTareas.getString("nombreChat"));
+        intent.putExtra("idChat", "alyDcddlLnwTpZtf");
+        intent.putExtra("nombreChat", "observable-canal1");
         startActivity(intent);
     }
 }
