@@ -25,6 +25,7 @@ app.listen(5000, () => {
         collectionTareas = database.collection("Tareas");
         collectionGrupos = database.collection("Grupos");
         collectionAsignacionTareas = database.collection("AsignacionTareas");
+        collectionChats = database.collection("Chats");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
 });
@@ -1075,6 +1076,40 @@ app.post("/info-tarea-enviada", (request, response) => {
         }
         if (result == null) {
             response.send("No se encontró la tarea");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Info chat
+/******************************************************/
+app.get("/info-chat", (request, response) => {
+    collectionChats.findOne( (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == "") {
+            response.send("No se encontró ningún chat"); 
+        }
+        else{
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Borrar chat
+/******************************************************/
+app.post("/borrar-chat", (request, response) => {
+    collectionChats.deleteOne({ "idChat": request.body.idChat }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se encontró ningún chat");
         }
         else {
             response.send(result);
