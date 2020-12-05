@@ -862,4 +862,40 @@ function enviarTareaApi($jsoninfoTarea){
     print($result);
     return $result;
 }
+
+function infoChatApi(){
+    // API URL
+    $url = 'http://localhost:5000/info-chat';
+
+    $response = file_get_contents($url);
+    $response = json_decode($response);
+
+    return $response;
+}
+
+function borrarChatApi($jsonInfoChat){
+    // API URL
+    $url = 'http://localhost:5000/borrar-chat';
+
+    // Create a new cURL resource
+    $ch = curl_init($url);
+
+    // Attach encoded JSON string to the POST fields
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonInfoChat);
+
+    // Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+    // Return response instead of outputting
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // Execute the POST request
+    $result = curl_exec($ch);
+
+    // Close cURL resource
+    curl_close($ch);
+    print($result);
+    return $result;
+}
+
 ?>

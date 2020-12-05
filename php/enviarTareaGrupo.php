@@ -23,6 +23,7 @@
             $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format("Y-m-d\TH:i:s");
             $infoTareaEnviar['respondida'] = false ;
             $infoTareaEnviar['nuevoMensaje'] = false;
+            $infoTareaEnviar['nuevoMensajeFacilitador'] = false;
             $infoTareaEnviar['respuesta'] = "";
 
             $infoTareaObjetivo = array();
@@ -44,6 +45,13 @@
                 else{
                     foreach($infoGrupo[0]->socios as $socio){
                         $infoTareaEnviar['socioAsignado'] = $socio;
+                        $infoChat = infoChatApi();
+                        $infoTareaEnviar['idChat'] = $infoChat->idChat;
+                        $infoTareaEnviar['nombreChat'] = $infoChat->nombreChat;
+                        $idChat = array();
+                        $idChat['idChat'] = $infoChat->idChat;
+                        $jsonIdChat = json_encode($idChat);
+                        borrarChatApi($jsonIdChat);
                         $jsonInfoTareaEnviar = json_encode($infoTareaEnviar);
         
                         $result = enviarTareaApi($jsonInfoTareaEnviar);

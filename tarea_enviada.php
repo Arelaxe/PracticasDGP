@@ -58,6 +58,8 @@
             $entrega['permiteAudio'] = $asignacion->permiteAudio;
             $entrega['permiteVideo'] = $asignacion->permiteVideo;
             $entrega['permiteTexto'] = $asignacion->permiteTexto;
+            $entrega['idChat'] = $asignacion->idChat;
+            $entrega['nombreChat'] = $asignacion->nombreChat;
             if ($entrega['permiteAudio'] || $entrega['permiteVideo']){
                 getImage($asignacion->respuesta);
                 $entrega['respuesta'] = "img/" . $asignacion->respuesta ;
@@ -69,6 +71,12 @@
             $jsonInfoSocio = json_encode($infoSocio) ;
             $resultado = infoPerfilApi($jsonInfoSocio);
 
+            $idFacilitador = array();
+            $idFacilitador['username'] = $idUsuario;
+            $jsonIdFacilitador = json_encode($idFacilitador);
+            $infoFacilitador = obtenerInfoUsuariosApi($jsonIdFacilitador);
+            $mote = $infoFacilitador[0]->mote;
+
             foreach ($resultado as $socio){
                 $entrega['nombreSocio'] = $socio->nombre;
             }
@@ -79,5 +87,5 @@
         $idUsuario = -1;
     }
 
-    echo $twig->render('tareaEnviada.html',['infoTarea' => $infoTarea ,'rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario']), 'entrega' => $entrega]);
+    echo $twig->render('tareaEnviada.html',['mote' => $mote, 'infoTarea' => $infoTarea ,'rol' => $rol, 'cuenta' => $_SESSION['usuario'], 'img' => fotoPerfil($_SESSION['usuario']), 'entrega' => $entrega]);
 ?>

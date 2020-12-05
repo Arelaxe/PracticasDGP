@@ -18,7 +18,15 @@
             $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format("Y-m-d\TH:i:s");
             $infoTareaEnviar['respondida'] = false ;
             $infoTareaEnviar['nuevoMensaje'] = false;
+            $infoTareaEnviar['nuevoMensajeFacilitador'] = false;
             $infoTareaEnviar['respuesta'] = "";
+            $infoChat = infoChatApi();
+            $infoTareaEnviar['idChat'] = $infoChat->idChat;
+            $infoTareaEnviar['nombreChat'] = $infoChat->nombreChat;
+            $idChat = array();
+            $idChat['idChat'] = $infoChat->idChat;
+            $jsonIdChat = json_encode($idChat);
+            borrarChatApi($jsonIdChat);
 
             /*Comprobamos que la tarea que se envia al socio tiene información según sus preferencias*/
             /*Comprobamos que el socio puede enviar una tarea según sus preferencias*/
@@ -42,7 +50,7 @@
                     $infoTareaEnviar['tieneAudio'] = !(empty($tarea->audioTarea)) ;
                     $infoTareaEnviar['tieneVideo'] = !(empty($tarea->videoTarea)) ;
                     $infoTareaEnviar['tieneTexto'] = !(empty($tarea->descripcion)) ;
-                    var_dump($infoTareaEnviar);
+                   // var_dump($infoTareaEnviar);
                     if(!($infoTareaEnviar['permiteVideo'] || $infoTareaEnviar['permiteTexto'] || $infoTareaEnviar['permiteAudio'])){
                         header('Location: ../enviar_tarea_socio.php?nombre='.$infoTareaEnviar['nombreTarea'].'&error=440');
                     }

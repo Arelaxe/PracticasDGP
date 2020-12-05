@@ -77,8 +77,18 @@
                     {% endif %}
             {% endif %}
             <h4>Chat con el socio</h4>
-            <div class="chat">
-                Div del chat
+            <div id="idChat" hidden>{{ entrega.idChat }}</div>
+            <div id="nombreChat" hidden>{{ entrega.nombreChat }}</div>
+            <div id="moteFacilitador" hidden>{{ mote }}</div>
+            
+            <div class="chat" id="chat">
+                <div class="members-count">-</div>
+                <div class="members-list">-</div>
+                <div class="messages"></div>
+                <form class="message-form" onsubmit="return false;">
+                    <input class="message-form__input" placeholder="Type a message.." type="text"/>
+                    <input class="message-form__button" value="Send" type="submit"/>
+                </form>
             </div>
         </div>
     </div>
@@ -120,4 +130,5 @@
         </div>
     </div>
 </div>
+<script src="js/chat.js"></script>
 {%endblock%}
