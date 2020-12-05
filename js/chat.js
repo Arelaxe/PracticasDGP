@@ -6,7 +6,7 @@ var mote = document.getElementById('moteFacilitador').innerHTML;
 
 const drone = new ScaleDrone(CLIENT_ID, {
   data: { // Will be sent out as clientData via events
-    name: document.getElementById('facilitador').value,
+    name: mote,
     color: "#369A88",
   },
 });
@@ -23,12 +23,7 @@ drone.on('open', error => {
     historyCount: 500
   });
   room.on('history_message', message => {
-     // if (message["data"][0] == "j"){
         addMessageToListDOM(message["data"],members[0]);
-      //}
-      //else{
-        //addMessageToListDOM(message["data"],members[1]);
-     // }
   });
   room.on('history_message', message => console.log(message));
   room.on('open', error => {
@@ -100,7 +95,7 @@ function createMemberElement(member) {
   const el = document.createElement('div');
   el.appendChild(document.createTextNode(name));
   el.className = 'member';
-  el.style.color = color;
+  el.style.color = "#369A88";
   return el;
 }
 
@@ -114,7 +109,6 @@ function updateMembersDOM() {
 
 function createMessageElement(text, member) {
   const el = document.createElement('div');
-  //el.appendChild(createMemberElement(member));
   el.appendChild(document.createTextNode(text));
   el.className = 'message';
   return el;

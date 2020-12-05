@@ -82,12 +82,14 @@
             <div id="moteFacilitador" hidden>{{ mote }}</div>
             
             <div class="chat" id="chat">
-                <div class="members-count">-</div>
+                <div class="members-count" hidden>-</div>
+                <p>Personas conectadas:</p>
                 <div class="members-list">-</div>
+                <p>Chat:</p>
                 <div class="messages"></div>
                 <form class="message-form" onsubmit="return false;">
-                    <input class="message-form__input" placeholder="Type a message.." type="text"/>
-                    <input class="message-form__button" value="Send" type="submit"/>
+                    <input class="message-form__input" placeholder="Escribe un mensaje..." type="text"/>
+                    <input class="message-form__button" value="Enviar" type="submit"/>
                 </form>
             </div>
         </div>
