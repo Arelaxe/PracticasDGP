@@ -112,7 +112,7 @@ public class Chat extends AppCompatActivity implements RoomListener {
                             public void run() {
                                 String [] msg = message.getData().asText().split(separador, 2);
                                 boolean belongsToCurrentUser = msg[0].equals(usuario);
-                                final Message message2 = new Message(msg[1], data, belongsToCurrentUser);
+                                final Message message2 = new Message(msg[1], data, belongsToCurrentUser, msg[0]);
                                 messageAdapter.add(message2);
                             }
                         });
@@ -167,7 +167,7 @@ public class Chat extends AppCompatActivity implements RoomListener {
             String mensajes [] = receivedMessage.getData().asText().split(separador, 2);
             boolean belongsToCurrentUser = mensajes[0].equals(usuario);
             String mensaje = mensajes[1];
-            final Message message = new Message(mensaje, data, belongsToCurrentUser);
+            final Message message = new Message(mensaje, data, belongsToCurrentUser, mensajes[0]);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

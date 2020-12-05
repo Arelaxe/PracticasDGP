@@ -367,10 +367,8 @@ public class TareaDetallada extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        //intent.putExtra("idChat", jsonTareas.getString("idChat"));
-        //intent.putExtra("nombreChat", jsonTareas.getString("nombreChat"));
-        intent.putExtra("idChat", "alyDcddlLnwTpZtf");
-        intent.putExtra("nombreChat", "observable-canal1");
+        intent.putExtra("idChat", jsonTareas.getString("idChat"));
+        intent.putExtra("nombreChat", jsonTareas.getString("nombreChat"));
         startActivity(intent);
     }
 }
