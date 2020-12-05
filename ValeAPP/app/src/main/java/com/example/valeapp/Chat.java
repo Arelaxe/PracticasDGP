@@ -1,12 +1,18 @@
 package com.example.valeapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +31,7 @@ import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
 import com.scaledrone.lib.SubscribeOptions;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -46,6 +53,8 @@ public class Chat extends AppCompatActivity implements RoomListener {
     private String nombreTarea;
     private Room room;
     private JSONObject jsonChat;
+    private JSONObject jsonFotoFacilitador;
+    private Drawable fotoFacilitador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +99,16 @@ public class Chat extends AppCompatActivity implements RoomListener {
         channelID = bundle.getString("idChat");
         roomName = bundle.getString("nombreChat");
 
+        getFotoFacilitador();
+        try {
+            procesarFotoFacilitador();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         editText = (EditText) findViewById(R.id.editText);
 
         messageAdapter = new MessageAdapter(this);
+        messageAdapter.setFotoFacilitador(fotoFacilitador);
         messagesView = (ListView) findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
@@ -146,7 +162,7 @@ public class Chat extends AppCompatActivity implements RoomListener {
             scaledrone.publish(roomName,usuario + separador + message);
             editText.getText().clear();
         }
-        setChatVisto();
+        nuevoMensajeSocio();
     }
 
     @Override
@@ -250,6 +266,102 @@ public class Chat extends AppCompatActivity implements RoomListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    class NuevoMensajeSocio extends AsyncTask<String, String, JSONObject> {
+        private final static String URL= "nuevo-mensaje-socio";
+        private JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected JSONObject doInBackground(String... args) {
+
+            try{
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("username", usuario);
+                params.put("creador", creador);
+                params.put("nombreTarea", nombreTarea);
+
+                Log.d("request", "starting");
+
+                jsonChat = jsonParser.makeHttpRequest(URL, "POST", params);
+
+                if (jsonChat != null) {
+                    Log.d("JSON result:   ", jsonChat.toString());
+                    return jsonChat;
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private void nuevoMensajeSocio(){
+        try {
+            new NuevoMensajeSocio().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class FotoFacilitador extends AsyncTask<String, String, JSONObject> {
+        private final static String URL= "foto-facilitador";
+        private JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected JSONObject doInBackground(String... args) {
+
+            try{
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("creador", creador);
+
+                Log.d("request", "starting");
+
+                jsonFotoFacilitador = jsonParser.makeHttpRequest(URL, "GET", params);
+
+                if (jsonFotoFacilitador != null) {
+                    Log.d("JSON result:   ", jsonChat.toString());
+                    return jsonFotoFacilitador;
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private void getFotoFacilitador(){
+        try {
+            new FotoFacilitador().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void procesarFotoFacilitador() throws JSONException {
+        int width = 170;
+        int height = 170;
+
+        //Foto del facilitador
+        byte[] data = Base64.decode(jsonFotoFacilitador.getString("fotoFacilitador"), Base64.DEFAULT);
+        Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
+        fotoFacilitador = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
     }
 }
 

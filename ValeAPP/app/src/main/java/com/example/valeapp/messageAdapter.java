@@ -3,6 +3,7 @@ package com.example.valeapp;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ class MessageAdapter extends BaseAdapter {
 
     List<Message> messages = new ArrayList<Message>();
     Context context;
-
+    Drawable fotoFacilitador = null;
     public MessageAdapter(Context context) {
         this.context = context;
     }
@@ -28,6 +29,10 @@ class MessageAdapter extends BaseAdapter {
     public void add(Message message) {
         this.messages.add(message);
         notifyDataSetChanged(); // to render the list we need to notify
+    }
+
+    public void setFotoFacilitador(Drawable foto){
+        fotoFacilitador = foto;
     }
 
     @Override
@@ -67,8 +72,7 @@ class MessageAdapter extends BaseAdapter {
 
             holder.name.setText(message.getUser());
             holder.messageBody.setText(message.getText());
-            GradientDrawable drawable = (GradientDrawable) holder.avatar.getBackground();
-            drawable.setColor(Color.parseColor(message.getMemberData().getColor()));
+            holder.avatar.setBackground(fotoFacilitador);
         }
 
         return convertView;
