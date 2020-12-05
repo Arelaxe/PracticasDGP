@@ -18,7 +18,9 @@
         <div class="col-lg-8 col-xs-12">
             <div class="row">
                 <div class="col-3">
+                    {% if infoTarea.fotoTarea != "img/" %}
                     <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
+                    {% endif %}
                 </div>
                 <div class="col-8">
                     <div class="class-group">
@@ -28,7 +30,7 @@
                         <p>{{ infoTarea.descripcion }}</p>
                     </div>
 
-                    {%if infoTarea.audioTarea != "img/"%}
+                    {%if infoTarea.tieneAudio == true and infoTarea.audioTarea != "img/"%}
                         <h4>Audio de la tarea</h4>
                         <div class="class-group">
                             
@@ -38,7 +40,7 @@
                         </div>
                     {%endif%}
 
-                    {%if infoTarea.videoTarea != "img/" %}
+                    {%if infoTarea.tieneVideo == true and infoTarea.videoTarea != "img/" %}
                         <h4>Vídeo de la tarea</h4>
                         <div id="video" class="class-group embed-responsive embed-responsive-16by9">
                             
@@ -57,7 +59,7 @@
             <h4>Fecha límite de entrega</h4>
             <p>{{entrega.fechaLimiteEntrega}}</p>
             <h4>Respuesta</h4>
-                {% if entrega.respuesta == "" %}
+                {% if entrega.respuesta == "" or entrega.respuesta == "img/"  %}
                     <p>El socio no ha entregado nada todavía</p>
                 {% else %}
                     {% if entrega.permiteAudio == true %}
@@ -88,20 +90,17 @@
                 <p>Chat:</p>
                 <div class="messages"></div>
                 <form class="message-form" onsubmit="return false;">
-                    <input class="message-form__input" placeholder="Escribe un mensaje..." type="text"/>
-                    <input class="message-form__button" value="Enviar" type="submit"/>
+                    <label for="inputMensaje" hidden>Escribe un mensaje</label>
+                    <input class="message-form__input" id="inputMensaje" placeholder="Escribe un mensaje..." type="text"/>
+                    <label for="buttonMensaje" hidden>Enviar un mensaje</label>
+                    <input class="message-form__button" id="buttonMensaje" value="Enviar" type="submit"/>
                 </form>
             </div>
         </div>
     </div>
 
         <div class="boton_centro">
-            {% if cuenta == infoTarea.creador %}
-                <button type="submit" class="btn btn-warning" onclick="window.location.replace('editar_tarea.php?nombre={{infoTarea.nombre}}')">EDITAR TAREA</button>
-                <button type="button" class="btn btn-primary" onclick="window.location.replace('enviar_tarea_socio.php?nombre={{infoTarea.nombre}}')">ENVIAR A SOCIO</button>
-                <button type="button" class="btn btn-info" onclick="window.location.replace('enviar_tarea_grupo.php?nombre={{infoTarea.nombre}}')">ENVIAR A GRUPO</button>
-            {% endif %}  
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">ELIMINAR ASIGNACIÓN</button>
         </div>
 
     <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
@@ -119,11 +118,15 @@
                     <h4 id="nombreAEliminar">{{ infoTarea.nombre }}</h4>
                 </div>
                 <div class="modal-footer">
-                    <form action="php/eliminarTarea.php" method="post">
-                        <label for="tareaAEliminar" hidden>Tarea a eliminar</label>
-                        <label for="facilitador" hidden>Facilitador a cargo</label>
-                        <input type="text" name="tareaAEliminar" id="tareaAEliminar" value="{{infoTarea.nombre}}" style="display: none;">
-                            <input type="text" name="facilitador" id="facilitador" value="{{infoTarea.creador}}" hidden>
+                    <form action="php/eliminarAsignacion.php" method="post">
+                        <label for="creador" hidden>Buscar tarea</label>
+                        <input type="text" name="creador" id="creador" value="{{infoTarea.creador}}" style="display: none;">
+                        <label for="socioAsignado" hidden>Buscar tarea</label>
+                        <input type="text" name="socioAsignado" id="socioAsignado" value="{{infoTarea.socioAsignado}}" style="display: none;">
+                        <label for="nombreTareaEliminar" hidden>Buscar tarea</label>
+                        <input type="text" name="nombreTarea" id="nombreTareaEliminar" value="{{infoTarea.nombreTarea}}" style="display: none;">
+                        <label for="fechaEntrega" hidden>Buscar tarea</label>
+                        <input type="text" name="fechaEntrega" id="fechaEntrega" value="{{infoTarea.fechaEntrega}}" style="display: none;">
                         <button type="submit" class="btn btn-danger">SÍ</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                     </form>

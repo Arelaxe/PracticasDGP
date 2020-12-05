@@ -238,3 +238,16 @@ input[type='radio'] {
     width: 100%;
     max-width: 600px;
 }
+
+.members-list{
+    background-color: white;
+}
+
+.messages{
+    background-color: white;
+}
+
+.chat{
+    background-color: gainsboro;
+    padding: 2%;
+}
