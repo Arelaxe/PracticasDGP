@@ -968,6 +968,36 @@ app.post("/chat-visto-tarea-socio", (request, response) => {
 });
 
 /******************************************************/
+// obtener foto del facilitador (para chat en Android)
+/******************************************************/
+app.get("/foto-facilitador", (request, response) => {
+    
+    let jsonRespuestaCorrecta;
+    let hayError = false;
+
+    var obtenerImagenFacilitador = async function(){
+        var innerResult = await collectionUsuarios.find({ "username": request.query.creador}, {projection: {_id:0 , imagenPerfil: 1} }).toArray();
+        if ( innerResult == null || innerResult[0] == null) {
+            hayError = true;
+            response.send(innerResult);
+        }
+        else {
+            const fs = require('fs');
+            const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
+            jsonRespuestaCorrecta = contents;
+        }                   
+    }
+
+    obtenerImagenFacilitador().then(() => {
+        if(!hayError){
+            var respuestaFormateada = "{\"fotoFacilitador\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
+            response.send(respuestaFormateada);
+         }
+    }).catch(err => console.log(err));
+    
+});
+
+/******************************************************/
 // Obtener facilitadores del socio
 /******************************************************/
 app.get("/facilitadores-socio", (request, response) => {
