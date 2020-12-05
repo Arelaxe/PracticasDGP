@@ -797,7 +797,7 @@ app.get("/obtener-tarea-socio", (request, response) => {
 
     
     var obtenerFormatoEntrega = async function (){
-        var result = await collectionAsignacionTareas.find({ "socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador }, {projection: {_id:0 , permiteAudio: 1, permiteTexto:1, permiteVideo:1, tieneAudio:1, tieneVideo:1} }).toArray();
+        var result = await collectionAsignacionTareas.find({ "socioAsignado": request.query.username, "nombreTarea": request.query.nombreTarea, "creador": request.query.creador }, {projection: {_id:0 , permiteAudio: 1, permiteTexto:1, permiteVideo:1, tieneAudio:1, tieneVideo:1, idChat:1, nombreChat:1} }).toArray();
 
         if ( result == null || result[0] == null) {
             hayError = true;
@@ -809,6 +809,8 @@ app.get("/obtener-tarea-socio", (request, response) => {
             jsonRespuestaCorrecta.permiteVideo = result[0].permiteVideo;
             jsonRespuestaCorrecta.tieneAudio = result[0].tieneAudio; 
             jsonRespuestaCorrecta.tieneVideo = result[0].tieneVideo;
+            jsonRespuestaCorrecta.idChat = result[0].idChat;
+            jsonRespuestaCorrecta.nombreChat = result[0].nombreChat;
         }
     }
     
@@ -926,6 +928,29 @@ app.post("/enviar-respuesta-tarea", (request, response) => {
     }
 
     collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "respondida": true, "fechaEntrega": new Date(), "vista":true, "respuesta":resp } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        
+        if (result == null) {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
+        }
+        else {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+            response.send(jsonRespuestaIncorrecta); 
+        }
+    });
+    
+});
+
+
+/******************************************************/
+// Marcar los mensajes del chat de una tarea como vistos
+/******************************************************/
+app.post("/chat-visto-tarea-socio", (request, response) => {
+    
+    collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensaje":false } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
