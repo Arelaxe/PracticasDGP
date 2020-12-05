@@ -76,6 +76,8 @@ public class GrabarVideo extends AppCompatActivity {
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setText("VOLVER A LA RESPUESTA");
         textoFlechaAtras.setVisibility(View.VISIBLE);
+        textoFlechaAtras.setContentDescription("VOLVER A LA RESPUESTA TÍTULO");
+
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
@@ -122,6 +124,9 @@ public class GrabarVideo extends AppCompatActivity {
         botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
 
         botonGrabar.setContentDescription("Grabar");
+        botonGrabar.setTextOff(null);
+        botonGrabar.setText(null);
+        botonGrabar.setTextOn(null);
 
         //Boton Grabar
         botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

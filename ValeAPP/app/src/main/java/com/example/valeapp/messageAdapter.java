@@ -70,7 +70,7 @@ class MessageAdapter extends BaseAdapter {
             holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
             convertView.setTag(holder);
 
-            holder.name.setText(message.getUser());
+            holder.name.setText(message.getUser().toUpperCase());
             holder.messageBody.setText(message.getText());
             holder.avatar.setBackground(fotoFacilitador);
         }

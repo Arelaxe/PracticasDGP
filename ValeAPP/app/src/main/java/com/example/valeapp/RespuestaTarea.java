@@ -93,6 +93,7 @@ public class RespuestaTarea extends AppCompatActivity{
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setText("VOLVER A LA TAREA");
         textoFlechaAtras.setVisibility(View.VISIBLE);
+        textoFlechaAtras.setContentDescription("VOLVER A LA TAREA TÍTULO");
         final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
@@ -254,8 +255,9 @@ public class RespuestaTarea extends AppCompatActivity{
         textoAudio.setTextSize(25);
         textoAudio.setGravity(Gravity.CENTER);
         textoAudio.setTextColor(getResources().getColor(R.color.black));
-        botonGrabar.setTextOff("");
-        botonGrabar.setTextOn("");
+        botonGrabar.setTextOff(null);
+        botonGrabar.setText(null);
+        botonGrabar.setTextOn(null);
 
         //Boton Grabar
         botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

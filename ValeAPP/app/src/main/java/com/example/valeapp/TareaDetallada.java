@@ -65,6 +65,7 @@ public class TareaDetallada extends AppCompatActivity{
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setText(getResources().getString(R.string.mis_tareas3));
         textoFlechaAtras.setVisibility(View.VISIBLE);
+        textoFlechaAtras.setContentDescription("VOLVER A MIS TAREAS TÍTULO");
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
         final ImageButton botonSiguiente = findViewById(R.id.responderPregunta);

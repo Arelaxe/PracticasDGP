@@ -92,6 +92,7 @@ public class Texto extends AppCompatActivity{
             final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
             textoFlechaAtras.setText("VOLVER A LA RESPUESTA");
             textoFlechaAtras.setVisibility(View.VISIBLE);
+            textoFlechaAtras.setContentDescription("VOLVER A LA RESPUESTA TÍTULO");
             final ImageButton botonLogout = findViewById(R.id.botonLogout);
             final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 

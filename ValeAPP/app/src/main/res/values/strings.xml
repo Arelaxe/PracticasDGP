@@ -131,4 +131,5 @@
     <string name="descripci_n">Descripción</string>
     <string name="descripci_n2">DESCRIPCIÓN</string>
     <string name="enviar_respuesta">Enviar respuesta</string>
+    <string name="enviar_mensaje">Enviar mensaje</string>
 </resources>

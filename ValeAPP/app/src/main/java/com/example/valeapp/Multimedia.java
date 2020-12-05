@@ -72,6 +72,7 @@ public class Multimedia  extends AppCompatActivity{
             final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
             textoFlechaAtras.setText("VOLVER A LA TAREA");
             textoFlechaAtras.setVisibility(View.VISIBLE);
+            textoFlechaAtras.setContentDescription("VOLVER A LA TAREA TÍTULO");
             final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
             //Boton logout

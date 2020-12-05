@@ -55,7 +55,7 @@ public class MisTareas extends AppCompatActivity {
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
         textoFlechaAtras.setText(getResources().getString(R.string.volver_al_men_principal));
         textoFlechaAtras.setVisibility(View.VISIBLE);
-
+        textoFlechaAtras.setContentDescription("VOLVER AL MENÚ PRINCIPAL TÍTULO");
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
         //Obtener de la base de datos las tareas de socio

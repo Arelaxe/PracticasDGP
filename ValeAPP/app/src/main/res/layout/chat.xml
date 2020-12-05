@@ -63,6 +63,7 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/enviar_chat"
+                android:contentDescription="@string/enviar_mensaje"
                 android:onClick="sendMessage"
                 android:padding="20dp"
                 android:scaleType="fitCenter" />
