@@ -78,7 +78,6 @@
                 android:id="@+id/tickAudioSeleccionado"
                 android:layout_width="80dp"
                 android:layout_height="89dp"
-                android:contentDescription="@string/audio_seleccionado"
                 app:srcCompat="@drawable/tick" />
 
         </LinearLayout>
@@ -113,7 +112,6 @@
                 android:id="@+id/tickVideoSeleccionado"
                 android:layout_width="80dp"
                 android:layout_height="89dp"
-                android:contentDescription="@string/v_deo_seleccionado"
                 app:srcCompat="@drawable/tick" />
 
         </LinearLayout>
@@ -147,7 +145,6 @@
                 android:id="@+id/tickTextoSeleccionado"
                 android:layout_width="80dp"
                 android:layout_height="89dp"
-                android:contentDescription="@string/texto_seleccionado"
                 app:srcCompat="@drawable/tick" />
 
         </LinearLayout>

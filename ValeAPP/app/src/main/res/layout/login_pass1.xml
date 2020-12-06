@@ -205,7 +205,10 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:fontFamily="@font/roboto_medium"
+            android:importantForAccessibility="no"
             android:text="@string/siguiente"
             android:textColor="#000"
             android:textSize="24sp" />

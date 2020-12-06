@@ -43,8 +43,10 @@
             android:id="@+id/textoRespuesta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
+            android:importantForAccessibility="no"
             android:text="@string/enviar"
             android:textColor="#000"
             android:textSize="24sp" />

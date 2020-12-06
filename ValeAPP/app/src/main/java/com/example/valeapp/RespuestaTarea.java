@@ -252,6 +252,8 @@ public class RespuestaTarea extends AppCompatActivity{
 
         TextView textoAudio = new TextView(this);
         textoAudio.setText("GRABAR AUDIO");
+        textoAudio.setFocusable(false);
+        textoAudio.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         textoAudio.setTextSize(25);
         textoAudio.setGravity(Gravity.CENTER);
         textoAudio.setTextColor(getResources().getColor(R.color.black));
@@ -308,6 +310,8 @@ public class RespuestaTarea extends AppCompatActivity{
 
         TextView textoVideo = new TextView(this);
         textoVideo.setText("GRABAR VIDEO");
+        textoVideo.setFocusable(false);
+        textoVideo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         textoVideo.setTextSize(25);
         textoVideo.setGravity(Gravity.CENTER);
         textoVideo.setTextColor(getResources().getColor(R.color.black));
@@ -456,6 +460,8 @@ public class RespuestaTarea extends AppCompatActivity{
 
         textoEscucharAudio = new TextView(this);
         textoEscucharAudio.setText("ESCUCHAR AUDIO");
+        textoEscucharAudio.setFocusable(false);
+        textoEscucharAudio.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         textoEscucharAudio.setTextSize(25);
         textoEscucharAudio.setGravity(Gravity.CENTER);
         textoEscucharAudio.setTextColor(getResources().getColor(R.color.black));
@@ -482,6 +488,8 @@ public class RespuestaTarea extends AppCompatActivity{
 
         textoVerVideo = new TextView(this);
         textoVerVideo.setText("VER VIDEO");
+        textoVerVideo.setFocusable(false);
+        textoVerVideo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         textoVerVideo.setTextSize(25);
         textoVerVideo.setGravity(Gravity.CENTER);
         textoVerVideo.setTextColor(getResources().getColor(R.color.black));
