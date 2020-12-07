@@ -968,6 +968,28 @@ app.post("/chat-visto-tarea-socio", (request, response) => {
 });
 
 /******************************************************/
+// Registrar que ha habido un nuevo mensaje de socio
+/******************************************************/
+app.post("/nuevo-mensaje-socio", (request, response) => {
+    
+    collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensaje":true } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        
+        if (result == null) {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
+        }
+        else {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+            response.send(jsonRespuestaIncorrecta); 
+        }
+    });
+    
+});
+
+/******************************************************/
 // obtener foto del facilitador (para chat en Android)
 /******************************************************/
 app.get("/foto-facilitador", (request, response) => {
