@@ -25,6 +25,7 @@
             $infoTareaEnviar['nuevoMensaje'] = false;
             $infoTareaEnviar['nuevoMensajeFacilitador'] = false;
             $infoTareaEnviar['respuesta'] = "";
+            $infoTareaEnviar['vista'] = true;
 
             $infoTareaObjetivo = array();
             $infoTareaObjetivo['nombre'] = $infoTareaEnviar['nombreTarea'] ;
