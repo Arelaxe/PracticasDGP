@@ -1193,3 +1193,37 @@ app.post("/borrar-chat", (request, response) => {
         }
     });
 });
+
+/**/
+// Nuevo mensaje enviado por parte del facilitador
+/**/
+app.post("/nuevo-mensaje-web", (request, response) => {
+    collectionAsignacionTareas.updateOne({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }, { $set: { nuevoMensajeFacilitador: true } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Fallo en la actualizacíón");
+        }
+        else {
+            response.send("Actualización completada");
+        }
+    });
+});
+
+/**/
+// Tarea vista por el facilitador
+/**/
+app.post("/tarea-vista-web", (request, response) => {
+    collectionAsignacionTareas.updateOne({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }, { $set: { vista: true, nuevoMensaje: false } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Fallo en la actualizacíón");
+        }
+        else {
+            response.send("Actualización completada");
+        }
+    });
+});
