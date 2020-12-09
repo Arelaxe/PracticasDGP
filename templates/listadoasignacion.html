@@ -26,7 +26,7 @@
                 <tr>
                     <td scope="row" class="td1">
                         <a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">{{ tarea.nombreTarea }}</a> ({{ nombres[loop.index0] }})
-                        {% if tarea.nuevoMensaje == true %}
+                        {% if tarea.nuevoMensajeFacilitador == true %}
                             <img src="img/Admin-private-289909293847829384954937914384.png" alt="Nuevo mensaje" width="10%">
                         {% endif %}
 
