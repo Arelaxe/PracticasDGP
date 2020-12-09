@@ -19,6 +19,7 @@
             $infoTareaEnviar['respondida'] = false ;
             $infoTareaEnviar['nuevoMensaje'] = false;
             $infoTareaEnviar['nuevoMensajeFacilitador'] = false;
+            $infoTareaEnviar['vista'] = true;
             $infoTareaEnviar['respuesta'] = "";
             $infoChat = infoChatApi();
             $infoTareaEnviar['idChat'] = $infoChat->idChat;
