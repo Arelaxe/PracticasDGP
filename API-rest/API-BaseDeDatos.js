@@ -1100,7 +1100,7 @@ app.post("/enviar-tarea", (request, response) => {
 // Tareas enviadas
 /******************************************************/
 app.post("/tareas-enviadas", (request, response) => {
-    collectionAsignacionTareas.find({ "creador": request.body.creador }).sort({vista: 1, nuevoMensaje: -1}).toArray(function (error, result) {
+    collectionAsignacionTareas.find({ "creador": request.body.creador }).sort({vista: 1, nuevoMensajeFacilitador: -1}).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
@@ -1204,7 +1204,7 @@ app.post("/borrar-chat", (request, response) => {
 // Nuevo mensaje enviado por parte del facilitador
 /**/
 app.post("/nuevo-mensaje-web", (request, response) => {
-    collectionAsignacionTareas.updateOne({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }, { $set: { nuevoMensajeFacilitador: true } }, (error, result) => {
+    collectionAsignacionTareas.updateOne({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }, { $set: { nuevoMensaje: true } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
@@ -1221,7 +1221,7 @@ app.post("/nuevo-mensaje-web", (request, response) => {
 // Tarea vista por el facilitador
 /**/
 app.post("/tarea-vista-web", (request, response) => {
-    collectionAsignacionTareas.updateOne({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }, { $set: { vista: true, nuevoMensaje: false } }, (error, result) => {
+    collectionAsignacionTareas.updateOne({ "creador": request.body.creador, "socioAsignado":request.body.socioAsignado, "nombreTarea":request.body.nombreTarea, "fechaEntrega": request.body.fechaEntrega }, { $set: { vista: true, nuevoMensajeFacilitador: false } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
