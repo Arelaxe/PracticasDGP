@@ -894,7 +894,6 @@ function borrarChatApi($jsonInfoChat){
 
     // Close cURL resource
     curl_close($ch);
-    print($result);
     return $result;
 }
 
@@ -919,7 +918,6 @@ function nuevoMensajeWebApi($jsoninfoTarea){
 
     // Close cURL resource
     curl_close($ch);
-    print($result);
     return $result;
 }
 
@@ -944,7 +942,6 @@ function vistaTareaWebApi($jsoninfoTarea){
 
     // Close cURL resource
     curl_close($ch);
-    print($result);
     return $result;
 }
 
