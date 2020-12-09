@@ -933,7 +933,7 @@ app.post("/enviar-respuesta-tarea", (request, response) => {
         });
     }
 
-    collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "respondida": true, "fechaEntrega": new Date(), "vista":false, "respuesta":resp } }, (error, result) => {
+    collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "respondida": true, "vista":false, "respuesta":resp } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
