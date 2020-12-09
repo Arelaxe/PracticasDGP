@@ -1,6 +1,7 @@
 <?php
     require_once '../vendor/autoload.php';
     require_once 'php/mostrarFotoPerfil.php';
+    require_once 'operaciones_api/autenticacionApi.php';
     include_once("guardarImagen.php");
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
@@ -48,6 +49,7 @@
 
         $jsonInfoAsignacion = json_encode($infoAsignacion);
         $resultadoAsignacion = infoTareaEnviadaApi($jsonInfoAsignacion) ;
+        $resultadoVistaWeb = vistaTareaWebApi($jsonInfoAsignacion);
 
         $entrega = array();
 
