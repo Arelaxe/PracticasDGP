@@ -24,7 +24,16 @@
             <tbody>
                 {% for tarea in tareas %}
                 <tr>
-                    <td scope="row" class="td1"><a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">{{ tarea.nombreTarea }}</a> ({{ nombres[loop.index0] }})</td>
+                    <td scope="row" class="td1">
+                        <a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">{{ tarea.nombreTarea }}</a> ({{ nombres[loop.index0] }})
+                        {% if tarea.nuevoMensaje == true %}
+                            <img src="img/Admin-private-289909293847829384954937914384.png" alt="Nuevo mensaje" width="10%">
+                        {% endif %}
+
+                        {% if tarea.vista == false %}
+                            <img src="img/Admin-private-29821734098432348123322835302.png" alt="Aún no vista" width="10%">
+                        {% endif %}
+                    </td>
                     <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposAsignacion('{{tarea.creador}}','{{tarea.socioAsignado}}','{{tarea.nombreTarea}}','{{tarea.fechaEntrega}}')"  data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
                     <td class="tdn"><a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">►</a></td>
                 </tr>

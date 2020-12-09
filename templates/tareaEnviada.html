@@ -93,7 +93,7 @@
                     <label for="inputMensaje" hidden>Escribe un mensaje</label>
                     <input class="message-form__input" id="inputMensaje" placeholder="Escribe un mensaje..." type="text"/>
                     <label for="buttonMensaje" hidden>Enviar un mensaje</label>
-                    <input class="message-form__button" id="buttonMensaje" value="Enviar" type="submit"/>
+                    <input class="message-form__button" id="buttonMensaje" value="Enviar" type="submit" onclick="notificarNuevoMensaje();"/>
                 </form>
             </div>
         </div>
@@ -122,11 +122,11 @@
                         <label for="creador" hidden>Buscar tarea</label>
                         <input type="text" name="creador" id="creador" value="{{infoTarea.creador}}" style="display: none;">
                         <label for="socioAsignado" hidden>Buscar tarea</label>
-                        <input type="text" name="socioAsignado" id="socioAsignado" value="{{infoTarea.socioAsignado}}" style="display: none;">
+                        <input type="text" name="socioAsignado" id="socioAsignado" value="{{entrega.socio}}" style="display: none;">
                         <label for="nombreTareaEliminar" hidden>Buscar tarea</label>
-                        <input type="text" name="nombreTarea" id="nombreTareaEliminar" value="{{infoTarea.nombreTarea}}" style="display: none;">
+                        <input type="text" name="nombreTarea" id="nombreTareaEliminar" value="{{infoTarea.nombre}}" style="display: none;">
                         <label for="fechaEntrega" hidden>Buscar tarea</label>
-                        <input type="text" name="fechaEntrega" id="fechaEntrega" value="{{infoTarea.fechaEntrega}}" style="display: none;">
+                        <input type="text" name="fechaEntrega" id="fechaEntrega" value="{{entrega.fechaEnvio}}" style="display: none;">
                         <button type="submit" class="btn btn-danger">SÍ</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                     </form>
