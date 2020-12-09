@@ -759,8 +759,14 @@ app.get("/tareas-socio", (request, response) => {
                 }
                 else {
                     const fs = require('fs');
-                    const contents = fs.readFileSync("media/"+innerResult[0].fotoTarea, {encoding: 'base64'});
-                    jsonRespuestaCorrecta[i].fotoTarea = contents; 
+                    if (innerResult[0].fotoTarea == null || innerResult[0].fotoTarea == ""){
+                        const contents = fs.readFileSync("media/placeholder-image-83226358.jpg", {encoding: 'base64'});
+                        jsonRespuestaCorrecta[i].fotoTarea = contents;
+                    }
+                    else {
+                        const contents = fs.readFileSync("media/"+innerResult[0].fotoTarea, {encoding: 'base64'});
+                        jsonRespuestaCorrecta[i].fotoTarea = contents;
+                    }
                 }                   
             }
         }
