@@ -29,6 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 
 import static android.view.View.INVISIBLE;
@@ -46,7 +47,8 @@ public class GrabarVideo extends AppCompatActivity {
     SurfaceHolder holder;
     boolean inPreview = false;
     Boolean camaraConfigurada = false;
-
+    ImageButton botonResponder;
+    ImageButton video;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -74,13 +76,30 @@ public class GrabarVideo extends AppCompatActivity {
         botonAtras.setVisibility(View.VISIBLE);
         botonAtras.setContentDescription("VOLVER A LA RESPUESTA");
         final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-        textoFlechaAtras.setText("VOLVER A LA RESPUESTA");
+        textoFlechaAtras.setText("VOLVER A LA TAREA");
         textoFlechaAtras.setVisibility(View.VISIBLE);
-        textoFlechaAtras.setContentDescription("VOLVER A LA RESPUESTA TÍTULO");
 
+
+        video = findViewById(R.id.imageButtonVerVideo);
+        video.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mostrarMultimedia();
+            }
+        });
+
+        botonResponder = findViewById(R.id.enviarVideo);
+        botonResponder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    enviarRespuesta();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
-
 
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +111,11 @@ public class GrabarVideo extends AppCompatActivity {
         //Boton Atrás
         botonAtras.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                volverARespuesta();
+                try {
+                    volverATareaDetallada();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -139,6 +162,9 @@ public class GrabarVideo extends AppCompatActivity {
                         botonGrabar.setBackgroundDrawable(dEscaladoDejarGrabar);
                         botonAtras.setEnabled(false);
                         botonLogout.setEnabled(false);
+
+                        cambiarBotonesExtra(false);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -149,9 +175,15 @@ public class GrabarVideo extends AppCompatActivity {
                     botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
                     botonAtras.setEnabled(true);
                     botonLogout.setEnabled(true);
+
+                    cambiarBotonesExtra(true);
                 }
             }
         });
+
+        if (comprobarMultimediaRespuesta(nombreVideo)){
+            cambiarBotonesExtra(true);
+        }
     }
 
     private void startPreview() {
@@ -303,17 +335,61 @@ public class GrabarVideo extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        volverARespuesta();
+        try {
+            volverATareaDetallada();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void volverARespuesta(){
-
-        Intent intent = new Intent(this, RespuestaTarea.class);
+    public void volverATareaDetallada() throws IOException {
+        Intent intent = new Intent(this, TareaDetallada.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("tipoRespuesta", "video");
         intent.putExtra("mote", mote);
         startActivity(intent);
+    }
+
+    private void enviarRespuesta() throws IOException {
+        Intent intent = new Intent(this, EnviarRespuesta.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("nombreArchivo", nombreVideo);
+        intent.putExtra("formato", ".mp4");
+
+        startActivity(intent);
+    }
+
+    public void mostrarMultimedia(){
+        Intent intent = new Intent(this, Multimedia.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("nombreMultimedia", nombreVideo);
+        intent.putExtra("tipo", "video");
+        intent.putExtra("tareaDetallada", false);
+        intent.putExtra("mote", mote);
+
+        startActivity(intent);
+    }
+
+    private void cambiarBotonesExtra(Boolean estado){
+        if (estado){
+            video.setEnabled(true);
+
+            botonResponder.setEnabled(true);
+        }
+        else{
+            video.setEnabled(false);
+
+            botonResponder.setEnabled(false);
+        }
+    }
+
+    private Boolean comprobarMultimediaRespuesta(String nombreMultimedia){
+        File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimedia);
+        return multimedia.exists();
     }
 }

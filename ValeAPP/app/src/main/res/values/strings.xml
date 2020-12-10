@@ -132,4 +132,5 @@
     <string name="descripci_n2">DESCRIPCIÓN</string>
     <string name="enviar_respuesta">Enviar respuesta</string>
     <string name="enviar_mensaje">Enviar mensaje</string>
+    <string name="bot_n_para_reproducir_v_deo">Botón para reproducir vídeo</string>
 </resources>

@@ -109,7 +109,7 @@ public class Multimedia  extends AppCompatActivity{
             //Boton Atrás
             botonAtras.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    volverARespuestaTarea();
+                    volverAGrabarVideo();
                 }
             });
             mote = bundle.getString("mote");
@@ -163,7 +163,7 @@ public class Multimedia  extends AppCompatActivity{
             volverATarea();
         }
         else {
-            volverARespuestaTarea();
+            volverAGrabarVideo();
         }
     }
 
@@ -176,8 +176,8 @@ public class Multimedia  extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void volverARespuestaTarea(){
-        Intent intent = new Intent(this, RespuestaTarea.class);
+    public void volverAGrabarVideo(){
+        Intent intent = new Intent(this, GrabarVideo.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);

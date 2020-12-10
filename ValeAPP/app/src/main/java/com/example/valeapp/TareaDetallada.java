@@ -116,7 +116,12 @@ public class TareaDetallada extends AppCompatActivity{
         botonSiguiente.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    irARespuesta();
+                    if (jsonTareas.getBoolean("permiteVideo")){
+                        irARespuestaVideo();
+                    }
+                    else{
+                        irARespuesta();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -157,6 +162,15 @@ public class TareaDetallada extends AppCompatActivity{
             tipoRespuesta = "texto";
         }
         intent.putExtra("tipoRespuesta",tipoRespuesta);
+        startActivity(intent);
+    }
+
+    public void irARespuestaVideo() throws JSONException {
+        Intent intent = new Intent(this, GrabarVideo.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("mote", mote);
         startActivity(intent);
     }
 

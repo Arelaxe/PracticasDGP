@@ -22,20 +22,55 @@
         android:id="@+id/grabarVideoSurface"
         android:layout_width="387dp"
         android:layout_height="550dp"
-        app:layout_constraintBottom_toTopOf="@+id/botonGrabar"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        app:layout_constraintVertical_bias="0.617" />
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
-    <ToggleButton
-        android:id="@+id/botonGrabar"
-        android:layout_width="50dp"
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="362dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/togglebutton"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/imageButtonVerVideo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="false"
+            android:contentDescription="@string/bot_n_para_reproducir_v_deo"
+            android:cropToPadding="false"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/video" />
+
+        <ToggleButton
+            android:id="@+id/botonGrabar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginRight="70dp"
+            android:text="@string/togglebutton" />
+
+        <ImageButton
+            android:id="@+id/enviarVideo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#000000"
+            android:contentDescription="@string/enviar_respuesta"
+            android:rotation="180"
+            android:scaleType="fitCenter"
+            android:scaleX="1"
+            app:srcCompat="@drawable/abc_vector_test" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

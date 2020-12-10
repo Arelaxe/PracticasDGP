@@ -53,15 +53,11 @@ public class RespuestaTarea extends AppCompatActivity{
     String AudioSavePathInDevice = null;
     MediaRecorder mediaRecorder;
     String nombreAudio = null;
-    String nombreVideo = null;
     Boolean tieneAudio = false;
-    Boolean tieneVideo = false;
     Boolean tieneTexto = false;
     ImageButton audio = null;
-    ImageButton video = null;
     String tipoRespuesta = null;
     TextView textoEscucharAudio;
-    TextView textoVerVideo;
     String textoRespuesta;
     String nombreTexto;
     TextInputEditText textoTarea;
@@ -118,14 +114,6 @@ public class RespuestaTarea extends AppCompatActivity{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        }
-        else if (tipoRespuesta.equals("video")){
-            nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".mp4";
-            crearBotonGrabarVideo();
-            tieneVideo = comprobarMultimediaRespuesta(nombreVideo);
-            if (tieneVideo){
-                crearBotonVerVideo();
             }
         }
 
@@ -291,42 +279,6 @@ public class RespuestaTarea extends AppCompatActivity{
         textoAudio.setPadding(0, 30, 0, 60);
     }
 
-    private void crearBotonGrabarVideo(){
-        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutRespuesta);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-
-        Button botonGrabar = new Button(this);
-
-        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar_video);
-        Bitmap bitmap = ((BitmapDrawable) dGrabar).getBitmap();
-        // Escalar
-        Drawable dEscaladoGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
-        botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
-
-        botonGrabar.setContentDescription("Pulsa para grabar un vídeo");
-
-        TextView textoVideo = new TextView(this);
-        textoVideo.setText("GRABAR VIDEO");
-        textoVideo.setFocusable(false);
-        textoVideo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        textoVideo.setTextSize(25);
-        textoVideo.setGravity(Gravity.CENTER);
-        textoVideo.setTextColor(getResources().getColor(R.color.black));
-
-        //Boton Grabar
-        botonGrabar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                irAGrabarVideo();
-            }
-        });
-        layout.addView(botonGrabar);
-        layout.addView(textoVideo);
-        textoVideo.setPadding(0, 30, 0, 60);
-    }
-
     private void irALogout() throws IOException {
         if(tipoRespuesta.equals("texto")){
             almacenarTexto();
@@ -381,21 +333,9 @@ public class RespuestaTarea extends AppCompatActivity{
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
-
         } else {
             requestPermission();
         }
-    }
-
-    private void irAGrabarVideo(){
-        Intent intent = new Intent(this, GrabarVideo.class);
-        intent.putExtra("usuario", usuario);
-        intent.putExtra("creador", creador);
-        intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("mote", mote);
-        intent.putExtra("tipoRespuesta",tipoRespuesta);
-        startActivity(intent);
     }
 
     private void requestPermission() {
@@ -470,33 +410,6 @@ public class RespuestaTarea extends AppCompatActivity{
         textoEscucharAudio.setPadding(0, 30, 0, 0);
     }
 
-    private void crearBotonVerVideo () {
-        video = new ImageButton(this);
-        video.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mostrarMultimedia(nombreVideo, "video");
-            }
-        });
-        Drawable drAudio = getResources().getDrawable(R.drawable.video);
-        Bitmap bitmap = ((BitmapDrawable) drAudio).getBitmap();
-        // Escalar
-        Drawable dEscaladoAudio = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
-        video.setImageDrawable(dEscaladoAudio);
-        video.setContentDescription("Ver video");
-        LinearLayout layout = (LinearLayout) findViewById(R.id.layoutRespuesta);
-        layout.addView(video);
-
-        textoVerVideo = new TextView(this);
-        textoVerVideo.setText("VER VIDEO");
-        textoVerVideo.setFocusable(false);
-        textoVerVideo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        textoVerVideo.setTextSize(25);
-        textoVerVideo.setGravity(Gravity.CENTER);
-        textoVerVideo.setTextColor(getResources().getColor(R.color.black));
-        layout.addView(textoVerVideo);
-        textoVerVideo.setPadding(0, 30, 0, 30);
-    }
-
     private Boolean comprobarMultimediaRespuesta(String nombreMultimedia){
         File multimedia = new File(Environment.getExternalStorageDirectory() + File.separator + nombreMultimedia);
         return multimedia.exists();
@@ -518,10 +431,6 @@ public class RespuestaTarea extends AppCompatActivity{
             if (!textoRespuesta.equals("")){
                 almacenarTexto();
             }
-        } else if(tipoRespuesta.equals("video")){
-            puedeResponder = comprobarMultimediaRespuesta(nombreVideo);
-            nombreArchivo = nombreVideo;
-            formato = ".mp4";
         }
         if (puedeResponder){
             enviarRespuesta(formato, nombreArchivo);
