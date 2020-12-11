@@ -1,12 +1,14 @@
 
 package com.example.valeapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
@@ -19,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -52,8 +55,11 @@ public class GrabarAudio extends AppCompatActivity{
     ImageButton escucharAudiob;
     ImageButton botonAtras;
     ImageButton botonLogout;
+    Drawable imagenEscucharAudioTransparente;
+    Drawable imagenEscucharAudio;
 
     public static final int RequestPermissionCode = 1;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -66,6 +72,9 @@ public class GrabarAudio extends AppCompatActivity{
         nombreTarea = bundle.getString("nombreTarea");
         mote = bundle.getString("mote");
         tipoRespuesta = bundle.getString("tipoRespuesta");
+
+        imagenEscucharAudioTransparente = getDrawable(R.drawable.audio_transparente);
+        imagenEscucharAudio = getDrawable(R.drawable.audio_zoom);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -135,7 +144,8 @@ public class GrabarAudio extends AppCompatActivity{
 
     private void crearBotonGrabarAudio(){
         ToggleButton botonGrabar = findViewById(R.id.botonGrabar);
-        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar_video_mini);
+
+        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar_circulo);
         Bitmap bitmap = ((BitmapDrawable) dGrabar).getBitmap();
         // Escalar
         Drawable dEscaladoGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
@@ -160,6 +170,7 @@ public class GrabarAudio extends AppCompatActivity{
                     grabacionAudio();
                     botonGrabar.setContentDescription("Detener grabación");
                     botonGrabar.setBackgroundDrawable(dEscaladoDejarGrabar);
+
                     botonAtras.setEnabled(false);
                     botonLogout.setEnabled(false);
 
@@ -170,6 +181,7 @@ public class GrabarAudio extends AppCompatActivity{
                     pararGrabacionAudio();
                     botonGrabar.setContentDescription("Grabar");
                     botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
+
                     botonAtras.setEnabled(true);
                     botonLogout.setEnabled(true);
 
@@ -293,16 +305,21 @@ public class GrabarAudio extends AppCompatActivity{
         startActivity(intent);
     }
 
+    @SuppressLint("ResourceAsColor")
     private void cambiarBotonesExtra(Boolean estado){
         if (estado){
             escucharAudiob.setEnabled(true);
+            escucharAudiob.setImageDrawable(imagenEscucharAudio);
 
             botonResponder.setEnabled(true);
+            botonResponder.setBackgroundColor(getResources().getColor(R.color.black));
         }
         else{
             escucharAudiob.setEnabled(false);
+            escucharAudiob.setImageDrawable(imagenEscucharAudioTransparente);
 
             botonResponder.setEnabled(false);
+            botonResponder.setBackgroundColor(R.color.dark_grey);
         }
     }
 }

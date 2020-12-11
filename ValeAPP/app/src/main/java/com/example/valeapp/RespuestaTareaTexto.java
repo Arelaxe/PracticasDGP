@@ -1,6 +1,7 @@
 
 package com.example.valeapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -51,6 +52,7 @@ public class RespuestaTareaTexto extends AppCompatActivity{
     TextInputEditText textoTarea;
     ImageButton botonResponder;
     Boolean textoVacio;
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -96,7 +98,7 @@ public class RespuestaTareaTexto extends AppCompatActivity{
         } else{
             botonResponder.setEnabled(false);
             textoVacio = true;
-
+            botonResponder.setBackgroundColor(R.color.dark_grey);
         }
 
         //Boton logout
@@ -157,16 +159,19 @@ public class RespuestaTareaTexto extends AppCompatActivity{
 
             }
 
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 textoRespuesta = textoTarea.getText().toString();
                 if (textoRespuesta.equals("")){
                     botonResponder.setEnabled(false);
                     textoVacio = true;
+                    botonResponder.setBackgroundColor(R.color.dark_grey);
                 }
                 else if(textoVacio){
                     botonResponder.setEnabled(true);
                     textoVacio = false;
+                    botonResponder.setBackgroundColor(getResources().getColor(R.color.black));
                 }
             }
 

@@ -85,15 +85,6 @@ public class TareaDetallada extends AppCompatActivity{
         nombreTareaDetallada.setText(nombreTarea.toUpperCase());
         nombreTareaDetallada.setContentDescription(nombreTarea);
 
-        //Informarmción del facilitador
-        /*
-        try {
-            setInformacionProfesional();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        */
-
         //Imagen de la tarea
         try {
             setImagenTarea();
@@ -235,60 +226,6 @@ public class TareaDetallada extends AppCompatActivity{
 
         layout.addView(layoutFacilitador);
 
-    }
-
-    @SuppressLint("ResourceType")
-    private void setInformacionProfesional() throws JSONException {
-        LinearLayout layout = (LinearLayout)findViewById(R.id.LayoutFacilitador);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-
-        int height =  240;
-        int width =  240;
-
-        //Foto del facilitador
-        byte[] data = Base64.decode(jsonTareas.getString("fotoFacilitador"), Base64.DEFAULT);
-        Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
-        Drawable fotoFacilitador = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
-        ImageView fotoFacilitadorImageView = new ImageView(this);
-        fotoFacilitadorImageView.setImageDrawable(fotoFacilitador);
-        layout.addView(fotoFacilitadorImageView);
-        fotoFacilitadorImageView.setPadding(20, 0, 50, 0);
-
-        //Mote del facilitador
-        TextView moteFacilitador = new TextView(this);
-        layout.addView(moteFacilitador);
-        moteFacilitador.setText(jsonTareas.getString("mote").toUpperCase());
-        mote = jsonTareas.getString("mote");
-        moteFacilitador.setContentDescription("Facilitador encargado: " + jsonTareas.getString("mote").toUpperCase());
-        moteFacilitador.setTextColor(getResources().getInteger(R.color.black));
-        moteFacilitador.setTextSize(30);
-
-        //Botón del chat con el facilitador sobre la tarea
-        Drawable dr = getResources().getDrawable(R.drawable.chat_cuadrado);
-        Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-        // Escalar
-        Drawable dEscalado = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
-        ImageButton botonChat = new ImageButton(this);
-        botonChat.setImageDrawable(dEscalado);
-        botonChat.setBackgroundColor(getResources().getInteger(R.color.white));
-        botonChat.setContentDescription(getResources().getString(R.string.ir_a_chat));
-        botonChat.setTranslationX(95);
-        botonChat.setPadding(0, 0, 0, 0);
-        layout.addView(botonChat);
-
-        botonChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    iniciarChat();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @SuppressLint("ResourceType")

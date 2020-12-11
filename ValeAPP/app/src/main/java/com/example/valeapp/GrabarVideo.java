@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -49,6 +51,10 @@ public class GrabarVideo extends AppCompatActivity {
     Boolean camaraConfigurada = false;
     ImageButton botonResponder;
     ImageButton video;
+    Drawable imagenVerVideoTransparente;
+    Drawable imagenVerVideo;
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,6 +68,9 @@ public class GrabarVideo extends AppCompatActivity {
         mote = bundle.getString("mote");
         System.out.println(mote);
         tipoRespuesta = bundle.getString("tipoRespuesta");
+
+        imagenVerVideo = getDrawable(R.drawable.video_zoom);
+        imagenVerVideoTransparente = getDrawable(R.drawable.video_transparente);
 
         nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".mp4";
 
@@ -134,7 +143,7 @@ public class GrabarVideo extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar_video_mini);
+        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar_circulo);
         Bitmap bitmap = ((BitmapDrawable) dGrabar).getBitmap();
         // Escalar
         Drawable dEscaladoGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
@@ -375,16 +384,21 @@ public class GrabarVideo extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @SuppressLint("ResourceAsColor")
     private void cambiarBotonesExtra(Boolean estado){
         if (estado){
             video.setEnabled(true);
+            video.setImageDrawable(imagenVerVideo);
 
             botonResponder.setEnabled(true);
+            botonResponder.setBackgroundColor(getResources().getColor(R.color.black));botonResponder.setBackgroundColor(getResources().getColor(R.color.black));
         }
         else{
             video.setEnabled(false);
+            video.setImageDrawable(imagenVerVideoTransparente);
 
             botonResponder.setEnabled(false);
+            botonResponder.setBackgroundColor(R.color.dark_grey);
         }
     }
 
