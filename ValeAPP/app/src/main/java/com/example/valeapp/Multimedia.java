@@ -109,7 +109,12 @@ public class Multimedia  extends AppCompatActivity{
             //Boton Atrás
             botonAtras.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    volverAGrabarVideo();
+                    if (tipo.equals("video")){
+                        volverAGrabarVideo();
+                    }
+                    else if(tipo.equals("audio")){
+                        volverAGrabarAudio();
+                    }
                 }
             });
             mote = bundle.getString("mote");
@@ -178,6 +183,17 @@ public class Multimedia  extends AppCompatActivity{
 
     public void volverAGrabarVideo(){
         Intent intent = new Intent(this, GrabarVideo.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("mote", mote);
+        intent.putExtra("tipoRespuesta",tipo);
+
+        startActivity(intent);
+    }
+
+    public void volverAGrabarAudio(){
+        Intent intent = new Intent(this, GrabarAudio.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);

@@ -27,11 +27,12 @@
         <activity android:name=".MisTareas"></activity>
         <activity android:name=".MisFacilitadores"></activity>
         <activity android:name=".TareaDetallada"></activity>
-        <activity android:name=".RespuestaTarea"></activity>
+        <activity android:name=".RespuestaTareaTexto"></activity>
         <activity android:name=".GrabarVideo"></activity>
         <activity android:name=".Texto"></activity>
         <activity android:name=".EnviarRespuesta"></activity>
         <activity android:name=".Chat"></activity>
+        <activity android:name=".GrabarAudio"></activity>
         <activity android:name=".Multimedia"
                   android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>

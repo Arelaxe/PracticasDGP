@@ -7,16 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaRecorder;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -31,21 +27,17 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.view.View.INVISIBLE;
-import static android.view.View.TEXT_ALIGNMENT_CENTER;
 import static android.view.View.VISIBLE;
 
-public class RespuestaTarea extends AppCompatActivity{
+public class GrabarAudio extends AppCompatActivity{
     String usuario;
     String creador;
     String nombreTarea;
@@ -54,20 +46,19 @@ public class RespuestaTarea extends AppCompatActivity{
     MediaRecorder mediaRecorder;
     String nombreAudio = null;
     Boolean tieneAudio = false;
-    Boolean tieneTexto = false;
-    ImageButton audio = null;
     String tipoRespuesta = null;
     TextView textoEscucharAudio;
-    String textoRespuesta;
-    String nombreTexto;
-    TextInputEditText textoTarea;
+    ImageButton botonResponder;
+    ImageButton escucharAudiob;
+    ImageButton botonAtras;
+    ImageButton botonLogout;
 
     public static final int RequestPermissionCode = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.respuesta_tarea);
+        setContentView(R.layout.grabar_audio);
 
         Bundle bundle = getIntent().getExtras();
         usuario = bundle.getString("usuario");
@@ -90,32 +81,22 @@ public class RespuestaTarea extends AppCompatActivity{
         textoFlechaAtras.setText("VOLVER A LA TAREA");
         textoFlechaAtras.setVisibility(View.VISIBLE);
         textoFlechaAtras.setContentDescription("VOLVER A LA TAREA TÍTULO");
-        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
 
-        final ImageButton botonLogout = findViewById(R.id.botonLogout);
+        botonLogout = findViewById(R.id.botonLogout);
 
-        final ImageButton botonResponder = findViewById(R.id.irEnviarRespuesta);
+        nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".3gp";
 
-        if (tipoRespuesta.equals("audio")){
-            nombreAudio = "Music/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".3gp";
-            crearBotonGrabarAudio();
-            tieneAudio = comprobarMultimediaRespuesta(nombreAudio);
-            if (tieneAudio){
-                crearBotonEscucharAudio();
+        botonResponder = findViewById(R.id.enviarAudio);
+        escucharAudiob = findViewById(R.id.imageButtonEscucharAudio);
+
+        escucharAudiob.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mostrarMultimedia();
             }
-        }
-        else if (tipoRespuesta.equals("texto")){
-            nombreTexto = "Download/" + nombreTarea + "_"+ mote + "_"+ usuario +".txt";
-            crearRespuestaTexto();
-            tieneTexto = comprobarMultimediaRespuesta(nombreTexto);
-            if (tieneTexto){
-                try {
-                    inicializaTexto();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        });
+
+        crearBotonGrabarAudio();
 
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
@@ -151,138 +132,59 @@ public class RespuestaTarea extends AppCompatActivity{
         });
     }
 
-    private void crearRespuestaTexto(){
-        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutRespuesta);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-
-        TextView textoInicial = new TextView(this);
-        textoInicial.setText("ESCRIBE TU RESPUESTA");
-        textoInicial.setTextSize(34);
-        textoInicial.setContentDescription("ESCRIBE TU RESPUESTA");
-        textoInicial.setPadding(0, 0, 0, 50);
-        textoInicial.setTextColor(getResources().getColor(R.color.black));
-        textoInicial.setGravity(Gravity.CENTER);
-        textoTarea = new TextInputEditText(this);
-        textoTarea.setBackgroundColor(getResources().getColor(R.color.grey));
-        textoTarea.setTextSize(28);
-
-        textoTarea.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textoRespuesta = textoTarea.getText().toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        layout.addView(textoInicial);
-        layout.addView(textoTarea);
-    }
-
-    private void inicializaTexto() throws IOException {
-        File texto = new File(Environment.getExternalStorageDirectory() + File.separator + nombreTexto);
-        int longitud = (int) texto.length();
-        byte[] bytes = new byte[longitud];
-        FileInputStream in = new FileInputStream(texto);
-        try {
-            in.read(bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        in.close();
-        textoTarea.setText(new String (bytes));
-    }
-
-    private void almacenarTexto() throws IOException {
-        File texto = new File(Environment.getExternalStorageDirectory() + File.separator + nombreTexto);
-        texto.createNewFile();
-        FileOutputStream fos = new FileOutputStream(texto);
-
-        if (textoRespuesta == null){
-            textoRespuesta = "";
-        }
-        byte[] data = textoRespuesta.getBytes();
-        fos.write(data);
-        fos.close();
-    }
 
     private void crearBotonGrabarAudio(){
-        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutRespuesta);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-
-        ToggleButton botonGrabar = new ToggleButton(this);
-
-        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar);
+        ToggleButton botonGrabar = findViewById(R.id.botonGrabar);
+        Drawable dGrabar = getResources().getDrawable(R.drawable.grabar_video_mini);
         Bitmap bitmap = ((BitmapDrawable) dGrabar).getBitmap();
         // Escalar
         Drawable dEscaladoGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
 
-        Drawable dDejarGrabar = getResources().getDrawable(R.drawable.dejar_grabar);
+        Drawable dDejarGrabar = getResources().getDrawable(R.drawable.detener);
         Bitmap bitmap2 = ((BitmapDrawable) dDejarGrabar).getBitmap();
         // Escalar
         Drawable dEscaladoDejarGrabar = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap2, 120, 120, true));
 
         botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
 
-        TextView textoAudio = new TextView(this);
-        textoAudio.setText("GRABAR AUDIO");
-        textoAudio.setFocusable(false);
-        textoAudio.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        textoAudio.setTextSize(25);
-        textoAudio.setGravity(Gravity.CENTER);
-        textoAudio.setTextColor(getResources().getColor(R.color.black));
+        botonGrabar.setContentDescription("Grabar");
         botonGrabar.setTextOff(null);
         botonGrabar.setText(null);
         botonGrabar.setTextOn(null);
 
         //Boton Grabar
         botonGrabar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
-
-            final ImageButton botonLogout = findViewById(R.id.botonLogout);
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
                     grabacionAudio();
+                    botonGrabar.setContentDescription("Detener grabación");
                     botonGrabar.setBackgroundDrawable(dEscaladoDejarGrabar);
-                    botonGrabar.setContentDescription("Pulsa para grabar audio");
-                    textoAudio.setText("PARAR GRABACIÓN");
                     botonAtras.setEnabled(false);
                     botonLogout.setEnabled(false);
+
+                    cambiarBotonesExtra(false);
+
                 } else {
                     // The toggle is disabled
                     pararGrabacionAudio();
+                    botonGrabar.setContentDescription("Grabar");
                     botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
-                    botonGrabar.setContentDescription("Pulsa para dejar de grabar audio");
-                    textoAudio.setText("GRABAR AUDIO");
                     botonAtras.setEnabled(true);
                     botonLogout.setEnabled(true);
+
+                    cambiarBotonesExtra(true);
                 }
             }
         });
-        layout.addView(botonGrabar);
-        layout.addView(textoAudio);
-        textoAudio.setPadding(0, 30, 0, 60);
+
+        if (comprobarMultimediaRespuesta(nombreAudio)){
+            cambiarBotonesExtra(true);
+        }
     }
 
+
     private void irALogout() throws IOException {
-        if(tipoRespuesta.equals("texto")){
-            almacenarTexto();
-        }
         Intent intent = new Intent(this, Logout.class);
         startActivity(intent);
     }
@@ -297,10 +199,6 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     public void volverATareaDetallada() throws IOException {
-        if(tipoRespuesta.equals("texto")){
-            almacenarTexto();
-        }
-
         Intent intent = new Intent(this, TareaDetallada.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
@@ -308,6 +206,7 @@ public class RespuestaTarea extends AppCompatActivity{
         intent.putExtra("mote", mote);
         startActivity(intent);
     }
+
     public boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(),
                 WRITE_EXTERNAL_STORAGE);
@@ -343,11 +242,6 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     public void grabarAudio(){
-        if (tieneAudio){
-            audio.setVisibility(INVISIBLE);
-            textoEscucharAudio.setVisibility(INVISIBLE);
-        }
-
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);;
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -361,53 +255,19 @@ public class RespuestaTarea extends AppCompatActivity{
     public void pararGrabacionAudio(){
         mediaRecorder.stop();
         mediaRecorder.release();
-        if (!tieneAudio){
-            crearBotonEscucharAudio();
-            tieneAudio = true;
-        }
-        audio.setVisibility(VISIBLE);
-        textoEscucharAudio.setVisibility(VISIBLE);
     }
 
-    public void mostrarMultimedia(String nombreMultimedia, String tipo){
+    public void mostrarMultimedia(){
         Intent intent = new Intent(this, Multimedia.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("nombreMultimedia", nombreMultimedia);
-        intent.putExtra("tipo", tipo);
+        intent.putExtra("nombreMultimedia", nombreAudio);
+        intent.putExtra("tipo", "audio");
         intent.putExtra("tareaDetallada", false);
         intent.putExtra("mote", mote);
 
         startActivity(intent);
-    }
-
-    private void crearBotonEscucharAudio () {
-        audio = new ImageButton(this);
-        audio.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mostrarMultimedia(nombreAudio, "audio");
-            }
-        });
-        Drawable drAudio = getResources().getDrawable(R.drawable.audio);
-        Bitmap bitmap = ((BitmapDrawable) drAudio).getBitmap();
-        // Escalar
-        Drawable dEscaladoAudio = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
-        audio.setImageDrawable(dEscaladoAudio);
-        audio.setContentDescription("Escuchar audio");
-        LinearLayout layout = (LinearLayout) findViewById(R.id.layoutRespuesta);
-        layout.addView(audio);
-
-        textoEscucharAudio = new TextView(this);
-        textoEscucharAudio.setText("ESCUCHAR AUDIO");
-        textoEscucharAudio.setFocusable(false);
-        textoEscucharAudio.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        textoEscucharAudio.setTextSize(25);
-        textoEscucharAudio.setGravity(Gravity.CENTER);
-        textoEscucharAudio.setTextColor(getResources().getColor(R.color.black));
-
-        layout.addView(textoEscucharAudio);
-        textoEscucharAudio.setPadding(0, 30, 0, 0);
     }
 
     private Boolean comprobarMultimediaRespuesta(String nombreMultimedia){
@@ -416,36 +276,33 @@ public class RespuestaTarea extends AppCompatActivity{
     }
 
     private void responder() throws IOException {
-        boolean puedeResponder = false;
-        String formato = "";
-        String nombreArchivo = "";
+        boolean puedeResponder = comprobarMultimediaRespuesta(nombreAudio);
 
-        if (tipoRespuesta.equals("audio")){
-            puedeResponder = comprobarMultimediaRespuesta(nombreAudio);
-            formato = ".3gp";
-            nombreArchivo = nombreAudio;
-        } else if(tipoRespuesta.equals("texto")){
-            puedeResponder = comprobarMultimediaRespuesta(nombreTexto);
-            nombreArchivo = nombreTexto;
-            formato = ".txt";
-            if (!textoRespuesta.equals("")){
-                almacenarTexto();
-            }
-        }
         if (puedeResponder){
-            enviarRespuesta(formato, nombreArchivo);
+            enviarRespuesta();
         }
     }
 
-    private void enviarRespuesta(String formato, String nombreArchivo) throws IOException {
+    private void enviarRespuesta() throws IOException {
         Intent intent = new Intent(this, EnviarRespuesta.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("nombreArchivo", nombreArchivo);
-        intent.putExtra("formato", formato);
-
+        intent.putExtra("nombreArchivo", nombreAudio);
+        intent.putExtra("formato", ".3gp");
         startActivity(intent);
     }
 
+    private void cambiarBotonesExtra(Boolean estado){
+        if (estado){
+            escucharAudiob.setEnabled(true);
+
+            botonResponder.setEnabled(true);
+        }
+        else{
+            escucharAudiob.setEnabled(false);
+
+            botonResponder.setEnabled(false);
+        }
+    }
 }

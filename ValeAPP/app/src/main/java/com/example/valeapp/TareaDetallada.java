@@ -119,8 +119,11 @@ public class TareaDetallada extends AppCompatActivity{
                     if (jsonTareas.getBoolean("permiteVideo")){
                         irARespuestaVideo();
                     }
-                    else{
-                        irARespuesta();
+                    else if (jsonTareas.getBoolean("permiteAudio")){
+                        irARespuestaAudio();
+                    }
+                    else if (jsonTareas.getBoolean("permiteTexto")){
+                        irARespuestaTexto();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -145,28 +148,26 @@ public class TareaDetallada extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void irARespuesta() throws JSONException {
-        Intent intent = new Intent(this, RespuestaTarea.class);
+    public void irARespuestaTexto() throws JSONException {
+        Intent intent = new Intent(this, RespuestaTareaTexto.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("mote", mote);
-        String tipoRespuesta = "";
-        if (jsonTareas.getBoolean("permiteAudio")){
-            tipoRespuesta = "audio";
-        }
-        else if (jsonTareas.getBoolean("permiteVideo")){
-            tipoRespuesta = "video";
-        }
-        else if (jsonTareas.getBoolean("permiteTexto")){
-            tipoRespuesta = "texto";
-        }
-        intent.putExtra("tipoRespuesta",tipoRespuesta);
         startActivity(intent);
     }
 
     public void irARespuestaVideo() throws JSONException {
         Intent intent = new Intent(this, GrabarVideo.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("nombreTarea", nombreTarea);
+        intent.putExtra("mote", mote);
+        startActivity(intent);
+    }
+
+    public void irARespuestaAudio() throws JSONException {
+        Intent intent = new Intent(this, GrabarAudio.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
@@ -301,9 +302,7 @@ public class TareaDetallada extends AppCompatActivity{
 
         //Video de la tarea
         if(jsonTareas.getBoolean("tieneVideo")){
-        //if (!jsonTareas.getString("videoTarea").equals("")) {
             nombreVideo = "Movies/" + nombreTarea + "_" + jsonTareas.getString("mote") + ".mp4";
-            //descargarVideoTarea();
             ImageButton video = new ImageButton(this);
             video.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -326,7 +325,6 @@ public class TareaDetallada extends AppCompatActivity{
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("texto", jsonTareas.getString("descripcion"));
-        intent.putExtra("tareaDetallada", true);
 
         startActivity(intent);
     }
@@ -342,7 +340,6 @@ public class TareaDetallada extends AppCompatActivity{
 
         startActivity(intent);
     }
-
 
     class GetTareaDetallada extends AsyncTask<String, String, JSONObject> {
         private final static String URL= "obtener-tarea-socio";
@@ -371,7 +368,6 @@ public class TareaDetallada extends AppCompatActivity{
                     return jsonTareas;
                 }
             } catch (Exception e) {
-
                 e.printStackTrace();
             }
             return null;

@@ -34,10 +34,7 @@ public class Texto extends AppCompatActivity{
     private String creador;
     private String nombreTarea;
     private Boolean tareaDetallada;
-    private String nombreMultimadia;
     private Toolbar myToolbar;
-    private String tipo;
-    private String mote;
     private String texto;
 
     @Override
@@ -49,8 +46,6 @@ public class Texto extends AppCompatActivity{
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");
         nombreTarea = bundle.getString("nombreTarea");
-        nombreMultimadia = bundle.getString("nombreMultimedia");
-        tipo = bundle.getString("tipo");
         tareaDetallada = bundle.getBoolean("tareaDetallada");
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -60,57 +55,29 @@ public class Texto extends AppCompatActivity{
         getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
         //Modicar Barra de Tareas para esta pantalla
-        if (tareaDetallada){
-            texto = bundle.getString("texto");
-            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
-            botonAtras.setVisibility(View.VISIBLE);
-            botonAtras.setContentDescription("Volver a la tarea");
-            final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-            textoFlechaAtras.setText("VOLVER A LA TAREA");
-            textoFlechaAtras.setVisibility(View.VISIBLE);
-            final ImageButton botonLogout = findViewById(R.id.botonLogout);
+        texto = bundle.getString("texto");
+        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        botonAtras.setVisibility(View.VISIBLE);
+        botonAtras.setContentDescription("Volver a la tarea");
+        final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
+        textoFlechaAtras.setText("VOLVER A LA TAREA");
+        textoFlechaAtras.setVisibility(View.VISIBLE);
+        final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
-            //Boton logout
-            botonLogout.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    irALogout();
-                }
-            });
+        //Boton logout
+        botonLogout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                irALogout();
+            }
+        });
 
-            //Boton Atrás
-            botonAtras.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    volverATarea();
-                }
-            });
-        }
-        else {
-            cargarTextoRespuesta();
-            final ImageButton flechaAtras = findViewById(R.id.flechaVolverMenuAnterior);
-            flechaAtras.setVisibility(View.VISIBLE);
-            flechaAtras.setContentDescription("Volver a respuesta");
-            final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-            textoFlechaAtras.setText("VOLVER A LA RESPUESTA");
-            textoFlechaAtras.setVisibility(View.VISIBLE);
-            textoFlechaAtras.setContentDescription("VOLVER A LA RESPUESTA TÍTULO");
-            final ImageButton botonLogout = findViewById(R.id.botonLogout);
-            final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        //Boton Atrás
+        botonAtras.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                volverATarea();
+            }
+        });
 
-            //Boton logout
-            botonLogout.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    irALogout();
-                }
-            });
-
-            //Boton Atrás
-            botonAtras.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    volverARespuestaTarea();
-                }
-            });
-            mote = bundle.getString("mote");
-        }
 
 
         mostrarTexto();
@@ -122,18 +89,9 @@ public class Texto extends AppCompatActivity{
         descripcionTarea.setContentDescription(texto);
     }
 
-   private void cargarTextoRespuesta(){
-
-   }
-
     @Override
     public void onBackPressed() {
-        if(tareaDetallada){
-            volverATarea();
-        }
-        else {
-            volverARespuestaTarea();
-        }
+        volverATarea();
     }
 
     public void volverATarea(){
@@ -141,17 +99,6 @@ public class Texto extends AppCompatActivity{
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
         intent.putExtra("nombreTarea", nombreTarea);
-
-        startActivity(intent);
-    }
-
-    public void volverARespuestaTarea(){
-        Intent intent = new Intent(this, RespuestaTarea.class);
-        intent.putExtra("usuario", usuario);
-        intent.putExtra("creador", creador);
-        intent.putExtra("nombreTarea", nombreTarea);
-        intent.putExtra("mote", mote);
-        intent.putExtra("tipoRespuesta",tipo);
 
         startActivity(intent);
     }
