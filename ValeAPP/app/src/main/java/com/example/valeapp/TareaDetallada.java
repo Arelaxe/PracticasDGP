@@ -86,8 +86,17 @@ public class TareaDetallada extends AppCompatActivity{
         nombreTareaDetallada.setContentDescription(nombreTarea);
 
         //Informarmción del facilitador
+        /*
         try {
             setInformacionProfesional();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        */
+
+        //Imagen de la tarea
+        try {
+            setImagenTarea();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -176,6 +185,59 @@ public class TareaDetallada extends AppCompatActivity{
     }
 
     @SuppressLint("ResourceType")
+    private void setImagenTarea() throws JSONException {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutFotoYFacilitador);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+
+        int height =  300;
+        int width =  300;
+
+        //Foto de la tarea
+        if (!jsonTareas.getString("fotoTarea").equals("")) {
+            byte[] data = Base64.decode(jsonTareas.getString("fotoTarea"), Base64.DEFAULT);
+            Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
+            Drawable fotoTarea = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, 500, 500, true));
+            ImageView fotoTareaImageView = new ImageView(this);
+            fotoTareaImageView.setImageDrawable(fotoTarea);
+            layout.addView(fotoTareaImageView);
+            fotoTareaImageView.setPadding(20, 0, 50, 0);
+        }
+
+        LinearLayout layoutFacilitador = new LinearLayout(this);
+
+        params.setMargins(0, 20, 0, 20);
+        layoutFacilitador.setLayoutParams(params);
+        layoutFacilitador.setPadding(0, 0, 0, 0);
+
+        //Foto del facilitador
+        byte[] data = Base64.decode(jsonTareas.getString("fotoFacilitador"), Base64.DEFAULT);
+        Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
+        Drawable fotoFacilitador = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
+        ImageView fotoFacilitadorImageView = new ImageView(this);
+        fotoFacilitadorImageView.setImageDrawable(fotoFacilitador);
+        fotoFacilitadorImageView.setPadding(0, 0, 30, 0);
+        layoutFacilitador.addView(fotoFacilitadorImageView);
+
+        //Mote del facilitador
+        TextView moteFacilitador = new TextView(this);
+        layoutFacilitador.addView(moteFacilitador);
+        moteFacilitador.setText(jsonTareas.getString("mote").toUpperCase());
+        mote = jsonTareas.getString("mote");
+        moteFacilitador.setContentDescription("Facilitador encargado: " + jsonTareas.getString("mote").toUpperCase());
+        moteFacilitador.setTextColor(getResources().getInteger(R.color.black));
+        moteFacilitador.setTextSize(30);
+
+        layoutFacilitador.setBackgroundColor(R.color.design_default_color_background);
+        layoutFacilitador.setGravity(Gravity.CENTER_VERTICAL);
+
+        layout.addView(layoutFacilitador);
+
+    }
+
+    @SuppressLint("ResourceType")
     private void setInformacionProfesional() throws JSONException {
         LinearLayout layout = (LinearLayout)findViewById(R.id.LayoutFacilitador);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -246,17 +308,6 @@ public class TareaDetallada extends AppCompatActivity{
 
         params.setMargins(left, top, right, bottom);
 
-        //Foto de la tarea
-        if (!jsonTareas.getString("fotoTarea").equals("")){
-            byte[] data = Base64.decode(jsonTareas.getString("fotoTarea"), Base64.DEFAULT);
-            Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
-            Drawable fotoTarea = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
-            ImageView fotoTareaImageView = new ImageView(this);
-            fotoTareaImageView.setImageDrawable(fotoTarea);
-            layout.addView(fotoTareaImageView);
-            fotoTareaImageView.setPadding(20, 0, 50, 0);
-        }
-
         LinearLayout layoutBotonesTarea = new LinearLayout(this);
         layoutBotonesTarea.setOrientation(0); //Horizontal
         layoutBotonesTarea.setGravity(Gravity.CENTER);
@@ -302,7 +353,9 @@ public class TareaDetallada extends AppCompatActivity{
 
         //Video de la tarea
         if(jsonTareas.getBoolean("tieneVideo")){
+            //if (!jsonTareas.getString("videoTarea").equals("")) {
             nombreVideo = "Movies/" + nombreTarea + "_" + jsonTareas.getString("mote") + ".mp4";
+            //descargarVideoTarea();
             ImageButton video = new ImageButton(this);
             video.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -317,6 +370,31 @@ public class TareaDetallada extends AppCompatActivity{
             video.setContentDescription("Ver vídeo");
             layoutBotonesTarea.addView(video);
         }
+
+
+        //Botón del chat con el facilitador sobre la tarea
+        Drawable dr = getResources().getDrawable(R.drawable.chat_cuadrado);
+        Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+        // Escalar
+        Drawable dEscalado = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 100, 100, true));
+        ImageButton botonChat = new ImageButton(this);
+        botonChat.setImageDrawable(dEscalado);
+        //botonChat.setBackgroundColor(getResources().getInteger(R.color.white));
+        botonChat.setContentDescription(getResources().getString(R.string.ir_a_chat));
+
+        botonChat.setPadding(0, 0, 0, 0);
+        layout.addView(botonChat);
+
+        botonChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    iniciarChat();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void mostrarTexto() throws JSONException {

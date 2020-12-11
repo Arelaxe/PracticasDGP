@@ -17,7 +17,7 @@ public class JSONParser {
     private final String CHARSET = "UTF-8";
     //private final String URL = "http://10.0.2.2:5000/";
     //private final String URL = "http://192.168.1.45:5000/";
-    private final String URL = "http://192.168.1.34:5000/";
+    private final String URL = "http://192.168.1.24:5000/";
     private HttpURLConnection conn;
     private DataOutputStream wr;
     private StringBuilder result;

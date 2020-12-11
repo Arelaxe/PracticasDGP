@@ -19,7 +19,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        app:layout_constraintVertical_bias="0.055" />
+        app:layout_constraintVertical_bias="0.013" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -68,17 +68,27 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/LayoutFacilitador"
+        android:id="@+id/layoutFotoYFacilitador"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/grey"
-        android:baselineAligned="true"
-        android:gravity="start|center_vertical"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/layoutInfoTarea"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoTareaDetallada">
+        app:layout_constraintTop_toBottomOf="@+id/textoTareaDetallada"
+        app:layout_constraintVertical_bias="1.0">
 
+        <LinearLayout
+            android:id="@+id/LayoutFacilitador"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:baselineAligned="true"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal">
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -91,6 +101,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoTareaDetallada"
-        app:layout_constraintVertical_bias="0.638" />
+        app:layout_constraintVertical_bias="0.92">
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,13 +32,13 @@
 
         <ImageButton
             android:id="@+id/imageButtonEscucharAudio"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:adjustViewBounds="false"
             android:contentDescription="@string/bot_n_para_reproducir_v_deo"
             android:cropToPadding="false"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/audio" />
+            android:scaleType="center"
+            app:srcCompat="@drawable/audio_zoom" />
 
         <ToggleButton
             android:id="@+id/botonGrabar"
