@@ -63,7 +63,7 @@
                         if($socio->preferenciaVideo === $infoTareaEnviar['permiteVideo'] || $socio->preferenciaAudio === $infoTareaEnviar['permiteAudio'] || $socio->preferenciaTexto === $infoTareaEnviar['permiteTexto']){
                             $jsonInfoTareaEnviar = json_encode($infoTareaEnviar);
                             $result = enviarTareaApi($jsonInfoTareaEnviar);
-                            header('Location: ../tarea.php?nombre=' . $infoTareaEnviar['nombreTarea']);
+                            header('Location: ../tarea_enviada.php?nombre=' . $infoTareaEnviar['nombreTarea'] . "&socio=" . $infoTareaEnviar['socioAsignado'] . "&fechaEntrega=" . $infoTareaEnviar['fechaEntrega']);
                         }
         
                         else{
