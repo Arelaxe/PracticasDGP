@@ -53,8 +53,23 @@ body{
     background-color: #369A88;
 }
 
+.nav-item{
+    width: 40%;
+}
+
 .nav-link{
-    font-size: large;
+    font-size: 140%;
+}
+.dropdown{
+    margin-right: 0.4%;
+}
+
+.dropdown-menu{
+    text-align: right;
+}
+
+.dropdown-item{
+    font-size: 120%;
 }
 
 .card-footer{
