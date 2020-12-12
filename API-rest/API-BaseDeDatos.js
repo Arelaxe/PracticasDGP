@@ -1233,3 +1233,37 @@ app.post("/tarea-vista-web", (request, response) => {
         }
     });
 });
+
+/**/
+// Tareas que tengan notificaciones
+/**/
+app.post("/tareas-con-notificaciones", (request, response) => {
+    collectionAsignacionTareas.find({ "creador": request.body.creador, $or: [{"vista": false}, {"nuevoMensajeFacilitador": true}]}).sort({vista: 1, nuevoMensajeFacilitador: -1}).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Aún no has enviado tareas!");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/**/
+// Tareas facilitador socio concreto
+/**/
+app.post("/tareas-enviadas-socio", (request, response) => {
+    collectionAsignacionTareas.find({ "creador": request.body.creador, "socioAsignado": request.body.socioAsignado }).sort({vista: 1, nuevoMensajeFacilitador: -1}).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Aún no has enviado tareas!");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
