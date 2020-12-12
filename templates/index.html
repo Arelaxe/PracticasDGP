@@ -5,3 +5,23 @@
 {%block breadcrumbs%}
 <li class="breadcrumb-item active">Home</li>
 {%endblock%}
+
+{% block cuerpo %}
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <img src="img/Vincular.png" alt="Hola" width="91%">
+        </div>
+        <div class="col-9">
+            <h1>¡Bienvenido a ValeApp!</h1>
+            <br>
+            <p>Este sitio web es usado por los administradores y facilitadores de la Asociación.</p>
+            <p>¿Es usted uno de ellos?</p>
+            <br>
+            <button class="btn btn-primary" onclick="window.location.replace('login.php')">Inicie sesión</button>
+        </div>
+    </div>
+    
+</div>
+    
+{% endblock %}
