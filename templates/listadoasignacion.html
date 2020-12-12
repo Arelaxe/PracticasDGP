@@ -1,45 +1,52 @@
 {%extends "base.html"%}
 
-{%block titulo%}Listado de Tareas{%endblock%}
+{%block titulo%}Notificaciones de Tareas{%endblock%}
 
 {%block breadcrumbs%}
 <li class="breadcrumb-item">Menú principal</li>
-<li class="breadcrumb-item active">Tareas asignadas</li>
+<li class="breadcrumb-item active">Notificaciones de Tareas</li>
 {%endblock%}
 
 
 {%block cuerpo%}
 <div class="container">
     <div class="offset-lg-2 col-lg-8 titulo">
-        <h1>Tareas enviadas</h1>
+        <h1>Notificaciones de Tareas</h1>
     </div>
 </div>
 <div class="container">
     <div class="offset-lg-2 col-lg-8 sombreado">
-        <script src="js/buscarTablas.js"></script>
-        <label for="busqueda" hidden>Buscar tarea</label>
-        <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar tarea..." class="form-control">
+        {% if tareas is empty %}
+            <div class="row">
+                <img src="img/NadaPendiente.png" alt="Nada pendiente" class="col-lg-3 col-sm-3">
+                <h4 class="col-lg-8 col-sm-9">Ninguna de tus tareas enviadas a los socios tiene notificaciones pendientes. <br> ¡Tenga un buen día!</h2>
+            </div>
+            
+        {% else %}
+            <script src="js/buscarTablas.js"></script>
+            <label for="busqueda" hidden>Buscar tarea</label>
+            <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar tarea..." class="form-control">
+            <table id="tablaBusqueda" class="table table-hover table-responsive">
+                <tbody>
+                    {% for tarea in tareas %}
+                    <tr>
+                        <td scope="row" class="td1 col-12">
+                            <a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">{{ tarea.nombreTarea }}</a> - Enviada a {{ nombres[loop.index0] }}
+                            {% if tarea.nuevoMensajeFacilitador == true %}
+                                <img src="img/Admin-private-289909293847829384954937914384.png" alt="Nuevo mensaje" width="10%">
+                            {% endif %}
 
-        <table id="tablaBusqueda" class="table table-hover table-responsive">
-            <tbody>
-                {% for tarea in tareas %}
-                <tr>
-                    <td scope="row" class="td1">
-                        <a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">{{ tarea.nombreTarea }}</a> ({{ nombres[loop.index0] }})
-                        {% if tarea.nuevoMensajeFacilitador == true %}
-                            <img src="img/Admin-private-289909293847829384954937914384.png" alt="Nuevo mensaje" width="10%">
-                        {% endif %}
-
-                        {% if tarea.vista == false %}
-                            <img src="img/Admin-private-29821734098432348123322835302.png" alt="Aún no vista" width="10%">
-                        {% endif %}
-                    </td>
-                    <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposAsignacion('{{tarea.creador}}','{{tarea.socioAsignado}}','{{tarea.nombreTarea}}','{{tarea.fechaEntrega}}')"  data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
-                    <td class="tdn"><a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">►</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                            {% if tarea.vista == false %}
+                                <img src="img/Admin-private-29821734098432348123322835302.png" alt="Aún no vista" width="10%">
+                            {% endif %}
+                        </td>
+                        <!--<td class="tdx col-3"><button class="btn btn-danger bt1" onclick="completarCamposAsignacion('{{tarea.creador}}','{{tarea.socioAsignado}}','{{tarea.nombreTarea}}','{{tarea.fechaEntrega}}')"  data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>-->
+                        <td class="tdn"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
 
         <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
             <div class="modal-dialog" role="document">

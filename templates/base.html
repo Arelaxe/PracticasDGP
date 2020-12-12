@@ -31,7 +31,7 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="padding-right: 2%;">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="padding-right: 3%;">
         <ul class="navbar-nav">
           {%if rol == "admin" or rol == "ambos" or rol == "facilitador"%}
           <li class="nav-item dropdown">
@@ -124,9 +124,13 @@
 </header>
 
 <body>
-    <div class="alert alert-warning" id="alert-dev">
-        Esta web está en construcción
-    </div>
+    {% if success is defined %}
+      {% if success == true %}
+        <div class="alert alert-success">
+          {{mensaje_exito}}
+        </div>
+      {% endif %}
+    {% endif %}
 
     <div class="modal fade" id="modalCierreSesion" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

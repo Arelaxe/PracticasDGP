@@ -25,8 +25,7 @@
                 {% for nombre in nombres %}
                 <tr>
                     <td scope="row" class="td1"><a href="./tarea.php?nombre={{nombre}}&creador={{creadores[loop.index0]}}">{{ nombre }}</a> (<a href="perfil.php?username={{creadores[loop.index0]}}">{{creadores[loop.index0]}}</a>) </td>
-                    <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposTareaCreador('{{nombre}}','{{creadores[loop.index0]}}')"  data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
-                    <td class="tdn"><a href="./tarea.php?nombre={{nombre}}&creador={{creadores[loop.index0]}}">►</a></td>
+                    <td class="tdx col-1"><button class="btn btn-danger bt1" onclick="completarCamposTareaCreador('{{nombre}}','{{creadores[loop.index0]}}')"  data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
                 </tr>
                 {% endfor %}
             </tbody>

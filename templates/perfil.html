@@ -9,18 +9,24 @@
 
 
 {%block cuerpo%}
-<div class="container">
-    <div class="offset-lg-2 col-lg-8 titulo">
-        <h1>Perfil</h1>
+<div class=" {% if infoUsuario.rol != "socio" %}container{% endif %}">
+    <div class="{% if infoUsuario.rol == "socio" %} offset-lg-1 col-lg-10 {% else %} offset-lg-2 col-lg-8 {% endif %} titulo">
+        {% if infoUsuario.rol == "ambos" or  infoUsuario.rol == "facilitador"%}
+          <h1>Perfil de Facilitador</h1>
+        {% elseif infoUsuario.rol == "admin" %}
+          <h1>Perfil de Administrador</h1>
+        {% else %}
+          <h1>Perfil de Socio</h1>
+        {% endif %}
     </div>
 </div>
-<div class="container">
-    <div class="offset-lg-2 col-lg-8 sombreado" id="perfil">
+<div class="{% if infoUsuario.rol != "socio" %}container{% endif %}">
+    <div class="{% if infoUsuario.rol == "socio" %} offset-lg-1 col-lg-10 {% else %} offset-lg-2 col-lg-8 {% endif %} sombreado" id="perfil">
       <div class="row">
-        <div class="col-xs-12 col-lg-4">
+        <div class="col-xs-12 {% if infoUsuario.rol == "socio" %} col-lg-2 {% else %} col-lg-4 {% endif %}">
           <img src="{{imagen}}" alt="Foto de perfil" class="imgprefs">
         </div>
-        <div class="col-xs-12 col-lg-8">
+        <div class="col-xs-12 {% if infoUsuario.rol == "socio" %} col-lg-4 {% else %} col-lg-8 {% endif %}">
           {% if id != -1 %}
           <h4>Nombre y apellidos</h4>
           {{ infoUsuario.nombre }}
@@ -124,6 +130,37 @@
             </div>
           {% endif %}
         </div>
+        {% if infoUsuario.rol == "socio" %}
+        <div class="col-lg-6">
+        <div class="container">
+          <h4>Histórico de tareas asignadas</h4>
+          <br>
+          <script src="js/buscarTablas.js"></script>
+          <label for="busqueda" hidden>Buscar tarea</label>
+          <input type="text" id="busqueda" onkeyup="buscarTabla()" placeholder="Buscar tarea..." class="form-control">
+          <table id="tablaBusqueda" class="table table-hover table-responsive">
+              <tbody>
+                  {% for tarea in tareasAsignadas %}
+                  <tr>
+                      <td scope="row" class="td1">
+                          <a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">{{ tarea.nombreTarea }}</a>
+                          {% if tarea.nuevoMensajeFacilitador == true %}
+                              <img src="img/Admin-private-289909293847829384954937914384.png" alt="Nuevo mensaje" width="10%">
+                          {% endif %}
+
+                          {% if tarea.vista == false %}
+                              <img src="img/Admin-private-29821734098432348123322835302.png" alt="Aún no vista" width="10%">
+                          {% endif %}
+                      </td>
+                      <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposAsignacion('{{tarea.creador}}','{{tarea.socioAsignado}}','{{tarea.nombreTarea}}','{{tarea.fechaEntrega}}')"  data-toggle="modal" data-target="#modalEliminar" style="font-size: 80%;">CANCELAR TAREA</button></td>
+                      <td class="tdn"></td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        </div>
+        {% endif %}
       </div>
     </div>
 </div>

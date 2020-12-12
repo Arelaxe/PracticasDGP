@@ -27,11 +27,12 @@
                     <td scope="row" class="td1"><a href="perfil.php?username={{ nombre.username }}">{{ nombre.nombre }}</a></td>
                     <td class="tdx"><button class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{nombre.username}}')">EDITAR</button></td>
                     <td class="tdx"><button class="btn btn-danger bt1" onclick="completarCamposUsuario('{{nombre.nombre}}','{{nombre.username}}','socio')" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button></td>
-                    <td class="tdn">►</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        <button class="btn col-12 btn-primary" onclick="window.location.replace('registrosocios.php')">AÑADIR NUEVO SOCIO</button>
     </div>
 
     <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">

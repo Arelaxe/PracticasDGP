@@ -30,7 +30,7 @@
                         <p>{{ infoTarea.descripcion }}</p>
                     </div>
 
-                    {%if infoTarea.tieneAudio == true and infoTarea.audioTarea != "img/"%}
+                    {%if entrega.tieneAudio == true and infoTarea.audioTarea != "img/"%}
                         <h4>Audio de la tarea</h4>
                         <div class="class-group">
                             
@@ -40,7 +40,7 @@
                         </div>
                     {%endif%}
 
-                    {%if infoTarea.tieneVideo == true and infoTarea.videoTarea != "img/" %}
+                    {%if entrega.tieneVideo == true and infoTarea.videoTarea != "img/" %}
                         <h4>Vídeo de la tarea</h4>
                         <div id="video" class="class-group embed-responsive embed-responsive-16by9">
                             
@@ -52,12 +52,26 @@
         </div>
     
         <div class="col-xs-12 col-lg-4 sombreado_extra">
-            <h4>Socio</h4>
-            <p>{{entrega.nombreSocio}}</p>
-            <h4>Enviado el</h4>
-            <p>{{entrega.fechaEnvio}}</p>
-            <h4>Fecha límite de entrega</h4>
-            <p>{{entrega.fechaLimiteEntrega}}</p>
+            <h4>Chat con {{entrega.nombreSocio}}</h4>
+            <div id="idChat" hidden>{{ entrega.idChat }}</div>
+            <div id="nombreChat" hidden>{{ entrega.nombreChat }}</div>
+            <div id="moteFacilitador" hidden>{{ mote }}</div>
+            
+            <div class="chat" id="chat">
+                <div class="members-count" hidden>-</div>
+                <p>Personas conectadas:</p>
+                <div class="members-list">-</div>
+                <p>Chat:</p>
+                <div class="messages"></div>
+                <form class="message-form" onsubmit="return false;">
+                    <label for="inputMensaje" hidden>Escribe un mensaje</label>
+                    <input class="message-form__input" id="inputMensaje" placeholder="Escribe un mensaje..." type="text"/>
+                    <label for="buttonMensaje" hidden>Enviar un mensaje</label>
+                    <input class="message-form__button" id="buttonMensaje" value="Enviar" type="submit" onclick="notificarNuevoMensaje();"/>
+                </form>
+            </div>
+            <br>
+            <br>
             <h4>Respuesta</h4>
                 {% if entrega.respuesta == "" or entrega.respuesta == "img/"  %}
                     <p>El socio no ha entregado nada todavía</p>
@@ -78,24 +92,13 @@
                         <p>{{entrega.respuesta}}</p>
                     {% endif %}
             {% endif %}
-            <h4>Chat con el socio</h4>
-            <div id="idChat" hidden>{{ entrega.idChat }}</div>
-            <div id="nombreChat" hidden>{{ entrega.nombreChat }}</div>
-            <div id="moteFacilitador" hidden>{{ mote }}</div>
-            
-            <div class="chat" id="chat">
-                <div class="members-count" hidden>-</div>
-                <p>Personas conectadas:</p>
-                <div class="members-list">-</div>
-                <p>Chat:</p>
-                <div class="messages"></div>
-                <form class="message-form" onsubmit="return false;">
-                    <label for="inputMensaje" hidden>Escribe un mensaje</label>
-                    <input class="message-form__input" id="inputMensaje" placeholder="Escribe un mensaje..." type="text"/>
-                    <label for="buttonMensaje" hidden>Enviar un mensaje</label>
-                    <input class="message-form__button" id="buttonMensaje" value="Enviar" type="submit" onclick="notificarNuevoMensaje();"/>
-                </form>
-            </div>
+            <br><br>
+            <h4>Socio</h4>
+            <p>{{entrega.nombreSocio}}</p>
+            <h4>Enviado el</h4>
+            <p>{{entrega.fechaEnvio}}</p>
+            <h4>Fecha límite de entrega</h4>
+            <p>{{entrega.fechaLimiteEntrega}}</p>
         </div>
     </div>
 

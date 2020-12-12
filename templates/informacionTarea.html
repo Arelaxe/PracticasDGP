@@ -43,8 +43,8 @@
                     
                     <iframe src="{{ infoTarea.videoTarea }}" class="embed-responsive-item" allowfullscreen></iframe>
                 </div>
-            </div>
             {%endif%}
+        </div>
         </div>
 
         <div class="boton_centro">
@@ -55,31 +55,31 @@
             {% endif %}  
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button>
         </div>
+</div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Eliminar tarea</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Deseas eliminar la siguiente tarea?</p>
-                    <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
-                    <h4 id="nombreAEliminar">{{ infoTarea.nombre }}</h4>
-                </div>
-                <div class="modal-footer">
-                    <form action="php/eliminarTarea.php" method="post">
-                        <label for="tareaAEliminar" hidden>Tarea a eliminar</label>
-                        <label for="facilitador" hidden>Facilitador a cargo</label>
-                        <input type="text" name="tareaAEliminar" id="tareaAEliminar" value="{{infoTarea.nombre}}" style="display: none;">
-                            <input type="text" name="facilitador" id="facilitador" value="{{infoTarea.creador}}" hidden>
-                        <button type="submit" class="btn btn-danger">SÍ</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                    </form>
-                </div>
+<div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar tarea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Deseas eliminar la siguiente tarea?</p>
+                <img class="card-img-top" src="{{ infoTarea.fotoTarea }}" alt="Card image cap">
+                <h4 id="nombreAEliminar">{{ infoTarea.nombre }}</h4>
+            </div>
+            <div class="modal-footer">
+                <form action="php/eliminarTarea.php" method="post">
+                    <label for="tareaAEliminar" hidden>Tarea a eliminar</label>
+                    <label for="facilitador" hidden>Facilitador a cargo</label>
+                    <input type="text" name="tareaAEliminar" id="tareaAEliminar" value="{{infoTarea.nombre}}" style="display: none;">
+                        <input type="text" name="facilitador" id="facilitador" value="{{infoTarea.creador}}" hidden>
+                    <button type="submit" class="btn btn-danger">SÍ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                </form>
             </div>
         </div>
     </div>

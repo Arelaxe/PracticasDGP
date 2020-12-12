@@ -11,7 +11,7 @@
 {%block cuerpo%}
 <div class="container">
     <div class="offset-lg-2 col-lg-8 titulo">
-        <h2>Listado facilitadores</h2>
+        <h2>Listado de Facilitadores</h2>
     </div>
 </div>
 <div class="container">
@@ -24,14 +24,15 @@
             <tbody>
                 {% for i in nombres %}
                 <tr>
-                    <td scope="row" class="td1"><a href="perfil.php?username={{i.username}}">{{ i.nombre }}</a></td>
-                    <td class="tdx"> <button id="botonEditar{{i.username}}" class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{i.username}}')">EDITAR</button> </td>
-                    <td class="tdx"> <button id="botonEliminar{{i.username}}" class="btn btn-danger bt1" onclick="completarCamposUsuario('{{i.nombre}}','{{i.username}}','facilitador')" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button> </td>
-                    <td class="tdn">►</td>
+                    <td scope="row" class="td1 col-6"><a href="perfil.php?username={{i.username}}">{{ i.nombre }}</a></td>
+                    <td class="tdx col-3"> <button id="botonEditar{{i.username}}" class="btn btn-warning bt1" onclick="window.location.replace('editar.php?username={{i.username}}')">EDITAR</button> </td>
+                    <td class="tdn col-3"> <button id="botonEliminar{{i.username}}" class="btn btn-danger bt1" onclick="completarCamposUsuario('{{i.nombre}}','{{i.username}}','facilitador')" data-toggle="modal" data-target="#modalEliminar">ELIMINAR</button> </td>
+                    <td class="tdn"></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <button class="btn col-12 btn-primary" onclick="window.location.replace('registro.php')">AÑADIR NUEVO FACILITADOR</button>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="modalEliminar">
         <div class="modal-dialog" role="document">
