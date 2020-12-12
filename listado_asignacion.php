@@ -12,7 +12,7 @@
         $idFacilitador = array();
         $idFacilitador['creador'] = $_SESSION['usuario'];
         $jsonIdFacilitador = json_encode($idFacilitador);
-        $listado = tareasEnviadasApi($jsonIdFacilitador);
+        $listado = notificacionesTareasApi($jsonIdFacilitador);
         $listadoSocios = array();
         foreach ($listado as $asignacion){
             $infoSocio = array();

@@ -60,6 +60,9 @@
             $entrega['permiteAudio'] = $asignacion->permiteAudio;
             $entrega['permiteVideo'] = $asignacion->permiteVideo;
             $entrega['permiteTexto'] = $asignacion->permiteTexto;
+            $entrega['tieneAudio'] = $asignacion->tieneAudio;
+            $entrega['tieneVideo'] = $asignacion->tieneVideo;
+            $entrega['tieneTexto'] = $asignacion->tieneTexto;
             $entrega['idChat'] = $asignacion->idChat;
             $entrega['nombreChat'] = $asignacion->nombreChat;
             if ($entrega['permiteAudio'] || $entrega['permiteVideo']){

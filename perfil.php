@@ -17,6 +17,7 @@
         //$_SESSION['username'] = $idUsuario;
 
         $infoPerfil = array();
+        $listadoTareasAsignadasSocio = array();
         $infoPerfil['username'] = $idUsuario;
 
         $jsonInfoPerfil = json_encode($infoPerfil);
@@ -66,6 +67,13 @@
                     $preferencias['video'] = "No" ;
                     $preferencias['texto'] = "No" ;
                 }
+
+                /*Tareas enviadas*/
+                $infoTareasAsignadasSocio = array();
+                $infoTareasAsignadasSocio['creador'] = $_SESSION['usuario'] ;
+                $infoTareasAsignadasSocio['socioAsignado'] = $infoUsuario['username'];
+                $jsonInfoTareasAsignadasSocio = json_encode($infoTareasAsignadasSocio);
+                $listadoTareasAsignadasSocio = json_decode(tareasEnviadasSocioApi($jsonInfoTareasAsignadasSocio));
             }
     }
     } else{
@@ -74,5 +82,5 @@
 
     
 
-    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias, 'imagen' => $img , 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario']] );
+    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias, 'imagen' => $img , 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario'] , 'tareasAsignadas' => $listadoTareasAsignadasSocio ]);
 ?>
