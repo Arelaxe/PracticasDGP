@@ -136,38 +136,35 @@ public class MisFacilitadores extends AppCompatActivity {
             byte[] data = Base64.decode(((JSONObject) arrayFacilitadores.get(i)).getString("fotoFacilitador"), Base64.DEFAULT);
             Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
             Drawable imagenTarea = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
-            final int facilitador_i = i;
+            int facilitador_i = i;
 
-            /*
             Drawable dEscalado = null;
 
             int alturaImagen = 110;
             int anchuraImagen = 65;
 
-            //nuevo mensaje ///// Por ahora no
-            if (((JSONObject) arrayTareas.get(i)).getBoolean("nuevoMensaje")){
-                tarea.setContentDescription(((JSONObject) arrayTareas.get(i)).getString("nombreTarea") + ". Tienes un nuevo mensaje en el chat de la tarea.");
+
+            //nuevo mensaje
+
+            if (((JSONObject) arrayFacilitadores.get(i)).getBoolean("nuevoMensaje")){
+                facilitador.setContentDescription(((JSONObject) arrayFacilitadores.get(i)).getString("mote") + ". Tienes un nuevo mensaje en el chat de la tarea.");
                 Drawable dr = getResources().getDrawable(R.drawable.chat);
                 Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
                 // Escalar
-                dEscalado= new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, anchuraImagen, alturaImagen, true));
-            }*/
-            facilitador.setCompoundDrawablesWithIntrinsicBounds(imagenTarea, null, null, null);
+                dEscalado = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, anchuraImagen, alturaImagen, true));
+            }
+            facilitador.setCompoundDrawablesWithIntrinsicBounds(imagenTarea, null, dEscalado, null);
             //Boton Atrás
             facilitador.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     try {
-                        infoFacilitador(((JSONObject) arrayFacilitadores.get(facilitador_i)).getString("username"));
+                        iniciarChatFacilitador(((JSONObject) arrayFacilitadores.get(facilitador_i)).getString("username"),((JSONObject) arrayFacilitadores.get(facilitador_i)).getString("idChat"),((JSONObject) arrayFacilitadores.get(facilitador_i)).getString("nombreChat")  );
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             });
         }
-    }
-
-    public void infoFacilitador(String facilitador){
-        System.out.println(facilitador);
     }
 
     class GetTareas extends AsyncTask<String, String, JSONObject> {
@@ -201,5 +198,15 @@ public class MisFacilitadores extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    private void iniciarChatFacilitador(String creador, String idChat, String nombreChat) throws JSONException {
+        Intent intent = new Intent(this, Chat.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("creador", creador);
+        intent.putExtra("tipo", "facilitador");
+        intent.putExtra("idChat", idChat);
+        intent.putExtra("nombreChat", nombreChat);
+        startActivity(intent);
     }
 }

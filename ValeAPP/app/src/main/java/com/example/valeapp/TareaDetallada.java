@@ -391,6 +391,7 @@ public class TareaDetallada extends AppCompatActivity{
         Intent intent = new Intent(this, Chat.class);
         intent.putExtra("usuario", usuario);
         intent.putExtra("creador", creador);
+        intent.putExtra("tipo", "tarea");
         intent.putExtra("nombreTarea", nombreTarea);
         intent.putExtra("idChat", jsonTareas.getString("idChat"));
         intent.putExtra("nombreChat", jsonTareas.getString("nombreChat"));

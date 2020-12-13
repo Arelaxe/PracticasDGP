@@ -50,11 +50,12 @@ public class Chat extends AppCompatActivity implements RoomListener {
     private String separador = "&%:_:%&";
     private String usuario;
     private String creador;
-    private String nombreTarea;
+    private String nombreTarea = "";
     private Room room;
     private JSONObject jsonChat;
     private JSONObject jsonFotoFacilitador;
     private Drawable fotoFacilitador;
+    private String tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,11 @@ public class Chat extends AppCompatActivity implements RoomListener {
 
         final ImageButton botonLogout = findViewById(R.id.botonLogout);
 
+        Bundle bundle = getIntent().getExtras();
+        usuario = bundle.getString("usuario");
+        creador = bundle.getString("creador");
+        tipo = bundle.getString("tipo");
+
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,14 +94,18 @@ public class Chat extends AppCompatActivity implements RoomListener {
         //Boton Atrás
         botonAtras.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                volverTareaDetallada();
+                if (tipo.equals("tarea")){
+                    volverTareaDetallada();
+                }
+                else if(tipo.equals("facilitador")){
+                    volverFacilitadores();
+                }
             }
         });
 
-        Bundle bundle = getIntent().getExtras();
-        usuario = bundle.getString("usuario");
-        creador = bundle.getString("creador");
-        nombreTarea = bundle.getString("nombreTarea");
+        if (tipo.equals("tarea")){
+            nombreTarea = bundle.getString("nombreTarea");
+        }
 
         channelID = bundle.getString("idChat");
         roomName = bundle.getString("nombreChat");
@@ -215,8 +225,20 @@ public class Chat extends AppCompatActivity implements RoomListener {
         startActivity(intent);
     }
 
+    public void volverFacilitadores(){
+        setChatVisto();
+        Intent intent = new Intent(this, TareaDetallada.class);
+        intent.putExtra("usuario", usuario);
+        startActivity(intent);
+    }
+
     public void onBackPressed() {
-        volverTareaDetallada();
+        if (tipo.equals("tarea")){
+            volverTareaDetallada();
+        }
+        else if(tipo.equals("facilitador")){
+            volverFacilitadores();
+        }
     }
 
     private void irALogout(){
@@ -241,8 +263,10 @@ public class Chat extends AppCompatActivity implements RoomListener {
 
                 params.put("username", usuario);
                 params.put("creador", creador);
-                params.put("nombreTarea", nombreTarea);
-
+                if(tipo.equals("tarea")){
+                    params.put("nombreTarea", nombreTarea);
+                }
+                params.put("tipo", tipo);
                 Log.d("request", "starting");
 
                 jsonChat = jsonParser.makeHttpRequest(URL, "POST", params);
@@ -285,8 +309,10 @@ public class Chat extends AppCompatActivity implements RoomListener {
 
                 params.put("username", usuario);
                 params.put("creador", creador);
-                params.put("nombreTarea", nombreTarea);
-
+                if(tipo.equals("tarea")){
+                    params.put("nombreTarea", nombreTarea);
+                }
+                params.put("tipo", tipo);
                 Log.d("request", "starting");
 
                 jsonChat = jsonParser.makeHttpRequest(URL, "POST", params);
@@ -334,7 +360,7 @@ public class Chat extends AppCompatActivity implements RoomListener {
                 jsonFotoFacilitador = jsonParser.makeHttpRequest(URL, "GET", params);
 
                 if (jsonFotoFacilitador != null) {
-                    Log.d("JSON result:   ", jsonChat.toString());
+                    Log.d("JSON result:   ", jsonFotoFacilitador.toString());
                     return jsonFotoFacilitador;
                 }
             } catch (Exception e) {
