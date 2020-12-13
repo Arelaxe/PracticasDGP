@@ -956,22 +956,24 @@ app.post("/enviar-respuesta-tarea", (request, response) => {
 // Marcar los mensajes del chat de una tarea como vistos
 /******************************************************/
 app.post("/chat-visto-tarea-socio", (request, response) => {
-    
-    collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensaje":false } }, (error, result) => {
-        if (error) {
-            return response.status(500).send(error);
-        }
-        
-        if (result == null) {
-            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
-            response.send(jsonRespuestaIncorrecta);
-        }
-        else {
-            var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
-            response.send(jsonRespuestaIncorrecta); 
-        }
-    });
-    
+
+    if(request.body.tipo == "tarea"){
+        collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensaje":false } }, (error, result) => {
+            if (error) {
+                return response.status(500).send(error);
+            }
+            
+            if (result == null) {
+                var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+                response.send(jsonRespuestaIncorrecta);
+            }
+            else {
+                var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+                response.send(jsonRespuestaIncorrecta); 
+            }
+        });
+    }
+   
 });
 
 /******************************************************/
@@ -979,20 +981,22 @@ app.post("/chat-visto-tarea-socio", (request, response) => {
 /******************************************************/
 app.post("/nuevo-mensaje-socio", (request, response) => {
     
-    collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensajeFacilitador":true } }, (error, result) => {
-        if (error) {
-            return response.status(500).send(error);
-        }
-        
-        if (result == null) {
-            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
-            response.send(jsonRespuestaIncorrecta);
-        }
-        else {
-            var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
-            response.send(jsonRespuestaIncorrecta); 
-        }
-    });
+    if (request.body.tipo = "tarea"){
+        collectionAsignacionTareas.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensajeFacilitador":true } }, (error, result) => {
+            if (error) {
+                return response.status(500).send(error);
+            }
+            
+            if (result == null) {
+                var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+                response.send(jsonRespuestaIncorrecta);
+            }
+            else {
+                var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+                response.send(jsonRespuestaIncorrecta); 
+            }
+        });
+    }
     
 });
 
@@ -1265,6 +1269,42 @@ app.post("/tareas-enviadas-socio", (request, response) => {
         }
         else {
             response.send(result);
+        }
+    });
+});
+
+
+/**/
+// Info de los MD
+/**/
+
+app.post("/info-md", (request, response) => {
+    collectionMensajesDirectos.find({ "facilitador": request.body.facilitador, "socio": request.body.socio }).toArray(function (error, result) {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("No se ha encontrado ninguna informacion");
+        }
+        else {
+            response.send(result);
+        }
+    });
+});
+
+/******************************************************/
+// Establecer mensaje directo socio a facilitador
+/******************************************************/
+app.post("/establecer-md", (request, response) => {
+    collectionMensajesDirectos.insertOne(request.body, (error, result) => {
+        if(error) {
+            return response.status(500).send(error);
+        }
+        if (result == null){
+            response.send("Registro incorrecto");
+        }
+        else{    
+            response.send("Registro completado");
         }
     });
 });
