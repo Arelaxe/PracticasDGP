@@ -74,6 +74,23 @@
                 $infoTareasAsignadasSocio['socioAsignado'] = $infoUsuario['username'];
                 $jsonInfoTareasAsignadasSocio = json_encode($infoTareasAsignadasSocio);
                 $listadoTareasAsignadasSocio = json_decode(tareasEnviadasSocioApi($jsonInfoTareasAsignadasSocio));
+                
+                $infoChat = array();
+                $idFacilitador = array();
+                $idFacilitador['username'] = $_SESSION['usuario'];
+                $jsonIdFacilitador = json_encode($idFacilitador);
+                $infoFacilitador = obtenerInfoUsuariosApi($jsonIdFacilitador);
+                $moteFacilitador = $infoFacilitador[0]->mote;
+                $infoChat['mote'] = $moteFacilitador;
+                $infoMD = array();
+                $infoMD['facilitador'] = $_SESSION['usuario'];
+                $infoMD['socio'] = $infoUsuario['username'];
+                $jsonInfoMD = json_encode($infoMD);
+                $infoMD = infoMDApi($jsonInfoMD);
+                $infoMD = json_decode($infoMD);
+                $infoChat['idChat'] = $infoMD[0]->idChat;
+                $infoChat['nombreChat'] = $infoMD[0]->nombreChat;
+                $infoChat['socio'] = $infoUsuario['username'];
             }
     }
     } else{
@@ -82,5 +99,5 @@
 
     
 
-    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias, 'imagen' => $img , 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario'] , 'tareasAsignadas' => $listadoTareasAsignadasSocio ]);
+    echo $twig->render('perfil.html', ['id' => $idUsuario, 'infoUsuario' => $infoUsuario, 'rol' => $rol, 'sociosacargo' => $listadoSocios, 'facilitadores' => $listadoFacilitadores, 'preferencias' => $preferencias, 'imagen' => $img , 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario'] , 'tareasAsignadas' => $listadoTareasAsignadasSocio, 'infoChat' => $infoChat ]);
 ?>

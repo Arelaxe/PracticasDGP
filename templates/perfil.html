@@ -133,6 +133,25 @@
         {% if infoUsuario.rol == "socio" %}
         <div class="col-lg-6">
         <div class="container">
+          <h4>Chat con {{infoChat.socio}}</h4>
+            <div id="idChat" hidden>{{ infoChat.idChat }}</div>
+            <div id="nombreChat" hidden>{{ infoChat.nombreChat }}</div>
+            <div id="moteFacilitador" hidden>{{ infoChat.mote }}</div>
+            
+            <div class="chat" id="chat">
+                <div class="members-count" hidden>-</div>
+                <p hidden>Personas conectadas:</p>
+                <div class="members-list" hidden>-</div>
+                <p>Mensajes directos con el socio:</p>
+                <div class="messages"></div>
+                <form class="message-form" onsubmit="return false;">
+                    <label for="inputMensaje" hidden>Escribe un mensaje</label>
+                    <input class="message-form__input" id="inputMensaje" placeholder="Escribe un mensaje..." type="text"/>
+                    <label for="buttonMensaje" hidden>Enviar un mensaje</label>
+                    <input class="message-form__button" id="buttonMensaje" value="Enviar" type="submit" onclick="notificarNuevoMensaje();"/>
+                </form>
+            </div>
+            <br>
           <h4>Histórico de tareas asignadas</h4>
           <br>
           <script src="js/buscarTablas.js"></script>
@@ -164,4 +183,6 @@
       </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/chat.js"></script>
 {%endblock%}
