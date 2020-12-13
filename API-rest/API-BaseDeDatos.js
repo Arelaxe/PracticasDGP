@@ -744,7 +744,7 @@ app.get("/tareas-socio", (request, response) => {
             response.send(result);
         }
         else {
-            jsonRespuestaCorrecta = result;  
+            jsonRespuestaCorrecta = result; 
         }
     }
     
@@ -842,7 +842,7 @@ app.get("/obtener-tarea-socio", (request, response) => {
         const contents = fs.readFileSync("media/"+jsonRespuestaCorrecta.fotoFacilitador, {encoding: 'base64'});
         jsonRespuestaCorrecta.fotoFacilitador = contents;
         
-        if (jsonRespuestaCorrecta.fotoTarea != "placeholder-image-83226358.png"){
+        if (jsonRespuestaCorrecta.fotoTarea != "" && jsonRespuestaCorrecta.fotoTarea != null){
             const fotoTarea = fs.readFileSync("media/"+jsonRespuestaCorrecta.fotoTarea, {encoding: 'base64'});
             jsonRespuestaCorrecta.fotoTarea = fotoTarea;
         }
