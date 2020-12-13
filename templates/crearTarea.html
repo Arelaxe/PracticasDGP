@@ -23,7 +23,7 @@
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" id="fotoTarea" name="fotoTarea">
-                              <label class="custom-file-label" for="fotoTarea" aria-describedby="inputGroupFileAddon02">Buscar imagen</label>
+                              <label class="custom-file-label" id="labelFotoTarea" for="fotoTarea" aria-describedby="inputGroupFileAddon02">Buscar imagen</label>
                             </div>
                           </div>
                     </div>
@@ -35,7 +35,7 @@
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" id="audioTarea" name="audioTarea">
-                              <label class="custom-file-label" for="audioTarea" aria-describedby="inputGroupFileAddon02">Buscar audio</label>
+                              <label class="custom-file-label" id="labelAudioTarea" for="audioTarea" aria-describedby="inputGroupFileAddon02">Buscar audio</label>
                             </div>
                           </div>
                     </div>
@@ -48,7 +48,7 @@
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" id="videoTarea" name="videoTarea">
-                              <label class="custom-file-label" for="videoTarea" aria-describedby="inputGroupFileAddon02">Buscar vídeo</label>
+                              <label class="custom-file-label" id="labelVideoTarea" for="videoTarea" aria-describedby="inputGroupFileAddon02">Buscar vídeo</label>
                             </div>
                           </div>
                     </div>
@@ -69,9 +69,12 @@
 
         <div class="boton_centro">
             <button type="submit" class="btn btn-success">CREAR TAREA</button>
-            <button class="btn btn-primary">ENVIAR A SOCIO</button>
-            <button class="btn btn-danger">CANCELAR</button>
+            <button class="btn btn-primary" hidden>ENVIAR A SOCIO</button>
+            <button class="btn btn-danger" type="button" onclick="window.location.replace('mis_tareas.php')">CANCELAR</button>
         </div>
     </form>
 </div>
+<script src="js/fotoSeleccionada.js"></script>
+<script src="js/videoSeleccionado.js"></script>
+<script src="js/audioSeleccionado.js"></script>
 {%endblock%}

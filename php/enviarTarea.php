@@ -13,9 +13,9 @@
             $_POST['formatoEntrega'] === "permiteTexto" ? $infoTareaEnviar['permiteTexto'] = true : $infoTareaEnviar['permiteTexto'] = false;
             $infoTareaEnviar['socioAsignado'] = $_POST['socioAsignado'];
             $timestamp = new DateTime();
-            $infoTareaEnviar['fechaEntrega'] = $timestamp->format("Y-m-d\TH:i:s");
+            $infoTareaEnviar['fechaEntrega'] = $timestamp->format("Y-m-d\ H:i:s");
             $timestampFinal = date_create($_POST['fechaLimiteEntrega']);
-            $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format("Y-m-d\TH:i:s");
+            $infoTareaEnviar['fechaLimiteEntrega'] = $timestampFinal->format("Y-m-d\ H:i:s");
             $infoTareaEnviar['respondida'] = false ;
             $infoTareaEnviar['nuevoMensaje'] = false;
             $infoTareaEnviar['nuevoMensajeFacilitador'] = false;

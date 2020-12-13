@@ -10,7 +10,7 @@
         $infoTarea['nombre'] = $_POST['nombreTarea'];
         $infoTarea['descripcion'] = $_POST['descripcionTarea'];
         $infoTarea['creador'] = $_SESSION['usuario'];
-        $infoTarea['fechaCreacion'] = date("d/m/y)");
+        $infoTarea['fechaCreacion'] = date("d/m/y");
 
         if (isset($_FILES['fotoTarea'])){
             $foto = saveFile("fotoTarea");

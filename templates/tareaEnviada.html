@@ -59,9 +59,9 @@
             
             <div class="chat" id="chat">
                 <div class="members-count" hidden>-</div>
-                <p>Personas conectadas:</p>
-                <div class="members-list">-</div>
-                <p>Chat:</p>
+                <p hidden>Personas conectadas:</p>
+                <div class="members-list" hidden>-</div>
+                <p>Chat de tarea:</p>
                 <div class="messages"></div>
                 <form class="message-form" onsubmit="return false;">
                     <label for="inputMensaje" hidden>Escribe un mensaje</label>
@@ -138,5 +138,6 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/chat.js"></script>
 {%endblock%}
