@@ -57,6 +57,7 @@ public class GrabarAudio extends AppCompatActivity{
     ImageButton botonLogout;
     Drawable imagenEscucharAudioTransparente;
     Drawable imagenEscucharAudio;
+    LinearLayout layoutGrabando;
 
     public static final int RequestPermissionCode = 1;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -72,6 +73,7 @@ public class GrabarAudio extends AppCompatActivity{
         nombreTarea = bundle.getString("nombreTarea");
         mote = bundle.getString("mote");
         tipoRespuesta = bundle.getString("tipoRespuesta");
+        layoutGrabando = findViewById(R.id.layout_grabando);
 
         imagenEscucharAudioTransparente = getDrawable(R.drawable.audio_transparente);
         imagenEscucharAudio = getDrawable(R.drawable.audio_zoom);
@@ -174,6 +176,8 @@ public class GrabarAudio extends AppCompatActivity{
                     botonAtras.setEnabled(false);
                     botonLogout.setEnabled(false);
 
+                    layoutGrabando.setVisibility(VISIBLE);
+
                     cambiarBotonesExtra(false);
 
                 } else {
@@ -181,6 +185,8 @@ public class GrabarAudio extends AppCompatActivity{
                     pararGrabacionAudio();
                     botonGrabar.setContentDescription("Grabar");
                     botonGrabar.setBackgroundDrawable(dEscaladoGrabar);
+
+                    layoutGrabando.setVisibility(INVISIBLE);
 
                     botonAtras.setEnabled(true);
                     botonLogout.setEnabled(true);

@@ -220,8 +220,7 @@ public class TareaDetallada extends AppCompatActivity{
         moteFacilitador.setContentDescription("Facilitador encargado: " + jsonTareas.getString("mote").toUpperCase());
         moteFacilitador.setTextColor(getResources().getInteger(R.color.black));
         moteFacilitador.setTextSize(30);
-
-        layoutFacilitador.setBackgroundColor(R.color.design_default_color_background);
+        
         layoutFacilitador.setGravity(Gravity.CENTER_VERTICAL);
 
         layout.addView(layoutFacilitador);

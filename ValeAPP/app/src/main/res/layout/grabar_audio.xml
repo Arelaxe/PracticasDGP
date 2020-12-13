@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_grabar_video"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:visibility="visible">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -64,12 +65,32 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_grabando"
         android:layout_width="387dp"
         android:layout_height="550dp"
+        android:gravity="center"
         android:orientation="vertical"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="GRABANDO..."
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="168dp"
+            android:layout_height="211dp"
+            app:srcCompat="@drawable/grabando" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
