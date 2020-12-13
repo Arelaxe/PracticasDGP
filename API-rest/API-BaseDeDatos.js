@@ -847,7 +847,8 @@ app.get("/obtener-tarea-socio", (request, response) => {
             jsonRespuestaCorrecta.fotoTarea = fotoTarea;
         }
         else {
-            jsonRespuestaCorrecta.fotoTarea = "";
+            const fotoTarea = fs.readFileSync("media/placeholder-image-83226358.jpg", {encoding: 'base64'});
+            jsonRespuestaCorrecta.fotoTarea = fotoTarea;
         }
     }
     
