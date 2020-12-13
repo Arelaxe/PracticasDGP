@@ -5,6 +5,7 @@ const BodyParser = require("body-parser");
 const { get } = require('http');
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
+const { COPYFILE_FICLONE_FORCE } = require('constants');
 const CONNECTION_URL = process.env.MONGO_CONNECTION_URL;
 const DATABASE_NAME = process.env.DATABASE_NAME;
 
@@ -26,6 +27,7 @@ app.listen(5000, () => {
         collectionGrupos = database.collection("Grupos");
         collectionAsignacionTareas = database.collection("AsignacionTareas");
         collectionChats = database.collection("Chats");
+        collectionMensajesDirectos = database.collection("MensajesDirectos");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
 });
@@ -973,6 +975,10 @@ app.post("/chat-visto-tarea-socio", (request, response) => {
             }
         });
     }
+    else {
+        var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+        response.send(jsonRespuestaIncorrecta); 
+    }
    
 });
 
@@ -997,6 +1003,11 @@ app.post("/nuevo-mensaje-socio", (request, response) => {
             }
         });
     }
+    else {
+        var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+        response.send(jsonRespuestaIncorrecta); 
+    }
+
     
 });
 
@@ -1054,10 +1065,9 @@ app.get("/facilitadores-socio", (request, response) => {
         }
     }
     
-    var obtenerFacilitadoresConImagen = async function(){
+    var obtenerFacilitadoresConImagenYDatosChat = async function(){
         await getFacilitadores();
         if (!hayError){
-            
             for (var i = 0; i<jsonRespuestaCorrecta.length; i++){
                 var innerResult = await collectionUsuarios.find({ "username": jsonRespuestaCorrecta[i].username}, {projection: {_id:0 , imagenPerfil: 1, mote:1} }).toArray();
                 if ( innerResult == null || innerResult[0] == null) {
@@ -1065,17 +1075,21 @@ app.get("/facilitadores-socio", (request, response) => {
                     response.send(innerResult);
                 }
                 else {
+                    var chatDataResult = await collectionMensajesDirectos.find({ "facilitador": jsonRespuestaCorrecta[i].username, "socio":request.query.username}, {projection: {_id:0 , idChat: 1, nombreChat:1, nuevoMensaje:1} }).toArray();
                     const fs = require('fs');
                     const contents = fs.readFileSync("media/"+innerResult[0].imagenPerfil, {encoding: 'base64'});
                     jsonRespuestaCorrecta[i].fotoFacilitador = contents; 
                     jsonRespuestaCorrecta[i].mote = innerResult[0].mote;
+                    jsonRespuestaCorrecta[i].idChat = chatDataResult[0].idChat;
+                    jsonRespuestaCorrecta[i].nombreChat = chatDataResult[0].nombreChat;
+                    jsonRespuestaCorrecta[i].nuevoMensaje = chatDataResult[0].nuevoMensaje;
                 }                   
             }
             
         }
     }
 
-    obtenerFacilitadoresConImagen().then(() => {
+    obtenerFacilitadoresConImagenYDatosChat().then(() => {
         if(!hayError){
             var respuestaFormateada = "{\"arrayRespuesta\":" + JSON.stringify(jsonRespuestaCorrecta) + "}";
             response.send(respuestaFormateada);
