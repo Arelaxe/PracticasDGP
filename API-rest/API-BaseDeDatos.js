@@ -976,7 +976,7 @@ app.post("/chat-visto-tarea-socio", (request, response) => {
         });
     }
     else {
-        collectionMensajesDirectos.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensaje":false } }, (error, result) => {
+        collectionMensajesDirectos.updateOne({"socio": request.body.username,"facilitador": request.body.creador}, { $set: { "nuevoMensaje":false } }, (error, result) => {
             if (error) {
                 return response.status(500).send(error);
             }
@@ -1016,7 +1016,7 @@ app.post("/nuevo-mensaje-socio", (request, response) => {
         });
     }
     else {
-        collectionMensajesDirectos.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensajeFacilitador":true } }, (error, result) => {
+        collectionMensajesDirectos.updateOne({"socio": request.body.username, "facilitador": request.body.creador}, { $set: { "nuevoMensajeFacilitador":true } }, (error, result) => {
             if (error) {
                 return response.status(500).send(error);
             }
