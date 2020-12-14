@@ -68,21 +68,33 @@ public class Chat extends AppCompatActivity implements RoomListener {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.barra_de_tareas);
 
-        //Modicar Barra de Tareas para esta pantalla
-        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
-        botonAtras.setVisibility(View.VISIBLE);
-        botonAtras.setContentDescription("VOLVER A LA TAREA");
-        final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
-        textoFlechaAtras.setText("VOLVER A LA TAREA");
-        textoFlechaAtras.setVisibility(View.VISIBLE);
-        textoFlechaAtras.setContentDescription("VOLVER A LA TAREA TÍTULO");
-
-        final ImageButton botonLogout = findViewById(R.id.botonLogout);
-
         Bundle bundle = getIntent().getExtras();
         usuario = bundle.getString("usuario");
         creador = bundle.getString("creador");
         tipo = bundle.getString("tipo");
+
+        //Modicar Barra de Tareas para esta pantalla
+        final ImageButton botonAtras = findViewById(R.id.flechaVolverMenuAnterior);
+        if (tipo.equals("tarea")){
+            botonAtras.setVisibility(View.VISIBLE);
+            botonAtras.setContentDescription("VOLVER A LA TAREA");
+            final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
+            textoFlechaAtras.setText("VOLVER A LA TAREA");
+            textoFlechaAtras.setVisibility(View.VISIBLE);
+            textoFlechaAtras.setContentDescription("VOLVER A LA TAREA TÍTULO");
+        }
+        else {
+            botonAtras.setVisibility(View.VISIBLE);
+            botonAtras.setContentDescription("VOLVER A MIS FACILITADORES");
+            final TextView textoFlechaAtras = findViewById(R.id.textoVolverAMenuAnterior);
+            textoFlechaAtras.setText("MIS FACILITADORES");
+            textoFlechaAtras.setVisibility(View.VISIBLE);
+            textoFlechaAtras.setContentDescription("VOLVER A MIS FACILITADORES TÍTULO");
+        }
+
+
+        final ImageButton botonLogout = findViewById(R.id.botonLogout);
+
 
         //Boton logout
         botonLogout.setOnClickListener(new View.OnClickListener() {
@@ -227,7 +239,7 @@ public class Chat extends AppCompatActivity implements RoomListener {
 
     public void volverFacilitadores(){
         setChatVisto();
-        Intent intent = new Intent(this, TareaDetallada.class);
+        Intent intent = new Intent(this, MisFacilitadores.class);
         intent.putExtra("usuario", usuario);
         startActivity(intent);
     }
