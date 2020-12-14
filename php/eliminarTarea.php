@@ -12,6 +12,6 @@
 
         eliminarTareaApi($jsonEliminacion);
 
-        header('Location: ../listado_tareas.php');
+        echo("<script>console.log(document.referrer);if(document.referrer.includes('tarea.php')) window.location.replace('../mis_tareas.php') ; else window.history.go(-1) ;</script>");
     }
 ?>

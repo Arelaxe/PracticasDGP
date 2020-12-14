@@ -21,9 +21,11 @@
                 $s_array['username'] = $s;
                 $json_s_array = json_encode($s_array);
                 $s_info = obtenerInfoUsuariosApi($json_s_array);
-                foreach ($s_info[0]->grupos as $g){
-                    if ($g == $grupo){
-                        $esta_en_grupo = true;
+                if(!empty($s_info[0]->grupos)){
+                    foreach ($s_info[0]->grupos as $g){
+                        if ($g == $grupo){
+                            $esta_en_grupo = true;
+                        }
                     }
                 }
 

@@ -133,6 +133,7 @@
         {% if infoUsuario.rol == "socio" %}
         <div class="col-lg-6">
         <div class="container">
+          {% if aCargo == true %}
           <h4>Chat con {{infoChat.socio}}</h4>
             <div id="idChat" hidden>{{ infoChat.idChat }}</div>
             <div id="nombreChat" hidden>{{ infoChat.nombreChat }}</div>
@@ -154,6 +155,7 @@
                 </form>
             </div>
             <br>
+            {% endif %}
           <h4>Histórico de tareas asignadas</h4>
           <br>
           <script src="js/buscarTablas.js"></script>
