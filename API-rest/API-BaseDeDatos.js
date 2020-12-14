@@ -1343,10 +1343,27 @@ app.post("/eliminar-md", (request, response) => {
 });
 
 /**/
-// Tarea vista por el facilitador
+// Mensaje Directo enviado por el facilitador
 /**/
 app.post("/notificar-md", (request, response) => {
-    collectionMensajesDirectos.updateOne({ "facilitador": request.body.facilitador, "socio" : request.body.socio}, { $set: { nuevoMensaje: true } }, (error, result) => {
+    collectionMensajesDirectos.updateOne({ "facilitador": request.body.facilitador, "socio" : request.body.socio}, { $set: { nuevoMensaje: true, nuevoMensajeFacilitador: false } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Fallo en la actualizacíón");
+        }
+        else {
+            response.send("Actualización completada");
+        }
+    });
+});
+
+/**/
+// Perfil visto por el facilitador
+/**/
+app.post("/md-visto", (request, response) => {
+    collectionMensajesDirectos.updateOne({ "facilitador": request.body.facilitador, "socio" : request.body.socio}, { $set: { nuevoMensajeFacilitador: false } }, (error, result) => {
         if (error) {
             return response.status(500).send(error);
         }
