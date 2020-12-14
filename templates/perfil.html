@@ -137,6 +137,8 @@
             <div id="idChat" hidden>{{ infoChat.idChat }}</div>
             <div id="nombreChat" hidden>{{ infoChat.nombreChat }}</div>
             <div id="moteFacilitador" hidden>{{ infoChat.mote }}</div>
+            <div id="usernameFacilitador" hidden>{{cuenta}}</div>
+            <div id="usernameSocio" hidden>{{infoChat.socio}}</div>
             
             <div class="chat" id="chat">
                 <div class="members-count" hidden>-</div>
@@ -148,7 +150,7 @@
                     <label for="inputMensaje" hidden>Escribe un mensaje</label>
                     <input class="message-form__input" id="inputMensaje" placeholder="Escribe un mensaje..." type="text"/>
                     <label for="buttonMensaje" hidden>Enviar un mensaje</label>
-                    <input class="message-form__button" id="buttonMensaje" value="Enviar" type="submit" onclick="notificarNuevoMensaje();"/>
+                    <input class="message-form__button" id="buttonMensaje" value="Enviar" type="submit" onclick="notificarNuevoMensajeDirecto();"/>
                 </form>
             </div>
             <br>
@@ -161,7 +163,7 @@
               <tbody>
                   {% for tarea in tareasAsignadas %}
                   <tr>
-                      <td scope="row" class="td1">
+                      <td scope="row" class="td-full">
                           <a href="./tarea_enviada.php?nombre={{tarea.nombreTarea}}&socio={{tarea.socioAsignado}}&fechaEntrega={{tarea.fechaEntrega}}">{{ tarea.nombreTarea }}</a>
                           {% if tarea.nuevoMensajeFacilitador == true %}
                               <img src="img/Admin-private-289909293847829384954937914384.png" alt="Nuevo mensaje" width="10%">

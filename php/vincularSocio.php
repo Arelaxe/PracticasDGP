@@ -15,6 +15,8 @@
             $infoChat = infoChatApi();
             $chat['idChat'] = $infoChat->idChat;
             $chat['nombreChat'] = $infoChat->nombreChat;
+            $chat['nuevoMensaje'] = false ;
+            $chat['nuevoMensajeFacilitador'] = false ;
             $jsonChat = json_encode($chat);
             establecerMDApi($jsonChat);
 

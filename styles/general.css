@@ -110,7 +110,7 @@ footer {
   }
 
 .td1{
-    width: 40%;
+    width: 60%;
     font-size: 125%;
 }
 
@@ -122,6 +122,12 @@ footer {
     width:5%;
     font-size: 150%;
 }
+
+.td-full{
+    width: 100%;
+    font-size: 130%;
+}
+
 .bt1{
     width:100%;
 }
@@ -157,6 +163,7 @@ footer {
 
 .card-title{
     text-align: center;
+    font-size: large;
 }
 
 .image--cover {

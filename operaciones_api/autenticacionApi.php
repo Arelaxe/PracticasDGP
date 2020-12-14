@@ -1022,4 +1022,49 @@ function establecerMDApi($jsoninfoMD){
     return $result;
 }
 
+function eliminarMDApi($jsoninfoTarea){
+
+    $url = 'http://localhost:5000/eliminar-md';
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsoninfoTarea);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $result = curl_exec($ch);
+
+    curl_close($ch);
+    return $result;
+}
+
+function notificarNuevoMDApi($jsoninfoTarea){
+
+    $url = 'http://localhost:5000/notificar-md';
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsoninfoTarea);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $result = curl_exec($ch);
+
+    curl_close($ch);
+    return $result;
+}
+
+function vistoMDApi($jsoninfoTarea){
+
+    $url = 'http://localhost:5000/md-visto';
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsoninfoTarea);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $result = curl_exec($ch);
+
+    curl_close($ch);
+    return $result;
+}
+
 ?>

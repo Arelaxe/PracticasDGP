@@ -14,6 +14,7 @@
         $listado_usernames = misSociosApi($jsoninfoFacilitador);
         $rol = $_SESSION['rol'];
         $listado_nombres = array();
+        $listado_notificaciones = array();
         
         foreach($listado_usernames as $username){
             $infoUser['username'] = $username;
@@ -22,8 +23,15 @@
             $nombreSocio = $perfilSocio[0]->nombre;
 
             array_push($listado_nombres, $nombreSocio);
+
+            $infoMD = array();
+            $infoMD['socio'] = $username ;
+            $infoMD['facilitador'] = $_SESSION['usuario'];
+            $jsonInfoMD = json_encode($infoMD);
+            $resultadoMD = json_decode(infoMDApi($jsonInfoMD));
+            array_push($listado_notificaciones,$resultadoMD[0]->nuevoMensajeFacilitador);
 		}
     }
     
-    echo $twig->render('missocios.html', ['listadoNombres' => $listado_nombres, 'listadoUsernames' => $listado_usernames, 'rol' => $rol, 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario']]);
+    echo $twig->render('missocios.html', ['listadoNombres' => $listado_nombres, 'listadoUsernames' => $listado_usernames, 'rol' => $rol, 'img' => fotoPerfil($_SESSION['usuario']), 'cuenta' => $_SESSION['usuario'], 'listadoNotificaciones' => $listado_notificaciones]);
 ?>

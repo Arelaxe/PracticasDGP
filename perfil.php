@@ -18,6 +18,7 @@
 
         $infoPerfil = array();
         $listadoTareasAsignadasSocio = array();
+        $infoChat = "";
         $infoPerfil['username'] = $idUsuario;
 
         $jsonInfoPerfil = json_encode($infoPerfil);
@@ -91,6 +92,8 @@
                 $infoChat['idChat'] = $infoMD[0]->idChat;
                 $infoChat['nombreChat'] = $infoMD[0]->nombreChat;
                 $infoChat['socio'] = $infoUsuario['username'];
+
+                $resultadoVision = vistoMDApi($jsonInfoMD);
             }
     }
     } else{
