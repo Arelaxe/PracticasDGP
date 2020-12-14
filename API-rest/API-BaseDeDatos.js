@@ -976,8 +976,20 @@ app.post("/chat-visto-tarea-socio", (request, response) => {
         });
     }
     else {
-        var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
-        response.send(jsonRespuestaIncorrecta); 
+        collectionMensajesDirectos.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensaje":false } }, (error, result) => {
+            if (error) {
+                return response.status(500).send(error);
+            }
+            
+            if (result == null) {
+                var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+                response.send(jsonRespuestaIncorrecta);
+            }
+            else {
+                var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+                response.send(jsonRespuestaIncorrecta); 
+            }
+        });
     }
    
 });
@@ -1004,8 +1016,20 @@ app.post("/nuevo-mensaje-socio", (request, response) => {
         });
     }
     else {
-        var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
-        response.send(jsonRespuestaIncorrecta); 
+        collectionMensajesDirectos.updateOne({"socioAsignado": request.body.username, "nombreTarea": request.body.nombreTarea, "creador": request.body.creador}, { $set: { "nuevoMensajeFacilitador":true } }, (error, result) => {
+            if (error) {
+                return response.status(500).send(error);
+            }
+            
+            if (result == null) {
+                var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+                response.send(jsonRespuestaIncorrecta);
+            }
+            else {
+                var jsonRespuestaIncorrecta = JSON.parse('{"exito":1}');
+                response.send(jsonRespuestaIncorrecta); 
+            }
+        });
     }
 
     
