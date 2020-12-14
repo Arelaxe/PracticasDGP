@@ -1317,7 +1317,7 @@ app.post("/tareas-enviadas-socio", (request, response) => {
 /**/
 
 app.post("/info-md", (request, response) => {
-    collectionMensajesDirectos.find({ "facilitador": request.body.facilitador, "socio": request.body.socio }).toArray(function (error, result) {
+    collectionMensajesDirectos.find({ "facilitador": request.body.facilitador, "socio": request.body.socio }).sort({nuevoMensajeFacilitador: -1}).toArray(function (error, result) {
         if (error) {
             return response.status(500).send(error);
         }
