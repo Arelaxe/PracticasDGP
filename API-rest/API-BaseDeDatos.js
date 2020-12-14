@@ -1322,3 +1322,39 @@ app.post("/establecer-md", (request, response) => {
         }
     });
 });
+
+/**/
+// Eliminar mensaje directo entre usuarios
+/**/
+app.post("/eliminar-md", (request, response) => {
+    collectionMensajesDirectos.deleteOne({ "facilitador": request.body.facilitador, "socio":request.body.socio }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            var jsonRespuestaIncorrecta = JSON.parse('{"exito":0}');
+            response.send(jsonRespuestaIncorrecta);
+        }
+        else {
+            var jsonRespuestaCorrecta = JSON.parse('{"exito":1}');
+            response.send(jsonRespuestaCorrecta);
+        }
+    });
+});
+
+/**/
+// Tarea vista por el facilitador
+/**/
+app.post("/notificar-md", (request, response) => {
+    collectionMensajesDirectos.updateOne({ "facilitador": request.body.facilitador, "socio" : request.body.socio}, { $set: { nuevoMensaje: true } }, (error, result) => {
+        if (error) {
+            return response.status(500).send(error);
+        }
+        if (result == null) {
+            response.send("Fallo en la actualizacíón");
+        }
+        else {
+            response.send("Actualización completada");
+        }
+    });
+});
