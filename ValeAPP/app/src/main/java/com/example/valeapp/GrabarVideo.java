@@ -69,8 +69,8 @@ public class GrabarVideo extends AppCompatActivity {
         System.out.println(mote);
         tipoRespuesta = bundle.getString("tipoRespuesta");
 
-        imagenVerVideo = getDrawable(R.drawable.video_zoom);
-        imagenVerVideoTransparente = getDrawable(R.drawable.video_transparente);
+        imagenVerVideo = getDrawable(R.drawable.play_zoom);
+        imagenVerVideoTransparente = getDrawable(R.drawable.play_transparente);
 
         nombreVideo = "Movies/" + "Respuesta_" + nombreTarea + "_"+ mote + "_"+ usuario +".mp4";
 

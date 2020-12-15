@@ -39,7 +39,7 @@
             android:contentDescription="@string/bot_n_para_reproducir_v_deo"
             android:cropToPadding="false"
             android:scaleType="center"
-            app:srcCompat="@drawable/audio_zoom" />
+            app:srcCompat="@drawable/play_zoom" />
 
         <ToggleButton
             android:id="@+id/botonGrabar"

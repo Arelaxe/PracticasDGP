@@ -75,8 +75,8 @@ public class GrabarAudio extends AppCompatActivity{
         tipoRespuesta = bundle.getString("tipoRespuesta");
         layoutGrabando = findViewById(R.id.layout_grabando);
 
-        imagenEscucharAudioTransparente = getDrawable(R.drawable.audio_transparente);
-        imagenEscucharAudio = getDrawable(R.drawable.audio_zoom);
+        imagenEscucharAudioTransparente = getDrawable(R.drawable.play_transparente);
+        imagenEscucharAudio = getDrawable(R.drawable.play_zoom);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
