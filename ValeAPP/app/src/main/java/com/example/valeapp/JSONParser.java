@@ -15,12 +15,8 @@ import java.util.HashMap;
 public class JSONParser {
 
     private final String CHARSET = "UTF-8";
-    //private final String URL = "http://10.0.2.2:5000/";
-    //private final String URL = "http://192.168.0.16:5000/";
-    //private final String URL = "http://192.168.1.24:5000/";
-    //private final String URL = "http://192.168.1.181:5000/"; //ip IVAN
-    private final String URL = "http://192.168.1.129:5000/"; //ip NOELIA
-    //private final String URL = "http://192.168.1.46:5000/"; //ip JESUS
+    //private final String URL = "http://10.0.2.2:5000/"; // IP EMULADOR
+    private final String URL = "http://192.168.1.129:5000/"; // IP LOCAL
     private HttpURLConnection conn;
     private DataOutputStream wr;
     private StringBuilder result;
