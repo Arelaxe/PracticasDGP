@@ -196,35 +196,6 @@ public class TareaDetallada extends AppCompatActivity{
             layout.addView(fotoTareaImageView);
             fotoTareaImageView.setPadding(20, 0, 50, 0);
         }
-
-        LinearLayout layoutFacilitador = new LinearLayout(this);
-
-        params.setMargins(0, 20, 0, 20);
-        layoutFacilitador.setLayoutParams(params);
-        layoutFacilitador.setPadding(0, 0, 0, 0);
-
-        //Foto del facilitador
-        byte[] data = Base64.decode(jsonTareas.getString("fotoFacilitador"), Base64.DEFAULT);
-        Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
-        Drawable fotoFacilitador = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
-        ImageView fotoFacilitadorImageView = new ImageView(this);
-        fotoFacilitadorImageView.setImageDrawable(fotoFacilitador);
-        fotoFacilitadorImageView.setPadding(0, 0, 30, 0);
-        layoutFacilitador.addView(fotoFacilitadorImageView);
-
-        //Mote del facilitador
-        TextView moteFacilitador = new TextView(this);
-        layoutFacilitador.addView(moteFacilitador);
-        moteFacilitador.setText(jsonTareas.getString("mote").toUpperCase());
-        mote = jsonTareas.getString("mote");
-        moteFacilitador.setContentDescription("Facilitador encargado: " + jsonTareas.getString("mote").toUpperCase());
-        moteFacilitador.setTextColor(getResources().getInteger(R.color.black));
-        moteFacilitador.setTextSize(30);
-        
-        layoutFacilitador.setGravity(Gravity.CENTER_VERTICAL);
-
-        layout.addView(layoutFacilitador);
-
     }
 
     @SuppressLint("ResourceType")
@@ -239,8 +210,8 @@ public class TareaDetallada extends AppCompatActivity{
         int top = 20;
         int right = 20;
         int bottom = 25;
-        int height =  300;
-        int width =  300;
+        int height =  250;
+        int width =  250;
 
         params.setMargins(left, top, right, bottom);
 
@@ -289,7 +260,6 @@ public class TareaDetallada extends AppCompatActivity{
 
         //Video de la tarea
         if(jsonTareas.getBoolean("tieneVideo")){
-            //if (!jsonTareas.getString("videoTarea").equals("")) {
             nombreVideo = "Movies/" + nombreTarea + "_" + jsonTareas.getString("mote") + ".mp4";
             //descargarVideoTarea();
             ImageButton video = new ImageButton(this);
@@ -312,13 +282,27 @@ public class TareaDetallada extends AppCompatActivity{
         Drawable dr = getResources().getDrawable(R.drawable.chat_cuadrado);
         Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
         // Escalar
-        Drawable dEscalado = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 100, 100, true));
-        ImageButton botonChat = new ImageButton(this);
-        botonChat.setImageDrawable(dEscalado);
-        //botonChat.setBackgroundColor(getResources().getInteger(R.color.white));
-        botonChat.setContentDescription(getResources().getString(R.string.ir_a_chat));
+        Drawable dEscalado = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 90, 90, true));
+        Button botonChat = new Button(this);
+        botonChat.setContentDescription(getResources().getString(R.string.ir_a_chat) + " con " + mote);
 
-        botonChat.setPadding(0, 0, 0, 0);
+        LinearLayout layoutFacilitador = new LinearLayout(this);
+
+        params.setMargins(0, 20, 0, 20);
+        layoutFacilitador.setLayoutParams(params);
+
+
+        //Foto del facilitador
+        byte[] data = Base64.decode(jsonTareas.getString("fotoFacilitador"), Base64.DEFAULT);
+        Bitmap mapaImagen = BitmapFactory.decodeByteArray(data, 0, data.length);
+        Drawable fotoFacilitador = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(mapaImagen, width, height, true));
+
+        //Mote del facilitador
+        mote = jsonTareas.getString("mote");
+        botonChat.setTextSize(30);
+        botonChat.setText(mote);
+        botonChat.setCompoundDrawablesWithIntrinsicBounds(fotoFacilitador, null, dEscalado, null);
+        botonChat.setHeight(height + 30);
         layout.addView(botonChat);
 
         botonChat.setOnClickListener(new View.OnClickListener() {
