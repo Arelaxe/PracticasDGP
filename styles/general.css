@@ -273,3 +273,13 @@ input[type='radio'] {
     background-color: gainsboro;
     padding: 2%;
 }
+
+.titulo-seccion{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: block;
+    text-align: center;
+    background-color: rgb(32, 32, 32);
+    color: white;
+    width: 80%;
+}
