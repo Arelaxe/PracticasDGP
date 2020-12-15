@@ -16,6 +16,16 @@
     <div class="offset-sm-1 col-sm-10 sombreado menu">
         <div class="row" style="padding-left: 10px; padding-right: 10px;">
             {%if rol == "ambos" or rol=="admin"%}
+            {% if rol == "ambos" %} 
+            <div class="col-12 titulo-seccion">
+                <h4>Área de Administración</h4>
+            </div>
+            <div class="row"> 
+            {% endif %}
+            {% if rol == "ambos" %} 
+            <div class="col-lg-1 col-sm-12">
+            </div>
+            {% endif %}
             <div class="card col-lg-2 col-sm-4 col-xs-6">
                 <a href="registrosocios.php">
                     <img class="card-img-top" src="img/OtroSocio.png" alt="Añadir socio">
@@ -60,9 +70,20 @@
                     </div>
                 </a>
             </div>
+            {% if rol == "ambos" %} </div> <br> {% endif %}
             {%endif%}
 
             {%if rol=="ambos" or rol=="facilitador"%}
+            {% if rol == "ambos" %} 
+            <div class="col-12 titulo-seccion">
+                <h4>Área de Facilitadores</h4>
+            </div>
+            <div class="row"> 
+            {% endif %}
+            {% if rol == "ambos" %} 
+            <div class="col-lg-1 col-sm-12">
+            </div>
+            {% endif %}
             <div class="card col-lg-2 col-sm-4 col-xs-6">
                 <a href="mis_socios.php">
                     <img class="card-img-top" src="img/Socios.png" alt="Card image cap">
@@ -98,6 +119,7 @@
                     </div>
                 </a>
             </div>
+            {% if rol == "ambos" %} </div> {% endif %}
             {%endif%}
             
               
